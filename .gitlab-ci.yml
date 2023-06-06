@@ -34,7 +34,7 @@ app021_dev_vkr_smart_ru:
     - ssh-keyscan $CI_NFS_HOST >> ~/.ssh/known_hosts
     - ssh-keyscan $CI_PHP_HOST >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - rsync -ar $PWD/* $CI_NFS_HOST:/mnt/$CI_NFS_PATH
+    - rsync -ar $PWD/* $CI_NFS_HOST:/srv/$CI_NFS_PATH
     - ssh $CI_PHP_HOST "cd /mnt/$CI_NFS_PATH/ && composer update"
     - ssh $CI_PHP_HOST "cd /mnt/$CI_NFS_PATH/ && composer install"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan migrate"
@@ -64,7 +64,7 @@ app022_vkr_smart_ru:
     - ssh-keyscan $CI_NFS_HOST >> ~/.ssh/known_hosts
     - ssh-keyscan $CI_PHP_HOST >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - rsync -ar $PWD/* $CI_NFS_HOST:/mnt/$CI_NFS_PATH
+    - rsync -ar $PWD/* $CI_NFS_HOST:/srv/$CI_NFS_PATH
     - ssh $CI_PHP_HOST "cd /mnt/$CI_NFS_PATH/ && composer update"
     - ssh $CI_PHP_HOST "cd /mnt/$CI_NFS_PATH/ && composer install"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan migrate"
@@ -89,7 +89,7 @@ get dev log:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan $CI_NFS_HOST >> ~/.ssh/known_hosts
-    - scp $CI_NFS_HOST:/mnt/$CI_NFS_PATH/storage/logs/laravel.log .
+    - scp $CI_NFS_HOST:/srv/$CI_NFS_PATH/storage/logs/laravel.log .
   artifacts:
     paths:
       - laravel.log
