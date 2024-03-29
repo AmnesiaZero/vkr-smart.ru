@@ -119,8 +119,8 @@ p {
 	border-bottom: 2px solid #D9F1F3;
 }
 .btn-bell {
-	background-image: url('images/bell_active.svg');
-	background-repeat: no-repeat;
+	/*background-image: url('../images/bell_active.svg');*/
+	/*background-repeat: no-repeat;*/
 	width: 20px;
 	height: 20px;
 	padding: 3px 10px;
@@ -172,7 +172,7 @@ p {
 }
 .list-custom ul li {
   padding-left: 2.8rem;
-  background-image: url(images/check-ul.svg);
+  background-image: url(../images/check-ul.svg);
   background-position: 0 0;
   background-size: 25px 25px;
   background-repeat: no-repeat;
