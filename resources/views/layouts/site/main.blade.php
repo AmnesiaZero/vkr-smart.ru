@@ -17,7 +17,7 @@
                 </svg>
             </button>
             <a class="navbar-brand brandName" href="#">
-                <img src="img/VKR.svg" alt="">
+                <img src="images/VKR.svg" alt="">
             </a>
             <div class="navbar-collapse collapse justify-content-end" id="bdNavbar">
                 <ul class="navbar-nav" style="align-items: baseline;">
@@ -48,7 +48,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownBell" data-bs-popper="none">
                             <li class="dropdown-item">
                                 <div class="d-flex border-bottom-nav">
-                                    <div class="col-2"><img src="img/Circle_Check.svg"></div>
+                                    <div class="col-2"><img src="imagesCircle_Check.svg"></div>
                                     <div class="col-10">
                                         <p class="m-0 fw-600 fs-14">Заголовок алерта</p>
                                         <p class="m-0 fs-14 pe-5">Текст алерта. Успешное действие</p>
@@ -57,7 +57,7 @@
                             </li>
                             <li class="dropdown-item">
                                 <div class="d-flex border-bottom-nav">
-                                    <div class="col-2"><img src="img/Circle_Warning.svg"></div>
+                                    <div class="col-2"><img src="imagesCircle_Warning.svg"></div>
                                     <div class="col-10">
                                         <p class="m-0 fw-600 fs-14">Заголовок алерта</p>
                                         <p class="m-0 fs-14 pe-5">Текст алерта. Успешное действие</p>
@@ -66,7 +66,7 @@
                             </li>
                             <li class="dropdown-item">
                                 <div class="d-flex border-bottom-nav">
-                                    <div class="col-2"><img src="img/Triangle_Warning.svg"></div>
+                                    <div class="col-2"><img src="imagesTriangle_Warning.svg"></div>
                                     <div class="col-10">
                                         <p class="m-0 fw-600 fs-14">Заголовок алерта</p>
                                         <p class="m-0 fs-14 pe-5">Текст алерта. Успешное действие</p>
