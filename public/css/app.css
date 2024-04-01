@@ -1,5 +1,13 @@
 @import url("../fonts/stylesheet.css");
 
+
+.menu{
+    list-style: none
+}
+
+.link{
+    text-decoration: none
+}
 .box-shadow-none {
 	box-shadow: none!important;
 }

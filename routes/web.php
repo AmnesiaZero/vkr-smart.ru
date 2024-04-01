@@ -14,4 +14,56 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[IndexController::class,'index']);
+Route::get('home',function (){
+   return view('templates.site.index');
+});
+Route::get('/',function (){
+    return view('templates.site.index');
+});
+
+Route::group([
+    'prefix' => 'about'
+],function (){
+    Route::get('program',function (){
+        return view('templates.site.about.program');
+    });
+    Route::get('product',function (){
+        return view('templates.site.about.product');
+    });
+    Route::get('for-whom',function (){
+        return view('templates.site.about.for_whom');
+    });
+    Route::get('price',function (){
+        return view('templates.site.about.price');
+    });
+    Route::get('benefits',function (){
+         return view('templates.site.about.benefits');
+    });
+    Route::get('algorithm',function (){
+        return view('templates.site.about.algorithm');
+    });
+    Route::get('roles',function (){
+       return view('templates.site.about.roles');
+    });
+});
+
+Route::group([
+    'prefix' => 'search'
+],function (){
+    Route::get('borrowings',function (){
+        return view('templates.site.borrowings.borrowings');
+    });
+    Route::get('index',function (){
+        return view('templates.site.borrowings.index');
+    });
+});
+
+Route::get('portfolio',function (){
+    return view('templates.site.portfolio.portfolio');
+});
+
+Route::get('login',function (){
+    return view('templates.site.login.login');
+});
+
+

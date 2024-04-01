@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ВКР Смарт</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    @yield('styles');
-</head>
-<body>
 <header style="margin-bottom: 120px;">
     <nav class="desktop navbar navbar-expand-lg fixed-top header-nav bg-white brb-green-light-2 py-4">
         <div class="container align-items-center">
@@ -21,7 +11,7 @@
             </a>
             <div class="navbar-collapse collapse justify-content-end" id="bdNavbar">
                 <ul class="navbar-nav" style="align-items: baseline;">
-                    <li><a class="nav-link nav-link-active" href="#">Главная</a></li>
+                    <li><a class="nav-link nav-link-active" href="/">Главная</a></li>
                     <!--
                     <li class="position-relative">
                            <a class="nav-link dropdown-toggle dropdown-toggle-arr" href="#" id="navbarDropdownCatalog" role="button" data-bs-toggle="dropdown" aria-expanded="true">
@@ -34,9 +24,9 @@
                         </ul>
                     </li>
                     -->
-                    <li><a class="nav-link" href="#">Хранение работ</a></li>
+                    <li><a class="nav-link" href="/about">Хранение работ</a></li>
 
-                    <li><a class="nav-link" href="#">Поиск заимствований</a></li>
+                    <li><a class="nav-link" href="">Поиск заимствований</a></li>
                     <li><a class="nav-link" href="#">Портфолио</a></li>
                     <li><a class="nav-link" href="#">Проверка справки</a></li>
                     <li><a class="nav-link" href="#">API</a></li>
@@ -92,11 +82,3 @@
         </div>
     </nav>
 </header>
-@yield('content')
-
-@yield('footer')
-
-@yield('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
