@@ -17,7 +17,7 @@
                     <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
                 </svg>
             </button>
-            <a class="navbar-brand brandName" href="#">
+            <a class="navbar-brand brandName" href="/">
                 <img src="/images/VKR.svg" alt="">
             </a>
             <div class="navbar-collapse collapse justify-content-end" id="bdNavbar">
@@ -45,44 +45,8 @@
 {{--                        </a>--}}
                     </li>
                     <li><a class="nav-link" href="https://api.vkr-vuz.ru" target="_blank">API</a></li>
-                    <!--
-                    <li class="pe-2 ps-xxl-5 ps-2 position-relative">
-                        <a class="" href="#" id="navbarDropdownBell" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                            <span class="btn-bell dropdown-toggle" id="btn_bell"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownBell" data-bs-popper="none">
-                            <li class="dropdown-item">
-                                <div class="d-flex border-bottom-nav">
-                                    <div class="col-2"><img src="/imagesircle_Check.svg"></div>
-                                    <div class="col-10">
-                                        <p class="m-0 fw-600 fs-14">Заголовок алерта</p>
-                                        <p class="m-0 fs-14 pe-5">Текст алерта. Успешное действие</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dropdown-item">
-                                <div class="d-flex border-bottom-nav">
-                                    <div class="col-2"><img src="/imagesircle_Warning.svg"></div>
-                                    <div class="col-10">
-                                        <p class="m-0 fw-600 fs-14">Заголовок алерта</p>
-                                        <p class="m-0 fs-14 pe-5">Текст алерта. Успешное действие</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dropdown-item">
-                                <div class="d-flex border-bottom-nav">
-                                    <div class="col-2"><img src="/imagesriangle_Warning.svg"></div>
-                                    <div class="col-10">
-                                        <p class="m-0 fw-600 fs-14">Заголовок алерта</p>
-                                        <p class="m-0 fs-14 pe-5">Текст алерта. Успешное действие</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    -->
                     <li>
-                        <a href="/login" class="nav-link @if(request()->is('/login')) nav-link-active @endif">
+                        <a href="/auth/login" class="nav-link">
 		                        		<span class="badge br-40 br-green-1"  style="padding-top: 7px; padding-bottom: 7px;">
 		                        			<span class="fs-16 text-black ps-1 pe-1"> вход </span>
 		                        		</span>
@@ -151,9 +115,9 @@
                 <div class="col-xxl-2 col-lg-3 col-sm-4 col-12 d-flex flex-column align-items-sm-end justify-content-center">
                     <p class="fw-700">Мы в социальных сетях</p>
                     <div>
-                        <img src="/images/vk.svg" alt="Вконтакте">
-                        <img src="/images/youtube.svg" alt="YouTube">
-                        <img src="/images/tg.svg" alt="Telegram">
+                       <a href="https://vk.com/vkrvuz" target="_blank"> <img src="/images/vk.svg" alt="Вконтакте"> </a>
+                        <a href="https://www.youtube.com/watch?v=jYH8MoxSoP0&list=PLRzHZiF2tgd5RN7sxyGP-5BO55dOvsVIS" target="_blank"> <img src="/images/youtube.svg" alt="YouTube"> </a>
+                        <a href="https://t.me/ipredu_online" target="_blank"> <img src="/images/tg.svg" alt="Telegram"> </a>
                     </div>
                     <div class="pt-3">
                         <img src="/images/16.svg" alt="16+">

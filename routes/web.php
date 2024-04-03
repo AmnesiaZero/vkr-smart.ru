@@ -69,8 +69,21 @@ Route::get('portfolio',function (){
     return view('templates.site.portfolio.portfolio');
 });
 
-Route::get('login',function (){
-    return view('templates.site.login.login');
+Route::get('reviews',function (){
+    return view('templates.site.reviews');
 });
+
+Route::group([
+    'prefix' => 'auth'
+],function (){
+    Route::get('login',function (){
+        return view('templates.site.auth.login');
+    });
+    Route::get('recover-password',function (){
+        return view('templates.site.auth.recover_password');
+    });
+});
+
+
 
 

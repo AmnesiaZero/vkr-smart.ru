@@ -190,18 +190,24 @@
                             на платформе</p>
                         <div class="row">
                             <div class="col-6">
-                                <img src="/images/instrution.png" alt="">
-                                <div><a href="#" class="text-white">Скачать инструкцию</a></div>
+                                <a href="/docs/instruction.pdf" target="_blank">
+                                <img src="/images/instruction.png" alt="">
+                                </a>
+                                <div> <a href="/docs/instruction.pdf" target="_blank" class="text-white">Скачать инструкцию</a></div>
                             </div>
                             <div class="col-6">
-                                <img src="/images/presentation.png" alt="">
-                                <div><a href="#" class="text-white">Скачать презентацию</a></div>
+                                <a href="/docs/vkr_pres.pdf" target="_blank">
+                                    <img src="/images/presentation.png" alt="">
+                                </a>
+                                <div><a href="/docs/vkr_pres.pdf" class="text-white" target="_blank">Скачать презентацию</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-7 ps-lg-5 ms-lg-5 ps-3 ms-0 mt-lg-auto mt-5">
-                        <img src="/images/default-video.png" class="/imagesluid" alt="">
-                        <div><a href="#" class="text-white">Видеоинструкция платформы</a></div>
+                        <a href="https://www.youtube.com/watch?v=Mj90DqMo_xY" target="_blank">
+                        <img src="/images/default-video.png" class="imagesfluid" alt="">
+                        </a>
+                        <div><a href="https://www.youtube.com/watch?v=Mj90DqMo_xY" class="text-white">Видеоинструкция платформы</a></div>
                     </div>
                 </div>
             </div>
@@ -209,7 +215,7 @@
         <div class="container py-5 my-5">
             <div class="d-flex align-items-center justify-content-between pt-5 pb-4">
                 <h2>Отзывы о нас</h2>
-                <span class="br-green-1 br-100 text-green badge fs-14">смотреть все<img src="/images/arrow-green.svg"
+                <span class="br-green-1 br-100 text-green badge fs-14"><a href="/reviews" class="link">смотреть все</a><img src="/images/arrow-green.svg"
                                                                                         alt="" class="ps-2"></span>
             </div>
             <div class="row py-5 g-4">
