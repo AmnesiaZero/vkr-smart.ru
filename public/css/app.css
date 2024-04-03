@@ -252,6 +252,7 @@ p {
     height: auto; /* Высота будет автоматически рассчитываться, чтобы сохранить пропорции изображения */
     display: block; /* Избавляемся от отступов, если они есть */
 }
+
 .btn-primary, .btn-primary:active, .btn-primary:focus  {
     color: #fff;
     background-color: #00A2B0;

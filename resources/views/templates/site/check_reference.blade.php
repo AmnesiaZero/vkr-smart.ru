@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-sm-9">
                         <div id="alerts"></div>
-                        <iframe id="bseFullReportIframe" style="width:100%;height:100%;min-height:600px;border:0;" width="100%" height="100%"></iframe>
+{{--                        <iframe id="bseFullReportIframe" style="width:100%;height:100%;min-height:600px;border:0;" width="100%" height="100%" src="./ВКР-ВУЗ.РФ _ Проверка справки_files/saved_resource.html"></iframe>--}}
                     </div>
                     <div>
 {{--                        <script async="" src="./ВКР-ВУЗ.РФ _ Проверка справки_files/tag.js.загружено"></script><script type="text/javascript">--}}

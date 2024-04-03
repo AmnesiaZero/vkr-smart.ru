@@ -29,7 +29,7 @@
                             системы, высокую скорость проверки и загрузки работ, моментальное формирование детальных
                             отчетов.</p>
                         <div class="bg-black p-4 br-20 position-relative my-5">
-                            <div class="row">
+                            <div class="row position-relative">
                                 <div class="col-7">
                                     <h6 class="text-white fs-16">Система ВКР-ВУЗ <br>зарегистрирована как программа для
                                         ЭВМ
@@ -42,10 +42,7 @@
                                         законодательством.</p>
                                 </div>
                                 <div class="col-xl-4 col-md-5 position-absolute r-0 d-md-block d-none">
-                                    <img src="/images/certificate.svg" alt="">
-                                </div>
-                                <div class="col-5 d-md-none d-block">
-                                    <img src="/images/certificate.svg" alt="" class="imagesfluid">
+                                    <img  class="position-absolute" src="/images/certificate.svg" alt="">
                                 </div>
                             </div>
                         </div>
