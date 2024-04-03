@@ -257,6 +257,9 @@ p {
     background-color: #00A2B0;
     border-color: #00A2B0;
 }
+a.btn.btn-link.btn-smart {
+    display: none;
+}
 .btn-primary:hover {
     color: #fff;
     background-color: #00A2B0;

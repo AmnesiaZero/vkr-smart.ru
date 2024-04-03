@@ -73,6 +73,10 @@ Route::get('reviews',function (){
     return view('templates.site.reviews');
 });
 
+Route::get('check-reference',function (){
+   return view('templates.site.check_reference');
+});
+
 Route::group([
     'prefix' => 'auth'
 ],function (){

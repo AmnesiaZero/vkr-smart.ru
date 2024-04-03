@@ -35,14 +35,24 @@
                         </ul>
                     </li>
                     -->
-                    <li> <a class="nav-link @if(request()->is('about/*')) nav-link-active @endif" href="/about/product">Хранение работ</a></li>
-
-                    <li><a class="nav-link @if(request()->is('search/*')) nav-link-active @endif" href="/search/borrowings">Поиск заимствований</a></li>
-                    <li><a class="nav-link @if(request()->is('portfolio')) nav-link-active @endif" href="/portfolio">Портфолио</a></li>
                     <li>
-{{--                        <a class="nav-link @if(request()->is('/')) nav-link-active @endif" href="/unknown">--}}
+                        <a class="nav-link @if(request()->is('about/*')) nav-link-active @endif" href="/about/product">
+                            Хранение работ</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link @if(request()->is('search/*')) nav-link-active @endif" href="/search/borrowings">
+                            Поиск заимствований
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link @if(request()->is('portfolio')) nav-link-active @endif" href="/portfolio">
+                            Портфолио</a>
+                    </li>
+                    <li>
+                        <a class="nav-link @if(request()->is('check-reference')) nav-link-active @endif" href="/check-reference">
                             Проверка справки
-{{--                        </a>--}}
+                        </a>
                     </li>
                     <li><a class="nav-link" href="https://api.vkr-vuz.ru" target="_blank">API</a></li>
                     <li>
