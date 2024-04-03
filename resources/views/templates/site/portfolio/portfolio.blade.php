@@ -14,7 +14,7 @@
                     <div class="accordion-item bg-green br-20 mb-3 br-none">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed bg-green br-20 box-shadow-none br-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="images/teacher.svg" alt="" class="pb-2"><span class="ps-3 fs-16">Электронное портфолио преподавателя</span>
+                                <img src="/images/teacher.svg" alt="" class="pb-2"><span class="ps-3 fs-16">Электронное портфолио преподавателя</span>
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -33,7 +33,7 @@
                     <div class="accordion-item bg-green br-20 mb-3 br-none">
                         <h2 class="accordion-header" id="flush-headingTwo">
                             <button class="accordion-button collapsed bg-green br-20 box-shadow-none br-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="images/student.png" alt="" class="pb-2"><span class="ps-3 fs-16">Электронное портфолио студента</span>
+                                <img src="/images/student.png" alt="" class="pb-2"><span class="ps-3 fs-16">Электронное портфолио студента</span>
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
@@ -55,7 +55,7 @@
             <div class="col-lg-3">
                 <div class="bg-green p-4 br-20 mt-4">
                     <div class="d-flex">
-                        <img src="images/lamp.png" alt="" style="width:30px; height: 30px;">
+                        <img src="/images/lamp.png" alt="" style="width:30px; height: 30px;">
                         <p class="fs-14 lh-17 text-black-black ps-3">электронное<br> портфолио в ЭИОС!</p>
                     </div>
                     <p class="fs-14 lh-17 m-0">компания «Профобразование» также продумала возможность интеграции электронного портфолио студентов в электронную информационно-образовательную среду  (ЭИОС) вуза.</p>

@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
 Route::get('home',function (){
    return view('templates.site.index');
 });
@@ -56,6 +59,10 @@ Route::group([
     Route::get('index',function (){
         return view('templates.site.borrowings.index');
     });
+});
+
+Route::get('test-access',function (){
+    return view('templates.site.test_access');
 });
 
 Route::get('portfolio',function (){

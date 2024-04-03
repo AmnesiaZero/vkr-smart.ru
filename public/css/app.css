@@ -5,6 +5,41 @@
     list-style: none
 }
 
+/*body {*/
+/*    height: 100%;*/
+/*}*/
+/*#wrap {*/
+/*    min-height: 100%;*/
+/*}*/
+/*main {*/
+/*    padding-bottom: 100px;*/
+/*    !*Высота футера*!*/
+/*}*/
+/*footer {*/
+/*    margin-top: -100px;*/
+/*    !*Минус Высота футера*!*/
+/*    height: 100px;*/
+/*    !*Высота футера*!*/
+/*}*/
+
+/*footer {*/
+/*    margin-top: auto; !* Выталкиваем footer вниз *!*/
+/*}*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Задаем минимальную высоту для body, чтобы она занимала весь экран */
+}
+
+.content {
+    flex: 1; /* Растягиваем контент на всю доступную высоту */
+}
+
+footer {
+    margin-top: auto; /* Выталкиваем footer вниз */
+}
+
 .link{
     text-decoration: none
 }

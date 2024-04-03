@@ -15,7 +15,7 @@
                                     <button class="accordion-button collapsed bg-green br-20 box-shadow-none br-none"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                                             aria-expanded="false" aria-controls="flush-collapseOne">
-                                        <img src="images/admin.svg" alt="" class="pb-2"><span class="ps-4 fs-16">Администратор</span>
+                                        <img src="/images/admin.svg" alt="" class="pb-2"><span class="ps-4 fs-16">Администратор</span>
                                     </button>
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -58,7 +58,7 @@
                                     <button class="accordion-button collapsed bg-green br-20 box-shadow-none br-none"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
                                             aria-expanded="false" aria-controls="flush-collapseTwo">
-                                        <img src="images/setting.svg" alt="" class="pb-2"><span class="ps-4 fs-16">Сотрудники подразделений</span>
+                                        <img src="/images/setting.svg" alt="" class="pb-2"><span class="ps-4 fs-16">Сотрудники подразделений</span>
                                     </button>
                                 </h2>
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse"
@@ -100,7 +100,7 @@
                                             type="button" data-bs-toggle="collapse"
                                             data-bs-target="#flush-collapseThree" aria-expanded="false"
                                             aria-controls="flush-collapseThree">
-                                        <img src="images/teacher.svg" alt="" class="pb-2"><span class="ps-3 fs-16">Преподаватель</span>
+                                        <img src="/images/teacher.svg" alt="" class="pb-2"><span class="ps-3 fs-16">Преподаватель</span>
                                     </button>
                                 </h2>
                                 <div id="flush-collapseThree" class="accordion-collapse collapse"

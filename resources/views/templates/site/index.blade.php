@@ -9,8 +9,8 @@
                     <h2 class="pt-5 mt-3">ВКР СМАРТ – создаем культуру академической честности</h2>
                     <p class="w-75 py-4">Обеспечивайте оригинальность работ студентов, комплексно храните работы
                         учебного заведения, создавайте банк электронных портфолио обучающихся</p>
-                    <button type="button" class="btn text-green br-green-light-2 br-15 px-4">получить тестовый доступ
-                    </button>
+                    <a href="/test-access" class="btn text-green br-green-light-2 br-15 px-4">получить тестовый доступ
+                    </a>
                 </div>
                 <div class="col-lg-3 pt-lg-0 pt-4">
                     <div class="row g-3">
@@ -126,7 +126,7 @@
                                     достижений</p>
                             </div>
                         </div>
-                        <img src="/images.svg" alt="" style="left: 34%; top: -114px;"
+                        <img src="/images/5.svg" alt="" style="left: 34%; top: -114px;"
                              class="d-none d-xl-block position-absolute">
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                                 <li class="pb-4">Индивидуальные настройки структуры под потребности учебного заведения
                                 </li>
                             </ul>
-                            <button class="btn btn-primary fs-20 w-100">получить тестовый доступ</button>
+                            <a href="/test-access" class="btn btn-primary fs-20 w-100">получить тестовый доступ</a>
                         </div>
                     </div>
                 </div>
@@ -343,7 +343,7 @@
                 <div class="row g-4">
                     <div class="col-lg-3 align-items-center">
                         <img src="/images/VKR.svg" alt="">
-                        <p class="pt-1"><a href="#">Установка кнопки на ваш сайт</a></p>
+                        <p class="pt-1"><a href="#" data-bs-toggle="modal" data-bs-target="#vkrBtnsSetup">Установка кнопки на ваш сайт</a></p>
                         <p class="fs-24 fw-700 mb-2">8 (8452) 24-77-96</p>
                         <p class="m-0 fs-14">Звонок по России бесплатный</p>
                     </div>

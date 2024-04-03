@@ -29,7 +29,7 @@
                             <div class="col-lg-5">
                                 <div class="bg-green br-20 p-4">
                                     <div class="d-flex align-items-end mb-3">
-                                        <img src="images/setting.svg" alt="" class="pb-1">
+                                        <img src="/images/setting.svg" alt="" class="pb-1">
                                         <p class="m-0 ps-3">Права администратора</p>
                                     </div>
                                     <p class="fs-14 lh-17">организация загрузки материалов на платформу, создание

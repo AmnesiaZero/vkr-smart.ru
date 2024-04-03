@@ -44,7 +44,7 @@
                             Проверка справки
 {{--                        </a>--}}
                     </li>
-                    <li><a class="nav-link" href="https://api.vkr-vuz.ru">API</a></li>
+                    <li><a class="nav-link" href="https://api.vkr-vuz.ru" target="_blank">API</a></li>
                     <!--
                     <li class="pe-2 ps-xxl-5 ps-2 position-relative">
                         <a class="" href="#" id="navbarDropdownBell" role="button" data-bs-toggle="dropdown" aria-expanded="true">
@@ -105,7 +105,42 @@
             <div class="row g-4">
                 <div class="col-lg-3 align-items-center">
                     <img src="/images/VKR.svg" alt="">
-                    <p class="pt-1"><a href="#">Установка кнопки на ваш сайт</a></p>
+                    <p class="pt-1">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#vkrBtnsSetup">Установка кнопки на ваш сайт</a>
+                    <div id="vkrBtnsSetup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="vkrBtnsSetupLabel">Инструкция по установке кнопок системы хранения ВКР СМАРТ</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Для установки одной из кнопок системы «ВКР-ВУЗ» на свой сайт, скопируйте код из соответствующего поля и поместите его в необходимом месте на вашем сайте</p><hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="/images/vkr.png" class="img-responsive">
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" rows="4" onclick="$(this).select(); return false;">&lt;a href="http://www.vkr-vuz.ru"&gt;&lt;img src="http://www.vkr-vuz.ru/assets/templates/c/img/footer/vkr.png" /&gt;&lt;/a&gt;</textarea>
+                                        </div>
+                                    </div>
+                                    <hr class="hr-xs">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="/images/vkr-sm.png" class="img-responsive">
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" rows="4" onclick="$(this).select(); return false;">&lt;a href="http://www.vkr-vuz.ru"&gt;&lt;img src="http://www.vkr-vuz.ru/assets/templates/c/img/footer/vkr-sm.png" /&gt;&lt;/a&gt;</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть окно</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
                     <p class="fs-24 fw-700 mb-2">8 (8452) 24-77-96</p>
                     <p class="m-0 fs-14">Звонок по России бесплатный</p>
                 </div>
