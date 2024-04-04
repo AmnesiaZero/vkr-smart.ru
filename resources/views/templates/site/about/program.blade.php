@@ -28,8 +28,8 @@
                             работы
                             системы, высокую скорость проверки и загрузки работ, моментальное формирование детальных
                             отчетов.</p>
-                        <div class="bg-black p-4 br-20 position-relative my-5">
-                            <div class="row position-relative">
+                        <div class="bg-black p-4 br-20 my-5">
+                            <div class="row">
                                 <div class="col-7">
                                     <h6 class="text-white fs-16">Система ВКР-ВУЗ <br>зарегистрирована как программа для
                                         ЭВМ
@@ -41,8 +41,8 @@
                                         действующим
                                         законодательством.</p>
                                 </div>
-                                <div class="col-xl-4 col-md-5 position-absolute r-0 d-md-block d-none">
-                                    <img  class="position-absolute" src="/images/certificate.svg" alt="">
+                                <div class="col-xl-4 col-md-5 r-0 d-md-block d-none">
+                                    <img src="/images/certificate.svg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         <p class="fs-14 lh-17">В служебных целях учебного заведения (выполнение приказа № 636)
                             размещение
                             работ рекомендуется оформлять с обучающимися или сотрудниками в виде <a
-                                    href="https://vkr-vuz.ru/assets/files/soglasie.doc" class="text-black">письменного
+                                    href="/docs/soglasie.doc" class="text-black">письменного
                                 согласия</a>. Предоставление открытого доступа к работам третьим лицам потребует от
                             учебного
                             заведения заключение авторского договора и выплаты вознаграждения. Именно эти правовые нормы

@@ -10,10 +10,11 @@
                         <h2 class="">Авторизация</h2>
                         <p class="mb-5 text-grey fs-14 lh-17">Для авторизации в системе введите данные, полученные от Вашего персонального менеджера или полученные в виде текстового сообщения на адрес электронной почты</p>
                     </div>
-                    <form class="auth" action="" method="POST">
+                    <form class="auth" action="/auth/login" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <label for="login">Имя пользователя</label>
-                            <input id="login" type="text" name="login" placeholder="" class="form-control">
+                            <label for="name">Имя пользователя</label>
+                            <input id="name" type="text" name="email" placeholder="" class="form-control">
                         </div>
                         <div class="form-group mt-3">
                             <label for="password">Пароль</label>
@@ -23,9 +24,9 @@
                             <input id="remember_me" type="checkbox" name="remember" value="1" class="form-check-input">
                             <label for="remember_me" class="form-check-label">Запомнить меня</label>
                         </div>
+                        <button type="submit" class="btn br-100 btn-primary w-100">войти</button>
                     </form>
-                    <button type="button" class="btn br-100 btn-primary w-100">войти</button>
-                    <p class="fs-14 text-center pt-3 m-0">Забыли пароль? <a href="/auth/recover-password" class="text-green">Восстановить</a></p>
+                    <p class="fs-14 text-center pt-3 m-0">Забыли пароль? <a href="/reset-password" class="text-green">Восстановить</a></p>
                 </div>
             </div>
             <div class="col-xl-5 col-lg-6 mt-lg-0 mt-5">
@@ -45,5 +46,14 @@
             </div>
         </div>
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </main>
 @endsection

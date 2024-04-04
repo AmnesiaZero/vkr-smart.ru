@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Mail\MailController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,16 +80,37 @@ Route::get('check-reference',function (){
    return view('templates.site.check_reference');
 });
 
-Route::group([
-    'prefix' => 'auth'
-],function (){
-    Route::get('login',function (){
-        return view('templates.site.auth.login');
-    });
-    Route::get('recover-password',function (){
-        return view('templates.site.auth.recover_password');
-    });
+Route::get('login',function (){
+    return view('templates.site.auth.login');
 });
+Route::get('reset-password',function (){
+    return view('templates.site.auth.reset_password');
+});
+
+Route::group([
+    'prefix' => 'auth',
+    'middleware' => 'guest'
+],function (){
+     Route::post('login',[AuthController::class,'login']);
+});
+
+Route::group([
+    'prefix' => 'password',
+    'middleware' => 'auth'
+],function (){
+    Route::get('new',function (){
+        return view('templates.site.auth.new_password');
+    });
+    Route::post('new',[ResetPasswordController::class, 'newPassword']);
+});
+
+Route::group([
+    'prefix' => 'mail'
+],function (){
+    Route::post('reset-password',[ResetPasswordController::class, 'resetPassword']);
+});
+
+
 
 
 
