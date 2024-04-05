@@ -73,6 +73,16 @@
 </header>
 @yield('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <footer>
     <div class="bg-green py-5">
         <div class="container py-4">

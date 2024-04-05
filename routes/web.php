@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,18 +89,18 @@ Route::get('reset-password',function (){
 });
 
 Route::group([
-    'prefix' => 'auth',
-    'middleware' => 'guest'
+    'prefix' => 'auth'
 ],function (){
      Route::post('login',[AuthController::class,'login']);
 });
 
 Route::group([
     'prefix' => 'password',
-    'middleware' => 'auth'
+    'middleware' => 'verifyToken'
 ],function (){
-    Route::get('new',function (){
-        return view('templates.site.auth.new_password');
+    Route::get('new',function (Request $request){
+        $token = $request->token;
+        return view('templates.site.auth.new_password',['token' => $token]);
     });
     Route::post('new',[ResetPasswordController::class, 'newPassword']);
 });
@@ -109,6 +110,14 @@ Route::group([
 ],function (){
     Route::post('reset-password',[ResetPasswordController::class, 'resetPassword']);
 });
+
+Route::group([
+    'prefix' => 'dashboard',
+    'middleware' => ['web','auth','role:admin,developer']
+],function (){
+     return view('templates.dashboard.portfolio.student');
+});
+
 
 
 

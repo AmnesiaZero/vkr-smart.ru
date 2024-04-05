@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use function PHPUnit\Framework\isEmpty;
 
 class AuthController extends Controller
@@ -20,7 +21,7 @@ class AuthController extends Controller
         Log::debug('Вошёл в login');
         DB::enableQueryLog();
         $credentials =  $request->validate([
-           'email' => 'required|email',
+           'name' => ['required',Rule::exists('users','name')],
            'password' => 'required'
         ]);
         Log::debug('credidentials = '.print_r($credentials,true));
@@ -30,8 +31,6 @@ class AuthController extends Controller
             return redirect()->intended('/login');
         }
         Log::debug('query log = '.print_r(DB::getQueryLog(),true));
-        return back()->withErrors([
-           'email' => 'Предоставленные данные были некорректными'
-        ])->onlyInput('name');
+        return back()->withErrors(['Предоставленные данные были некорректными']);
     }
 }

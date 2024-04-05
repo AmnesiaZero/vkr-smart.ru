@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">Восстановление пароля</div>
                 <div class="card-body">
-                    <form method="POST" action="/auth/new-password">
+                    <form method="POST" action="/password/new?token={{$token}}">
                         @csrf
 
                         <div class="form-group">
