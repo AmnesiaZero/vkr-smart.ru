@@ -21,9 +21,9 @@ app021_dev_vkr_smart_ru:
   stage: deploy
   variables:
     CI_NFS_HOST: "192.168.19.121"
-    CI_NFS_PATH: "app021_dev_vkr_smart_ru"  
+    CI_NFS_PATH: "app021_dev_vkr_smart_ru"
     CI_PHP_HOST: "192.168.19.157"
-    CI_PHP_PATH: "/usr/bin/php8.1"  
+    CI_PHP_PATH: "/usr/bin/php8.1"
   script:
     - echo "Do your build here"
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client rsync -y )'
@@ -51,9 +51,9 @@ app022_vkr_smart_ru:
   stage: deploy
   variables:
     CI_NFS_HOST: "192.168.19.121"
-    CI_NFS_PATH: "app022_vkr_smart_ru"  
+    CI_NFS_PATH: "app022_vkr_smart_ru"
     CI_PHP_HOST: "192.168.19.157"
-    CI_PHP_PATH: "/usr/bin/php8.1"  
+    CI_PHP_PATH: "/usr/bin/php8.1"
   script:
     - echo "Do your build here"
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client rsync -y )'
@@ -81,7 +81,7 @@ get dev log:
   stage: debug
   variables:
     CI_NFS_HOST: "192.168.19.121"
-    CI_NFS_PATH: "app021_dev_vkr_smart_ru" 
+    CI_NFS_PATH: "app021_dev_vkr_smart_ru"
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)

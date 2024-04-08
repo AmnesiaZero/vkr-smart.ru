@@ -6,24 +6,6 @@ use Illuminate\Http\JsonResponse;
 
 class Services
 {
-    public function __construct() {
-
-    }
-
-    /**
-     * @param bool $error
-     * @param string $msgType // primary, danger, success, secondary
-     * @param array $data
-     * @return JsonResponse
-     */
-    public function sendJsonResponse(bool $error, string $msgType = 'secondary', array $data = []): JsonResponse
-    {
-        return response()->json([
-            'error' => $error,
-            'msgType' => $msgType,
-            'data' => $data
-        ]);
-    }
 
     /**
      * Проверка данных перед отправкой на сервер
@@ -39,5 +21,20 @@ class Services
             ]);
         }
         return null;
+    }
+
+    /**
+     * @param bool $error
+     * @param string $msgType // primary, danger, success, secondary
+     * @param array $data
+     * @return JsonResponse
+     */
+    public function sendJsonResponse(bool $error, string $msgType = 'secondary', array $data = []): JsonResponse
+    {
+        return response()->json([
+            'error' => $error,
+            'msgType' => $msgType,
+            'data' => $data
+        ]);
     }
 }

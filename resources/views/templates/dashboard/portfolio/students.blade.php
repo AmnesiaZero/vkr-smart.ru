@@ -1,485 +1,485 @@
 @extends('layouts.dashboard.main')
 @section('content')
     <div class="col-xl-9 col-lg-8 col-md-7 col-12">
-                <div class="row pt-4 g-3 px-md-0 px-3">
-                    <div class="col-xxl-4 col-xl-5 col-lg-6">
-                        <div id="tree" class="br-green-light-2 br-15 p-3">
-                            <ul class="ui-fancytree fancytree-container fancytree-plain" tabindex="0">
-                                <li class="">
+        <div class="row pt-4 g-3 px-md-0 px-3">
+            <div class="col-xxl-4 col-xl-5 col-lg-6">
+                <div id="tree" class="br-green-light-2 br-15 p-3">
+                    <ul class="ui-fancytree fancytree-container fancytree-plain" tabindex="0">
+                        <li class="">
 		    							<span
                                             class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    								<span class="fancytree-title">2018</span>
 		    							</span>
-                                    <ul>
-                                        <li class="fancytree-lastsib">
+                            <ul>
+                                <li class="fancytree-lastsib">
 		    									<span
                                                     class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    										<span class="fancytree-expander"></span>
 		    										<span class="fancytree-title">Экономический факультет</span>
 		    									</span>
-                                            <ul style="display: block;">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="display: block;">
+                                        <li class="fancytree-lastsib">
 		    											<span
                                                             class="fancytree-node fancytree-active fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    												<span class="fancytree-expander"></span>
 		    												<span class="fancytree-title">Кафедра экономической теории и национальной экономики</span>
 		    											</span>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="">
+                            </ul>
+                        </li>
+                        <li class="">
 		    							<span
                                             class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    								<span class="fancytree-title">2019</span>
 		    							</span>
-                                    <ul>
-                                        <li class="fancytree-lastsib">
+                            <ul>
+                                <li class="fancytree-lastsib">
 		    									<span
                                                     class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    										<span class="fancytree-expander"></span>
 		    										<span class="fancytree-title">Юридический факультет</span>
 		    									</span>
-                                            <ul style="">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="">
+                                        <li class="fancytree-lastsib">
 		    											<span
                                                             class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c"><span
                                                                 class="fancytree-expander"></span>
 		    											<span class="fancytree-title">Кафедра политических наук</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="">
+                            </ul>
+                        </li>
+                        <li class="">
 		    						<span
                                         class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">	<span
                                             class="fancytree-title">2020</span>
 		    						</span>
-                                    <ul>
-                                        <li class="fancytree-lastsib">
+                            <ul>
+                                <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет финансов и учета</span>
 		    								</span>
-                                            <ul style="">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="">
+                                        <li class="fancytree-lastsib">
 		    										<span
                                                         class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span
                                                             class="fancytree-title">Кафедра налогов и налогообложения</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="">
+                            </ul>
+                        </li>
+                        <li class="">
 		    						<span
                                         class="fancytree-node fancytree-expanded fancytree-folder fancytree-exp-n fancytree-ico-ef">
 		    							<span class="fancytree-title">2018</span>
 		    						</span>
-                                </li>
-                                <li class="">
+                        </li>
+                        <li class="">
 		    						<span
                                         class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title">2032</span>
 		    						</span>
-                                    <ul>
-                                        <li class="fancytree-lastsib">
+                            <ul>
+                                <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет финансов и учета</span>
 		    								</span>
-                                            <ul style="">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="">
+                                        <li class="fancytree-lastsib">
 		    										<span
                                                         class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span
                                                             class="fancytree-title">Кафедра налогов и налогообложения</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="">
+                            </ul>
+                        </li>
+                        <li class="">
 		    						<span
                                         class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title">2029</span>
 		    						</span>
-                                    <ul>
-                                        <li class="fancytree-lastsib">
+                            <ul>
+                                <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет экономики и управления</span>
 		    								</span>
-                                            <ul style="">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="">
+                                        <li class="fancytree-lastsib">
 		    										<span
                                                         class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span class="fancytree-title">кафедра экономики</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="">
+                            </ul>
+                        </li>
+                        <li class="">
 		    						<span
                                         class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title">2021</span>
 		    						</span>
-                                    <ul>
-                                        <li class="fancytree-lastsib">
+                            <ul>
+                                <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет финансов и учета</span>
 		    								</span>
-                                            <ul style="">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="">
+                                        <li class="fancytree-lastsib">
 		    										<span
                                                         class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span
                                                             class="fancytree-title">Кафедра налогов и налогообложения</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
-                                        <li class="fancytree-lastsib">
+                                    </ul>
+                                </li>
+                                <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет менеджмента</span>
 		    								</span>
-                                            <ul style="">
-                                                <li class="">
+                                    <ul style="">
+                                        <li class="">
 		    										<span class="fancytree-node fancytree-exp-n fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span class="fancytree-title">менеджмента</span>
 		    										</span>
-                                                </li>
-                                                <li class="fancytree-lastsib">
+                                        </li>
+                                        <li class="fancytree-lastsib">
 		    										<span
                                                         class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span
                                                             class="fancytree-title">Реклама и связи с общественностью</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
-                                        <li class="fancytree-lastsib">
+                                    </ul>
+                                </li>
+                                <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет энергетики</span>
 		    								</span>
-                                            <ul style="">
-                                                <li class="fancytree-lastsib">
+                                    <ul style="">
+                                        <li class="fancytree-lastsib">
 		    										<span
                                                         class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span
                                                             class="fancytree-title">Кафедра физики твердого тела</span>
 		    										</span>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="out-kod"></div>
-                        <form action="" method="" class="pt-4 col-xl-10">
-                            <div class="row g-3">
-                                <div class="col-xl-6">
-                                    <p class="text-grey mb-2 fs-14">ФИО обучающегося</p>
-                                    <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                        <input type="text" name="q" value=""
-                                               class="form-control search br-none fs-14 form-small-p" placeholder="">
-                                        <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
-                                            <img src="/images/Search.svg" alt="search">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <p class="text-grey mb-2 fs-14">Группа</p>
-                                    <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                        <input type="text" name="q" value=""
-                                               class="form-control search br-none fs-14 form-small-p" placeholder="">
-                                        <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
-                                            <img src="/images/Search.svg" alt="search">
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-3 pt-3 d-flex align-items-end">
-                                <div class="col-xl-6">
-                                    <p class="text-grey mb-2 fs-14">Поиск по email</p>
-                                    <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                        <input type="text" name="q" value=""
-                                               class="form-control search br-none fs-14 form-small-p" placeholder="">
-                                        <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
-                                            <img src="/images/Search.svg" alt="search">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="mt-auto">
-                                        <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1">
-                                            применить
-                                        </button>
-                                        <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1">сбросить
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="pt-5 px-md-0 px-3">
-                    <p class="text-grey fs-14">Пользователей: <span class="text-black">8</span></p>
-                    <div class="row g-3">
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-active br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
-                                                                                       alt="" class="pe-2"></span>Активен
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-block br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/red.svg" alt=""
-                                                                                       class="pe-2"></span>Заблокирован
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-active br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
-                                                                                       alt="" class="pe-2"></span>Активен
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-active br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
-                                                                                       alt="" class="pe-2"></span>Активен
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-active br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
-                                                                                       alt="" class="pe-2"></span>Активен
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-active br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
-                                                                                       alt="" class="pe-2"></span>Активен
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-block br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/red.svg" alt=""
-                                                                                       class="pe-2"></span>Заблокирован
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                            <div class="br-green-light-1 p-3 br-15">
-                                <div class="d-flex pb-4">
-                                    <div class="bg-active br-100">
-                                        <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
-                                                                                       alt="" class="pe-2"></span>Активен
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>Васин<br> Петр Михайлович</p>
-                                <div class="border-left ps-3 mb-3">
-                                    <p class="text-grey fs-14 mb-1">Группа: 156а</p>
-                                    <p class="text-grey fs-14 mb-1">13.03.2020</p>
-                                    <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
-                                </div>
-                                <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">работы</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
-                                                                                                   class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
-                                </p>
-                                <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
-                                                                                              class="text-grey ps-2 fs-14 link-active-hover">управление
-                                        портфолио</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <nav class="mt-3 mb-5">
-                    <ul class="pagination m-0">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>
-                            </a>
                         </li>
                     </ul>
-                </nav>
+                </div>
+            </div>
+            <div class="col">
+                <div class="out-kod"></div>
+                <form action="" method="" class="pt-4 col-xl-10">
+                    <div class="row g-3">
+                        <div class="col-xl-6">
+                            <p class="text-grey mb-2 fs-14">ФИО обучающегося</p>
+                            <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
+                                <input type="text" name="q" value=""
+                                       class="form-control search br-none fs-14 form-small-p" placeholder="">
+                                <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
+                                    <img src="/images/Search.svg" alt="search">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <p class="text-grey mb-2 fs-14">Группа</p>
+                            <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
+                                <input type="text" name="q" value=""
+                                       class="form-control search br-none fs-14 form-small-p" placeholder="">
+                                <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
+                                    <img src="/images/Search.svg" alt="search">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 pt-3 d-flex align-items-end">
+                        <div class="col-xl-6">
+                            <p class="text-grey mb-2 fs-14">Поиск по email</p>
+                            <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
+                                <input type="text" name="q" value=""
+                                       class="form-control search br-none fs-14 form-small-p" placeholder="">
+                                <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
+                                    <img src="/images/Search.svg" alt="search">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="mt-auto">
+                                <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1">
+                                    применить
+                                </button>
+                                <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1">сбросить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="pt-5 px-md-0 px-3">
+            <p class="text-grey fs-14">Пользователей: <span class="text-black">8</span></p>
+            <div class="row g-3">
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-active br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
+                                                                               alt="" class="pe-2"></span>Активен
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-block br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/red.svg" alt=""
+                                                                               class="pe-2"></span>Заблокирован
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-active br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
+                                                                               alt="" class="pe-2"></span>Активен
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-active br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
+                                                                               alt="" class="pe-2"></span>Активен
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-active br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
+                                                                               alt="" class="pe-2"></span>Активен
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-active br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
+                                                                               alt="" class="pe-2"></span>Активен
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-block br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/red.svg" alt=""
+                                                                               class="pe-2"></span>Заблокирован
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <div class="br-green-light-1 p-3 br-15">
+                        <div class="d-flex pb-4">
+                            <div class="bg-active br-100">
+                                <p class="text-grey fs-14 m-0 px-3"><span><img src="/images/green_active.svg"
+                                                                               alt="" class="pe-2"></span>Активен
+                                </p>
+                            </div>
+                        </div>
+                        <p>Васин<br> Петр Михайлович</p>
+                        <div class="border-left ps-3 mb-3">
+                            <p class="text-grey fs-14 mb-1">Группа: 156а</p>
+                            <p class="text-grey fs-14 mb-1">13.03.2020</p>
+                            <p class="text-grey fs-14 mb-1">koshelev76@mail.ru</p>
+                        </div>
+                        <p class="mb-1"><img src="/images/doc_grey_img.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">работы</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/User_Card_Id_Grey.svg" alt=""><a href="#"
+                                                                                           class="text-grey ps-2 fs-14 link-active-hover">портфолио</a>
+                        </p>
+                        <p class="mb-1"><img src="/images/setting_grey.svg" alt=""><a href="#"
+                                                                                      class="text-grey ps-2 fs-14 link-active-hover">управление
+                                портфолио</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="mt-3 mb-5">
+            <ul class="pagination m-0">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 @endsection
 @section('scripts')

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
@@ -48,7 +47,6 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
 
-
 //        $organization = Organization::query()->where()
 
         $user = User::query()->with('organization')
@@ -58,9 +56,10 @@ class LoginRequest extends FormRequest
 
         if ($user) {
             $organization = $user->organization()->first();
-            if(!is_null($organization)) {
+            if (!is_null($organization)) {
                 if (is_null($organization->date_end) || $organization->date_end > time()) {
-                    if ( !Auth::attempt(['email'=>$user->email, 'password'=>$this->password], $this->boolean('remember')) ) {
+                    if (!Auth::attempt(['email' => $user->email, 'password' => $this->password],
+                        $this->boolean('remember'))) {
                         RateLimiter::hit($this->throttleKey());
                         throw ValidationException::withMessages([
                             'email' => __('auth.failed'),
@@ -92,7 +91,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited()
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -115,6 +114,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')).'|'.$this->ip();
+        return Str::lower($this->input('email')) . '|' . $this->ip();
     }
 }

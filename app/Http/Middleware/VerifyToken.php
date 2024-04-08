@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Organization;
 use Closure;
 use DomainException;
 use Firebase\JWT\BeforeValidException;
@@ -20,7 +19,7 @@ class VerifyToken
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -36,11 +35,9 @@ class VerifyToken
             return redirect('home')->withErrors('Ключ невалиден');
         } catch (DomainException $e) {
             return redirect('home')->withErrors('Алгоритм кодирования невалиден');
-        }
-        catch (SignatureInvalidException $e) {
+        } catch (SignatureInvalidException $e) {
             return redirect('home')->withErrors('Ошибка верификации сигнатуры');
-        }
-        catch (BeforeValidException $e) {
+        } catch (BeforeValidException $e) {
             return redirect('home')->withErrors('Неккоректное время формирования токена');
         } catch (ExpiredException $e) {
             // provided JWT is trying to be used after "exp" claim.

@@ -2,7 +2,6 @@
 
 namespace App\Services\Organizations\Repository;
 
-use App\Models\Organization;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
@@ -13,5 +12,5 @@ interface OrganizationsRepositoryInterface
      * @param array $params
      * @return mixed
      */
-    public function first(array $params):Builder|Model|null;
+    public function first(array $params): Builder|Model|null;
 }

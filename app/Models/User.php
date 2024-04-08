@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoleAndPermission ;
+    use HasApiTokens, HasFactory, Notifiable, HasRoleAndPermission;
 
     protected $table = 'users';
 
@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public static function getByEmail(string $email)
     {
-        return User::query()->where('email','=',$email)->first();
+        return User::query()->where('email', '=', $email)->first();
 
     }
 }

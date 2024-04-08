@@ -7,18 +7,21 @@
                 <div id="tree" class="br-green-light-2 br-15 p-3">
                     <ul class="ui-fancytree fancytree-container fancytree-plain" tabindex="0">
                         <li class="">
-		    							<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    							<span
+                                            class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    								<span class="fancytree-title">2018</span>
 		    							</span>
                             <ul>
                                 <li class="fancytree-lastsib">
-		    									<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    									<span
+                                                    class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    										<span class="fancytree-expander"></span>
 		    										<span class="fancytree-title">Экономический факультет</span>
 		    									</span>
                                     <ul style="display: block;">
                                         <li class="fancytree-lastsib">
-		    											<span class="fancytree-node fancytree-active fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    											<span
+                                                            class="fancytree-node fancytree-active fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    												<span class="fancytree-expander"></span>
 		    												<span class="fancytree-title">Кафедра экономической теории и национальной экономики</span>
 		    											</span>
@@ -28,18 +31,22 @@
                             </ul>
                         </li>
                         <li class="">
-		    							<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    							<span
+                                            class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    								<span class="fancytree-title">2019</span>
 		    							</span>
                             <ul>
                                 <li class="fancytree-lastsib">
-		    									<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    									<span
+                                                    class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    										<span class="fancytree-expander"></span>
 		    										<span class="fancytree-title">Юридический факультет</span>
 		    									</span>
                                     <ul style="">
                                         <li class="fancytree-lastsib">
-		    											<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c"><span class="fancytree-expander"></span>
+		    											<span
+                                                            class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c"><span
+                                                                class="fancytree-expander"></span>
 		    											<span class="fancytree-title">Кафедра политических наук</span>
 		    										</span>
                                         </li>
@@ -48,19 +55,24 @@
                             </ul>
                         </li>
                         <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">	<span class="fancytree-title">2020</span>
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">	<span
+                                            class="fancytree-title">2020</span>
 		    						</span>
                             <ul>
                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет финансов и учета</span>
 		    								</span>
                                     <ul style="">
                                         <li class="fancytree-lastsib">
-		    										<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										<span
+                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">Кафедра налогов и налогообложения</span>
+		    											<span
+                                                            class="fancytree-title">Кафедра налогов и налогообложения</span>
 		    										</span>
                                         </li>
                                     </ul>
@@ -68,25 +80,30 @@
                             </ul>
                         </li>
                         <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-exp-n fancytree-ico-ef">
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-exp-n fancytree-ico-ef">
 		    							<span class="fancytree-title">2018</span>
 		    						</span>
                         </li>
                         <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title">2032</span>
 		    						</span>
                             <ul>
                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет финансов и учета</span>
 		    								</span>
                                     <ul style="">
                                         <li class="fancytree-lastsib">
-		    										<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										<span
+                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">Кафедра налогов и налогообложения</span>
+		    											<span
+                                                            class="fancytree-title">Кафедра налогов и налогообложения</span>
 		    										</span>
                                         </li>
                                     </ul>
@@ -94,18 +111,21 @@
                             </ul>
                         </li>
                         <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title">2029</span>
 		    						</span>
                             <ul>
                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет экономики и управления</span>
 		    								</span>
                                     <ul style="">
                                         <li class="fancytree-lastsib">
-		    										<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										<span
+                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
 		    											<span class="fancytree-title">кафедра экономики</span>
 		    										</span>
@@ -115,26 +135,31 @@
                             </ul>
                         </li>
                         <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title">2021</span>
 		    						</span>
                             <ul>
                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет финансов и учета</span>
 		    								</span>
                                     <ul style="">
                                         <li class="fancytree-lastsib">
-		    										<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										<span
+                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">Кафедра налогов и налогообложения</span>
+		    											<span
+                                                            class="fancytree-title">Кафедра налогов и налогообложения</span>
 		    										</span>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет менеджмента</span>
 		    								</span>
@@ -146,23 +171,28 @@
 		    										</span>
                                         </li>
                                         <li class="fancytree-lastsib">
-		    										<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										<span
+                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">Реклама и связи с общественностью</span>
+		    											<span
+                                                            class="fancytree-title">Реклама и связи с общественностью</span>
 		    										</span>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
 		    									<span class="fancytree-title">Факультет энергетики</span>
 		    								</span>
                                     <ul style="">
                                         <li class="fancytree-lastsib">
-		    										<span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										<span
+                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
 		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">Кафедра физики твердого тела</span>
+		    											<span
+                                                            class="fancytree-title">Кафедра физики твердого тела</span>
 		    										</span>
                                         </li>
                                     </ul>
@@ -191,7 +221,8 @@
                         <div class="col-xl-6">
                             <p class="text-grey mb-2 fs-14">ФИО обучающегося</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                <input type="text" name="q" value="" class="form-control search br-none fs-14 form-small-p" placeholder="">
+                                <input type="text" name="q" value=""
+                                       class="form-control search br-none fs-14 form-small-p" placeholder="">
                                 <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
                                     <img src="img/Search.svg" alt="search">
                                 </button>
@@ -200,7 +231,8 @@
                         <div class="col-xl-6">
                             <p class="text-grey mb-2 fs-14">Группа</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                <input type="text" name="q" value="" class="form-control search br-none fs-14 form-small-p" placeholder="">
+                                <input type="text" name="q" value=""
+                                       class="form-control search br-none fs-14 form-small-p" placeholder="">
                                 <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
                                     <img src="img/Search.svg" alt="search">
                                 </button>
@@ -209,7 +241,8 @@
                         <div class="col-xl-6">
                             <p class="text-grey mb-2 fs-14">Тип работы</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                <input type="text" name="q" value="" class="form-control search br-none fs-14 form-small-p" placeholder="">
+                                <input type="text" name="q" value=""
+                                       class="form-control search br-none fs-14 form-small-p" placeholder="">
                                 <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
                                     <img src="img/Search.svg" alt="search">
                                 </button>
@@ -232,16 +265,19 @@
                                 <button class="btn pe-3 py-0 fs-14" disabled>
                                     <img src="img/Calendar.svg" alt="">
                                 </button>
-                                <input type="text" name="daterange" value="01/01/2023 - 01/15/2023" class=" fs-14 text-grey p-date w-75" />
+                                <input type="text" name="daterange" value="01/01/2023 - 01/15/2023"
+                                       class=" fs-14 text-grey p-date w-75"/>
                             </div>
                         </div>
                     </div>
                     <div class="row pt-4 d-flex align-items-end">
                         <div class="col">
                             <div class="mt-auto">
-                                <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 me-3">применить</button>
+                                <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 me-3">применить
+                                </button>
                                 <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 me-3">сбросить</button>
-                                <button class="btn bg-green br-100 text-grey fs-14 py-1">выгрузить<img src="img/File_Download_green.svg" alt="" class="ps-2"></button>
+                                <button class="btn bg-green br-100 text-grey fs-14 py-1">выгрузить<img
+                                        src="img/File_Download_green.svg" alt="" class="ps-2"></button>
                             </div>
                         </div>
                     </div>
@@ -249,8 +285,10 @@
             </div>
         </div>
         <div class="d-flex mt-5">
-            <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 w-75 me-3">добавить<img src="img/pl-green.svg" alt="" class="ps-2"></button>
-            <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 w-25">импорт из файла<img src="img/File_Download_green.svg" alt="" class="ps-2"></button>
+            <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 w-75 me-3">добавить<img
+                    src="img/pl-green.svg" alt="" class="ps-2"></button>
+            <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 w-25">импорт из файла<img
+                    src="img/File_Download_green.svg" alt="" class="ps-2"></button>
         </div>
         <p class="fs-14 pt-3"><span class="text-grey">Пользователей:</span> 8</p>
         <div class="pt-3 px-md-0 px-3 position-relative">
@@ -278,7 +316,10 @@
                         <td>Экономика (Дипломная работа)</td>
                         <td>Не проставлена</td>
                         <td>Пройдена</td>
-                        <td><div class="mt-2"><span class="bg-active px-2 d-flex align-items-center"><div class="me-2 green-c"></div>Отчет</span></div></td>
+                        <td>
+                            <div class="mt-2"><span class="bg-active px-2 d-flex align-items-center"><div
+                                        class="me-2 green-c"></div>Отчет</span></div>
+                        </td>
                         <td><img src="img/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
                     </tr>
                     <tr>
@@ -289,7 +330,8 @@
                         <td>Теория решения задачи квадратуры круга</td>
                         <td>Хорошо</td>
                         <td>Не пройдена</td>
-                        <td><span class="bg-warning-c px-2 d-flex align-items-center"><div class="me-2"><div class="orange-c"></div></div>Файл не загружен</span></td>
+                        <td><span class="bg-warning-c px-2 d-flex align-items-center"><div class="me-2"><div
+                                        class="orange-c"></div></div>Файл не загружен</span></td>
                         <td><img src="img/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
                     </tr>
                     <tr>
@@ -300,7 +342,10 @@
                         <td>Экономика (Дипломная работа)</td>
                         <td>Не проставлена</td>
                         <td>Пройдена</td>
-                        <td><div class="mt-2"><span class="bg-block px-2 d-flex align-items-center"><div class="me-2 red-c"></div>не выполняется</span></div></td>
+                        <td>
+                            <div class="mt-2"><span class="bg-block px-2 d-flex align-items-center"><div
+                                        class="me-2 red-c"></div>не выполняется</span></div>
+                        </td>
                         <td><img src="img/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
                     </tr>
                     <tr>
@@ -311,7 +356,8 @@
                         <td>Теория решения задачи квадратуры круга</td>
                         <td>Хорошо</td>
                         <td>Не пройдена</td>
-                        <td><span class="bg-warning-c px-2 d-flex align-items-center"><div class="me-2"><div class="orange-c"></div></div>Файл не загружен</span></td>
+                        <td><span class="bg-warning-c px-2 d-flex align-items-center"><div class="me-2"><div
+                                        class="orange-c"></div></div>Файл не загружен</span></td>
                         <td><img src="img/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
                     </tr>
                     </tbody>
@@ -355,7 +401,8 @@
                 </div>
                 <div class="d-flex cursor-p mb-2">
                     <img src="img/download.svg" alt="" class="pe-2">
-                    <p class="fs-14 lh-17 text-grey m-0">Загрузить или заменить справку<br> о самопроверке по другим системам</p>
+                    <p class="fs-14 lh-17 text-grey m-0">Загрузить или заменить справку<br> о самопроверке по другим
+                        системам</p>
                 </div>
                 <p class="fs-14 lh-17">Дополнительные файлы</p>
                 <div class="d-flex cursor-p mb-2">
@@ -384,17 +431,17 @@
     </div>
 @endsection
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.js-example-basic-single').select2();
     });
-    $('.btn-info-box').click(function(){
+    $('.btn-info-box').click(function () {
         $("#info_box").fadeToggle(100);
     });
 </script>
 <script>
-    $(function() {
+    $(function () {
         let start = moment();
-        let end =  moment().add(29, 'days');
+        let end = moment().add(29, 'days');
         $('input[name="daterange"]').daterangepicker({
             startDate: start,
             endDate: end,
@@ -433,38 +480,207 @@
                 "firstDay": 1
             },
             opens: 'left'
-        }, function(start, end, label) {
+        }, function (start, end, label) {
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
     });
 </script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         getReport(0);
     });
-    $(function(){
+    $(function () {
         $("#tree").fancytree({
             checkbox: false,
             cache: false,
-            source: [{"title":"2018","folder":true,"select":false,"key":"y_1092","children":[{"title":"\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442","folder":true,"select":false,"key":"f_3202","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u0442\u0435\u043e\u0440\u0438\u0438 \u0438 \u043d\u0430\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0439 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438","select":false,"key":"d_8720"}]}]},{"title":"2019","folder":true,"select":false,"key":"y_1093","children":[{"title":"\u042e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442","folder":true,"select":false,"key":"f_3203","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043f\u043e\u043b\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u043d\u0430\u0443\u043a","select":false,"key":"d_8721"}]}]},{"title":"2020","folder":true,"select":false,"key":"y_1154","children":[{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0438 \u0443\u0447\u0435\u0442\u0430","folder":true,"select":false,"key":"f_3405","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043d\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u043d\u0430\u043b\u043e\u0433\u043e\u043e\u0431\u043b\u043e\u0436\u0435\u043d\u0438\u044f","select":false,"key":"d_9332"}]}]},{"title":"2018","folder":true,"select":false,"key":"y_1204","children":null},{"title":"2032","folder":true,"select":false,"key":"y_1295","children":[{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0438 \u0443\u0447\u0435\u0442\u0430","folder":true,"select":false,"key":"f_3937","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043d\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u043d\u0430\u043b\u043e\u0433\u043e\u043e\u0431\u043b\u043e\u0436\u0435\u043d\u0438\u044f","select":false,"key":"d_11426"}]}]},{"title":"2029","folder":true,"select":false,"key":"y_1344","children":[{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f","folder":true,"select":false,"key":"f_4045","children":[{"title":"\u043a\u0430\u0444\u0435\u0434\u0440\u0430 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438","select":false,"key":"d_11792"}]}]},{"title":"2022","folder":true,"select":false,"key":"y_1386","children":[{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f","folder":true,"select":false,"key":"f_4125","children":[{"title":"\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0430 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435","select":false,"key":"d_11961"}]}]},{"title":"2019","folder":true,"select":false,"key":"y_1425","children":null},{"title":"2019","folder":true,"select":false,"key":"y_1426","children":[{"title":"\u0421\u043e\u0446\u0438\u043e\u043b\u043e\u0433\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442","folder":true,"select":false,"key":"f_4752","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u0441\u043e\u0446\u0438\u043e\u043b\u043e\u0433\u0438\u0438","select":false,"key":"d_14571"}]}]},{"title":"2021","folder":true,"select":false,"key":"y_1646","children":[{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0438 \u0443\u0447\u0435\u0442\u0430","folder":true,"select":false,"key":"f_4921","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043d\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u043d\u0430\u043b\u043e\u0433\u043e\u043e\u0431\u043b\u043e\u0436\u0435\u043d\u0438\u044f","select":false,"key":"d_15176"}]},{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u043c\u0435\u043d\u0435\u0434\u0436\u043c\u0435\u043d\u0442\u0430","folder":true,"select":false,"key":"f_4947","children":[{"title":"\u043c\u0435\u043d\u0435\u0434\u0436\u043c\u0435\u043d\u0442\u0430","select":false,"key":"d_15223"},{"title":"\u0420\u0435\u043a\u043b\u0430\u043c\u0430 \u0438 \u0441\u0432\u044f\u0437\u0438 \u0441 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c\u044e","select":false,"key":"d_17015"}]},{"title":"\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u044d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a\u0438","folder":true,"select":false,"key":"f_5043","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u0444\u0438\u0437\u0438\u043a\u0438 \u0442\u0432\u0435\u0440\u0434\u043e\u0433\u043e \u0442\u0435\u043b\u0430","select":false,"key":"d_15558"}]}]},{"title":"2018 - \u043a\u043e\u043f\u0438\u044f","folder":true,"select":false,"key":"y_2168","children":[{"title":"\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442","folder":true,"select":false,"key":"f_6744","children":[{"title":"\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u0442\u0435\u043e\u0440\u0438\u0438 \u0438 \u043d\u0430\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0439 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438","select":false,"key":"d_21607"}]}]}],
+            source: [{
+                "title": "2018",
+                "folder": true,
+                "select": false,
+                "key": "y_1092",
+                "children": [{
+                    "title": "\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_3202",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u0442\u0435\u043e\u0440\u0438\u0438 \u0438 \u043d\u0430\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0439 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438",
+                        "select": false,
+                        "key": "d_8720"
+                    }]
+                }]
+            }, {
+                "title": "2019",
+                "folder": true,
+                "select": false,
+                "key": "y_1093",
+                "children": [{
+                    "title": "\u042e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_3203",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043f\u043e\u043b\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u043d\u0430\u0443\u043a",
+                        "select": false,
+                        "key": "d_8721"
+                    }]
+                }]
+            }, {
+                "title": "2020",
+                "folder": true,
+                "select": false,
+                "key": "y_1154",
+                "children": [{
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0438 \u0443\u0447\u0435\u0442\u0430",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_3405",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043d\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u043d\u0430\u043b\u043e\u0433\u043e\u043e\u0431\u043b\u043e\u0436\u0435\u043d\u0438\u044f",
+                        "select": false,
+                        "key": "d_9332"
+                    }]
+                }]
+            }, {"title": "2018", "folder": true, "select": false, "key": "y_1204", "children": null}, {
+                "title": "2032",
+                "folder": true,
+                "select": false,
+                "key": "y_1295",
+                "children": [{
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0438 \u0443\u0447\u0435\u0442\u0430",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_3937",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043d\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u043d\u0430\u043b\u043e\u0433\u043e\u043e\u0431\u043b\u043e\u0436\u0435\u043d\u0438\u044f",
+                        "select": false,
+                        "key": "d_11426"
+                    }]
+                }]
+            }, {
+                "title": "2029",
+                "folder": true,
+                "select": false,
+                "key": "y_1344",
+                "children": [{
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_4045",
+                    "children": [{
+                        "title": "\u043a\u0430\u0444\u0435\u0434\u0440\u0430 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438",
+                        "select": false,
+                        "key": "d_11792"
+                    }]
+                }]
+            }, {
+                "title": "2022",
+                "folder": true,
+                "select": false,
+                "key": "y_1386",
+                "children": [{
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_4125",
+                    "children": [{
+                        "title": "\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0430 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435",
+                        "select": false,
+                        "key": "d_11961"
+                    }]
+                }]
+            }, {"title": "2019", "folder": true, "select": false, "key": "y_1425", "children": null}, {
+                "title": "2019",
+                "folder": true,
+                "select": false,
+                "key": "y_1426",
+                "children": [{
+                    "title": "\u0421\u043e\u0446\u0438\u043e\u043b\u043e\u0433\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_4752",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u0441\u043e\u0446\u0438\u043e\u043b\u043e\u0433\u0438\u0438",
+                        "select": false,
+                        "key": "d_14571"
+                    }]
+                }]
+            }, {
+                "title": "2021",
+                "folder": true,
+                "select": false,
+                "key": "y_1646",
+                "children": [{
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432 \u0438 \u0443\u0447\u0435\u0442\u0430",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_4921",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u043d\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u043d\u0430\u043b\u043e\u0433\u043e\u043e\u0431\u043b\u043e\u0436\u0435\u043d\u0438\u044f",
+                        "select": false,
+                        "key": "d_15176"
+                    }]
+                }, {
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u043c\u0435\u043d\u0435\u0434\u0436\u043c\u0435\u043d\u0442\u0430",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_4947",
+                    "children": [{
+                        "title": "\u043c\u0435\u043d\u0435\u0434\u0436\u043c\u0435\u043d\u0442\u0430",
+                        "select": false,
+                        "key": "d_15223"
+                    }, {
+                        "title": "\u0420\u0435\u043a\u043b\u0430\u043c\u0430 \u0438 \u0441\u0432\u044f\u0437\u0438 \u0441 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c\u044e",
+                        "select": false,
+                        "key": "d_17015"
+                    }]
+                }, {
+                    "title": "\u0424\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442 \u044d\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u043a\u0438",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_5043",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u0444\u0438\u0437\u0438\u043a\u0438 \u0442\u0432\u0435\u0440\u0434\u043e\u0433\u043e \u0442\u0435\u043b\u0430",
+                        "select": false,
+                        "key": "d_15558"
+                    }]
+                }]
+            }, {
+                "title": "2018 - \u043a\u043e\u043f\u0438\u044f",
+                "folder": true,
+                "select": false,
+                "key": "y_2168",
+                "children": [{
+                    "title": "\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0444\u0430\u043a\u0443\u043b\u044c\u0442\u0435\u0442",
+                    "folder": true,
+                    "select": false,
+                    "key": "f_6744",
+                    "children": [{
+                        "title": "\u041a\u0430\u0444\u0435\u0434\u0440\u0430 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u0442\u0435\u043e\u0440\u0438\u0438 \u0438 \u043d\u0430\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0439 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0438",
+                        "select": false,
+                        "key": "d_21607"
+                    }]
+                }]
+            }],
             debugLevel: 0,
             icon: false,
             minExpandLevel: 2,
-            activate: function(event, data){
+            activate: function (event, data) {
                 getReport(data.node.key)
             }
         });
     });
-    function getReport(key){
+
+    function getReport(key) {
         $.ajax({
-            url : "/report-actions",
-            data : "key="+key,
-            type : "post",
-            dataType : "json",
-            success : function(response){
-                if(response.success){
-                    $.each( response.data, function( key, val ) {
-                        $("#"+key).html(val);
+            url: "/report-actions",
+            data: "key=" + key,
+            type: "post",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    $.each(response.data, function (key, val) {
+                        $("#" + key).html(val);
                     });
                 }
             }
@@ -473,12 +689,12 @@
 
 </script>
 <script>
-    $(document).ready(function(){
-        $(".fancytree-title").on('click',function(){
+    $(document).ready(function () {
+        $(".fancytree-title").on('click', function () {
             addBadge($(this).text());
         })
     })
-    var addBadge = function(e) {
+    var addBadge = function (e) {
         let text = e;
         document.querySelector('.out-kod').style.display = "block";
         var elemOutKod = document.querySelector('.out-kod');

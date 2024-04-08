@@ -3,19 +3,19 @@
 namespace App\Services\Users\Repositories;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Exception;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
 
     private UserRepositoryInterface $_repository;
+
     /**
      * Получить полный список пользователей (за исключением удаленных) без пагинации
      *
@@ -66,7 +66,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     {
         $user = $this->_repository->find($id);
 
-        if($user->roles()->count() > 0) {
+        if ($user->roles()->count() > 0) {
             $user->role_name = $user->roles()->first()->name;
             $user->role_slug = $user->roles()->first()->slug;
         } else {
@@ -137,7 +137,6 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return $query->get()->toArray();
     }
-
 
 
     /**
@@ -264,17 +263,6 @@ class EloquentUserRepository implements UserRepositoryInterface
     }
 
     /**
-     * Восстановление удаленного пользователя
-     *
-     * @param int $id
-     * @return bool|Response|int
-     */
-    public function restore(int $id)
-    {
-        return User::query()->where('id', $id)->restore();
-    }
-
-    /**
      * Удаление пользователя из хранилища (восстановлению не подлежит)
      *
      * @param int $id
@@ -285,6 +273,16 @@ class EloquentUserRepository implements UserRepositoryInterface
         return User::query()->where('id', $id)->forceDelete();
     }
 
+    /**
+     * Восстановление удаленного пользователя
+     *
+     * @param int $id
+     * @return bool|Response|int
+     */
+    public function restore(int $id)
+    {
+        return User::query()->where('id', $id)->restore();
+    }
 
 
 }

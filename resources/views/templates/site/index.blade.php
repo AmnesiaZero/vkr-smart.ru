@@ -89,7 +89,7 @@
                         <div class="card br-none br-10 mx-auto position-relative card-weight">
                             <div class="br-10 position-absolute shadow-card-badge">
                                 <span
-                                        class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Администратор</span>
+                                    class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Администратор</span>
                             </div>
                             <img class="card-img-top" src="/images/2.png" alt="">
                             <div class="card-body">
@@ -104,7 +104,7 @@
                         <div class="card br-none br-10 mx-auto position-relative card-weight">
                             <div class="br-10 position-absolute shadow-card-badge">
                                 <span
-                                        class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Сотрудник подразделения</span>
+                                    class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Сотрудник подразделения</span>
                             </div>
                             <img class="card-img-top" src="/images/3.png" alt="">
                             <div class="card-body">
@@ -117,7 +117,7 @@
                         <div class="card br-none br-10 mx-auto position-relative card-weight">
                             <div class="br-10 position-absolute shadow-card-badge">
                                 <span
-                                        class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Обучающийся</span>
+                                    class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Обучающийся</span>
                             </div>
                             <img class="card-img-top" src="/images/4.png" alt="">
                             <div class="card-body">
@@ -220,8 +220,8 @@
                 <h2>Отзывы о нас</h2>
                 <span class="br-green-1 br-100 text-green badge fs-14"><a href="/reviews"
                                                                           class="link">смотреть все</a><img
-                            src="/images/arrow-green.svg"
-                            alt="" class="ps-2"></span>
+                        src="/images/arrow-green.svg"
+                        alt="" class="ps-2"></span>
             </div>
             <div class="row py-5 g-4">
                 <div class="col-lg-4">
@@ -371,7 +371,7 @@
                             КОММУНИКАЦИЙ РОССИЙСКОЙ ФЕДЕРАЦИИ.</p>
                     </div>
                     <div
-                            class="col-xxl-2 col-lg-3 col-sm-4 col-12 d-flex flex-column align-items-sm-end justify-content-center">
+                        class="col-xxl-2 col-lg-3 col-sm-4 col-12 d-flex flex-column align-items-sm-end justify-content-center">
                         <p class="fw-700">Мы в социальных сетях</p>
                         <div>
                             <img src="/images/vk.svg" alt="Вконтакте">

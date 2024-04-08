@@ -22,22 +22,22 @@ class RolesTableSeeder extends Seeder
          */
         $RoleItems = [
             [
-                'name'        => 'Admin',
-                'slug'        => 'admin',
+                'name' => 'Admin',
+                'slug' => 'admin',
                 'description' => 'Admin Role',
-                'level'       => 5,
+                'level' => 5,
             ],
             [
-                'name'        => 'User',
-                'slug'        => 'user',
+                'name' => 'User',
+                'slug' => 'user',
                 'description' => 'User Role',
-                'level'       => 1,
+                'level' => 1,
             ],
             [
-                'name'        => 'Unverified',
-                'slug'        => 'unverified',
+                'name' => 'Unverified',
+                'slug' => 'unverified',
                 'description' => 'Unverified Role',
-                'level'       => 0,
+                'level' => 0,
             ],
         ];
 
@@ -49,10 +49,10 @@ class RolesTableSeeder extends Seeder
             $newRoleItem = config('roles.models.role')::where('slug', '=', $RoleItem['slug'])->first();
             if ($newRoleItem === null) {
                 $newRoleItem = config('roles.models.role')::create([
-                    'name'          => $RoleItem['name'],
-                    'slug'          => $RoleItem['slug'],
-                    'description'   => $RoleItem['description'],
-                    'level'         => $RoleItem['level'],
+                    'name' => $RoleItem['name'],
+                    'slug' => $RoleItem['slug'],
+                    'description' => $RoleItem['description'],
+                    'level' => $RoleItem['level'],
                 ]);
             }
         }

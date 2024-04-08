@@ -14,17 +14,23 @@
                                     <div class="" id="edit_block">
                                         <div class="d-flex inline-flex">
                                             <p class="fs-12 text-grey m-0">Комментарий:</p>
-                                            <input id="edited1" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto" value="Заочная форма обучения" disabled>
+                                            <input id="edited1" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
+                                                   value="Заочная форма обучения" disabled>
                                         </div>
                                         <div class="d-flex inline-flex mt-2">
                                             <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
-                                            <input id="edited2" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40" value="110" disabled>
+                                            <input id="edited2" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
+                                                   value="110" disabled>
                                         </div>
-                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2" id="apply_btn" onclick="apply()">применить</span>
+                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
+                                              id="apply_btn" onclick="apply()">применить</span>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button" onclick="showEditBlock()"></button>
+                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
+                                            onclick="showEditBlock()"></button>
                                     <button id="copy" class="btn copy_btn br-none" type="button"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
@@ -35,17 +41,23 @@
                                     <div class="" id="edit_block">
                                         <div class="d-flex inline-flex">
                                             <p class="fs-12 text-grey m-0">Комментарий:</p>
-                                            <input id="edited1" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto" value="Заочная форма обучения" disabled>
+                                            <input id="edited1" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
+                                                   value="Заочная форма обучения" disabled>
                                         </div>
                                         <div class="d-flex inline-flex mt-2">
                                             <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
-                                            <input id="edited2" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40" value="110" disabled>
+                                            <input id="edited2" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
+                                                   value="110" disabled>
                                         </div>
-                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2" id="apply_btn" onclick="apply()">применить</span>
+                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
+                                              id="apply_btn" onclick="apply()">применить</span>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button" onclick="showEditBlock()"></button>
+                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
+                                            onclick="showEditBlock()"></button>
                                     <button id="copy" class="btn copy_btn br-none" type="button"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
@@ -56,17 +68,23 @@
                                     <div class="" id="edit_block">
                                         <div class="d-flex inline-flex">
                                             <p class="fs-12 text-grey m-0">Комментарий:</p>
-                                            <input id="edited1" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto" value="Заочная форма обучения" disabled>
+                                            <input id="edited1" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
+                                                   value="Заочная форма обучения" disabled>
                                         </div>
                                         <div class="d-flex inline-flex mt-2">
                                             <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
-                                            <input id="edited2" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40" value="110" disabled>
+                                            <input id="edited2" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
+                                                   value="110" disabled>
                                         </div>
-                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2" id="apply_btn" onclick="apply()">применить</span>
+                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
+                                              id="apply_btn" onclick="apply()">применить</span>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button" onclick="showEditBlock()"></button>
+                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
+                                            onclick="showEditBlock()"></button>
                                     <button id="copy" class="btn copy_btn br-none" type="button"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
@@ -77,17 +95,23 @@
                                     <div class="" id="edit_block">
                                         <div class="d-flex inline-flex">
                                             <p class="fs-12 text-grey m-0">Комментарий:</p>
-                                            <input id="edited1" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto" value="Заочная форма обучения" disabled>
+                                            <input id="edited1" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
+                                                   value="Заочная форма обучения" disabled>
                                         </div>
                                         <div class="d-flex inline-flex mt-2">
                                             <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
-                                            <input id="edited2" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40" value="110" disabled>
+                                            <input id="edited2" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
+                                                   value="110" disabled>
                                         </div>
-                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2" id="apply_btn" onclick="apply()">применить</span>
+                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
+                                              id="apply_btn" onclick="apply()">применить</span>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button" onclick="showEditBlock()"></button>
+                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
+                                            onclick="showEditBlock()"></button>
                                     <button id="copy" class="btn copy_btn br-none" type="button"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
@@ -98,17 +122,23 @@
                                     <div class="" id="edit_block">
                                         <div class="d-flex inline-flex">
                                             <p class="fs-12 text-grey m-0">Комментарий:</p>
-                                            <input id="edited1" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto" value="Заочная форма обучения" disabled>
+                                            <input id="edited1" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
+                                                   value="Заочная форма обучения" disabled>
                                         </div>
                                         <div class="d-flex inline-flex mt-2">
                                             <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
-                                            <input id="edited2" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40" value="110" disabled>
+                                            <input id="edited2" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
+                                                   value="110" disabled>
                                         </div>
-                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2" id="apply_btn" onclick="apply()">применить</span>
+                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
+                                              id="apply_btn" onclick="apply()">применить</span>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button" onclick="showEditBlock()"></button>
+                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
+                                            onclick="showEditBlock()"></button>
                                     <button id="copy" class="btn copy_btn br-none" type="button"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
@@ -119,23 +149,30 @@
                                     <div class="" id="edit_block">
                                         <div class="d-flex inline-flex">
                                             <p class="fs-12 text-grey m-0">Комментарий:</p>
-                                            <input id="edited1" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto" value="Заочная форма обучения" disabled>
+                                            <input id="edited1" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
+                                                   value="Заочная форма обучения" disabled>
                                         </div>
                                         <div class="d-flex inline-flex mt-2">
                                             <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
-                                            <input id="edited2" type="text" name="" class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40" value="110" disabled>
+                                            <input id="edited2" type="text" name=""
+                                                   class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
+                                                   value="110" disabled>
                                         </div>
-                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2" id="apply_btn" onclick="apply()">применить</span>
+                                        <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
+                                              id="apply_btn" onclick="apply()">применить</span>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button" onclick="showEditBlock()"></button>
+                                    <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
+                                            onclick="showEditBlock()"></button>
                                     <button id="copy" class="btn copy_btn br-none" type="button"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                    добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
@@ -174,7 +211,8 @@
                                 </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                    добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
@@ -202,7 +240,8 @@
                                 </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                    добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
@@ -216,12 +255,15 @@
                                     <p class="m-0 fs-14">Менеджмент</p>
                                 </div>
                                 <div class="col text-end">
-                                    <button id="edit" class="btn copy_edit br-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit" aria-controls="offcanvasEdit"></button>
+                                    <button id="edit" class="btn copy_edit br-none" type="button"
+                                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit"
+                                            aria-controls="offcanvasEdit"></button>
                                     <button id="delete" class="btn copy_delete br-none" type="button"></button>
                                 </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                    добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
@@ -230,43 +272,43 @@
         </div>
     </div>
 
-
 @endsection
 @section('scripts')
-<script>
-    //input plus/minus
-    let number = document.querySelector('[name="number"]');
+    <script>
+        //input plus/minus
+        let number = document.querySelector('[name="number"]');
 
-    function inc(element) {
-        let el = document.querySelector(`[name="${element}"]`);
-        el.value = parseInt(el.value) + 1;
-    }
-
-    function dec(element) {
-        let el = document.querySelector(`[name="${element}"]`);
-        if (parseInt(el.value) > 0) {
-            el.value = parseInt(el.value) - 1;
+        function inc(element) {
+            let el = document.querySelector(`[name="${element}"]`);
+            el.value = parseInt(el.value) + 1;
         }
-    }
 
-    $( document ).ready(function() {
-        $('.edited').on('dblclick', function(){
-            $(this).attr("disabled", false);
-            $('#apply_btn').show();
-        })
-    });
+        function dec(element) {
+            let el = document.querySelector(`[name="${element}"]`);
+            if (parseInt(el.value) > 0) {
+                el.value = parseInt(el.value) - 1;
+            }
+        }
 
-    function apply() {
-        document.getElementById('edited1').disabled = true;
-        document.getElementById('edited2').disabled = true;
-        document.getElementById('apply_btn').style.display = "none";
-    }
-    function showEditBlock() {
-        document.getElementById('edit_block').classList.toggle('d-block');
-    }
+        $(document).ready(function () {
+            $('.edited').on('dblclick', function () {
+                $(this).attr("disabled", false);
+                $('#apply_btn').show();
+            })
+        });
 
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
-</script>
+        function apply() {
+            document.getElementById('edited1').disabled = true;
+            document.getElementById('edited2').disabled = true;
+            document.getElementById('apply_btn').style.display = "none";
+        }
+
+        function showEditBlock() {
+            document.getElementById('edit_block').classList.toggle('d-block');
+        }
+
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 @endsection
