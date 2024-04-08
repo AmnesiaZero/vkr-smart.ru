@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.site.main')
 
 @section('content')
     <main>
         <div class="container py-5">
             <div class="row">
-                @include('layouts.include.menu.about')
+                @include('layouts.site.include.menu.about')
                 <div class="col-lg-9 px-lg-0 px-4">
                     <div class="block-75">
                         <p class="text-black-black">Система ВКР-ВУЗ.РФ — модульный программный комплекс, который состоит
@@ -80,7 +80,7 @@
                         <p class="fs-14 lh-17">В служебных целях учебного заведения (выполнение приказа № 636)
                             размещение
                             работ рекомендуется оформлять с обучающимися или сотрудниками в виде <a
-                                    href="/docs/soglasie.doc" class="text-black">письменного
+                                href="/docs/soglasie.doc" class="text-black">письменного
                                 согласия</a>. Предоставление открытого доступа к работам третьим лицам потребует от
                             учебного
                             заведения заключение авторского договора и выплаты вознаграждения. Именно эти правовые нормы

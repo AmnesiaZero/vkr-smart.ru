@@ -242,6 +242,16 @@ p {
   background-size: 25px 25px;
   background-repeat: no-repeat;
 }
+.list-custom-green ul {
+    list-style-type: none;
+}
+.list-custom-green ul li {
+    padding-left: 2.8rem;
+    background-image: url(../images/list-check-green.svg);
+    background-position: 0 0;
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+}
 .card-img-top {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;

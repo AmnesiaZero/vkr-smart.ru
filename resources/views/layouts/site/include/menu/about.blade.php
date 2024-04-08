@@ -1,5 +1,5 @@
 <div class="col-lg-3 pb-lg-0 pb-5 px-lg-0 px-4">
-    <p class="mb-4"><span class="pb-1">Хранение работ</span>
+    <p class="mb-4"><span class="pb-1"> <a href="/about/storage" class="link @if(request()->is('about/storage')) nav-link-active @endif"> Хранение работ</a> </span>
     <p>
     <ul class="fs-14 list-style-none ps-0 lh-17 block-75 menu">
         <li class="mb-3"><span class="pb-1 text-grey"> <a href="/about/product" class="link @if(request()->is('about/product')) nav-link-active @endif">О продукте </a></span></li>

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.site.main')
 
 @section('content')
     <main class="position-relative">
@@ -89,7 +89,7 @@
                         <div class="card br-none br-10 mx-auto position-relative card-weight">
                             <div class="br-10 position-absolute shadow-card-badge">
                                 <span
-                                    class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Администратор</span>
+                                        class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Администратор</span>
                             </div>
                             <img class="card-img-top" src="/images/2.png" alt="">
                             <div class="card-body">
@@ -104,7 +104,7 @@
                         <div class="card br-none br-10 mx-auto position-relative card-weight">
                             <div class="br-10 position-absolute shadow-card-badge">
                                 <span
-                                    class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Сотрудник подразделения</span>
+                                        class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Сотрудник подразделения</span>
                             </div>
                             <img class="card-img-top" src="/images/3.png" alt="">
                             <div class="card-body">
@@ -117,7 +117,7 @@
                         <div class="card br-none br-10 mx-auto position-relative card-weight">
                             <div class="br-10 position-absolute shadow-card-badge">
                                 <span
-                                    class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Обучающийся</span>
+                                        class="badge bg-white br-100 text-black fs-20 fw-700 position-absolute card-badge">Обучающийся</span>
                             </div>
                             <img class="card-img-top" src="/images/4.png" alt="">
                             <div class="card-body">
@@ -191,23 +191,26 @@
                         <div class="row">
                             <div class="col-6">
                                 <a href="/docs/instruction.pdf" target="_blank">
-                                <img src="/images/instruction.png" alt="">
+                                    <img src="/images/instruction.png" alt="">
                                 </a>
-                                <div> <a href="/docs/instruction.pdf" target="_blank" class="text-white">Скачать инструкцию</a></div>
+                                <div><a href="/docs/instruction.pdf" target="_blank" class="text-white">Скачать
+                                        инструкцию</a></div>
                             </div>
                             <div class="col-6">
                                 <a href="/docs/vkr_pres.pdf" target="_blank">
                                     <img src="/images/presentation.png" alt="">
                                 </a>
-                                <div><a href="/docs/vkr_pres.pdf" class="text-white" target="_blank">Скачать презентацию</a></div>
+                                <div><a href="/docs/vkr_pres.pdf" class="text-white" target="_blank">Скачать
+                                        презентацию</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-7 ps-lg-5 ms-lg-5 ps-3 ms-0 mt-lg-auto mt-5">
                         <a href="https://www.youtube.com/watch?v=Mj90DqMo_xY" target="_blank">
-                        <img src="/images/default-video.png" class="imagesfluid" alt="">
+                            <img src="/images/default-video.png" class="imagesfluid" alt="">
                         </a>
-                        <div><a href="https://www.youtube.com/watch?v=Mj90DqMo_xY" class="text-white">Видеоинструкция платформы</a></div>
+                        <div><a href="https://www.youtube.com/watch?v=Mj90DqMo_xY" class="text-white">Видеоинструкция
+                                платформы</a></div>
                     </div>
                 </div>
             </div>
@@ -215,8 +218,10 @@
         <div class="container py-5 my-5">
             <div class="d-flex align-items-center justify-content-between pt-5 pb-4">
                 <h2>Отзывы о нас</h2>
-                <span class="br-green-1 br-100 text-green badge fs-14"><a href="/reviews" class="link">смотреть все</a><img src="/images/arrow-green.svg"
-                                                                                        alt="" class="ps-2"></span>
+                <span class="br-green-1 br-100 text-green badge fs-14"><a href="/reviews"
+                                                                          class="link">смотреть все</a><img
+                            src="/images/arrow-green.svg"
+                            alt="" class="ps-2"></span>
             </div>
             <div class="row py-5 g-4">
                 <div class="col-lg-4">
@@ -349,7 +354,8 @@
                 <div class="row g-4">
                     <div class="col-lg-3 align-items-center">
                         <img src="/images/VKR.svg" alt="">
-                        <p class="pt-1"><a href="#" data-bs-toggle="modal" data-bs-target="#vkrBtnsSetup">Установка кнопки на ваш сайт</a></p>
+                        <p class="pt-1"><a href="#" data-bs-toggle="modal" data-bs-target="#vkrBtnsSetup">Установка
+                                кнопки на ваш сайт</a></p>
                         <p class="fs-24 fw-700 mb-2">8 (8452) 24-77-96</p>
                         <p class="m-0 fs-14">Звонок по России бесплатный</p>
                     </div>
@@ -365,7 +371,7 @@
                             КОММУНИКАЦИЙ РОССИЙСКОЙ ФЕДЕРАЦИИ.</p>
                     </div>
                     <div
-                        class="col-xxl-2 col-lg-3 col-sm-4 col-12 d-flex flex-column align-items-sm-end justify-content-center">
+                            class="col-xxl-2 col-lg-3 col-sm-4 col-12 d-flex flex-column align-items-sm-end justify-content-center">
                         <p class="fw-700">Мы в социальных сетях</p>
                         <div>
                             <img src="/images/vk.svg" alt="Вконтакте">

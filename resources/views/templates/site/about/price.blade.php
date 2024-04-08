@@ -1,10 +1,10 @@
-@extends('layouts.main');
+@extends('layouts.site.main');
 
 @section('content')
     <main>
         <div class="container py-5">
             <div class="row">
-                @include('layouts.include.menu.about')
+                @include('layouts.site.include.menu.about')
                 <div class="col-lg-9 px-lg-0 px-4">
                     <div class="row">
                         <div class="col-lg-6 col-12 pb-lg-0 pb-4">

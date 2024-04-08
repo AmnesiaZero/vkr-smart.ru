@@ -36,7 +36,7 @@
                     </li>
                     -->
                     <li>
-                        <a class="nav-link @if(request()->is('about/*')) nav-link-active @endif" href="/about/product">
+                        <a class="nav-link @if(request()->is('about/*')) nav-link-active @endif" href="/about/storage">
                             Хранение работ</a>
                     </li>
 

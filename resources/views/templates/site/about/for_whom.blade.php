@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.site.main')
 
 @section('content')
     <main>
         <div class="container py-5">
             <div class="row">
-                @include('layouts.include.menu.about')
+                @include('layouts.site.include.menu.about')
                 <div class="col-lg-9 px-lg-0 px-4">
                     <div class="block-75">
                         <p class="text-black-black">Программное обеспечение ВКР-ВУЗ.РФ предназначено для:</p>

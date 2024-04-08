@@ -31,6 +31,10 @@ Route::get('/',function (){
 Route::group([
     'prefix' => 'about'
 ],function (){
+
+    Route::get('storage',function (){
+        return view('templates.site.about.storage');
+    });
     Route::get('program',function (){
         return view('templates.site.about.program');
     });
@@ -113,9 +117,59 @@ Route::group([
 
 Route::group([
     'prefix' => 'dashboard',
-    'middleware' => ['web','auth','role:admin,developer']
+    'middleware' => ['web','auth','role:admin']
 ],function (){
-     return view('templates.dashboard.portfolio.student');
+    Route::group([
+        'prefix' => 'portfolio'
+    ],function (){
+        Route::get('students',function (){
+            return view('templates.dashboard.portfolio.students');
+        });
+        Route::get('teachers',function (){
+           return view('templates.dashboard.portfolio.teachers');
+        });
+    });
+
+    Route::group([
+        'prefix' => 'settings'
+    ],function (){
+        Route::get('organizations-structure',function (){
+             return view('templates.dashboard.settings.organizations_structure');
+        });
+        Route::get('access',function (){
+           return view('templates.dashboard.settings.access');
+        });
+        Route::get('invite-codes',function (){
+           return view('templates.dashboard.settings.invite_codes');
+        });
+        Route::get('handbook-management',function (){
+            return view('templates.dashboard.settings.handbook_management');
+        });
+        Route::get('integration',function (){
+           return view('templates.dashboard.settings.integration');
+        });
+        Route::get('api',function (){
+            return view('templates.dashboard.settings.api');
+        });
+    });
+
+    Route::group([
+        'prefix' => 'works'
+    ],function (){
+        Route::get('student',function (){
+            return view('templates.dashboard.works.student');
+        });
+        Route::get('employee',function (){
+            return view('templates.dashboard.works.employee');
+        });
+    });
+
+    Route::get('report',function (){
+        return view('templates.dashboard.report');
+    });
+    Route::get('documentation',function (){
+        return view('templates.dashboard.documentation');
+    });
 });
 
 
