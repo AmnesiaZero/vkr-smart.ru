@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Mail\MailController;
+use App\Http\Controllers\Organizations\OrganizationsDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
@@ -91,11 +92,8 @@ Route::get('reset-password', function () {
     return view('templates.site.auth.reset_password');
 });
 
-Route::group([
-    'prefix' => 'auth'
-], function () {
-    Route::post('login', [AuthController::class, 'login']);
-});
+Route::post('login', [AuthController::class, 'login']);
+
 
 Route::group([
     'prefix' => 'password',
@@ -178,13 +176,22 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'organizations-years'
+        'prefix' => 'organizations'
     ],function (){
-        Route::get('create',function (){
-//           return view()
+
+           Route::group([
+             'prefix' => 'years'
+           ],function (){
+               Route::post('create',[OrganizationsYearsController::class,'create']);
+           });
+        Route::group([
+            'prefix' => 'departments'
+        ],function (){
+            Route::post('create',[OrganizationsDepartmentsController::class,'create']);
+
         });
-        Route::post('create',[OrganizationsYearsController::class,'create']);
     });
+
 });
 
 

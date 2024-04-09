@@ -171,13 +171,22 @@
                                 </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openModal('organizations_years')">
                                     добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @include('layouts.dashboard.include.modal.create',[
+    'modalName' => 'organizations_years',
+    'modalDescription' => 'Добавить год',
+     'url' => '/dashboard/organizations/years/create',
+     'modalFields' =>[
+         'year' => 'Год:',
+         'students_count' => 'Количество обучающихся:',
+         'comment' => 'Комментарий:'
+         ]])
             <div class="col-xxl-5 col-xl-6 col-12 mb-3">
                 <div class="br-green-light-2 br-15 py-3">
                     <div class="row">
@@ -211,12 +220,19 @@
                                 </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openModal('organizations_departments')">
                                     добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
                 </div>
+                @include('layouts.dashboard.include.modal.create',[
+  'modalName' => 'organizations_departments',
+  'modalDescription' => 'Добавить подразделение',
+   'url' => '/dashboard/organizations/departments/create',
+   'modalFields' =>[
+       'name' => 'Имя'
+       ]])
                 <div class="br-green-light-2 br-15 py-3 mt-4">
                     <div class="row">
                         <div class="col">

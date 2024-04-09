@@ -13,8 +13,7 @@ use Illuminate\Validation\Rule;
 
 class ResetPasswordController extends Controller
 {
-    public function resetPassword(Request $request
-    ): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application {
+    public function resetPassword(Request $request) {
         $credentials = $request->validate([
             'email' => ['required', 'email', Rule::exists('users', 'email')]
         ]);

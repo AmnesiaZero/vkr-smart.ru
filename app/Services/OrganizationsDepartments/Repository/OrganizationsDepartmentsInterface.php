@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\OrganizationYears\Repository;
+namespace App\Services\OrganizationsDepartments\Repository;
 
-interface OrganizationsYearsInterface
+interface OrganizationsDepartmentsInterface
 {
     /**
      * Создать новый год для организации

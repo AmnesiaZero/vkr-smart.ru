@@ -164,6 +164,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script src="http://www.vkr-vuz.ru/assets/templates/c/js/jquery.fancytree.min.js"></script>
 
+<script src="/js/app.js"></script>
+
 @yield('scripts')
 </body>
 </html>

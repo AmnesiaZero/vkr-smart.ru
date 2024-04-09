@@ -12,7 +12,7 @@
                                 от Вашего персонального менеджера или полученные в виде текстового сообщения на адрес
                                 электронной почты</p>
                         </div>
-                        <form class="auth" action="/auth/login" method="POST">
+                        <form class="auth" action="/login" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Имя пользователя</label>

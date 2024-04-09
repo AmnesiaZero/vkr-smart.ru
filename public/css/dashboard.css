@@ -224,7 +224,7 @@ p {
 }
 
 .btn-bell {
-    background-image: url('../images/bell_active.svg');
+    /*background-image: url('../images/bell_active.svg');*/
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
@@ -544,7 +544,13 @@ label {
 .text-black-hover:hover {
     color: #2C3E50;
 }
-
+.myModal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
 .menu {
     height: 130.7vh;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
