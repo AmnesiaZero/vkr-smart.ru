@@ -2,15 +2,21 @@
 
 namespace App\Services\Organizations;
 
-use App\Services\Organizations\Repository\EloquentOrganizationsRepository;
+use App\Services\Organizations\Repositories\EloquentOrganizationRepository;
+use App\Services\Organizations\Repositories\OrganizationRepositoryInterface;
 use App\Services\Services;
 
 class OrganizationsService extends Services
 {
-    public EloquentOrganizationsRepository $_organizationsRepository;
+    public $_repository;
 
-   public function create(array $data)
-   {
+    public function __construct(OrganizationRepositoryInterface $organizationRepository)
+    {
+        $this->_repository = $organizationRepository;
+    }
 
-   }
+    public function create(array $data)
+    {
+
+    }
 }

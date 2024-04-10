@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Organizations\Repository;
+namespace App\Services\Organizations\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
-interface OrganizationsRepositoryInterface
+interface OrganizationRepositoryInterface
 {
     /**
      * Получить модель по списку параметров

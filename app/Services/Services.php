@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 class Services
 {
 
+
     /**
      * Проверка данных перед отправкой на сервер
      * @param array $data
@@ -32,9 +33,9 @@ class Services
     public function sendJsonResponse(bool $error, string $msgType = 'secondary', array $data = []): JsonResponse
     {
         return response()->json([
-            'error' => $error,
-            'msgType' => $msgType,
+            'success' => $error,
             'data' => $data
         ]);
     }
+
 }

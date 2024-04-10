@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->register(HelperServiceProvider::class);
     }
 
     /**
@@ -19,6 +19,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $repositories = [
+           'Organization' => 'Organizations',
+            'OrganizationDepartment' => 'OrganizationsDepartments',
+            'OrganizationYear' => 'OrganizationsYears',
+            'User' => 'Users'
+        ];
+
+        foreach ($repositories as $k => $v) {
+            $this->app->bind('App\\Services\\' . $v . '\\Repositories\\' . $k . 'RepositoryInterface',
+                'App\\Services\\' . $v . '\\Repositories\\Eloquent' . $k . 'Repository');
+        }
+
     }
 }

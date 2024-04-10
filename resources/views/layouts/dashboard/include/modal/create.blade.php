@@ -10,7 +10,7 @@
             <!-- Содержимое модального окна -->
             <div class="modal-body">
                 <!-- Форма с полями -->
-                <form method="POST" action="{{$url}}">
+                <form method="POST" action="{{$url}}" onclick="sendForm({{$url}})">
                     @csrf
                     @foreach($modalFields as $name => $description)
                         <div class="form-group">

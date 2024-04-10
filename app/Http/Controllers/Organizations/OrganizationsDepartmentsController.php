@@ -2,35 +2,43 @@
 
 namespace App\Http\Controllers\Organizations;
 
+use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Models\OrganizationsDepartment;
-use App\Models\OrganizationsYear;
-use App\Services\OrganizationsDepartments\OrganizationsDepartmentsService;
-use App\Services\OrganizationsYears\OrganizationsYearsService;
-use Illuminate\Http\RedirectResponse;
+use App\Models\OrganizationsFaculties;
+use App\Services\OrganizationsFaculties\OrganizationsFacultiesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationsDepartmentsController extends Controller
 {
-   public OrganizationsDepartmentsService $departmentsService;
-   public OrganizationsDepartment $department;
+    public OrganizationsFacultiesService $departmentsService;
+    public OrganizationsFaculties $facultyDepartment;
 
-    public function __construct()
-    {
-        $this->departmentsService = new OrganizationsDepartmentsService();
-        $this->department = new OrganizationsDepartment();
+    public function __construct(
+        OrganizationsFacultiesService $departmentsService,
+        OrganizationsFaculties $facultyDepartment
+    ) {
+        $this->departmentsService = $departmentsService;
+        $this->facultyDepartment = $facultyDepartment;
     }
 
-    public function create(Request $request):RedirectResponse
+    public function create(Request $request): mixed
     {
-        Log::debug('Вошёл в create у organizations years');
-        $data = $request->only($this->department->getFillable());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'students_count' => 'integer',
+            'graduates_count' => 'integer'
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $data = $request->only($this->facultyDepartment->getFillable());
         $user = Auth::user();
         //faculty id поменять
-        $data = array_merge($data,['organization_id' => $user->organization_id,'faculty_id' => 1]);
-        Log::debug('request data = '.print_r($data,true));
+        $data = array_merge($data, ['organization_id' => $user->organization_id, 'faculty_id' => 1]);
+        Log::debug('request data = ' . print_r($data, true));
         $this->departmentsService->create($data);
         return back();
     }

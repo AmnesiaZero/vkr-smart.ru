@@ -3,9 +3,11 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Mail\MailController;
+use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\OrganizationsDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\UsersController;
+use App\Models\OrganizationYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -87,12 +89,12 @@ Route::get('check-reference', function () {
 
 Route::get('login', function () {
     return view('templates.site.auth.login');
-});
+})->name('login');
 Route::get('reset-password', function () {
     return view('templates.site.auth.reset_password');
 });
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [UsersController::class, 'login']);
 
 
 Route::group([
@@ -103,13 +105,13 @@ Route::group([
         $token = $request->token;
         return view('templates.site.auth.new_password', ['token' => $token]);
     });
-    Route::post('new', [ResetPasswordController::class, 'newPassword']);
+    Route::post('new', [UsersController::class, 'newPassword']);
 });
 
 Route::group([
     'prefix' => 'mail'
 ], function () {
-    Route::post('reset-password', [ResetPasswordController::class, 'resetPassword']);
+    Route::post('reset-password', [UsersController::class, 'resetPassword']);
 });
 
 Route::group([
@@ -123,9 +125,7 @@ Route::group([
     Route::group([
         'prefix' => 'settings'
     ], function () {
-        Route::get('organizations-structure', function () {
-            return view('templates.dashboard.settings.organizations_structure');
-        });
+        Route::get('organizations-structure',[OrganizationsController::class,'getOrganizationStructure']);
         Route::get('access', function () {
             return view('templates.dashboard.settings.access');
         });

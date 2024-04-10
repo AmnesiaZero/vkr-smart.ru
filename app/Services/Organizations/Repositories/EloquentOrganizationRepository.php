@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Organizations\Repository;
+namespace App\Services\Organizations\Repositories;
 
 use App\Models\Organization;
 
-class EloquentOrganizationsRepository implements OrganizationsRepositoryInterface
+class EloquentOrganizationRepository implements OrganizationRepositoryInterface
 {
 
     public function first(array $params): null|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder
