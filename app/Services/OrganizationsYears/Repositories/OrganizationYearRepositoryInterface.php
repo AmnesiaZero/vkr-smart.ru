@@ -21,4 +21,12 @@ interface OrganizationYearRepositoryInterface
      * @return Collection
      */
      public function get(int $organizationId): Collection;
+
+    /**
+     * Обновить год
+     * @param int $id
+     * @param array $data
+     * @return mixed
+     */
+     public function update(int $id,array $data):int;
 }

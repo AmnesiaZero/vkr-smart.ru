@@ -21,4 +21,9 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
     {
         return OrganizationYear::query()->where('organization_id','=',$organizationId)->get();
     }
+
+    public function update(int $id,array $data): int
+    {
+        return OrganizationYear::query()->where('id' ,'=',$id)->update($data);
+    }
 }

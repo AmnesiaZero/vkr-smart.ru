@@ -31,8 +31,7 @@ class OrganizationsController extends Controller
         $user = Auth::user();
         $organizationId = $user->organization_id;
         $years = $this->yearsService->get($organizationId);
-        $errors = [];
-        $departments = $this->departmentsService->get($organizationId);
+        return view('templates.dashboard.settings.organizations_structure',['years' => $years]);
 
 
     }

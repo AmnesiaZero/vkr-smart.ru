@@ -2,6 +2,7 @@
 
 namespace App\Services\OrganizationsYears;
 
+use App\Helpers\JsonHelper;
 use App\Services\OrganizationsYears\Repositories\EloquentOrganizationYearRepository;
 use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
 use App\Services\Services;
@@ -21,9 +22,13 @@ class OrganizationsYearsService extends Services
         $this->_repository = $organizationYearRepository ;
     }
 
-    public function create(array $data): void
-   {
-       $this->_repository->create($data);
+    public function create(array $data): JsonResponse
+    {
+       $year =  $this->_repository->create($data);
+       return JsonHelper::sendJsonResponse(true,[
+           'message' => 'Успешно создан год',
+           'year' => $year
+       ]);
    }
 
    public function get(int $organizationId): JsonResponse|Collection
@@ -36,5 +41,31 @@ class OrganizationsYearsService extends Services
 //           ]);
 //       }
        return $result;
+   }
+
+
+   public function update(int $id,array $data): JsonResponse
+   {
+       if (empty($data)) {
+           return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+               'message' => 'Пустой массив данных'
+           ]);
+       }
+
+       $result = $this->_repository->update($id, $data);
+
+       if ($result) {
+           return JsonHelper::sendJsonResponse(true,[
+               'title' => 'Успех',
+               'message' => 'Информация успешно сохранена'
+           ]);
+       } else {
+           return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+               'message' => 'При сохранении данных произошла ошибка',
+               'id' => $result->id
+           ]);
+       }
    }
 }

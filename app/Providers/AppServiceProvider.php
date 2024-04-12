@@ -23,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
            'Organization' => 'Organizations',
             'OrganizationDepartment' => 'OrganizationsDepartments',
             'OrganizationYear' => 'OrganizationsYears',
-            'User' => 'Users'
+            'User' => 'Users',
+            'OrganizationFaculty' => 'OrganizationsFaculties',
+            'OrganizationFacultyDepartment' => 'OrganizationsFacultiesDepartments'
         ];
 
         foreach ($repositories as $k => $v) {

@@ -2,7 +2,7 @@
 
 namespace App\Services\OrganizationsFacultiesDepartments;
 
-use App\Services\OrganizationsFaculties\Repositories\EloquentOrganizationFacultyDepartmentRepository;
+use App\Services\OrganizationsFacultiesDepartments\Repositories\EloquentOrganizationFacultyDepartmentRepository;
 use App\Services\OrganizationsFaculties\Repositories\OrganizationFacultyRepositoryInterface;
 use App\Services\OrganizationsYears\Repositories\EloquentOrganizationYearRepository;
 use App\Services\Services;

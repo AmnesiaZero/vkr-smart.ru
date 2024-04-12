@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Mail\MailController;
+
 use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\OrganizationsDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\UsersController;
 use App\Models\OrganizationYear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -118,9 +117,7 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['web', 'auth', 'role:admin']
 ], function () {
-    Route::get('/', function () {
-        return view('templates.dashboard.settings.organizations_structure');
-    });
+    Route::any('/', [OrganizationsController::class,'getOrganizationStructure']);
 
     Route::group([
         'prefix' => 'settings'
@@ -178,11 +175,11 @@ Route::group([
     Route::group([
         'prefix' => 'organizations'
     ],function (){
-
-           Route::group([
+        Route::group([
              'prefix' => 'years'
            ],function (){
                Route::post('create',[OrganizationsYearsController::class,'create']);
+               Route::post('update',[OrganizationsController::class,'update']);
            });
         Route::group([
             'prefix' => 'departments'
