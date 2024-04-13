@@ -12,18 +12,23 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
 
     public function create(array $data): Model
     {
-
         return OrganizationYear::query()->create($data);
     }
 
 
-    public function get(int $organizationId):Collection
+    public function get(int $userId):Collection
     {
-        return OrganizationYear::query()->where('organization_id','=',$organizationId)->get();
+        return OrganizationYear::query()->where('user_id','=',$userId)->get();
     }
 
     public function update(int $id,array $data): int
     {
         return OrganizationYear::query()->where('id' ,'=',$id)->update($data);
+    }
+
+
+    public function getByYearNumber(int $year, int $userId): Model
+    {
+       return OrganizationYear::query()->where('user_id','=',$userId)->first();
     }
 }

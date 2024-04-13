@@ -31,16 +31,19 @@ class OrganizationsYearsService extends Services
        ]);
    }
 
-   public function get(int $organizationId): JsonResponse|Collection
+   public function get(int $userId): JsonResponse
    {
-       $result =  $this->_repository->get($organizationId);
-//       if(isEmpty($result)){
-//           return $this->sendJsonResponse(true,'success',[
-//               'title' => 'Ошибка',
-//               'message' => 'Не найдены годы'
-//           ]);
-//       }
-       return $result;
+       $years =  $this->_repository->get($userId);
+       Log::debug('years = '.$years);
+       return JsonHelper::sendJsonResponse(true,[
+           'title' => 'Года успешно получены',
+           'years' => $years
+       ]);
+   }
+
+   public function getByYearNumber(int $year, int $userId)
+   {
+       return $this->_repository->getByYearNumber($year,$userId);
    }
 
 

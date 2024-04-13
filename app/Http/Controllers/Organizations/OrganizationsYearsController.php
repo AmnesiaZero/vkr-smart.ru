@@ -30,6 +30,14 @@ class OrganizationsYearsController extends Controller
         $this->organizationsYears = $organizationsYears;
     }
 
+    public function get(): JsonResponse
+    {
+        $user = Auth::user();
+        $result = $this->organizationYearsService->get($user->id);
+        Log::debug('result = '.print_r($result,true));
+        return $this->organizationYearsService->get($user->id);
+    }
+
     public function create(Request $request): JsonResponse
     {
         Log::debug('Вошёл в create у organizations years');
@@ -53,6 +61,7 @@ class OrganizationsYearsController extends Controller
     {
         Log::debug('Вошёл в create у organizations years');
         $data = $request->only($this->fillable);
+        Log::debug('data = '.print_r($data,true));
         $validator = Validator::make($data,[
             'year' => 'required|integer',
             'students_count' => 'required|integer'
@@ -60,7 +69,11 @@ class OrganizationsYearsController extends Controller
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
-       return $this->organizationYearsService->update()
+        $yearNumber = $request->year;
+        $user = Auth::user();
+        $year = $this->organizationYearsService->getByYearNumber($yearNumber,$user->id);
+        $yearId = $year->id;
+        return $this->organizationYearsService->update($yearId,$data);
 
     }
 

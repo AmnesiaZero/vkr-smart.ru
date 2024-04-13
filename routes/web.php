@@ -117,12 +117,12 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['web', 'auth', 'role:admin']
 ], function () {
-    Route::any('/', [OrganizationsController::class,'getOrganizationStructure']);
+    Route::any('/', [OrganizationsController::class, 'organizationsStructure']);
 
     Route::group([
         'prefix' => 'settings'
     ], function () {
-        Route::get('organizations-structure',[OrganizationsController::class,'getOrganizationStructure']);
+        Route::get('organizations-structure',[OrganizationsController::class, 'organizationsStructure']);
         Route::get('access', function () {
             return view('templates.dashboard.settings.access');
         });
@@ -178,8 +178,9 @@ Route::group([
         Route::group([
              'prefix' => 'years'
            ],function (){
+               Route::get('get',[OrganizationsYearsController::class,'get']);
                Route::post('create',[OrganizationsYearsController::class,'create']);
-               Route::post('update',[OrganizationsController::class,'update']);
+               Route::post('update',[OrganizationsYearsController::class,'update']);
            });
         Route::group([
             'prefix' => 'departments'

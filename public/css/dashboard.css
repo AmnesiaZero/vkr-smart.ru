@@ -745,7 +745,7 @@ label {
     border-left: none;
 }
 
-#apply_btn, #edit_block, .copy_box {
+#edit_block, .copy_box {
     display: none;
 }
 

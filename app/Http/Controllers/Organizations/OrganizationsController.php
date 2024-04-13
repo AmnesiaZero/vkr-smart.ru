@@ -26,14 +26,10 @@ class OrganizationsController extends Controller
     }
 
 
-    public function getOrganizationStructure()
+    public function organizationsStructure()
     {
-        $user = Auth::user();
-        $organizationId = $user->organization_id;
-        $years = $this->yearsService->get($organizationId);
-        return view('templates.dashboard.settings.organizations_structure',['years' => $years]);
-
-
+        return view('templates.dashboard.settings.organizations_structure');
     }
+
 
 }

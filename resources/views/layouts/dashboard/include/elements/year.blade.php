@@ -6,16 +6,16 @@
                 <p class="fs-12 text-grey m-0">Комментарий:</p>
                 <input id="edited1" type="text" name=""
                        class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-auto"
-                       value="{{$year->comment}}" disabled>
+                       value="{{$year->comment}}">
             </div>
             <div class="d-flex inline-flex mt-2">
                 <p class="fs-12 text-grey m-0">Количество обучающихся:</p>
                 <input id="edited2" type="text" name=""
                        class="form-control box-shadow-none fs-12 ms-2 p-0 px-2 br-2 edited w-40"
-                       value="{{$year->students_count}}" disabled>
+                       value="{{$year->students_count}}">
             </div>
             <span class="btn btn-secondary fs-12 py-1 px-2 text-grey br-none br-100 mt-2"
-                  id="apply_btn" onclick="apply()">применить</span>
+                  id="apply_btn" onclick="yearUpdate({{$year->year}})">применить</span>
         </div>
     </div>
     <div class="col text-end">

@@ -13,17 +13,19 @@ function dec(element) {
 }
 
 $(document).ready(function () {
+    console.log('Вошёл в document ready');
+    years();
     $('.edited').on('dblclick', function () {
         $(this).attr("disabled", false);
         $('#apply_btn').show();
     })
 });
 
-function apply() {
-    document.getElementById('edited1').disabled = true;
-    document.getElementById('edited2').disabled = true;
-    document.getElementById('apply_btn').style.display = "none";
-}
+// function apply() {
+//     document.getElementById('edited1').disabled = true;
+//     document.getElementById('edited2').disabled = true;
+//     document.getElementById('apply_btn').style.display = "none";
+// }
 
 function showEditBlock() {
     document.getElementById('edit_block').classList.toggle('d-block');
@@ -33,42 +35,24 @@ $(document).ready(function () {
     $('.js-example-basic-single').select2();
 });
 
-$(document).ready(function(){
-    years();
-    $("#addSpecialtieModalBtn").on("click",function(){
-        $.ajax({
-            url : "/directions-list",
-            type : "post",
-            data : "view=options&v="+(new Date()).getTime(),
-            dataType : "json",
-            success : function(response){
-                if(response.success){
-                    $("#directions-select").html(response.data);
-                }
-            },
-            error : function(){
-            }
-        });
+
+
+function years(){
+    console.log('Вошёл в years');
+    $.ajax({
+        url : "/dashboard/organizations/years/get",
+        dataType : "json",
+        data : "v="+(new Date()).getTime(),
+        success : function(response){
+            const years = response.data.years;
+            console.log('years')
+            console.log(years);
+            $("#years-list").html($("#year_tmpl").tmpl(years));
+        },
+        error : function(){
+            $("#years-alert").html(response.data.message);        }
     });
-});
-// /* years */
-// function years(){
-//     $.ajax({
-//         url : "/years-list",
-//         dataType : "json",
-//         data : "v="+(new Date()).getTime(),
-//         success : function(response){
-//             if(response.success){
-//                 $("#years-list").html(response.data);
-//             }else{
-//                 $("#years-alert").html(response.message);
-//             }
-//         },
-//         error : function(){
-//             $("#years-alert").html("Ошибка работы модуля. Обратитесь в службу технической поддержки.");
-//         }
-//     });
-// }
+}
 
 
 $("#yearForm").submit(function (event) {
@@ -101,17 +85,30 @@ $("#yearForm").submit(function (event) {
         }
     });
 });
-function yearUpdate(){
+
+function yearUpdate(yearNumber){
+    console.log('Вошёл в yearUpdate');
+    let data = $("#" + yearNumber).serialize();
+    let additionalData = {
+        // Дополнительные данные, которые вы хотите отправить на сервер
+        year: yearNumber,
+        // Добавьте другие параметры, если нужно
+    };
+    data += '&' + $.param(additionalData);
+    console.log(data);
     $.ajax({
         url : "/dashboard/organizations/years/update",
         dataType : "json",
         type : "post",
-        data : $("#editYearForm").serialize()+"&v="+(new Date()).getTime(),
-        success : function(response){
-            const year = $("#year");
+        data : data,
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        error : function(){
-            $("#years-alert").html("Ошибка работы модуля. Обратитесь в службу технической поддержки.");
+        success : function(response){
+
+        },
+        error : function(response){
+           alert(response.data.message);
         }
     });
 }

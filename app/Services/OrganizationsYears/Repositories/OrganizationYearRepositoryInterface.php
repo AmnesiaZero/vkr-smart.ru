@@ -17,10 +17,10 @@ interface OrganizationYearRepositoryInterface
 
     /**
      * Получить года организации
-     * @param int $organizationId
+     * @param int $userId
      * @return Collection
      */
-     public function get(int $organizationId): Collection;
+     public function get(int $userId): Collection;
 
     /**
      * Обновить год
@@ -29,4 +29,14 @@ interface OrganizationYearRepositoryInterface
      * @return mixed
      */
      public function update(int $id,array $data):int;
+
+    /**
+     * Получить год организации по его номеру
+     * @param int $year
+     * @param int $userId
+     * @return mixed
+     */
+     public function getByYearNumber(int $year,int $userId):Model;
+
+
 }
