@@ -731,6 +731,9 @@ label {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-left: none;
 }
+.faculties_list{
+    display: none !important;
+}
 
 .copy_edit:focus {
     background-image: url("../images/Edit_Pencil_Dark.svg");

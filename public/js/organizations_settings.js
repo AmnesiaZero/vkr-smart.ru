@@ -86,12 +86,12 @@ $("#yearForm").submit(function (event) {
     });
 });
 
-function yearUpdate(yearNumber){
+function yearUpdate(yearId){
     console.log('Вошёл в yearUpdate');
-    let data = $("#" + yearNumber).serialize();
+    let data = $("#" + yearId).serialize();
     let additionalData = {
         // Дополнительные данные, которые вы хотите отправить на сервер
-        year: yearNumber,
+        id: yearId,
         // Добавьте другие параметры, если нужно
     };
     data += '&' + $.param(additionalData);
@@ -105,10 +105,34 @@ function yearUpdate(yearNumber){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
-
         },
         error : function(response){
            alert(response.data.message);
+        }
+    });
+}
+
+
+function faculties(yearId)
+{
+    console.log('Вошёл в faculties');
+    $.ajax({
+        url : "/dashboard/organizations/faculties/get?year_id=" +yearId,
+        dataType : "json",
+        type : "get",
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+            const faculties = response.data.faculties;
+            console.log('faculties')
+            console.log(faculties);
+            const facultiesList = $("#faculties-list");
+            facultiesList.html($("#faculty_tmpl").tmpl(faculties));
+            $("#faculties-container").css('display','block');
+            },
+        error : function(response){
+            alert(response.data.message);
         }
     });
 }

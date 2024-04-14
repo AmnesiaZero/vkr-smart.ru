@@ -21,52 +21,23 @@
                 </div>
             </div>
            @include('layouts.dashboard.include.modal.create.year')
-            <div class="col-xxl-5 col-xl-6 col-12 mb-3">
+            <div class="col-xxl-5 col-xl-6 col-12 mb-3" id="faculties-container" style="display: none">
                 <div class="br-green-light-2 br-15 py-3">
                     <div class="row">
                         <div class="col">
                             <p class="mb-2 fw-600 px-3">Подразделения</p>
-                            <div class="row py-2 mx-0 border-bottom">
-                                <div class="col-8 ps-3">
-                                    <p class="m-0 fs-14">Факультет менеджмента</p>
-                                </div>
-                                <div class="col text-end">
-                                    <button id="edit" class="btn copy_edit br-none" type="button"></button>
-                                    <button id="delete" class="btn copy_delete br-none" type="button"></button>
-                                </div>
+                            <div id="faculties-list">
+
                             </div>
-                            <div class="row py-2 mx-0 border-bottom bg-green">
-                                <div class="col-8 ps-3">
-                                    <p class="m-0 fs-14">Факультет финансов и учета</p>
-                                </div>
-                                <div class="col text-end">
-                                    <button id="edit" class="btn copy_edit br-none" type="button"></button>
-                                    <button id="delete" class="btn copy_delete br-none" type="button"></button>
-                                </div>
-                            </div>
-                            <div class="row py-2 mx-0 border-bottom">
-                                <div class="col-8 ps-3">
-                                    <p class="m-0 fs-14">Факультет энергетики</p>
-                                </div>
-                                <div class="col text-end">
-                                    <button id="edit" class="btn copy_edit br-none" type="button"></button>
-                                    <button id="delete" class="btn copy_delete br-none" type="button"></button>
-                                </div>
                             </div>
                             <div class="mx-3">
-                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openModal('organizations_departments')">
+                                <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openModal('create_faculty')">
                                     добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
                 </div>
-{{--                @include('layouts.dashboard.include.modal.create',[--}}
-{{--  'modalName' => 'organizations_departments',--}}
-{{--  'modalDescription' => 'Добавить подразделение',--}}
-{{--   'url' => '/dashboard/organizations/departments/create',--}}
-{{--   'modalFields' =>[--}}
-{{--       'name' => 'Имя'--}}
-{{--       ]])--}}
+            @include('layouts.dashboard.include.modal.create.faculty')
                 <div class="br-green-light-2 br-15 py-3 mt-4">
                     <div class="row">
                         <div class="col">
@@ -124,11 +95,11 @@
 @endsection
 @section('scripts')
     <script id="year_tmpl" type="text/x-jquery-tmpl">
-        <form onsubmit="yearUpdate(${year});return false;" id=${year}>
+        <form onsubmit="yearUpdate(${id});return false;" id=${id}>
 
-    <div class="row py-2 mx-0 border-bottom" id="${year}">
+    <div class="row py-2 mx-0 border-bottom" >
     <div class="col-8 ps-3">
-        <p class="m-0 fs-14" id="year">${year}</p>
+        <p class="m-0 fs-14" id="year" onclick="faculties(${id})">${year}</p>
    <div class="" id="edit_block">
        <div class="d-flex inline-flex">
            <p class="fs-12 text-grey m-0">Комментарий:</p>
@@ -155,6 +126,20 @@
 </div>
 </div>
 </div>
+    </script>
+
+    <script id="faculty_tmpl" type="text/x-jquery-tmpl">
+        <form onsubmit="facultyUpdate(${id});return false;" id=${id}>
+         <div class="row py-2 mx-0 border-bottom bg-green">
+                                <div class="col-8 ps-3">
+                                    <p class="m-0 fs-14">${name}</p>
+                                </div>
+                                <div class="col text-end">
+                                    <button id="edit" class="btn copy_edit br-none" type="button"></button>
+                                    <button id="delete" class="btn copy_delete br-none" type="button"></button>
+                                </div>
+                            </div>
+     </div>
     </script>
     <script src="/js/organizations_settings.js"></script>
 @endsection

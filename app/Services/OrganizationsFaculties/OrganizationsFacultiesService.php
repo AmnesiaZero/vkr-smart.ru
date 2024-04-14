@@ -2,6 +2,7 @@
 
 namespace App\Services\OrganizationsFaculties;
 
+use App\Helpers\JsonHelper;
 use App\Services\OrganizationsFaculties\Repositories\OrganizationFacultyRepositoryInterface;
 use App\Services\OrganizationsYears\Repositories\EloquentOrganizationYearRepository;
 use App\Services\Services;
@@ -22,34 +23,32 @@ class OrganizationsFacultiesService extends Services
     public function create(array $data): JsonResponse
    {
        if(empty($data)){
-           return $this->sendJsonResponse(true,'success',[
+
+           return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
-               'message' => 'Пустой массив данных при создании департамента'
+               'message' => 'Пустой массив данных при создании факультета'
            ]);
        }
-       $result = $this->_repository->create($data);
-       if(isEmpty($result))
+       $faculty = $this->_repository->create($data);
+       if(isEmpty($faculty))
        {
-           return $this->sendJsonResponse(true,'success',[
+           return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
                'message' => 'При сохранении данных произошла ошибка'
            ]);
        }
-       return $this->sendJsonResponse(false,'success',[
-           'title' => 'Успешно',
-           'message' => 'Департамент успешно создан'
+       return JsonHelper::sendJsonResponse(true,[
+           'message' => 'Факультет был успешно создан',
+           'faculty'=> $faculty
        ]);
    }
 
-    public function get(int $organizationId): JsonResponse|Collection
+    public function get(int $yearId): JsonResponse
     {
-        $result =  $this->_repository->get($organizationId);
-//        if(isEmpty($result)){
-//            return $this->sendJsonResponse(true,'success',[
-//                'title' => 'Ошибка',
-//                'message' => 'Не найдены департаменты'
-//            ]);
-//        }
-        return $result;
+        $faculties =  $this->_repository->get($yearId);
+        return JsonHelper::sendJsonResponse(true,[
+           'title' => 'Успешно получены факультеты',
+            'faculties'=> $faculties
+        ]);
     }
 }

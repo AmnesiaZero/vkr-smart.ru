@@ -2,7 +2,7 @@
 
 
 use App\Http\Controllers\Organizations\OrganizationsController;
-use App\Http\Controllers\Organizations\OrganizationsDepartmentsController;
+use App\Http\Controllers\Organizations\OrganizationsFacultiesController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\UsersController;
 use App\Models\OrganizationYear;
@@ -183,9 +183,10 @@ Route::group([
                Route::post('update',[OrganizationsYearsController::class,'update']);
            });
         Route::group([
-            'prefix' => 'departments'
+            'prefix' => 'faculties'
         ],function (){
-            Route::post('create',[OrganizationsDepartmentsController::class,'create']);
+            Route::get('get',[OrganizationsFacultiesController::class,'get']);
+            Route::post('create',[OrganizationsFacultiesController::class,'create']);
 
         });
     });

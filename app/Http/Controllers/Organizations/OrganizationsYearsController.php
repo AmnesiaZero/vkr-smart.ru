@@ -16,18 +16,15 @@ use Illuminate\Support\Facades\Validator;
 class OrganizationsYearsController extends Controller
 {
     public array $fillable = [
-        'year',
+        'id',
         'comment',
         'students_count'
     ];
     private OrganizationsYearsService $organizationYearsService;
 
-    private OrganizationYear $organizationsYears;
-
-    public function __construct(OrganizationsYearsService $yearsService, OrganizationYear $organizationsYears)
+    public function __construct(OrganizationsYearsService $yearsService)
     {
         $this->organizationYearsService = $yearsService;
-        $this->organizationsYears = $organizationsYears;
     }
 
     public function get(): JsonResponse
@@ -63,16 +60,13 @@ class OrganizationsYearsController extends Controller
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
         $validator = Validator::make($data,[
-            'year' => 'required|integer',
+            'id' => 'required|integer',
             'students_count' => 'required|integer'
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
-        $yearNumber = $request->year;
-        $user = Auth::user();
-        $year = $this->organizationYearsService->getByYearNumber($yearNumber,$user->id);
-        $yearId = $year->id;
+        $yearId = $request->id;
         return $this->organizationYearsService->update($yearId,$data);
 
     }

@@ -16,9 +16,8 @@ class EloquentOrganizationFacultyRepository implements OrganizationFacultyReposi
        return OrganizationsFaculties::query()->create($data);
     }
 
-    public function get(int $organizationId,int $year):Collection
+    public function get(int $yearId):Collection
     {
-        return OrganizationsFaculties::query()->where('organization_id','=',$organizationId)
-            ->where('')->get();
+        return OrganizationsFaculties::query()->where('year_id','=',$yearId)->get();
     }
 }
