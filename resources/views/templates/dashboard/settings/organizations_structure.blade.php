@@ -30,7 +30,7 @@
 
                             </div>
                             </div>
-                            <div class="mx-3">
+                            <div class="mx-3" id="faculties_end">
                                 <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openModal('create_faculty')">
                                     добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
@@ -95,7 +95,7 @@
 @endsection
 @section('scripts')
     <script id="year_tmpl" type="text/x-jquery-tmpl">
-        <form onsubmit="yearUpdate(${id});return false;" id=${id}>
+        <form onsubmit="updateYear(${id});return false;" id=${id}>
 
     <div class="row py-2 mx-0 border-bottom" >
     <div class="col-8 ps-3">

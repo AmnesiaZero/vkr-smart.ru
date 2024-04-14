@@ -23,11 +23,10 @@ class OrganizationsFacultiesService extends Services
     public function create(array $data): JsonResponse
    {
        if(empty($data)){
-
            return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
                'message' => 'Пустой массив данных при создании факультета'
-           ]);
+           ],400);
        }
        $faculty = $this->_repository->create($data);
        if(isEmpty($faculty))
@@ -35,7 +34,7 @@ class OrganizationsFacultiesService extends Services
            return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
                'message' => 'При сохранении данных произошла ошибка'
-           ]);
+           ],422);
        }
        return JsonHelper::sendJsonResponse(true,[
            'message' => 'Факультет был успешно создан',

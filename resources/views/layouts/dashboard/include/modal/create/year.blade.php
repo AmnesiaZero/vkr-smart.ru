@@ -10,7 +10,7 @@
             <!-- Содержимое модального окна -->
             <div class="modal-body">
                 <!-- Форма с полями -->
-                <form method="post" action="/dashboard/organizations/years/create" id="yearForm">
+                <form method="post" id="yearForm" onsubmit="createYear(); return false;">
                     @csrf
                     <div class="form-group">
                         <label for="year">Год</label>

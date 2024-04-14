@@ -54,11 +54,9 @@ function years(){
     });
 }
 
-
-$("#yearForm").submit(function (event) {
-    // Предотвращаем стандартное поведение формы, чтобы страница не перезагружалась
-    event.preventDefault();
-    var data = $("#yearForm").serialize();
+function createYear()
+{
+    const data = $("#yearForm").serialize();
     // Отправляем AJAX-запрос
     $.ajax({
         url: "/dashboard/organizations/years/create", // URL вашего сервера
@@ -71,22 +69,22 @@ $("#yearForm").submit(function (event) {
         },
         success: function(response) {
             const addedYear = response.data.year;
-            var source = $("#year_tmpl").html();
+            const source = $("#year_tmpl").html();
 
             // Заменяем переменные в шаблоне на значения из данных
-            var html = $.tmpl(source, addedYear);
+            const html = $.tmpl(source, addedYear);
 
             // Вставляем созданный HTML перед элементом с id "years_button"
             $("#year_end").before(html);
         },
-        error: function(xhr, status, error) {
-            // Обработка ошибки
-            alert('Произошла ошибка: ' + error);
+        error: function(xhr) {
+            const errorMessage = xhr.responseJSON.data.message;
+            alert('Произошла ошибка: ' + errorMessage );
         }
     });
-});
+}
 
-function yearUpdate(yearId){
+function updateYear(yearId){
     console.log('Вошёл в yearUpdate');
     let data = $("#" + yearId).serialize();
     let additionalData = {
@@ -133,6 +131,36 @@ function faculties(yearId)
             },
         error : function(response){
             alert(response.data.message);
+        }
+    });
+}
+
+function createFaculty()
+{
+    const data = $("#facultyForm").serialize();
+    // Отправляем AJAX-запрос
+    $.ajax({
+        url: "/dashboard/organizations/faculties/create", // URL вашего сервера
+        type: 'post', // Метод запроса
+        data: data, // Данные формы
+        processData: false, // Не обрабатывать данные
+        dataType : "json",
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            const addedFaculty = response.data.faculty;
+            const source = $("#faculty_tmpl").html();
+
+            // Заменяем переменные в шаблоне на значения из данных
+            const html = $.tmpl(source, addedFaculty);
+
+            // Вставляем созданный HTML перед элементом с id "years_button"
+            $("#faculties").before(html);
+        },
+        error: function(xhr) {
+            const errorMessage = xhr.responseJSON.data.message;
+            alert('Произошла ошибка: ' + errorMessage );
         }
     });
 }

@@ -17,6 +17,7 @@ class OrganizationsYearsController extends Controller
 {
     public array $fillable = [
         'id',
+        'year',
         'comment',
         'students_count'
     ];

@@ -9,10 +9,10 @@
             <!-- Содержимое модального окна -->
             <div class="modal-body">
                 <!-- Форма с полями -->
-                <form method="post" action="/dashboard/organizations/faculties/create" id="facultyForm">
+                <form method="post" id="facultyForm" onsubmit="createFaculty();return false;">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Год</label>
+                        <label for="name">Имя</label>
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="modal-footer">

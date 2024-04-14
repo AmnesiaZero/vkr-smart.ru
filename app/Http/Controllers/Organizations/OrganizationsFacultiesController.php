@@ -46,15 +46,12 @@ class OrganizationsFacultiesController extends Controller
     {
         $data = $request->only($this->fillable);
         $validator = Validator::make($data, [
-            'name' => 'required',
-            'students_count' => 'integer',
-            'graduates_count' => 'integer'
+            'name' => 'required'
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $user = Auth::user();
-        //faculty id поменять
         $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id]);
         Log::debug('request data = ' . print_r($data, true));
         return $this->facultiesService->create($data);
