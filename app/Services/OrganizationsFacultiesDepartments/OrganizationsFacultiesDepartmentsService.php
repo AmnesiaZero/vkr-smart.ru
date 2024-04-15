@@ -2,6 +2,7 @@
 
 namespace App\Services\OrganizationsFacultiesDepartments;
 
+use App\Helpers\JsonHelper;
 use App\Services\OrganizationsFacultiesDepartments\Repositories\EloquentOrganizationFacultyDepartmentRepository;
 use App\Services\OrganizationsFaculties\Repositories\OrganizationFacultyRepositoryInterface;
 use App\Services\OrganizationsYears\Repositories\EloquentOrganizationYearRepository;
@@ -42,15 +43,12 @@ class OrganizationsFacultiesDepartmentsService extends Services
        ]);
    }
 
-    public function get(int $organizationId): JsonResponse|Collection
+    public function get(int $facultyId): JsonResponse
     {
-        $result =  $this->_repository->get($organizationId);
-//        if(isEmpty($result)){
-//            return $this->sendJsonResponse(true,'success',[
-//                'title' => 'Ошибка',
-//                'message' => 'Не найдены департаменты'
-//            ]);
-//        }
-        return $result;
+        $facultyDepartments =  $this->_repository->get($facultyId);
+        return JsonHelper::sendJsonResponse(true,[
+            'title' => 'Успешно получены кафедры',
+            'faculty_departments'=> $facultyDepartments
+        ]);
     }
 }

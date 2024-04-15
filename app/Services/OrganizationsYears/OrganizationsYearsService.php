@@ -3,6 +3,7 @@
 namespace App\Services\OrganizationsYears;
 
 use App\Helpers\JsonHelper;
+use App\Models\OrganizationYear;
 use App\Services\OrganizationsYears\Repositories\EloquentOrganizationYearRepository;
 use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
 use App\Services\Services;
@@ -53,15 +54,16 @@ class OrganizationsYearsService extends Services
            return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
                'message' => 'Пустой массив данных'
-           ]);
+           ],400);
        }
-
        $result = $this->_repository->update($id, $data);
-
+       Log::debug('result = '.$result);
        if ($result) {
+           $year = OrganizationYear::query()->find($id);
            return JsonHelper::sendJsonResponse(true,[
                'title' => 'Успех',
-               'message' => 'Информация успешно сохранена'
+               'message' => 'Информация успешно сохранена',
+               'year' => $year
            ]);
        } else {
            return JsonHelper::sendJsonResponse(false,[
@@ -69,6 +71,31 @@ class OrganizationsYearsService extends Services
                'message' => 'При сохранении данных произошла ошибка',
                'id' => $result->id
            ]);
+       }
+   }
+
+   public function destroy(int $id):JsonResponse
+   {
+       if (!$id) {
+           return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+               'message' => 'Не указан id ресурса'
+           ]);
+       }
+
+       $result = $this->_repository->destroy($id);
+
+       if ($result) {
+           return JsonHelper::sendJsonResponse(true,[
+              'title' => 'Успешно',
+              'message' => 'Год удален успешно'
+           ]);
+       }
+       else {
+           return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+               'message' => 'Ошибка при удалении из базы данных'
+           ],403);
        }
    }
 }

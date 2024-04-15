@@ -5,6 +5,7 @@ namespace App\Services\OrganizationsYears\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Collection;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 interface OrganizationYearRepositoryInterface
 {
@@ -37,6 +38,13 @@ interface OrganizationYearRepositoryInterface
      * @return mixed
      */
      public function getByYearNumber(int $year,int $userId):Model;
+
+    /**
+     * Мягкое удаление года
+     * @param int $id
+     * @return bool
+     */
+     public function destroy(int $id):bool;
 
 
 }

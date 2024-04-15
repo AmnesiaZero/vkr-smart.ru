@@ -3,7 +3,8 @@
 namespace App\Services\OrganizationsFacultiesDepartments\Repositories;
 
 
-use App\Models\OrganizationsFaculties;
+use App\Models\OrganizationFacultyDepartment;
+use App\Models\OrganizationFaculty;
 use App\Models\OrganizationYear;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
@@ -13,11 +14,11 @@ class EloquentOrganizationFacultyDepartmentRepository implements OrganizationFac
 
     public function create(array $data): \Illuminate\Database\Eloquent\Model
     {
-       return OrganizationsFaculties::query()->create($data);
+       return OrganizationFacultyDepartment::query()->create($data);
     }
 
-    public function get(int $organizationId):Collection
+    public function get(int $facultyId):Collection
     {
-        return OrganizationsFaculties::query()->where('organization_id','=',$organizationId)->get();
+        return OrganizationFacultyDepartment::query()->where('organization_id','=',$facultyId)->get();
     }
 }

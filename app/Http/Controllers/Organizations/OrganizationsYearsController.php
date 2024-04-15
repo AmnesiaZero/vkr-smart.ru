@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Validator;
 class OrganizationsYearsController extends Controller
 {
     public array $fillable = [
-        'id',
         'year',
         'comment',
         'students_count'
@@ -57,19 +56,32 @@ class OrganizationsYearsController extends Controller
 
     public function update(Request $request):JsonResponse
     {
-        Log::debug('Вошёл в create у organizations years');
-        $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
-        $validator = Validator::make($data,[
-            'id' => 'required|integer',
-            'students_count' => 'required|integer'
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|integer'
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
         $yearId = $request->id;
+        Log::debug('Вошёл в create у organizations years');
+        $data = $request->only($this->fillable);
+        Log::debug('data = '.print_r($data,true));
         return $this->organizationYearsService->update($yearId,$data);
+    }
 
+    public function destroy(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|integer'
+        ]);
+        $yearId = $request->id;
+        if($validator->fails()){
+            return ValidatorHelper::validatorError($validator);
+        }
+        Log::debug('Вошёл в create у organizations years');
+        $data = $request->only($this->fillable);
+        Log::debug('data = '.print_r($data,true));
+        return $this->organizationYearsService->destroy($yearId);
     }
 
 }

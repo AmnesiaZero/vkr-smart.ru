@@ -31,4 +31,10 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
     {
        return OrganizationYear::query()->where('user_id','=',$userId)->first();
     }
+
+
+    public function destroy(int $id):bool
+    {
+        return OrganizationYear::query()->find($id)->delete();
+    }
 }

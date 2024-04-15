@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\OrganizationsFacultiesController;
+use App\Http\Controllers\Organizations\OrganizationsFacultiesDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\UsersController;
 use App\Models\OrganizationYear;
@@ -117,7 +118,7 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['web', 'auth', 'role:admin']
 ], function () {
-    Route::any('/', [OrganizationsController::class, 'organizationsStructure']);
+    Route::get('/', [OrganizationsController::class, 'organizationsStructure']);
 
     Route::group([
         'prefix' => 'settings'
@@ -181,13 +182,22 @@ Route::group([
                Route::get('get',[OrganizationsYearsController::class,'get']);
                Route::post('create',[OrganizationsYearsController::class,'create']);
                Route::post('update',[OrganizationsYearsController::class,'update']);
+               Route::post('destroy',[OrganizationsYearsController::class,'destroy']);
            });
         Route::group([
             'prefix' => 'faculties'
         ],function (){
             Route::get('get',[OrganizationsFacultiesController::class,'get']);
             Route::post('create',[OrganizationsFacultiesController::class,'create']);
+            Route::post('update',[OrganizationsFacultiesController::class,'update']);
+            Route::post('destroy',[OrganizationsFacultiesController::class,'destroy']);
+        });
 
+        Route::group([
+            'prefix' => 'faculties-departments'
+        ],function (){
+             Route::get('get',[OrganizationsFacultiesDepartmentsController::class,'get']);
+             Route::post('create',[OrganizationsFacultiesDepartmentsController::class,'create']);
         });
     });
 

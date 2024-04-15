@@ -27,7 +27,7 @@ $(document).ready(function () {
 //     document.getElementById('apply_btn').style.display = "none";
 // }
 
-function showEditBlock() {
+function showEditBlock(int) {
     document.getElementById('edit_block').classList.toggle('d-block');
 }
 
@@ -49,8 +49,9 @@ function years(){
             console.log(years);
             $("#years-list").html($("#year_tmpl").tmpl(years));
         },
-        error : function(){
-            $("#years-alert").html(response.data.message);        }
+        error : function(response){
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
     });
 }
 
@@ -75,18 +76,17 @@ function createYear()
             const html = $.tmpl(source, addedYear);
 
             // Вставляем созданный HTML перед элементом с id "years_button"
-            $("#year_end").before(html);
+            $("#years-list").append(html);
         },
-        error: function(xhr) {
-            const errorMessage = xhr.responseJSON.data.message;
-            alert('Произошла ошибка: ' + errorMessage );
+        error: function(response) {
+            $.notify(response.data.title + ":" + response.data.message,"error");
         }
     });
 }
 
 function updateYear(yearId){
     console.log('Вошёл в yearUpdate');
-    let data = $("#" + yearId).serialize();
+    let data = $("#year-update-" + yearId).serialize();
     let additionalData = {
         // Дополнительные данные, которые вы хотите отправить на сервер
         id: yearId,
@@ -103,11 +103,44 @@ function updateYear(yearId){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
+           $("#year-" + yearId).text(response.data.year.year);
+           $.notify("Год выпуска успешно обновлен","success");
+
         },
         error : function(response){
-           alert(response.data.message);
+            $.notify("Год выпуска успешно обновлен","success");
+            $.notify(response.data.title + ":" + response.data.message,"error");
         }
     });
+}
+
+function destroyYear(yearId)
+{
+    if(confirm("Вы действительно хотите удалить" +
+        "данный год? Все связанные с ним данные будут удалены")) {
+        $.ajax({
+            url: "/dashboard/organizations/years/destroy",
+            dataType: "json",
+            type: "post",
+            data:"id="+yearId+"&v="+(new Date()).getTime(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                $("#" + yearId).remove();
+                $.notify("Год выпуска успешно удален. Все подразделения в нем, кафедры данных подразделений, профили обучения и направления подготовки также удалены из системы. Все работы помечены на удаление.");
+                },
+            error: function (response) {
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        });
+    }
+}
+
+function showYearEditBlock(yearId)
+{
+    console.log('Вошёл в showYearEditBlock');
+    $('#edit_block_year_' + yearId).toggleClass('d-block');
 }
 
 
@@ -122,22 +155,33 @@ function faculties(yearId)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
+            localStorage.setItem('year_id',yearId);
             const faculties = response.data.faculties;
             console.log('faculties')
             console.log(faculties);
             const facultiesList = $("#faculties-list");
+            facultiesList.empty();
+            console.log(facultiesList);
             facultiesList.html($("#faculty_tmpl").tmpl(faculties));
             $("#faculties-container").css('display','block');
             },
         error : function(response){
-            alert(response.data.message);
+            $.notify(response.data.title + ":" + response.data.message,"error");
         }
     });
 }
 
+
 function createFaculty()
 {
-    const data = $("#facultyForm").serialize();
+    const yearId =  localStorage.getItem('year_id');
+    let data = $("#faculty-form").serialize();
+    let additionalData = {
+        // Дополнительные данные, которые вы хотите отправить на сервер
+        year_id: yearId,
+        // Добавьте другие параметры, если нужно
+    };
+    data += '&' + $.param(additionalData);
     // Отправляем AJAX-запрос
     $.ajax({
         url: "/dashboard/organizations/faculties/create", // URL вашего сервера
@@ -156,11 +200,132 @@ function createFaculty()
             const html = $.tmpl(source, addedFaculty);
 
             // Вставляем созданный HTML перед элементом с id "years_button"
-            $("#faculties").before(html);
+            $("#faculties-list").append(html);
         },
-        error: function(xhr) {
-            const errorMessage = xhr.responseJSON.data.message;
-            alert('Произошла ошибка: ' + errorMessage );
+        error: function(response) {
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    });
+}
+
+function updateFaculty(facultyId)
+{
+    console.log('Вошёл в updateFaculty');
+    let data = $("#faculty-update-" + facultyId).serialize();
+    let additionalData = {
+        // Дополнительные данные, которые вы хотите отправить на сервер
+        id: facultyId,
+        // Добавьте другие параметры, если нужно
+    };
+    data += '&' + $.param(additionalData);
+    console.log(data);
+    $.ajax({
+        url : "/dashboard/organizations/faculties/update",
+        dataType : "json",
+        type : "post",
+        data : data,
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+            $("#faculty-" + facultyId).text(response.data.faculty.name);
+            $.notify("Факультет успешно обновлен выпуска успешно обновлен","success");
+        },
+        error : function(response){
+            $.notify(response.data.title + ":" + response.data.message,"error");
+
+        }
+    });
+}
+
+function destroyFaculty(facultyId)
+{
+    if(confirm("Вы действительно хотите удалить" +
+        "данный факультет? Все связанные с ним данные будут удалены")) {
+        $.ajax({
+            url: "/dashboard/organizations/faculties/destroy",
+            dataType: "json",
+            type: "post",
+            data:"id="+facultyId+"&v="+(new Date()).getTime(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                $("#" + facultyId).remove();
+                $.notify("Факультет успешно удален","success");
+            },
+            error: function (response) {
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        });
+    }
+}
+
+function showFacultyEditBlock(facultyId)
+{
+    console.log('Вошёл в showFacultyEditBlock');
+    $('#edit_block_faculty_' + facultyId).toggleClass('d-block');
+}
+
+function facultyDepartments(facultyId)
+{
+    console.log('Вошёл в faculties');
+    $.ajax({
+        url : "/dashboard/organizations/faculties-departments/get?faculty_id=" +facultyId,
+        dataType : "json",
+        type : "get",
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+            localStorage.setItem('faculty_id',facultyId);
+            const facultyDepartments = response.data.faculty_departments;
+            const facultyDepartmentsList = $("#faculty-departments-list");
+            facultyDepartmentsList.empty();
+            facultyDepartmentsList.html($("#faculty_department_tmpl").tmpl(facultyDepartments));
+            console.log('Дошёл');
+            $("#faculties-departments-container").css('display','block');
+        },
+        error : function(response){
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    });
+}
+
+function createFacultyDepartment()
+{
+    const facultyId =  localStorage.getItem('faculty_id');
+    let data = $("#faculty-department-form").serialize();
+    const yearId = localStorage.getItem('year_id');
+    let additionalData = {
+        // Дополнительные данные, которые вы хотите отправить на сервер
+        faculty_id: facultyId,
+        year_id: yearId
+        // Добавьте другие параметры, если нужно
+    };
+    data += '&' + $.param(additionalData);
+    // Отправляем AJAX-запрос
+    $.ajax({
+        url: "/dashboard/organizations/faculties-departments/create", // URL вашего сервера
+        type: 'post', // Метод запроса
+        data: data, // Данные формы
+        processData: false, // Не обрабатывать данные
+        dataType : "json",
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            const addedFaculty = response.data.faculty;
+            const source = $("#faculty_department_tmpl").html();
+
+            // Заменяем переменные в шаблоне на значения из данных
+            const html = $.tmpl(source, addedFaculty);
+
+            // Вставляем созданный HTML перед элементом с id "years_button"
+            $("#faculty-departments-lis").append(html);
+        },
+        error: function(response) {
+            $.notify(response.data.title + ":" + response.data.message,"error");
         }
     });
 }
