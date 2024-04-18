@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('faculty_id')->default(0);
             $table->string('name')->nullable();
             $table->boolean('is_deleted')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

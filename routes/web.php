@@ -2,9 +2,10 @@
 
 
 use App\Http\Controllers\Organizations\OrganizationsController;
-use App\Http\Controllers\Organizations\OrganizationsFacultiesController;
-use App\Http\Controllers\Organizations\OrganizationsFacultiesDepartmentsController;
+use App\Http\Controllers\Organizations\FacultiesController;
+use App\Http\Controllers\Organizations\FacultiesDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
+use App\Http\Controllers\Organizations\ProgramsController;
 use App\Http\Controllers\UsersController;
 use App\Models\OrganizationYear;
 use Illuminate\Http\Request;
@@ -183,21 +184,30 @@ Route::group([
                Route::post('create',[OrganizationsYearsController::class,'create']);
                Route::post('update',[OrganizationsYearsController::class,'update']);
                Route::post('destroy',[OrganizationsYearsController::class,'destroy']);
+               Route::post('copy',[OrganizationsYearsController::class,'copy']);
            });
         Route::group([
             'prefix' => 'faculties'
         ],function (){
-            Route::get('get',[OrganizationsFacultiesController::class,'get']);
-            Route::post('create',[OrganizationsFacultiesController::class,'create']);
-            Route::post('update',[OrganizationsFacultiesController::class,'update']);
-            Route::post('destroy',[OrganizationsFacultiesController::class,'destroy']);
+            Route::get('get',[FacultiesController::class,'get']);
+            Route::post('create',[FacultiesController::class,'create']);
+            Route::post('update',[FacultiesController::class,'update']);
+            Route::post('destroy',[FacultiesController::class,'destroy']);
         });
 
         Route::group([
             'prefix' => 'faculties-departments'
         ],function (){
-             Route::get('get',[OrganizationsFacultiesDepartmentsController::class,'get']);
-             Route::post('create',[OrganizationsFacultiesDepartmentsController::class,'create']);
+             Route::get('get',[FacultiesDepartmentsController::class,'get']);
+             Route::post('create',[FacultiesDepartmentsController::class,'create']);
+             Route::post('update',[FacultiesDepartmentsController::class,'update']);
+             Route::post('destroy',[FacultiesDepartmentsController::class,'destroy']);
+        });
+
+        Route::group([
+            'prefix' => 'programs'
+        ],function (){
+           Route::post('create',[ProgramsController::class,'create']);
         });
     });
 

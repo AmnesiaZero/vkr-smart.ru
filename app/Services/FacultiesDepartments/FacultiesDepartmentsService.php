@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Services\OrganizationsFaculties;
+namespace App\Services\FacultiesDepartments;
 
 use App\Helpers\JsonHelper;
-use App\Models\OrganizationFaculty;
-use App\Models\OrganizationYear;
-use App\Services\OrganizationsFaculties\Repositories\OrganizationFacultyRepositoryInterface;
+use App\Models\Faculty;
+use App\Models\FacultyDepartment;
+use App\Services\FacultiesDepartments\Repositories\EloquentFacultyDepartmentRepository;
+use App\Services\Faculties\Repositories\FacultyRepositoryInterface;
+use App\Services\FacultiesDepartments\Repositories\FacultyDepartmentRepositoryInterface;
 use App\Services\OrganizationsYears\Repositories\EloquentOrganizationYearRepository;
 use App\Services\Services;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,13 +15,13 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use function PHPUnit\Framework\isEmpty;
 
-class OrganizationsFacultiesService extends Services
+class FacultiesDepartmentsService extends Services
 {
     public $_repository;
 
-    public function __construct(OrganizationFacultyRepositoryInterface $_organizationsDepartmentsRepository)
+    public function __construct(FacultyDepartmentRepositoryInterface $specialtyRepository)
     {
-        $this->_repository = $_organizationsDepartmentsRepository;
+        $this->_repository = $specialtyRepository;
     }
 
     public function create(array $data): JsonResponse
@@ -27,30 +29,44 @@ class OrganizationsFacultiesService extends Services
        if(empty($data)){
            return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
-               'message' => 'Пустой массив данных при создании факультета'
+               'message' => 'Пустой массив данных'
            ],400);
        }
-       $faculty = $this->_repository->create($data);
-       if($faculty){
+       $facultyDepartment = $this->_repository->create($data);
+       Log::debug('department = '.$facultyDepartment);
+       if($facultyDepartment and $facultyDepartment->id)
+       {
            return JsonHelper::sendJsonResponse(true,[
-               'message' => 'Факультет был успешно создан',
-               'faculty'=> $faculty
+               'title' => 'Успешно',
+               'message' => 'Кафедра успешно создана',
+               'faculty_department' => $facultyDepartment
            ]);
        }
        return JsonHelper::sendJsonResponse(false,[
            'title' => 'Ошибка',
-           'message' => 'При сохранении данных произошла ошибка'
-       ],422);
-
+           'message' => 'При сохранении данных произошла  ошибка'
+       ],403);
    }
 
-    public function get(int $yearId): JsonResponse
+    public function get(int $facultyId): JsonResponse
     {
-        $faculties =  $this->_repository->get($yearId);
+        $facultyDepartments =  $this->_repository->get($facultyId);
+        Log::debug('departments = '.$facultyDepartments);
         return JsonHelper::sendJsonResponse(true,[
-             'title' => 'Успешно получены факультеты',
-            'faculties'=> $faculties
+            'title' => 'Успешно получены кафедры',
+            'faculty_departments'=> $facultyDepartments
         ]);
+    }
+
+    public function getModels(int $facultyId): Collection
+    {
+        return $this->_repository->get($facultyId);
+
+    }
+
+    public function getByYearId(int $yearId): Collection
+    {
+         return $this->_repository->getByYearId($yearId);
     }
 
     public function update(int $id, array $data): JsonResponse
@@ -65,7 +81,7 @@ class OrganizationsFacultiesService extends Services
         $result = $this->_repository->update($id, $data);
 
         if ($result) {
-            $faculty = OrganizationFaculty::query()->find($id);
+            $faculty = Faculty::query()->find($id);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
@@ -91,6 +107,8 @@ class OrganizationsFacultiesService extends Services
 
         $result = $this->_repository->destroy($id);
 
+
+
         if ($result) {
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
@@ -104,4 +122,6 @@ class OrganizationsFacultiesService extends Services
             ],403);
         }
     }
+
+
 }

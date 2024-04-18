@@ -24,6 +24,13 @@ interface OrganizationYearRepositoryInterface
      public function get(int $userId): Collection;
 
     /**
+     * Найти по id
+     * @param int $id
+     * @return Model
+     */
+     public function find(int $id):Model;
+
+    /**
      * Обновить год
      * @param int $id
      * @param array $data
@@ -45,6 +52,12 @@ interface OrganizationYearRepositoryInterface
      * @return bool
      */
      public function destroy(int $id):bool;
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+     public function copy(int $id):Model;
 
 
 }

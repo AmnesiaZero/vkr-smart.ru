@@ -36,7 +36,6 @@ $(document).ready(function () {
 });
 
 
-
 function years(){
     console.log('Вошёл в years');
     $.ajax({
@@ -143,10 +142,14 @@ function showYearEditBlock(yearId)
     $('#edit_block_year_' + yearId).toggleClass('d-block');
 }
 
-
 function faculties(yearId)
 {
     console.log('Вошёл в faculties');
+
+    // Подсвечивание активного элемента
+    $('[id^="year-row-"]').removeClass('bg-green');
+    $('#year-row-' + yearId).addClass('bg-green');
+
     $.ajax({
         url : "/dashboard/organizations/faculties/get?year_id=" +yearId,
         dataType : "json",
@@ -156,6 +159,7 @@ function faculties(yearId)
         },
         success : function(response){
             localStorage.setItem('year_id',yearId);
+
             const faculties = response.data.faculties;
             console.log('faculties')
             console.log(faculties);
@@ -164,7 +168,7 @@ function faculties(yearId)
             console.log(facultiesList);
             facultiesList.html($("#faculty_tmpl").tmpl(faculties));
             $("#faculties-container").css('display','block');
-            },
+        },
         error : function(response){
             $.notify(response.data.title + ":" + response.data.message,"error");
         }
@@ -172,6 +176,7 @@ function faculties(yearId)
 }
 
 
+// Факультеты
 function createFaculty()
 {
     const yearId =  localStorage.getItem('year_id');
@@ -181,7 +186,9 @@ function createFaculty()
         year_id: yearId,
         // Добавьте другие параметры, если нужно
     };
+
     data += '&' + $.param(additionalData);
+
     // Отправляем AJAX-запрос
     $.ajax({
         url: "/dashboard/organizations/faculties/create", // URL вашего сервера
@@ -270,6 +277,11 @@ function showFacultyEditBlock(facultyId)
 function facultyDepartments(facultyId)
 {
     console.log('Вошёл в faculties');
+
+    //Подсвечивание активного элемента
+    $('[id^="faculty-row-"]').removeClass('bg-green');
+    $('#faculty-row-' + facultyId).addClass('bg-green');
+
     $.ajax({
         url : "/dashboard/organizations/faculties-departments/get?faculty_id=" +facultyId,
         dataType : "json",
@@ -292,43 +304,238 @@ function facultyDepartments(facultyId)
     });
 }
 
-function createFacultyDepartment()
-{
+
+
+// Кафедры
+
+/* programs(profileId) - функция отображения и заполнения окна Профили обучения конкретной кафедры
+* args: facultyDepartmentId - id выбранной кафедры*/
+function programs(facultyDepartmentId){
+
+    //Подсвечивание активного элемента
+    $('[id^="faculty_department_row_"]').removeClass('bg-green');
+    $('#faculty_department_row_' + facultyDepartmentId).addClass('bg-green');
+
+    $.ajax({
+        url : "/dashboard/organizations/faculties-departments/get",
+        dataType : "json",
+        data : "v="+(new Date()).getTime(),
+        success : function(response){
+            const programs = response.data.programs;
+            $("#programs-list").html($("#program_tmpl").tmpl(programs));
+        },
+        error : function(response){
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    });
+}
+
+/* createFacultyDepartment() - функция добавления новой кафедры */
+function createFacultyDepartment() {
+    // Получение текущих факультета и года
     const facultyId =  localStorage.getItem('faculty_id');
-    let data = $("#faculty-department-form").serialize();
+
     const yearId = localStorage.getItem('year_id');
+
+    let data = $("#faculty-department-form").serialize();
+
     let additionalData = {
-        // Дополнительные данные, которые вы хотите отправить на сервер
         faculty_id: facultyId,
         year_id: yearId
-        // Добавьте другие параметры, если нужно
     };
+
     data += '&' + $.param(additionalData);
+
     // Отправляем AJAX-запрос
     $.ajax({
-        url: "/dashboard/organizations/faculties-departments/create", // URL вашего сервера
-        type: 'post', // Метод запроса
-        data: data, // Данные формы
-        processData: false, // Не обрабатывать данные
+        url: "/dashboard/organizations/faculties-departments/create",
+        type: 'post',
+        data: data,
+        processData: false,
         dataType : "json",
         headers : {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(response) {
-            const addedFaculty = response.data.faculty;
+            const addedFacultyDepartment = response.data.faculty_department;
             const source = $("#faculty_department_tmpl").html();
 
             // Заменяем переменные в шаблоне на значения из данных
-            const html = $.tmpl(source, addedFaculty);
+            const html = $.tmpl(source, addedFacultyDepartment);
 
-            // Вставляем созданный HTML перед элементом с id "years_button"
-            $("#faculty-departments-lis").append(html);
+            // Вставляем созданный HTML
+            $("#faculty-departments-list").append(html);
         },
         error: function(response) {
             $.notify(response.data.title + ":" + response.data.message,"error");
         }
     });
 }
+
+/* updateFacultyDepartment(facultyDepartmentId) - функция обновления данных конкретной кафедры
+* args: facultyDepartmentId - id кафедры, которую мы обновляем */
+function updateFacultyDepartment(facultyDepartmentId)
+{
+    let data = $("#faculty-department-update-" + facultyDepartmentId).serialize();
+    let additionalData = {
+        // Дополнительные данные, которые вы хотите отправить на сервер
+        id: facultyDepartmentId,
+        // Добавьте другие параметры, если нужно
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url : "/dashboard/organizations/faculties-departments/update",
+        dataType : "json",
+        type : "post",
+        data : data,
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+            $("#faculty-" + facultyDepartmentId).text(response.data.faculty_department.name);
+            $.notify("Кафедра успешно обновлена","success");
+        },
+        error : function(response){
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    });
+}
+
+/* destroyFacultyDepartment(facultyDepartmentId) - функция удаления кафедры
+* args: facultyDepartmentId - id кафедры, которую мы удаляем */
+function destroyFacultyDepartment(facultyDepartmentId)
+{
+    if(confirm("Вы действительно хотите удалить" + "данную кафедру? Все связанные с ней данные будут удалены")) {
+        $.ajax({
+            url: "/dashboard/organizations/faculties-departments/destroy",
+            dataType: "json",
+            type: "post",
+            data:"id="+facultyDepartmentId+"&v="+(new Date()).getTime(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                $("#" + facultyDepartmentId).remove();
+                $.notify("Кафедра успешно удалена. Все профили обучения в ней также удалены из системы. Все работы помечены на удаление.");
+            },
+            error: function (response) {
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        });
+    }
+}
+
+/* showFacultyDepartmentEditBlock(facultyDepartmentId) - функция раскрытия параметров конкретной кафедры
+* args: facultyDepartmentId - id кафедры, которую мы раскрываем */
+function showFacultyDepartmentEditBlock(facultyDepartmentId)
+{
+    $('#edit_block_faculty_department_' + facultyDepartmentId).toggleClass('d-block');
+}
+
+
+
+// Профили обучения
+
+/* createProgram() - функция добавления нового профиля обучения */
+function createProgram() {
+    // Получение текущих года, факультета и кафедры
+    const facultyId =  localStorage.getItem('faculty_id');
+    const yearId = localStorage.getItem('year_id');
+    const facultyDepartmentId = localStorage.getItem('faculty_department_id');
+
+    let data = $("#faculty-department-form").serialize();
+
+    let additionalData = {
+        faculty_id: facultyId,
+        year_id: yearId,
+        faculty_department_id: facultyDepartmentId
+    };
+
+    data += '&' + $.param(additionalData);
+
+    // Отправляем AJAX-запрос
+    $.ajax({
+        url: "/dashboard/organizations/programs/create",
+        type: 'post',
+        data: data,
+        processData: false,
+        dataType : "json",
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            const addedProgram = response.data.program;
+            const source = $("#program_tmpl").html();
+
+            // Заменяем переменные в шаблоне на значения из данных
+            const html = $.tmpl(source, addedProgram);
+
+            // Вставляем созданный HTML
+            $("#program-list").append(html);
+        },
+        error: function(response) {
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    });
+}
+
+/* updateProgram(programId) - функция обновления данных конкретного Профиля обучения
+* args: programId - id профиля обучения, который мы обновляем */
+function updateProgram(programId)
+{
+    let data = $("#program-update-" + programId).serialize();
+    let additionalData = {
+        id: programId,
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url : "/dashboard/organizations/program/update",
+        dataType : "json",
+        type : "post",
+        data : data,
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+            $("#program-" + programId).text(response.data.program.name);
+            $.notify("Профиль обучения успешно обновлен","success");
+        },
+        error : function(response){
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    });
+}
+
+/* destroyProgram(programId) - функция удаления профиля обучения
+* args: programId - id профиля обучения, который мы удаляем */
+function destroyProgram(programId)
+{
+    if(confirm("Вы действительно хотите удалить" + "данный Профиль обучения? Все связанные с ней данные будут удалены")) {
+        $.ajax({
+            url: "/dashboard/organizations/program/destroy",
+            dataType: "json",
+            type: "post",
+            data:"id="+programId+"&v="+(new Date()).getTime(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                $("#" + programId).remove();
+                $.notify("Профиль обучения успешно удален.");
+            },
+            error: function (response) {
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        });
+    }
+}
+
+/* showProgramEditBlock(programId) - функция раскрытия параметров конкретного профиля обучения
+* args: programId - id профися обучения, который мы раскрываем */
+function showProgramEditBlock(programId) {
+    $('#edit_block_program_' + programId).toggleClass('d-block');
+}
+
 // function yearDelete(id){
 //     if(confirm("Вы действительно хотите удалить данный факультет? Все кафедры данного факультета, а также права на загрузку ВКР будут удалены")){
 //         $.ajax({

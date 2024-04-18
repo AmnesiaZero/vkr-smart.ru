@@ -2,18 +2,18 @@
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #fff;">
             <div class="modal-header">
-                <h4 class="modal-title">Создать факультет</h4>
+                <h4 class="modal-title">Создать профиль обучения</h4>
             </div>
             <div class="modal-body">
-                <form method="post" id="faculty_form" class="d-flex flex-column gap-2" onsubmit="createFaculty();return false;">
+                <form method="post" id="faculty-form" class="d-flex flex-column gap-2" onsubmit="createProgram();return false;">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Имя</label>
+                        <label for="name">Название</label>
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="modal-footer br-none">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal('create_faculty')">Закрыть</button>
-                        <button type="submit" class="btn btn-success" onclick="closeModal('create_faculty')">Создать</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal('create_program')">Закрыть</button>
+                        <button type="submit" class="btn btn-success" onclick="closeModal('create_program')">Создать</button>
                     </div>
                 </form>
             </div>

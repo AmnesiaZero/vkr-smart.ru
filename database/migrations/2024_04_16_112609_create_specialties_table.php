@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organizations_years', function (Blueprint $table) {
+        Schema::create('specialties', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
-            $table->integer('user_id');
-            $table->string('comment')->default(' ');
-            $table->integer('students_count');
-            $table->boolean('is_deleted')->default(0);
+            $table->integer('program_id');
+            $table->integer('specialty_id');
+            $table->integer('code');
+            $table->string('name');
+            $table->integer('unique_percent');
+            $table->integer('borrowed_percent');
+            $table->boolean('is_deleted');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organizations_years');
+        Schema::dropIfExists('specialties');
     }
 };

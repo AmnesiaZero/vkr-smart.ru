@@ -4,58 +4,66 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Models\OrganizationFaculty;
-use App\Services\OrganizationsFaculties\OrganizationsFacultiesService;
+use App\Services\Faculties\FacultiesService;
+use App\Services\FacultiesDepartments\FacultiesDepartmentsService;
+use App\Services\OrganizationsYears\OrganizationsYearsService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\JsonResponse;
 
-class OrganizationsFacultiesController extends Controller
+class FacultiesDepartmentsController extends Controller
 {
-    public OrganizationsFacultiesService $facultiesService;
+
+    public FacultiesDepartmentsService $facultiesDepartmentsService;
+
+    public FacultiesService $facultiesService;
 
     protected array $fillable = [
-        'year_id',
+        'faculty_id',
         'name',
-        'students_count',
-        'graduates_count'
+        'year_id'
     ];
 
-    public function __construct(OrganizationsFacultiesService $facultiesService)
+    public function __construct(FacultiesDepartmentsService $facultiesDepartmentsService,FacultiesService $facultiesService)
     {
+        $this->facultiesDepartmentsService = $facultiesDepartmentsService;
         $this->facultiesService = $facultiesService;
     }
 
     public function get(Request $request): JsonResponse
     {
+        Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
-            'year_id' => 'required|integer'
+            'faculty_id' => 'required|integer'
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
-        $yearId = $request->year_id;
-        return $this->facultiesService->get($yearId);
+        $faculty_id = $request->faculty_id;
+        $result = $this->facultiesDepartmentsService->get($faculty_id);
+        Log::debug('result = '.$result);
+        return $this->facultiesDepartmentsService->get($faculty_id);
     }
 
     public function create(Request $request): JsonResponse
     {
-        $data = $request->only($this->fillable);
-        $validator = Validator::make($data, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required'
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
+        $data = $request->only($this->fillable);
         $user = Auth::user();
-        $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id]);
+        $yearId = $this->facultiesService->getYearId($request->faculty_id);
+        $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id,'year_id' => $yearId]);
         Log::debug('request data = ' . print_r($data, true));
-        return $this->facultiesService->create($data);
+        return $this->facultiesDepartmentsService->create($data);
     }
 
-    public function update(Request $request): JsonResponse
+    public function update(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
@@ -63,10 +71,10 @@ class OrganizationsFacultiesController extends Controller
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
-        $facultyId = $request->id;
+        $facultyDepartment = $request->id;
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->facultiesService->update($facultyId,$data);
+        return $this->facultiesDepartmentsService->update($facultyDepartment,$data);
     }
 
     public function destroy(Request $request): JsonResponse
@@ -81,6 +89,6 @@ class OrganizationsFacultiesController extends Controller
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->facultiesService->destroy($facultyId);
+        return $this->facultiesDepartmentsService->destroy($facultyId);
     }
 }

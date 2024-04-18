@@ -433,7 +433,7 @@ p {
 .form-control {
     background: #FFFFFF;
     border: 1px solid #D4D4D4;
-    border-radius: 100px;
+    border-radius: 12px;
 }
 
 label {
@@ -544,12 +544,15 @@ label {
 .text-black-hover:hover {
     color: #2C3E50;
 }
-.myModal{
+
+/* Модальные окна создания */
+.create-modal{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
+    position: fixed;
 }
 .menu {
     height: 130.7vh;
@@ -748,7 +751,7 @@ label {
     border-left: none;
 }
 
-#edit_block, .copy_box {
+.edit_block, .copy_box {
     display: none;
 }
 
@@ -1081,6 +1084,10 @@ input {
 
 .out-kod {
     display: none;
+}
+
+.header {
+    cursor: pointer;
 }
 
 @media (min-width: 1200px) {

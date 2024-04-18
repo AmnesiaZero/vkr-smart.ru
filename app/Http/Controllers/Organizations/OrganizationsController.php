@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Http\Controllers\Controller;
 use App\Services\Organizations\OrganizationsService;
-use App\Services\OrganizationsFaculties\OrganizationsFacultiesService;
+use App\Services\Faculties\FacultiesService;
 use App\Services\OrganizationsYears\OrganizationsYearsService;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,11 +15,11 @@ class OrganizationsController extends Controller
 
     public OrganizationsYearsService $yearsService;
 
-    public OrganizationsFacultiesService $departmentsService;
+    public FacultiesService $departmentsService;
 
     public function __construct(
         OrganizationsYearsService $yearsService,
-        OrganizationsFacultiesService $departmentsService
+        FacultiesService $departmentsService
     ) {
         $this->yearsService = $yearsService;
         $this->departmentsService = $departmentsService;

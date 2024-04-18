@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Organizations;
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
 use App\Models\OrganizationYear;
+use App\Services\Faculties\FacultiesService;
+use App\Services\FacultiesDepartments\FacultiesDepartmentsService;
 use App\Services\OrganizationsYears\OrganizationsYearsService;
+use App\Services\Programs\ProgramsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,9 +25,19 @@ class OrganizationsYearsController extends Controller
     ];
     private OrganizationsYearsService $organizationYearsService;
 
-    public function __construct(OrganizationsYearsService $yearsService)
+    private FacultiesService $facultiesService;
+
+    private FacultiesDepartmentsService $facultiesDepartmentsService;
+
+    private ProgramsService $programsService;
+
+    public function __construct(OrganizationsYearsService $yearsService,FacultiesService $facultiesService,
+        FacultiesDepartmentsService $facultiesDepartmentsService,ProgramsService $programsService)
     {
         $this->organizationYearsService = $yearsService;
+        $this->facultiesService = $facultiesService;
+        $this->facultiesDepartmentsService = $facultiesDepartmentsService;
+        $this->programsService = $programsService;
     }
 
     public function get(): JsonResponse
@@ -74,14 +87,27 @@ class OrganizationsYearsController extends Controller
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
         ]);
-        $yearId = $request->id;
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
+        $yearId = $request->id;
         Log::debug('Вошёл в create у organizations years');
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
         return $this->organizationYearsService->destroy($yearId);
+    }
+
+    public function copy(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|integer'
+        ]);
+        if($validator->fails()){
+            return ValidatorHelper::validatorError($validator);
+        }
+        $yearId = $request->id;
+
+       return $this->organizationYearsService->copy($yearId);
     }
 
 }

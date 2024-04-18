@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('organization_id')->after('password'); // Добавление новой колонки 'email' после колонки 'name'
+            $table->bigInteger('organization_id')->after('password')->default(0); // Добавление новой колонки 'email' после колонки 'name'
         });
     }
 

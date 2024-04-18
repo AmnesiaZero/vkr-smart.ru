@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\OrganizationsFaculties\Repositories;
+namespace App\Services\Faculties\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-interface OrganizationFacultyRepositoryInterface
+interface FacultyRepositoryInterface
 {
     /**
      * Создать новый факультет для организации
@@ -28,4 +28,18 @@ interface OrganizationFacultyRepositoryInterface
      * @return bool
      */
     public function destroy(int $id): bool;
+
+    /**
+     * Найти по id-шнику
+     * @param int $id
+     * @return Model
+     */
+    public function find(int $id):Model;
+
+    /**
+     * Получить id года
+     * @param int $id
+     * @return int
+     */
+    public function getYearId(int $id):int;
 }

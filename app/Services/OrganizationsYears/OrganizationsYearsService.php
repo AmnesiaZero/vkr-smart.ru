@@ -59,7 +59,7 @@ class OrganizationsYearsService extends Services
        $result = $this->_repository->update($id, $data);
        Log::debug('result = '.$result);
        if ($result) {
-           $year = OrganizationYear::query()->find($id);
+           $year = $this->_repository->find($id);
            return JsonHelper::sendJsonResponse(true,[
                'title' => 'Успех',
                'message' => 'Информация успешно сохранена',
@@ -89,6 +89,32 @@ class OrganizationsYearsService extends Services
            return JsonHelper::sendJsonResponse(true,[
               'title' => 'Успешно',
               'message' => 'Год удален успешно'
+           ]);
+       }
+       else {
+           return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+               'message' => 'Ошибка при удалении из базы данных'
+           ],403);
+       }
+   }
+
+   public function copy(int $id)
+   {
+       if (!$id) {
+           return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+               'message' => 'Не указан id ресурса'
+           ]);
+       }
+
+       $year = $this->_repository->copy($id);
+
+       if ($year) {
+           return JsonHelper::sendJsonResponse(true,[
+               'title' => 'Успешно',
+               'message' => 'Год скопирован успешно',
+               'year' => $year
            ]);
        }
        else {

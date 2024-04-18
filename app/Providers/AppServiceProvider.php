@@ -20,12 +20,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $repositories = [
-           'Organization' => 'Organizations',
-            'OrganizationDepartment' => 'OrganizationsDepartments',
+             'Organization' => 'Organizations',
             'OrganizationYear' => 'OrganizationsYears',
             'User' => 'Users',
-            'OrganizationFaculty' => 'OrganizationsFaculties',
-            'OrganizationFacultyDepartment' => 'OrganizationsFacultiesDepartments'
+            'Faculty' => 'Faculties',
+            'FacultyDepartment' => 'FacultiesDepartments',
+            'Program' => 'Programs'
         ];
 
         foreach ($repositories as $k => $v) {

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organizations_years', function (Blueprint $table) {
+        Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
+            $table->integer('faculty_department_id');
             $table->integer('user_id');
-            $table->string('comment')->default(' ');
-            $table->integer('students_count');
-            $table->boolean('is_deleted')->default(0);
+            $table->string('name');
+            $table->integer('educational_level')->default(0);
+            $table->integer('level')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organizations_years');
+        Schema::dropIfExists('programs');
     }
 };

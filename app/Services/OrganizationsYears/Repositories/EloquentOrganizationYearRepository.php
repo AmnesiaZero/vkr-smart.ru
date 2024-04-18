@@ -33,8 +33,19 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
     }
 
 
+    public function find($id):Model
+    {
+        return OrganizationYear::query()->find($id);
+    }
+
+
     public function destroy(int $id):bool
     {
         return OrganizationYear::query()->find($id)->delete();
+    }
+
+    public function copy(int $id):Model
+    {
+        return OrganizationYear::query()->find($id)->replicate();
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organizations_faculties_departments', function (Blueprint $table) {
+        Schema::create('faculties_departments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('organization_id');
             $table->bigInteger('year_id');
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('students_count')->default(0);
             $table->integer('graduates_count')->default(0);;
             $table->boolean('is_deleted')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organizations_faculties_departments');
+        Schema::dropIfExists('faculties_departments');
     }
 };

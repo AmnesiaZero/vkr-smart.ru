@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organizations_faculties', function (Blueprint $table) {
+        Schema::create('faculties', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('year_id');
+            $table->unsignedBigInteger('year_id');
             $table->bigInteger('user_id');
             $table->bigInteger('organization_id');
             $table->string('name')->nullable();
             $table->integer('students_count')->default(0);
             $table->integer('graduates_count')->default(0);;
             $table->boolean('is_deleted')->default(0);
+            $table->softDeletes();
+            $table->foreign('year_id')->references('id')->
+             on('organizations_years')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faculty_departments');
+        Schema::dropIfExists('faculties');
     }
 };

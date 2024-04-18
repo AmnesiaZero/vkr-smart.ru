@@ -1,16 +1,13 @@
-<div class="myModal" id="create_year">
+<div class="create-modal" id="create_year">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #fff;"> <!-- Белый цвет фона для модального окна -->
-            <!-- Заголовок модального окна -->
+        <div class="modal-content" style="background-color: #fff;">
+
             <div class="modal-header">
                 <h4 class="modal-title">Создать год</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <!-- Содержимое модального окна -->
             <div class="modal-body">
-                <!-- Форма с полями -->
-                <form method="post" id="yearForm" onsubmit="createYear(); return false;">
+                <form method="post" id="yearForm" class="d-flex flex-column gap-2" onsubmit="createYear(); return false;">
                     @csrf
                     <div class="form-group">
                         <label for="year">Год</label>
@@ -24,14 +21,12 @@
                         <label for="comment">Комментарий</label>
                         <input type="text" class="form-control" id="comment" name="comment">
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer br-none">
                             <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal('create_year')">Закрыть</button>
-                            <button type="submit" class="btn btn-success" onclick="closeModal('create_year')">Отправить</button> <!-- Зеленый цвет кнопки "Отправить" -->
+                            <button type="submit" class="btn btn-success" onclick="closeModal('create_year')">Создать</button> <!-- Зеленый цвет кнопки "Отправить" -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
