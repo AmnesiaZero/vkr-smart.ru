@@ -43,6 +43,9 @@ app021_dev_vkr_smart_ru:
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan route:clear"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan config:cache"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan config:cache"
+    - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan db:seed --class='UsersTableSeeder'"
+    - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan db:seed --class='SetAdminSeeder'"
+    - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan config:cache"
   only:
     refs:
       - dev
