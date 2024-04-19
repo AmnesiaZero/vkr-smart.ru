@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProgramsController extends Controller
 {
@@ -33,7 +34,7 @@ class ProgramsController extends Controller
     {
         Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
-            'faculty_department_id' => 'required|integer'
+            'faculty_department_id' => ['required','integer']
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -60,18 +61,30 @@ class ProgramsController extends Controller
     public function update(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required','integer',Rule::exists('programs','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
-        $facultyDepartment = $request->id;
+        $id = $request->id;
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->programsService->update($facultyDepartment,$data);
+        return $this->programsService->update($id,$data);
     }
 
     public function delete(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer',Rule::exists('programs','id')]
+        ]);
+        if($validator->fails()){
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->programsService->delete($id);
+    }
+
+    public function find(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
@@ -79,10 +92,7 @@ class ProgramsController extends Controller
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
-        $facultyId = $request->id;
-        Log::debug('Вошёл в create у faculties');
-        $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
-        return $this->programsService->delete($facultyId);
+        $id = $request->id;
+        return $this->programsService->find($id);
     }
 }

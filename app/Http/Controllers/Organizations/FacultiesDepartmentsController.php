@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class FacultiesDepartmentsController extends Controller
 {
@@ -36,7 +37,7 @@ class FacultiesDepartmentsController extends Controller
     {
         Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
-            'faculty_id' => 'required|integer'
+            'faculty_id' => ['required','integer',Rule::exists('faculties_departments','faculty_id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -64,7 +65,7 @@ class FacultiesDepartmentsController extends Controller
     public function update(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required','integer']
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
@@ -78,7 +79,7 @@ class FacultiesDepartmentsController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required','integer',Rule::exists('faculties_departments','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);

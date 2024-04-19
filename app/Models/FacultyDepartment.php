@@ -39,12 +39,9 @@ class FacultyDepartment extends Model
         });
         static::replicating(function ($post){
             Log::debug('replicate у faculty departments');
-
             $post->programs()->replicate();
         });
     }
-
-
 
     public function programs(): HasMany
     {

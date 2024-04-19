@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('students_count')->default(0);
             $table->integer('graduates_count')->default(0);;
             $table->boolean('is_deleted')->default(0);
+            $table->foreign('faculty_id')->references('id')->
+            on('faculties')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

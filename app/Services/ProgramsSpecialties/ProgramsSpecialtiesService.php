@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Services\Programs;
+namespace App\Services\ProgramsSpecialties;
 
 use App\Helpers\JsonHelper;
-use App\Models\Faculty;
+use App\Http\Controllers\Controller;
 use App\Models\Program;
 use App\Services\Programs\Repositories\ProgramRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
-class ProgramsService
+class ProgramsSpecialtiesService extends Controller
 {
+
     public $_repository;
 
     public function __construct(ProgramRepositoryInterface $programRepository)
@@ -43,18 +44,13 @@ class ProgramsService
         ],403);
     }
 
-    public function get(int $facultyDepartmentId): JsonResponse
+    public function get(int $programId): JsonResponse
     {
-        $programs =  $this->_repository->get($facultyDepartmentId);
+        $programSpecialties =  $this->_repository->get($programId);
         return JsonHelper::sendJsonResponse(true,[
-            'title' => 'Успешно получены кафедры',
-            'programs'=> $programs
+            'title' => 'Успешно получены программы',
+            'program_specialties'=> $programSpecialties
         ]);
-    }
-
-    public function getByYearId(int $yearId): Collection
-    {
-        return $this->_repository->getByYearId($yearId);
     }
 
     public function update(int $id, array $data): JsonResponse
@@ -108,14 +104,4 @@ class ProgramsService
             ],403);
         }
     }
-
-    public function find(int $id): JsonResponse
-    {
-      $program =  $this->_repository->find($id);
-      return JsonHelper::sendJsonResponse(true,[
-          'title' => 'Успешно',
-          'program' => $program
-      ]);
-    }
-
 }

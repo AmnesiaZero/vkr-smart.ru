@@ -6,6 +6,7 @@ use App\Http\Controllers\Organizations\FacultiesController;
 use App\Http\Controllers\Organizations\FacultiesDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\Organizations\ProgramsController;
+use App\Http\Controllers\Organizations\ProgramsSpecialtiesController;
 use App\Http\Controllers\UsersController;
 use App\Models\OrganizationYear;
 use Illuminate\Http\Request;
@@ -211,6 +212,12 @@ Route::group([
            Route::post('create',[ProgramsController::class,'create']);
            Route::post('delete',[ProgramsController::class,'delete']);
            Route::post('update',[ProgramsController::class,'update']);
+           Route::get('find',[ProgramsController::class,'find']);
+           Route::group([
+             'prefix' => 'specialties'
+           ],function (){
+               Route::get('get',[ProgramsSpecialtiesController::class,'get']);
+           });
         });
     });
 

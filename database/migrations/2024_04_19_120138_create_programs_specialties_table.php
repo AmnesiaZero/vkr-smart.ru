@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('programs', function (Blueprint $table) {
+        Schema::create('programs_specialties', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
-            $table->integer('faculty_department_id');
-            $table->integer('user_id');
-            $table->string('name');
-            $table->integer('educational_level')->default(0);
-            $table->integer('level')->default(0);
+            $table->integer('program_id');
+            $table->integer('specialty_id')->nullable();
+            $table->string('code')->nullable();
+            $table->integer('q_percent')->default(0);
+            $table->integer('borrowed_percent')->default(0);
             $table->softDeletes();
-            $table->foreign('faculty_department_id')->references('id')->
-            on('faculties_departments')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programs');
+        Schema::dropIfExists('programs_specialties');
     }
 };

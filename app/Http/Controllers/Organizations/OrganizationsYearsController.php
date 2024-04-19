@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class OrganizationsYearsController extends Controller
 {
@@ -70,7 +71,7 @@ class OrganizationsYearsController extends Controller
     public function update(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required','integer',Rule::exists('organizations_year','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
@@ -85,7 +86,7 @@ class OrganizationsYearsController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required','integer',Rule::exists('organizations_year','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
@@ -100,7 +101,7 @@ class OrganizationsYearsController extends Controller
     public function copy(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required','integer',Rule::exists('organizations_year','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
