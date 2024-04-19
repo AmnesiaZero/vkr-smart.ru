@@ -196,7 +196,7 @@
                 </div>
             </div>
             <div class="col text-end">
-                <button id="edit" class="btn copy_edit br-none" type="button" onclick="showProgram(${id})"></button>
+                <button id="edit" class="btn copy_edit br-none" type="button" onclick="showProgramEditBlock(${id})"></button>
                 <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteProgram(${id})"></button>
             </div>
         </div>

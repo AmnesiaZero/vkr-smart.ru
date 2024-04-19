@@ -81,11 +81,11 @@ class FacultiesDepartmentsService extends Services
         $result = $this->_repository->update($id, $data);
 
         if ($result) {
-            $faculty = Faculty::query()->find($id);
+            $facultyDepartment = FacultyDepartment::query()->find($id);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
-                'faculty' => $faculty
+                'faculty_department' => $facultyDepartment
             ]);
         } else {
             return JsonHelper::sendJsonResponse(false,[

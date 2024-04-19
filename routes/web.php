@@ -210,6 +210,7 @@ Route::group([
            Route::get('get',[ProgramsController::class,'get']);
            Route::post('create',[ProgramsController::class,'create']);
            Route::post('delete',[ProgramsController::class,'delete']);
+           Route::post('update',[ProgramsController::class,'update']);
         });
     });
 

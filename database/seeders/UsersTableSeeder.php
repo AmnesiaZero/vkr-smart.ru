@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-           'name' => 'nvkuzmichev',
+             'name' => 'nvkuzmichev',
             'password' => bcrypt('00guQbvJlB'),
 
         ]);

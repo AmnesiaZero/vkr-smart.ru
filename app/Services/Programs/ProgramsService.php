@@ -4,6 +4,7 @@ namespace App\Services\Programs;
 
 use App\Helpers\JsonHelper;
 use App\Models\Faculty;
+use App\Models\Program;
 use App\Services\Programs\Repositories\ProgramRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -68,11 +69,11 @@ class ProgramsService
         $result = $this->_repository->update($id, $data);
 
         if ($result) {
-            $faculty = Faculty::query()->find($id);
+            $faculty = Program::query()->find($id);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
-                'faculty' => $faculty
+                'program' => $faculty
             ]);
         } else {
             return JsonHelper::sendJsonResponse(false,[

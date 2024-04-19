@@ -366,7 +366,7 @@ function updateFacultyDepartment(facultyDepartmentId)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
-            $("#faculty_" + facultyDepartmentId).text(response.data.faculty_department.name);
+            $("#faculty_department_" + facultyDepartmentId).text(response.data.faculty_department.name);
             $.notify("Кафедра успешно обновлена","success");
         },
         error : function(response){
