@@ -42,5 +42,5 @@ interface FacultyDepartmentRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function destroy(int $id): bool;
+    public function delete(int $id): bool;
 }

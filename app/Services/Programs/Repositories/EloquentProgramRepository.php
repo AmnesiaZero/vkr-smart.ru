@@ -30,7 +30,7 @@ class EloquentProgramRepository implements ProgramRepositoryInterface
     }
 
 
-    public function destroy(int $id): bool
+    public function delete(int $id): bool
     {
         return Program::query()->find($id)->delete();
     }

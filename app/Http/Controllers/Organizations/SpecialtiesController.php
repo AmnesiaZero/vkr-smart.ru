@@ -66,7 +66,7 @@ class SpecialtiesController extends Controller
         return $this->specialtiesService->update($facultyDepartment,$data);
     }
 
-    public function destroy(Request $request): JsonResponse
+    public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
@@ -78,6 +78,6 @@ class SpecialtiesController extends Controller
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->specialtiesService->destroy($facultyId);
+        return $this->specialtiesService->delete($facultyId);
     }
 }

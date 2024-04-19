@@ -38,10 +38,8 @@ class ProgramsController extends Controller
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
-        $faculty_id = $request->faculty_id;
-        $result = $this->programsService->get($faculty_id);
-        Log::debug('result = '.$result);
-        return $this->programsService->get($faculty_id);
+        $facultyDepartmentId = $request->faculty_department_id;
+        return $this->programsService->get($facultyDepartmentId);
     }
 
     public function create(Request $request): JsonResponse
@@ -73,7 +71,7 @@ class ProgramsController extends Controller
         return $this->programsService->update($facultyDepartment,$data);
     }
 
-    public function destroy(Request $request): JsonResponse
+    public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
@@ -85,6 +83,6 @@ class ProgramsController extends Controller
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->programsService->destroy($facultyId);
+        return $this->programsService->delete($facultyId);
     }
 }

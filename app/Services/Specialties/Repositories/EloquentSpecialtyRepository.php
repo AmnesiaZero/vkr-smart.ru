@@ -24,7 +24,7 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
         return Specialty::query()->find($id)->update($data);
     }
 
-    public function destroy(int $id): bool
+    public function delete(int $id): bool
     {
         return Specialty::query()->find($id)->delete();
     }

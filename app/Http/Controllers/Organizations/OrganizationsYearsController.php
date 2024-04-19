@@ -82,7 +82,7 @@ class OrganizationsYearsController extends Controller
         return $this->organizationYearsService->update($yearId,$data);
     }
 
-    public function destroy(Request $request): JsonResponse
+    public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
@@ -94,7 +94,7 @@ class OrganizationsYearsController extends Controller
         Log::debug('Вошёл в create у organizations years');
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->organizationYearsService->destroy($yearId);
+        return $this->organizationYearsService->delete($yearId);
     }
 
     public function copy(Request $request): JsonResponse

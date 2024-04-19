@@ -20,7 +20,7 @@ class EloquentFacultyDepartmentRepository implements FacultyDepartmentRepository
 
     public function get(int $facultyId):Collection
     {
-        return FacultyDepartment::query()->where('organization_id','=',$facultyId)->get();
+        return FacultyDepartment::query()->where('faculty_id','=',$facultyId)->get();
     }
 
     public function getByYearId(int $yearId):Collection
@@ -33,7 +33,7 @@ class EloquentFacultyDepartmentRepository implements FacultyDepartmentRepository
         return FacultyDepartment::query()->where('id' ,'=',$id)->update($data);
     }
 
-    public function destroy(int $id): bool
+    public function delete(int $id): bool
     {
         return FacultyDepartment::query()->find($id)->delete();
     }

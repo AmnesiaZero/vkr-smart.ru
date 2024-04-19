@@ -42,8 +42,6 @@ class FacultiesDepartmentsController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $faculty_id = $request->faculty_id;
-        $result = $this->facultiesDepartmentsService->get($faculty_id);
-        Log::debug('result = '.$result);
         return $this->facultiesDepartmentsService->get($faculty_id);
     }
 
@@ -71,13 +69,13 @@ class FacultiesDepartmentsController extends Controller
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
         }
-        $facultyDepartment = $request->id;
+        $id = $request->id;
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->facultiesDepartmentsService->update($facultyDepartment,$data);
+        return $this->facultiesDepartmentsService->update($id,$data);
     }
 
-    public function destroy(Request $request): JsonResponse
+    public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer'
@@ -89,6 +87,6 @@ class FacultiesDepartmentsController extends Controller
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
         Log::debug('data = '.print_r($data,true));
-        return $this->facultiesDepartmentsService->destroy($facultyId);
+        return $this->facultiesDepartmentsService->delete($facultyId);
     }
 }

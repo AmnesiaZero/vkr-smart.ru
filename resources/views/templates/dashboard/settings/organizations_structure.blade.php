@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col">
                             <p class="mb-2 fw-600 px-3">Год выпуска</p>
-                            <div id="years-list"></div>
+                            <div id="years_list"></div>
 
                             <div class="mx-3" id="year_end">
                                 <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1"
@@ -21,11 +21,11 @@
             </div>
             @include('layouts.dashboard.include.modal.create.year')
             <div class="col-xxl-5 col-xl-6 col-12 mb-3">
-                <div class="br-green-light-2 br-15 py-3" id="faculties-container" style="display: none">
+                <div class="br-green-light-2 br-15 py-3" id="faculties_container" style="display: none">
                     <div class="row">
                         <div class="col">
                             <p class="mb-2 fw-600 px-3">Подразделения</p>
-                            <div id="faculties-list">
+                            <div id="faculties_list">
                             </div>
                             <div class="mx-3" id="faculties_end">
                                 <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1"
@@ -36,11 +36,11 @@
                     </div>
                 </div>
                 @include('layouts.dashboard.include.modal.create.faculty')
-                <div class="br-green-light-2 br-15 py-3 mt-4" style="display: none" id="faculties-departments-container">
+                <div class="br-green-light-2 br-15 py-3 mt-4" style="display: none" id="faculties_departments_container">
                     <div class="row">
                         <div class="col">
                             <p class="mb-2 fw-600 px-3">Кафедры</p>
-                            <div id="faculty-departments-list">
+                            <div id="faculty_departments_list">
                             </div>
                             <div class="mx-3">
                                 <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1"
@@ -51,11 +51,11 @@
                     </div>
                 </div>
                 @include('layouts.dashboard.include.modal.create.faculty_department')
-                <div class="br-green-light-2 br-15 py-3 mt-4" style="display: none">
+                <div class="br-green-light-2 br-15 py-3 mt-4" style="display: none" id="programs_container">
                     <div class="row">
                         <div class="col">
                             <p class="mb-2 fw-600 px-3">Профили обучения</p>
-                            <div id="programs-list"></div>
+                            <div id="programs_list"></div>
                             <div class="mx-3">
                                 <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1"
                                         onclick="openModal('create_program')">
@@ -72,11 +72,11 @@
 @endsection
 @section('scripts')
     <script id="year_tmpl" type="text/x-jquery-tmpl">
-        <div class="row py-2 mx-0 border-bottom" id="year-row-${id}">
+        <div class="row py-2 mx-0 border-bottom" id="year_row_${id}">
             <div class="col-8 ps-3">
-                <p class="m-0 fs-14 header" id="year-${id}" onclick="faculties(${id})">${year}</p>
+                <p class="m-0 fs-14 header" id="year_${id}" onclick="faculties(${id})">${year}</p>
                 <div class="edit_block" id="edit_block_year_${id}">
-                    <form onsubmit="updateYear(${id});return false;" id="year-update-${id}">
+                    <form onsubmit="updateYear(${id});return false;" id="year_update_${id}">
                         <div class="row g-2 mt-1">
                             <div class="col-lg-4">
                                 <p class="fs-12 text-grey m-0">Год:</p>
@@ -109,7 +109,7 @@
                 <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
                     onclick="showYearEditBlock(${id})"></button>
                 <button id="copy" class="btn copy_btn br-none" type="button"></button>
-                <button id="delete" class="btn copy_delete br-none" type="button" onclick="destroyYear(${id})"></button>
+                <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteYear(${id})"></button>
             </div>
         </div>
 
@@ -117,11 +117,11 @@
 
 
     <script id="faculty_tmpl" type="text/x-jquery-tmpl">
-        <div class="row py-2 mx-0 border-bottom" id="faculty-row-${id}">
+        <div class="row py-2 mx-0 border-bottom" id="faculty_row_${id}">
             <div class="col-8 ps-3">
-                <p class="m-0 fs-14 header" onclick="facultyDepartments(${id})" id="faculty-${id}">${name}</p>
+                <p class="m-0 fs-14 header" onclick="facultyDepartments(${id})" id="faculty_${id}">${name}</p>
                 <div class="edit_block" id="edit_block_faculty_${id}">
-                    <form onsubmit="updateFaculty(${id});return false;" id="faculty-update-${id}">
+                    <form onsubmit="updateFaculty(${id});return false;" id="faculty_update_${id}">
                         <div class="row g-2 mt-1">
                             <div class="col-12">
                                 <p class="fs-12 text-grey m-0">Название:</p>
@@ -139,7 +139,7 @@
             </div>
             <div class="col text-end">
                 <button id="edit" class="btn copy_edit br-none" type="button" onclick="showFacultyEditBlock(${id})"></button>
-                <button id="delete" class="btn copy_delete br-none" type="button" onclick="destroyFaculty(${id})"></button>
+                <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteFaculty(${id})"></button>
             </div>
         </div>
     </script>
@@ -149,14 +149,17 @@
             <div class="col-8 ps-3">
                 <p class="m-0 fs-14 header" onclick="programs(${id})" id="faculty_department_${id}">${name}</p>
                 <div class="edit_block" id="edit_block_faculty_department_${id}">
-                    <form onsubmit="updateFacultyDepartment(${id});return false;" id="faculty-department-update-${id}">
-                        <div class="row py-2 mx-0 border-bottom bg-green">
-                            <div class="col-8 ps-3">
-                                <p class="m-0 fs-14">${name}</p>
+                    <form onsubmit="updateFacultyDepartment(${id});return false;" id="faculty_department_update_${id}">
+                        <div class="row g-2 mt-1">
+                            <div class="col-12">
+                                <p class="fs-12 text-grey m-0">Название:</p>
+                                <input id="edited1" type="text" name="name"
+                                    class="form-control box-shadow-none fs-12 p-0 px-2 py-1 br-2 edited w-auto"
+                                    value="${name}">
                             </div>
-                            <div class="col text-end">
-                                <button id="edit" class="btn copy_edit br-none" type="button"></button>
-                                <button id="delete" class="btn copy_delete br-none" type="button"></button>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-secondary fs-14 py-1 px-3 text-grey br-none br-100 mt-2"
+                                    id="apply_btn">применить</button>
                             </div>
                         </div>
                     </form>
@@ -164,8 +167,8 @@
             </div>
 
             <div class="col text-end">
-                <button id="edit" class="btn copy_edit br-none" type="button" onclick="showFacultyDepartment(${id})"></button>
-                <button id="delete" class="btn copy_delete br-none" type="button" onclick="destroyFacultyDepartment(${id})"></button>
+                <button id="edit" class="btn copy_edit br-none" type="button" onclick="showFacultyDepartmentEditBlock(${id})"></button>
+                <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteFacultyDepartment(${id})"></button>
             </div>
         </div>
     </script>
@@ -174,16 +177,19 @@
 
         <div class="row py-2 mx-0 border-bottom" id="program_row_${id}">
             <div class="col-8 ps-3">
-                <p class="m-0 fs-14" id="program-${id}">${name}</p>
+                <p class="m-0 fs-14" id="program_${id}">${name}</p>
                 <div class="edit_block" id="edit_block_program_${id}">
-                    <form onsubmit="updateProgram(${id});return false;" id="program-update-${id}">
-                        <div class="row py-2 mx-0 border-bottom">
-                            <div class="col-8 ps-3">
-                                <p class="m-0 fs-14">${name}</p>
+                    <form onsubmit="updateProgram(${id});return false;" id="program_update_${id}">
+                        <div class="row g-2 mt-1">
+                            <div class="col-12">
+                                <p class="fs-12 text-grey m-0">Название:</p>
+                                <input id="edited1" type="text" name="name"
+                                    class="form-control box-shadow-none fs-12 p-0 px-2 py-1 br-2 edited w-auto"
+                                    value="${name}">
                             </div>
-                            <div class="col text-end">
-                                <button id="edit" class="btn copy_edit br-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit" aria-controls="offcanvasEdit"></button>
-                                <button id="delete" class="btn copy_delete br-none" type="button"></button>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-secondary fs-14 py-1 px-3 text-grey br-none br-100 mt-2"
+                                    id="apply_btn">применить</button>
                             </div>
                         </div>
                     </form>
@@ -191,7 +197,7 @@
             </div>
             <div class="col text-end">
                 <button id="edit" class="btn copy_edit br-none" type="button" onclick="showProgram(${id})"></button>
-                <button id="delete" class="btn copy_delete br-none" type="button" onclick="destroyProgram(${id})"></button>
+                <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteProgram(${id})"></button>
             </div>
         </div>
     </script>

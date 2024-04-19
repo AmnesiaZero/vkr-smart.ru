@@ -42,12 +42,12 @@ class ProgramsService
         ],403);
     }
 
-    public function get(int $facultyId): JsonResponse
+    public function get(int $facultyDepartmentId): JsonResponse
     {
-        $facultyDepartments =  $this->_repository->get($facultyId);
+        $programs =  $this->_repository->get($facultyDepartmentId);
         return JsonHelper::sendJsonResponse(true,[
             'title' => 'Успешно получены кафедры',
-            'faculty_departments'=> $facultyDepartments
+            'programs'=> $programs
         ]);
     }
 
@@ -62,7 +62,7 @@ class ProgramsService
             return JsonHelper::sendJsonResponse(false,[
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
-            ]);
+            ],400);
         }
 
         $result = $this->_repository->update($id, $data);
@@ -79,11 +79,11 @@ class ProgramsService
                 'title' => 'Ошибка',
                 'message' => 'При сохранении данных произошла ошибка',
                 'id' => $result->id
-            ]);
+            ],400);
         }
     }
 
-    public function destroy(int $id):JsonResponse
+    public function delete(int $id):JsonResponse
     {
         if (!$id) {
             return JsonHelper::sendJsonResponse(false,[
@@ -92,7 +92,7 @@ class ProgramsService
             ]);
         }
 
-        $flag = $this->_repository->destroy($id);
+        $flag = $this->_repository->delete($id);
 
         if ($flag) {
             return JsonHelper::sendJsonResponse(true,[

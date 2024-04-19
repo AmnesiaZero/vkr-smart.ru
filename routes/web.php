@@ -183,7 +183,7 @@ Route::group([
                Route::get('get',[OrganizationsYearsController::class,'get']);
                Route::post('create',[OrganizationsYearsController::class,'create']);
                Route::post('update',[OrganizationsYearsController::class,'update']);
-               Route::post('destroy',[OrganizationsYearsController::class,'destroy']);
+               Route::post('delete',[OrganizationsYearsController::class,'delete']);
                Route::post('copy',[OrganizationsYearsController::class,'copy']);
            });
         Route::group([
@@ -192,7 +192,7 @@ Route::group([
             Route::get('get',[FacultiesController::class,'get']);
             Route::post('create',[FacultiesController::class,'create']);
             Route::post('update',[FacultiesController::class,'update']);
-            Route::post('destroy',[FacultiesController::class,'destroy']);
+            Route::post('delete',[FacultiesController::class,'delete']);
         });
 
         Route::group([
@@ -201,13 +201,15 @@ Route::group([
              Route::get('get',[FacultiesDepartmentsController::class,'get']);
              Route::post('create',[FacultiesDepartmentsController::class,'create']);
              Route::post('update',[FacultiesDepartmentsController::class,'update']);
-             Route::post('destroy',[FacultiesDepartmentsController::class,'destroy']);
+             Route::post('delete',[FacultiesDepartmentsController::class,'delete']);
         });
 
         Route::group([
             'prefix' => 'programs'
         ],function (){
+           Route::get('get',[ProgramsController::class,'get']);
            Route::post('create',[ProgramsController::class,'create']);
+           Route::post('delete',[ProgramsController::class,'delete']);
         });
     });
 

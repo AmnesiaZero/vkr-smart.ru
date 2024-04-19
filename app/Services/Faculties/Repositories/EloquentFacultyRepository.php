@@ -27,7 +27,7 @@ class EloquentFacultyRepository implements FacultyRepositoryInterface
         return Faculty::query()->where('id' ,'=',$id)->update($data);
     }
 
-    public function destroy(int $id): bool
+    public function delete(int $id): bool
     {
         return Faculty::query()->find($id)->delete();
     }

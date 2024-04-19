@@ -85,7 +85,7 @@ class FacultiesService extends Services
         }
     }
 
-    public function destroy(int $id):JsonResponse
+    public function delete(int $id):JsonResponse
     {
         if (!$id) {
             return JsonHelper::sendJsonResponse(false,[
@@ -94,7 +94,7 @@ class FacultiesService extends Services
             ]);
         }
 
-        $flag = $this->_repository->destroy($id);
+        $flag = $this->_repository->delete($id);
 
         if ($flag) {
             return JsonHelper::sendJsonResponse(true,[

@@ -1078,6 +1078,14 @@ input {
     outline: none;
 }
 
+#faculties_list,
+#years_list,
+#faculty_departments_list,
+#programs-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
 .p-date {
     padding: 0.3rem 0;
 }

@@ -74,7 +74,7 @@ class OrganizationsYearsService extends Services
        }
    }
 
-   public function destroy(int $id):JsonResponse
+   public function delete(int $id):JsonResponse
    {
        if (!$id) {
            return JsonHelper::sendJsonResponse(false,[
@@ -83,7 +83,7 @@ class OrganizationsYearsService extends Services
            ]);
        }
 
-       $result = $this->_repository->destroy($id);
+       $result = $this->_repository->delete($id);
 
        if ($result) {
            return JsonHelper::sendJsonResponse(true,[

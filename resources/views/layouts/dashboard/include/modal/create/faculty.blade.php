@@ -4,11 +4,11 @@
             <div class="modal-header">
                 <h4 class="modal-title">Создать факультет</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4">
                 <form method="post" id="faculty_form" class="d-flex flex-column gap-2" onsubmit="createFaculty();return false;">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Имя</label>
+                        <label for="name">Название подразделения</label>
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="modal-footer br-none">

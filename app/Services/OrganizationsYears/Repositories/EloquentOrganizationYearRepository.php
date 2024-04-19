@@ -39,7 +39,7 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
     }
 
 
-    public function destroy(int $id):bool
+    public function delete(int $id):bool
     {
         return OrganizationYear::query()->find($id)->delete();
     }
