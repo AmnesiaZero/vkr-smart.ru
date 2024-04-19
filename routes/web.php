@@ -7,6 +7,7 @@ use App\Http\Controllers\Organizations\FacultiesDepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\Organizations\ProgramsController;
 use App\Http\Controllers\Organizations\ProgramsSpecialtiesController;
+use App\Http\Controllers\Organizations\SpecialtiesController;
 use App\Http\Controllers\UsersController;
 use App\Models\OrganizationYear;
 use Illuminate\Http\Request;
@@ -218,6 +219,12 @@ Route::group([
            ],function (){
                Route::get('get',[ProgramsSpecialtiesController::class,'get']);
            });
+        });
+
+        Route::group([
+          'prefix' => 'specialties'
+        ],function (){
+            Route::get('get',[SpecialtiesController::class,'get']);
         });
     });
 

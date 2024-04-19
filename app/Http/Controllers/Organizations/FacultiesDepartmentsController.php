@@ -37,7 +37,7 @@ class FacultiesDepartmentsController extends Controller
     {
         Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
-            'faculty_id' => ['required','integer',Rule::exists('faculties_departments','faculty_id')]
+            'faculty_id' => 'required|integer'
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);

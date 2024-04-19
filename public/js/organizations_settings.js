@@ -574,16 +574,14 @@ function loadProgramInfo(id)
         data: { id: id },
         success: function(response) {
             if (response.success){
-                // Открытие Offcanvas
-                const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasEdit'));
-                offcanvas.show();
-
+                localStorage.setItem('program_id',id);
                 const eduLevel = response.data.program.educational_level;
                 $('#level_education_' + eduLevel).prop('checked', true);
                 const level = response.data.program.level;
                 $('#level' + level).prop('checked', true);
-                programSpecialties(id)
-                $('.offcanvas-body').html(response);
+                specialties();
+                const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasEdit'));
+                offcanvas.show();
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message,"error");
@@ -592,6 +590,30 @@ function loadProgramInfo(id)
         error: function(xhr, status, error) {
             // Обработка ошибки AJAX-запроса
             console.error(error);
+        }
+    });
+}
+
+function specialties()
+{
+    $.ajax({
+        url: "/dashboard/organizations/programs/specialties/get",
+        dataType: "json",
+        type: "GET",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success) {
+                const specialties = response.data.specialties;
+                $("#specialties_list").html($("#specialty_tmpl").tmpl(specialties));
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        },
+        error: function () {
+            $.notify("Ошибка при удалении профиля. Обратитесь к системному администратору","error");
         }
     });
 }

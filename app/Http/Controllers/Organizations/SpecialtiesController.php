@@ -24,17 +24,8 @@ class SpecialtiesController extends Controller
 
     public function get(Request $request): JsonResponse
     {
-        Log::debug('Вошёл в get у faculty departments');
-        $validator = Validator::make($request->all(), [
-            'faculty_id' => 'required|integer'
-        ]);
-        if ($validator->fails()) {
-            return ValidatorHelper::validatorError($validator);
-        }
-        $faculty_id = $request->faculty_id;
-        $result = $this->specialtiesService->get($faculty_id);
-        Log::debug('result = '.$result);
-        return $this->specialtiesService->get($faculty_id);
+        $user = Auth::user();
+        return $this->specialtiesService->get($user->id);
     }
 
     public function create(Request $request): JsonResponse

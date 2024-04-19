@@ -14,13 +14,10 @@ return new class extends Migration
         Schema::create('specialties', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
-            $table->integer('program_id');
-            $table->integer('specialty_id');
-            $table->integer('code');
-            $table->string('name');
-            $table->integer('unique_percent');
-            $table->integer('borrowed_percent');
-            $table->boolean('is_deleted');
+            $table->integer('direction_id');
+            $table->integer('year_id');
+            $table->string('faculty_id');
+            $table->integer('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

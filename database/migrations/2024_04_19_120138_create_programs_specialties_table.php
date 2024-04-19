@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('programs_specialties', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
-            $table->integer('program_id');
+            $table->unsignedBigInteger('program_id');
             $table->integer('specialty_id')->nullable();
             $table->string('code')->nullable();
             $table->integer('q_percent')->default(0);
             $table->integer('borrowed_percent')->default(0);
+            $table->foreign('program_id')->references('id')->
+            on('programs')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

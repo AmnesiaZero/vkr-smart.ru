@@ -41,12 +41,12 @@ class SpecialtiesService
         ],403);
     }
 
-    public function get(int $facultyId): JsonResponse
+    public function get(int $userId): JsonResponse
     {
-        $specialties =  $this->_repository->get($facultyId);
+        $specialties =  $this->_repository->get($userId);
         return JsonHelper::sendJsonResponse(true,[
-            'title' => 'Успешно получены кафедры',
-            'faculty_departments'=> $specialties
+            'title' => 'Успешно получены направления',
+            'specialties'=> $specialties
         ]);
     }
 

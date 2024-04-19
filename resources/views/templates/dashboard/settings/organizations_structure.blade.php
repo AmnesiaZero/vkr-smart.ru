@@ -342,7 +342,7 @@
     </div>
     </script>
 
-        <script id="program_specialty_tmpl" type="text/x-jquery-tmpl">
+        <script id="specialty_tmpl" type="text/x-jquery-tmpl">
             <option value="{id}">=${code} | ${name} </option>
         </script>
 

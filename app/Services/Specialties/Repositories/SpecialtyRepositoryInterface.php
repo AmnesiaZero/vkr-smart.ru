@@ -16,10 +16,10 @@ interface SpecialtyRepositoryInterface
 
     /**
      * Получить кафедры по id факультета
-     * @param int $facultyId
+     * @param int $userId
      * @return Collection
      */
-    public function get(int $facultyDepartmentId):Collection;
+    public function get(int $userId):Collection;
 
 
     /**

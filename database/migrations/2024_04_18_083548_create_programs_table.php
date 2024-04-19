@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
-            $table->integer('faculty_department_id');
+            $table->unsignedBigInteger('faculty_department_id');
             $table->integer('user_id');
             $table->string('name');
             $table->integer('educational_level')->default(0);

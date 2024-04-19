@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('organization_id');
             $table->bigInteger('year_id');
-            $table->bigInteger('faculty_id');
+            $table->unsignedBigInteger('faculty_id');
             $table->bigInteger('user_id');
             $table->string('name')->nullable();
             $table->integer('students_count')->default(0);

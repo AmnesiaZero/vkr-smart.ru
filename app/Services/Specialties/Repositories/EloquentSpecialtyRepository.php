@@ -14,9 +14,9 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
        return Specialty::query()->create($data);
     }
 
-    public function get(int $facultyDepartmentId): Collection
+    public function get(int $userId): Collection
     {
-       return Specialty::query()->where('faculty_department_id','=',$facultyDepartmentId)->get();
+       return Specialty::query()->where('user_id','=',$userId)->get();
     }
 
     public function update(int $id, array $data): int
