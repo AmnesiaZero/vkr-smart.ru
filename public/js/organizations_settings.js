@@ -606,7 +606,7 @@ function loadProgramInfo(id)
                 const eduLevel = program.educational_level;
                 $('#level_education_' + eduLevel).prop('checked', true);
                 const level = program.level;
-                $("#level" + level).prop('checked', true);
+                $("#level_" + level).prop('checked', true);
                 $("#profile").prop('value',program.name);
                 specialties();
                 programSpecialties(id);
