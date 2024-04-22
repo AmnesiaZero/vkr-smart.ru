@@ -26,19 +26,17 @@ class OrganizationsYearsController extends Controller
     ];
     private OrganizationsYearsService $organizationYearsService;
 
-    private FacultiesService $facultiesService;
+//    private FacultiesService $facultiesService;
+//
 
-    private FacultiesDepartmentsService $facultiesDepartmentsService;
-
-    private ProgramsService $programsService;
-
-    public function __construct(OrganizationsYearsService $yearsService,FacultiesService $facultiesService,
-        FacultiesDepartmentsService $facultiesDepartmentsService,ProgramsService $programsService)
+    public function __construct(OrganizationsYearsService $yearsService,
+//        FacultiesService $facultiesService,
+    )
     {
         $this->organizationYearsService = $yearsService;
-        $this->facultiesService = $facultiesService;
-        $this->facultiesDepartmentsService = $facultiesDepartmentsService;
-        $this->programsService = $programsService;
+//        $this->facultiesService = $facultiesService;
+//        $this->facultiesDepartmentsService = $facultiesDepartmentsService;
+//        $this->programsService = $programsService;
     }
 
     public function get(): JsonResponse
@@ -71,7 +69,7 @@ class OrganizationsYearsController extends Controller
     public function update(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('organizations_year','id')]
+            'id' => ['required','integer',Rule::exists('organizations_years','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
@@ -86,7 +84,7 @@ class OrganizationsYearsController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('organizations_year','id')]
+            'id' => ['required','integer',Rule::exists('organizations_years','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);
@@ -101,7 +99,7 @@ class OrganizationsYearsController extends Controller
     public function copy(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('organizations_year','id')]
+            'id' => ['required','integer',Rule::exists('organizations_years','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);

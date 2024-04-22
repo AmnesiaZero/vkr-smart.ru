@@ -235,7 +235,7 @@
             <div class="col text-end">
                 <button id="edit_year_issue" class="btn copy_edit br-none" type="button"
                     onclick="showYearEditBlock(${id})"></button>
-                <button id="copy" class="btn copy_btn br-none" type="button"></button>
+                <button id="copy" class="btn copy_btn br-none" type="button" onclick="copyYear(${id})"></button>
                 <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteYear(${id})"></button>
             </div>
         </div>

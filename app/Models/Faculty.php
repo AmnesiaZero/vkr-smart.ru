@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,9 +12,11 @@ use Illuminate\Support\Facades\Log;
 
 class Faculty extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,CascadeSoftDeletes;
 
     protected $table = 'faculties';
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'name',
@@ -24,23 +27,6 @@ class Faculty extends Model
         'graduates_count',
     ];
 
-    public function year(): HasOne
-    {
-        return $this->hasOne(OrganizationYear::class);
-    }
-
-    public static function boot(): void
-    {
-        parent::boot();
-
-        static::deleting(function ($post) {
-            $post->facultiesDepartments()->delete();
-        });
-        static::replicating(function ($post){
-            Log::debug('replicate у faculty');
-            $post->facultiesDepartments()->replicate();
-        });
-    }
 
     public function facultiesDepartments(): HasMany
     {

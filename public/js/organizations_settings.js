@@ -134,6 +134,31 @@ function deleteYear(yearId)
     }
 }
 
+function copyYear(id)
+{
+    $.ajax({
+        url: "/dashboard/organizations/years/copy",
+        dataType: "json",
+        type: "post",
+        data:"id="+id,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if (response.success){
+                const yearCopy = $("#year_row_" + yearId).clone();
+                yearCopy.appendTo("#years_list");
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        },
+        error: function (response) {
+            $.notify("Ошибка при копировании модуля","error");
+        }
+    });
+}
+
 function showYearEditBlock(yearId)
 {
     console.log('Вошёл в showYearEditBlock');

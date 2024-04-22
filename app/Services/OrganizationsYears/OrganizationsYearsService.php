@@ -99,7 +99,7 @@ class OrganizationsYearsService extends Services
        }
    }
 
-   public function copy(int $id)
+   public function copy(int $id): JsonResponse
    {
        if (!$id) {
            return JsonHelper::sendJsonResponse(false,[
@@ -110,7 +110,7 @@ class OrganizationsYearsService extends Services
 
        $year = $this->_repository->copy($id);
 
-       if ($year) {
+       if ($year and $year->id) {
            return JsonHelper::sendJsonResponse(true,[
                'title' => 'Успешно',
                'message' => 'Год скопирован успешно',
