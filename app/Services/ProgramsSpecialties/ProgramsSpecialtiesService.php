@@ -5,7 +5,9 @@ namespace App\Services\ProgramsSpecialties;
 use App\Helpers\JsonHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
+use App\Models\ProgramSpecialty;
 use App\Services\Programs\Repositories\ProgramRepositoryInterface;
+use App\Services\ProgramsSpecialties\Repositories\ProgramSpecialtyRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
@@ -15,9 +17,9 @@ class ProgramsSpecialtiesService extends Controller
 
     public $_repository;
 
-    public function __construct(ProgramRepositoryInterface $programRepository)
+    public function __construct(ProgramSpecialtyRepositoryInterface $programSpecialtyRepository)
     {
-        $this->_repository = $programRepository;
+        $this->_repository = $programSpecialtyRepository;
     }
 
     public function create(array $data): JsonResponse
@@ -28,14 +30,13 @@ class ProgramsSpecialtiesService extends Controller
                 'message' => 'Пустой массив данных'
             ],400);
         }
-        $program = $this->_repository->create($data);
-        Log::debug('department = '.$program);
-        if($program and $program->id)
+        $programSpecialty = $this->_repository->create($data);
+        if($programSpecialty and $programSpecialty->id)
         {
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
-                'message' => 'Кафедра успешно создана',
-                'program' => $program
+                'message' => 'Специальность у программы успешно создана',
+                'program_specialty' => $programSpecialty
             ]);
         }
         return JsonHelper::sendJsonResponse(false,[

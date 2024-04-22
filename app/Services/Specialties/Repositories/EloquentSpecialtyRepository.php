@@ -14,9 +14,9 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
        return Specialty::query()->create($data);
     }
 
-    public function get(int $userId): Collection
+    public function all(): Collection
     {
-       return Specialty::query()->where('user_id','=',$userId)->get();
+       return Specialty::query()->get();
     }
 
     public function update(int $id, array $data): int
@@ -27,5 +27,10 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
     public function delete(int $id): bool
     {
         return Specialty::query()->find($id)->delete();
+    }
+
+    public function find(int $id): Model
+    {
+        return Specialty::query()->find($id);
     }
 }

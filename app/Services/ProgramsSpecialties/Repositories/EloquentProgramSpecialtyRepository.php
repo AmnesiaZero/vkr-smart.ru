@@ -33,4 +33,9 @@ class EloquentProgramSpecialtyRepository implements ProgramSpecialtyRepositoryIn
     {
         return ProgramSpecialty::query()->find($id)->delete();
     }
+
+    public function specialtyExists(int $specialtyId,int $userId): bool
+    {
+        return ProgramSpecialty::query()->where('user_id','=',$userId)->where('specialty_id','=',$specialtyId)->exists();
+    }
 }

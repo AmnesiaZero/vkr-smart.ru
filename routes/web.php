@@ -217,14 +217,16 @@ Route::group([
            Route::group([
              'prefix' => 'specialties'
            ],function (){
+               Route::post('create',[ProgramsSpecialtiesController::class,'create']);
                Route::get('get',[ProgramsSpecialtiesController::class,'get']);
+               Route::post('delete',[ProgramsSpecialtiesController::class,'delete']);
            });
         });
 
         Route::group([
           'prefix' => 'specialties'
         ],function (){
-            Route::get('get',[SpecialtiesController::class,'get']);
+            Route::get('all',[SpecialtiesController::class,'all']);
         });
     });
 

@@ -6,6 +6,7 @@ use App\Helpers\JsonHelper;
 use App\Models\Faculty;
 use App\Services\FacultiesDepartments\Repositories\FacultyDepartmentRepositoryInterface;
 use App\Services\Specialties\Repositories\SpecialtyRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
@@ -41,9 +42,9 @@ class SpecialtiesService
         ],403);
     }
 
-    public function get(int $userId): JsonResponse
+    public function all(): JsonResponse
     {
-        $specialties =  $this->_repository->get($userId);
+        $specialties =  $this->_repository->all();
         return JsonHelper::sendJsonResponse(true,[
             'title' => 'Успешно получены направления',
             'specialties'=> $specialties
@@ -100,5 +101,10 @@ class SpecialtiesService
                 'message' => 'Ошибка при удалении из базы данных'
             ],403);
         }
+    }
+
+    public function find(int $id):Model
+    {
+        return $this->_repository->find($id);
     }
 }

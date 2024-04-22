@@ -63,7 +63,7 @@ class ProgramsService
             return JsonHelper::sendJsonResponse(false,[
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
-            ],400);
+            ]);
         }
 
         $result = $this->_repository->update($id, $data);
@@ -80,7 +80,7 @@ class ProgramsService
                 'title' => 'Ошибка',
                 'message' => 'При сохранении данных произошла ошибка',
                 'id' => $result->id
-            ],400);
+            ]);
         }
     }
 

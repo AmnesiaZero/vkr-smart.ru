@@ -20,6 +20,8 @@ class ProgramsController extends Controller
 
 
     protected array $fillable = [
+        'educational_level',
+        'level',
         'faculty_department_id',
         'name',
         'year_id'

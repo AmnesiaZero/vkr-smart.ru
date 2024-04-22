@@ -14,18 +14,23 @@ use Illuminate\Support\Facades\Validator;
 class SpecialtiesController extends Controller
 {
 
+    public SpecialtiesService $specialtiesService;
+
+
+    public function __construct(SpecialtiesService $specialtiesService)
+    {
+        $this->specialtiesService = $specialtiesService;
+    }
+
     protected array $fillable = [
         'specialty_id',
         'code',
         'name'
     ];
 
-    public SpecialtiesService $specialtiesService;
-
-    public function get(Request $request): JsonResponse
+    public function all(): JsonResponse
     {
-        $user = Auth::user();
-        return $this->specialtiesService->get($user->id);
+        return $this->specialtiesService->all();
     }
 
     public function create(Request $request): JsonResponse

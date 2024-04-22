@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('specialties', function (Blueprint $table) {
             $table->id();
-            $table->integer('organization_id');
-            $table->integer('direction_id');
-            $table->integer('year_id');
-            $table->string('faculty_id');
-            $table->integer('user_id');
+            $table->integer('level_id')->default(0);
+            $table->string('code')->nullable();
+            $table->string('name');
             $table->softDeletes();
             $table->timestamps();
         });

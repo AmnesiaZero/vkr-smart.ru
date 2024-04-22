@@ -5,23 +5,34 @@ namespace App\Http\Controllers\Organizations;
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
 use App\Services\ProgramsSpecialties\ProgramsSpecialtiesService;
+use App\Services\Specialties\SpecialtiesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProgramsSpecialtiesController extends Controller
 {
-
-    public array $fillable = [
-
-    ];
    public ProgramsSpecialtiesService $programsSpecialtiesService;
 
-   public function __construct(ProgramsSpecialtiesService $programsSpecialtiesService)
+   public SpecialtiesService $specialtiesService;
+
+    public array $fillable = [
+        'program_id',
+        'specialty_id',
+        'code',
+        'name',
+        'q_percent',
+        'borrowed_percent'
+
+    ];
+
+   public function __construct(ProgramsSpecialtiesService $programsSpecialtiesService,SpecialtiesService $specialtiesService)
    {
        $this->programsSpecialtiesService = $programsSpecialtiesService;
+       $this->specialtiesService = $specialtiesService;
    }
 
 
@@ -41,7 +52,8 @@ class ProgramsSpecialtiesController extends Controller
     public function create(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'program_id' => ['required',Rule::exists('programs','id')],
+            'specialty_id' => [Rule::exists('specialties','id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -49,9 +61,15 @@ class ProgramsSpecialtiesController extends Controller
         $data = $request->only($this->fillable);
         $user = Auth::user();
         $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id]);
+        if ($request->has('specialty_id')){
+            $specialtyId = $request->specialty_id;
+            $specialty = $this->specialtiesService->find($specialtyId);
+            $data = array_merge($data, $specialty->only('name','code'));
+        }
         Log::debug('request data = ' . print_r($data, true));
         return $this->programsSpecialtiesService->create($data);
     }
+
 
     public function update(Request $request):JsonResponse
     {
@@ -70,7 +88,7 @@ class ProgramsSpecialtiesController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer'
+            'id' => ['required',Rule::exists('programs_specialties','id')]
         ]);
         if($validator->fails()){
             return ValidatorHelper::validatorError($validator);

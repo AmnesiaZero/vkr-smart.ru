@@ -8,6 +8,20 @@
     box-shadow: none !important;
 }
 
+.btn-green {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-green:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.bg-grey-form {
+    background-color: #d9f1f3;
+}
+
 * {
     font-weight: 500;
     font-family: Gilroy, sans-serif;

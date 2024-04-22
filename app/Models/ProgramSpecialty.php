@@ -10,10 +10,13 @@ class ProgramSpecialty extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $table = 'programs_specialties';
+
     protected $fillable = [
         'organization_id',
         'program_id',
         'specialty_id',
+        'name',
         'code',
         'q_percent',
         'borrowed_percent'

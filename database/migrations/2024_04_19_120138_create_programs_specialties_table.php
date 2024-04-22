@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('program_id');
             $table->integer('specialty_id')->nullable();
             $table->string('code')->nullable();
+            $table->string('name');
             $table->integer('q_percent')->default(0);
             $table->integer('borrowed_percent')->default(0);
             $table->foreign('program_id')->references('id')->

@@ -44,4 +44,12 @@ interface ProgramSpecialtyRepositoryInterface
      * @return bool
      */
     public function delete(int $id):bool;
+
+
+    /**
+     * @param int $specialtyId
+     * @param int $userId
+     * @return bool
+     */
+    public function specialtyExists(int $specialtyId,int $userId):bool;
 }

@@ -488,6 +488,8 @@ function createProgram() {
 
                 // Вставляем созданный HTML
                 $("#programs_list").append(html);
+
+                loadProgramInfo(addedProgram.id);
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message,"error");
@@ -575,11 +577,14 @@ function loadProgramInfo(id)
         success: function(response) {
             if (response.success){
                 localStorage.setItem('program_id',id);
-                const eduLevel = response.data.program.educational_level;
+                const program = response.data.program;
+                const eduLevel = program.educational_level;
                 $('#level_education_' + eduLevel).prop('checked', true);
-                const level = response.data.program.level;
-                $('#level' + level).prop('checked', true);
+                const level = program.level;
+                $("#level" + level).prop('checked', true);
+                $("#profile").prop('value',program.name);
                 specialties();
+                programSpecialties(id);
                 const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasEdit'));
                 offcanvas.show();
             }
@@ -597,7 +602,7 @@ function loadProgramInfo(id)
 function specialties()
 {
     $.ajax({
-        url: "/dashboard/organizations/programs/specialties/get",
+        url: "/dashboard/organizations/specialties/all",
         dataType: "json",
         type: "GET",
         headers: {
@@ -606,14 +611,14 @@ function specialties()
         success: function (response) {
             if(response.success) {
                 const specialties = response.data.specialties;
-                $("#specialties_list").html($("#specialty_tmpl").tmpl(specialties));
+                $("#specialties_list").html($("#specialty_menu_tmpl").tmpl(specialties));
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message,"error");
             }
         },
         error: function () {
-            $.notify("Ошибка при удалении профиля. Обратитесь к системному администратору","error");
+            $.notify("Ошибка при отображении модуля. Обратитесь к системному администратору","error");
         }
     });
 }
@@ -630,8 +635,8 @@ function programSpecialties(programId)
         },
         success: function (response) {
             if(response.success) {
-                const programsSpecialties = response.data.program_specialties;
-                $("#specialties_list").html($("#program_specialty_tmpl").tmpl(programsSpecialties));
+               const programSpecialties = response.data.program_specialties;
+               $(".specialties_table").html($("#specialty_tmpl").tmpl(programSpecialties));
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message,"error");
@@ -643,14 +648,200 @@ function programSpecialties(programId)
     });
 }
 
-function allSpecialties()
+function updateProgramName()
 {
+    let data = $("#update_name_form").serialize();
+    const programId = localStorage.getItem('program_id');
+    const additionalData = {
+      'id' : programId
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+    url: "/dashboard/organizations/programs/update",
+    dataType: "json",
+    type: "POST",
+    data:data,
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function (response) {
+        if(response.success) {
+            const program = response.data.program;
+            $("#program_" + programId).text(program.name);
+            $.notify("Имя успешно обновлено","success");
+        }
+        else{
+            $.notify(response.data.title + ":" + response.data.message,"error");
+        }
+    },
+    error: function () {
+        $.notify("Ошибка при удалении профиля. Обратитесь к системному администратору","error");
+    }
+});
 
 }
 
+$(document).ready(function(){
+    $('#level_education_group').on('change', 'input[type="radio"]', function(){
+        const educationalLevel = $(this).val();
+        const programId = localStorage.getItem('program_id');
+        const data = {
+            educational_level:educationalLevel,
+            id:programId
+        };
+        $.ajax({
+            url: "/dashboard/organizations/programs/update",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if(response.success) {
+                    $.notify("Профиль успешно обновлен","success");
+                }
+                else{
+                    $.notify(response.data.title + ":" + response.data.message,"error");
+                }
+            },
+            error: function () {
+                $.notify("Ошибка при обновлении профиля. Обратитесь к системному администратору","error");
+            }
+        });
 
+    });
+});
+
+$(document).ready(function(){
+    $('#level_group').on('change', 'input[type="radio"]', function(){
+        const level = $(this).val();
+        const programId = localStorage.getItem('program_id');
+        const data = {
+            level:level,
+            id:programId
+        };
+        $.ajax({
+            url: "/dashboard/organizations/programs/update",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if(response.success) {
+                    $.notify("Профиль успешно обновлен","success");
+                }
+                else{
+                    $.notify(response.data.title + ":" + response.data.message,"error");
+                }
+            },
+            error: function () {
+                $.notify("Ошибка при обновлении профиля. Обратитесь к системному администратору","error");
+            }
+        });
+
+    });
+});
+
+$(document).ready(function(){
+    $('#specialties_list').change(function(){
+        const specialtyId = $(this).val();
+        const programId = localStorage.getItem('program_id');
+        const data = {
+            specialty_id:specialtyId,
+            program_id:programId
+        };
+        $.ajax({
+            url: "/dashboard/organizations/programs/specialties/create",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if(response.success) {
+                    const programSpecialty = response.data.program_specialty;
+                    $(".specialties_table").append($("#specialty_tmpl").tmpl(programSpecialty));
+                    $.notify("Профиль успешно обновлен","success");
+                }
+                else{
+                    $.notify(response.data.title + ":" + response.data.message,"error");
+                }
+            },
+            error: function () {
+                $.notify("Ошибка при обновлении профиля. Обратитесь к системному администратору","error");
+            }
+        });
+
+    });
+});
+
+function createProgramSpecialty()
+{
+    let data = $("#create_program_specialty").serialize();
+    const programId = localStorage.getItem('program_id');
+    const additionalData = {
+        'program_id' : programId
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url: "/dashboard/organizations/programs/specialties/create",
+        dataType: "json",
+        type: "POST",
+        data:data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success) {
+                const programSpecialty = response.data.program_specialty;
+                $(".specialties_table").append($("#specialty_tmpl").tmpl(programSpecialty));
+                $.notify("Профиль успешно обновлен","success");
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message,"error");
+            }
+        },
+        error: function () {
+            $.notify("Ошибка при создании направления. Обратитесь к системному администратору","error");
+        }
+})
+}
+
+
+function deleteProgramSpecialty(programSpecialtyId)
+{
+    if(confirm("Вы действительно хотите удалить данное направление?")) {
+        const data = {
+           id:programSpecialtyId
+        };
+        $.ajax({
+            url: "/dashboard/organizations/programs/specialties/delete",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if (response.success) {
+                    $(".program_specialty_" + programSpecialtyId).remove();
+                    $.notify("Направление успешно удалено", "success");
+                } else {
+                    $.notify(response.data.title + ":" + response.data.message, "error");
+                }
+            },
+            error: function () {
+                $.notify("Ошибка при создании направления. Обратитесь к системному администратору", "error");
+            }
+        })
+        }
+}
 /* showProgramEditBlock(programId) - функция раскрытия параметров конкретного профиля обучения
-* args: programId - id профися обучения, который мы раскрываем */
+      * args: programId - id профися обучения, который мы раскрываем */
 function showProgramEditBlock(programId) {
     $('#edit_block_program_' + programId).toggleClass('d-block');
 }

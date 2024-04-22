@@ -12,9 +12,8 @@ class Specialty extends Model
     protected $table = 'specialties';
 
     protected $fillable = [
-        'organization_id',
-        'year_id',
-        'user_id',
+        'level_id',
+        'code',
         'name'
     ];
 }
