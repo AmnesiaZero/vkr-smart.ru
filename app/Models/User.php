@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
@@ -48,6 +49,10 @@ class User extends Authenticatable
     public static function getByEmail(string $email)
     {
         return User::query()->where('email', '=', $email)->first();
+    }
 
+    public function departments(): BelongsToMany
+    {
+        return $this->belongsToMany(FacultyDepartment::class, 'departments_users');
     }
 }

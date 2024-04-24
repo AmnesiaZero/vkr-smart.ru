@@ -3,7 +3,6 @@
 namespace App\Services\Programs;
 
 use App\Helpers\JsonHelper;
-use App\Models\Faculty;
 use App\Models\Program;
 use App\Services\Programs\Repositories\ProgramRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,34 +20,33 @@ class ProgramsService
 
     public function create(array $data): JsonResponse
     {
-        if(empty($data)){
-            return JsonHelper::sendJsonResponse(false,[
+        if (empty($data)) {
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
-            ],400);
+            ], 400);
         }
         $program = $this->_repository->create($data);
-        Log::debug('department = '.$program);
-        if($program and $program->id)
-        {
-            return JsonHelper::sendJsonResponse(true,[
+        Log::debug('department = ' . $program);
+        if ($program and $program->id) {
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'message' => 'Кафедра успешно создана',
                 'program' => $program
             ]);
         }
-        return JsonHelper::sendJsonResponse(false,[
+        return JsonHelper::sendJsonResponse(false, [
             'title' => 'Ошибка',
             'message' => 'При сохранении данных произошла ошибка'
-        ],403);
+        ], 403);
     }
 
     public function get(int $facultyDepartmentId): JsonResponse
     {
-        $programs =  $this->_repository->get($facultyDepartmentId);
-        return JsonHelper::sendJsonResponse(true,[
+        $programs = $this->_repository->get($facultyDepartmentId);
+        return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно получены кафедры',
-            'programs'=> $programs
+            'programs' => $programs
         ]);
     }
 
@@ -60,7 +58,7 @@ class ProgramsService
     public function update(int $id, array $data): JsonResponse
     {
         if (empty($data)) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
             ]);
@@ -70,13 +68,13 @@ class ProgramsService
 
         if ($result) {
             $faculty = Program::query()->find($id);
-            return JsonHelper::sendJsonResponse(true,[
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
                 'program' => $faculty
             ]);
         } else {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'При сохранении данных произошла ошибка',
                 'id' => $result->id
@@ -84,10 +82,19 @@ class ProgramsService
         }
     }
 
-    public function delete(int $id):JsonResponse
+    public function find(int $id): JsonResponse
+    {
+        $program = $this->_repository->find($id);
+        return JsonHelper::sendJsonResponse(true, [
+            'title' => 'Успешно',
+            'program' => $program
+        ]);
+    }
+
+    public function delete(int $id): JsonResponse
     {
         if (!$id) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Не указан id ресурса'
             ]);
@@ -96,26 +103,16 @@ class ProgramsService
         $flag = $this->_repository->delete($id);
 
         if ($flag) {
-            return JsonHelper::sendJsonResponse(true,[
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'message' => 'Факультет удален успешно'
             ]);
-        }
-        else {
-            return JsonHelper::sendJsonResponse(false,[
+        } else {
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при удалении из базы данных'
-            ],403);
+            ], 403);
         }
-    }
-
-    public function find(int $id): JsonResponse
-    {
-      $program =  $this->_repository->find($id);
-      return JsonHelper::sendJsonResponse(true,[
-          'title' => 'Успешно',
-          'program' => $program
-      ]);
     }
 
 }

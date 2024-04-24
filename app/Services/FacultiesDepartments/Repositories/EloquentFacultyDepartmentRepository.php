@@ -4,10 +4,7 @@ namespace App\Services\FacultiesDepartments\Repositories;
 
 
 use App\Models\FacultyDepartment;
-use App\Models\Faculty;
-use App\Models\OrganizationYear;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 
 class EloquentFacultyDepartmentRepository implements FacultyDepartmentRepositoryInterface
@@ -15,22 +12,22 @@ class EloquentFacultyDepartmentRepository implements FacultyDepartmentRepository
 
     public function create(array $data): Model
     {
-       return FacultyDepartment::query()->create($data);
+        return FacultyDepartment::query()->create($data);
     }
 
-    public function get(int $facultyId):Collection
+    public function getByYearId(int $yearId): Collection
     {
-        return FacultyDepartment::query()->where('faculty_id','=',$facultyId)->get();
+        return FacultyDepartment::query()->where('year_id', '=', $yearId)->get();
     }
 
-    public function getByYearId(int $yearId):Collection
+    public function get(int $facultyId): Collection
     {
-        return FacultyDepartment::query()->where('year_id','=',$yearId)->get();
+        return FacultyDepartment::query()->where('faculty_id', '=', $facultyId)->get();
     }
 
     public function update(int $id, array $data): int
     {
-        return FacultyDepartment::query()->where('id' ,'=',$id)->update($data);
+        return FacultyDepartment::query()->where('id', '=', $id)->update($data);
     }
 
     public function delete(int $id): bool

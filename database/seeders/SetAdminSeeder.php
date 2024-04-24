@@ -13,7 +13,7 @@ class SetAdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::query()->where('name','=','apav')->first();
+        $user = User::query()->where('login', '=', 'apav')->first();
         $role = config('roles.models.role')::where('name', '=',
             'Admin')->first();  //choose the default role upon user creation.
         $user->attachRole($role);

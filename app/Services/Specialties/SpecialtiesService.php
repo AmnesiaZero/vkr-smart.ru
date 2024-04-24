@@ -4,7 +4,6 @@ namespace App\Services\Specialties;
 
 use App\Helpers\JsonHelper;
 use App\Models\Faculty;
-use App\Services\FacultiesDepartments\Repositories\FacultyDepartmentRepositoryInterface;
 use App\Services\Specialties\Repositories\SpecialtyRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -21,40 +20,39 @@ class SpecialtiesService
 
     public function create(array $data): JsonResponse
     {
-        if(empty($data)){
-            return JsonHelper::sendJsonResponse(false,[
+        if (empty($data)) {
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
-            ],400);
+            ], 400);
         }
         $specialty = $this->_repository->create($data);
-        Log::debug('department = '.$specialty);
-        if($specialty and $specialty->id)
-        {
-            return JsonHelper::sendJsonResponse(true,[
+        Log::debug('department = ' . $specialty);
+        if ($specialty and $specialty->id) {
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'message' => 'Кафедра успешно создана'
             ]);
         }
-        return JsonHelper::sendJsonResponse(false,[
+        return JsonHelper::sendJsonResponse(false, [
             'title' => 'Ошибка',
             'message' => 'При сохранении данных произошла ошибка'
-        ],403);
+        ], 403);
     }
 
     public function all(): JsonResponse
     {
-        $specialties =  $this->_repository->all();
-        return JsonHelper::sendJsonResponse(true,[
+        $specialties = $this->_repository->all();
+        return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно получены направления',
-            'specialties'=> $specialties
+            'specialties' => $specialties
         ]);
     }
 
     public function update(int $specialtyId, array $data): JsonResponse
     {
         if (empty($data)) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
             ]);
@@ -64,13 +62,13 @@ class SpecialtiesService
 
         if ($specialtyId) {
             $faculty = Faculty::query()->find($specialtyId);
-            return JsonHelper::sendJsonResponse(true,[
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
                 'faculty' => $faculty
             ]);
         } else {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'При сохранении данных произошла ошибка',
                 'id' => $specialtyId->id
@@ -78,10 +76,15 @@ class SpecialtiesService
         }
     }
 
-    public function delete(int $id):JsonResponse
+    public function find(int $id): Model
+    {
+        return $this->_repository->find($id);
+    }
+
+    public function delete(int $id): JsonResponse
     {
         if (!$id) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Не указан id ресурса'
             ]);
@@ -90,21 +93,15 @@ class SpecialtiesService
         $flag = $this->_repository->delete($id);
 
         if ($flag) {
-            return JsonHelper::sendJsonResponse(true,[
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'message' => 'Факультет удален успешно'
             ]);
-        }
-        else {
-            return JsonHelper::sendJsonResponse(false,[
+        } else {
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при удалении из базы данных'
-            ],403);
+            ], 403);
         }
-    }
-
-    public function find(int $id):Model
-    {
-        return $this->_repository->find($id);
     }
 }

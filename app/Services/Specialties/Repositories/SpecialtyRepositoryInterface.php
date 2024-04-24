@@ -18,7 +18,7 @@ interface SpecialtyRepositoryInterface
      * Получить кафедры по id факультета
      * @return Collection
      */
-    public function all():Collection;
+    public function all(): Collection;
 
 
     /**
@@ -27,7 +27,7 @@ interface SpecialtyRepositoryInterface
      * @param array $data
      * @return int
      */
-    public function update(int $id, array $data):int;
+    public function update(int $id, array $data): int;
 
     /**
      * Мягкое удаление
@@ -40,5 +40,5 @@ interface SpecialtyRepositoryInterface
      * @param int $id
      * @return Model
      */
-    public function find(int $id):Model;
+    public function find(int $id): Model;
 }

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Services\Faculties\FacultiesService;
 use App\Services\FacultiesDepartments\FacultiesDepartmentsService;
-use App\Services\OrganizationsYears\OrganizationsYearsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,18 +17,15 @@ class FacultiesDepartmentsController extends Controller
 
     public FacultiesDepartmentsService $facultiesDepartmentsService;
 
-    public FacultiesService $facultiesService;
-
     protected array $fillable = [
         'faculty_id',
         'name',
         'year_id'
     ];
 
-    public function __construct(FacultiesDepartmentsService $facultiesDepartmentsService,FacultiesService $facultiesService)
+    public function __construct(FacultiesDepartmentsService $facultiesDepartmentsService)
     {
         $this->facultiesDepartmentsService = $facultiesDepartmentsService;
-        $this->facultiesService = $facultiesService;
     }
 
     public function get(Request $request): JsonResponse
@@ -56,38 +51,51 @@ class FacultiesDepartmentsController extends Controller
         }
         $data = $request->only($this->fillable);
         $user = Auth::user();
-        $yearId = $this->facultiesService->getYearId($request->faculty_id);
-        $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id,'year_id' => $yearId]);
+        $data = array_merge($data, ['user_id' => $user->id, 'organization_id' => $user->organization_id]);
         Log::debug('request data = ' . print_r($data, true));
         return $this->facultiesDepartmentsService->create($data);
     }
 
-    public function update(Request $request):JsonResponse
+    public function update(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(),[
-            'id' => ['required','integer']
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'integer']
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
         $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
-        return $this->facultiesDepartmentsService->update($id,$data);
+        Log::debug('data = ' . print_r($data, true));
+        return $this->facultiesDepartmentsService->update($id, $data);
     }
 
     public function delete(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('faculties_departments','id')]
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'integer', Rule::exists('faculties_departments', 'id')]
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $facultyId = $request->id;
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
+        Log::debug('data = ' . print_r($data, true));
         return $this->facultiesDepartmentsService->delete($facultyId);
+    }
+
+    public function getByUserId(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => ['required', 'integer', Rule::exists('users', 'id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $userId = $request->user_id;
+        return $this->facultiesDepartmentsService->getByUserId($userId);
+
+
     }
 }

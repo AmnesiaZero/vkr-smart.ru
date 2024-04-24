@@ -15,9 +15,9 @@ use Illuminate\Validation\Rule;
 
 class ProgramsSpecialtiesController extends Controller
 {
-   public ProgramsSpecialtiesService $programsSpecialtiesService;
+    public ProgramsSpecialtiesService $programsSpecialtiesService;
 
-   public SpecialtiesService $specialtiesService;
+    public SpecialtiesService $specialtiesService;
 
     public array $fillable = [
         'program_id',
@@ -29,11 +29,13 @@ class ProgramsSpecialtiesController extends Controller
 
     ];
 
-   public function __construct(ProgramsSpecialtiesService $programsSpecialtiesService,SpecialtiesService $specialtiesService)
-   {
-       $this->programsSpecialtiesService = $programsSpecialtiesService;
-       $this->specialtiesService = $specialtiesService;
-   }
+    public function __construct(
+        ProgramsSpecialtiesService $programsSpecialtiesService,
+        SpecialtiesService $specialtiesService
+    ) {
+        $this->programsSpecialtiesService = $programsSpecialtiesService;
+        $this->specialtiesService = $specialtiesService;
+    }
 
 
     public function get(Request $request): JsonResponse
@@ -52,51 +54,51 @@ class ProgramsSpecialtiesController extends Controller
     public function create(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'program_id' => ['required',Rule::exists('programs','id')],
-            'specialty_id' => [Rule::exists('specialties','id')]
+            'program_id' => ['required', Rule::exists('programs', 'id')],
+            'specialty_id' => [Rule::exists('specialties', 'id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $data = $request->only($this->fillable);
         $user = Auth::user();
-        $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id]);
-        if ($request->has('specialty_id')){
+        $data = array_merge($data, ['user_id' => $user->id, 'organization_id' => $user->organization_id]);
+        if ($request->has('specialty_id')) {
             $specialtyId = $request->specialty_id;
             $specialty = $this->specialtiesService->find($specialtyId);
-            $data = array_merge($data, $specialty->only('name','code'));
+            $data = array_merge($data, $specialty->only('name', 'code'));
         }
         Log::debug('request data = ' . print_r($data, true));
         return $this->programsSpecialtiesService->create($data);
     }
 
 
-    public function update(Request $request):JsonResponse
+    public function update(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'id' => 'required|integer'
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $facultyDepartment = $request->id;
         $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
-        return $this->programsSpecialtiesService->update($facultyDepartment,$data);
+        Log::debug('data = ' . print_r($data, true));
+        return $this->programsSpecialtiesService->update($facultyDepartment, $data);
     }
 
     public function delete(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::exists('programs_specialties','id')]
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', Rule::exists('programs_specialties', 'id')]
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
+        Log::debug('data = ' . print_r($data, true));
         return $this->programsSpecialtiesService->delete($id);
     }
 }

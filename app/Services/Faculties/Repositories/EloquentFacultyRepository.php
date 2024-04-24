@@ -4,27 +4,25 @@ namespace App\Services\Faculties\Repositories;
 
 
 use App\Models\Faculty;
-use App\Models\OrganizationYear;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
 class EloquentFacultyRepository implements FacultyRepositoryInterface
 {
 
     public function create(array $data): \Illuminate\Database\Eloquent\Model
     {
-       return Faculty::query()->create($data);
+        return Faculty::query()->create($data);
     }
 
-    public function get(int $yearId):Collection
+    public function get(int $yearId): Collection
     {
-        return Faculty::query()->where('year_id','=',$yearId)->get();
+        return Faculty::query()->where('year_id', '=', $yearId)->get();
     }
 
     public function update(int $id, array $data): int
     {
-        return Faculty::query()->where('id' ,'=',$id)->update($data);
+        return Faculty::query()->where('id', '=', $id)->update($data);
     }
 
     public function delete(int $id): bool
@@ -37,8 +35,8 @@ class EloquentFacultyRepository implements FacultyRepositoryInterface
         return Faculty::query()->find($id);
     }
 
-    public function getYearId(int $id):int
+    public function getYearId(int $id): int
     {
-       return Faculty::query()->select('year_id')->where('id','=',$id)->value('year_id');
+        return Faculty::query()->select('year_id')->where('id', '=', $id)->value('year_id');
     }
 }

@@ -27,7 +27,7 @@ interface ProgramSpecialtyRepositoryInterface
      * @param int $id
      * @return Model
      */
-    public function find(int $id):Model;
+    public function find(int $id): Model;
 
     /**
      * Обновить год
@@ -35,7 +35,7 @@ interface ProgramSpecialtyRepositoryInterface
      * @param array $data
      * @return mixed
      */
-    public function update(int $id,array $data):int;
+    public function update(int $id, array $data): int;
 
 
     /**
@@ -43,7 +43,7 @@ interface ProgramSpecialtyRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete(int $id):bool;
+    public function delete(int $id): bool;
 
 
     /**
@@ -51,5 +51,5 @@ interface ProgramSpecialtyRepositoryInterface
      * @param int $userId
      * @return bool
      */
-    public function specialtyExists(int $specialtyId,int $userId):bool;
+    public function specialtyExists(int $specialtyId, int $userId): bool;
 }

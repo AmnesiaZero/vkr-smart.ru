@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ValidatorHelper;
 use App\Mail\ResetPassword;
 use App\Models\User;
+use App\Services\Users\UsersService;
 use Firebase\JWT\JWT;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,16 +15,33 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
+    public UsersService $usersService;
+    protected $fillable = [
+        'name',
+        'email',
+        'login',
+        'password',
+        'organization_id',
+        'phone',
+        'date_of_birth'
+    ];
+
+    public function __construct(UsersService $usersService)
+    {
+        $this->usersService = $usersService;
+    }
+
     public function login(Request $request): RedirectResponse
     {
         Log::debug('Вошёл в login');
         DB::enableQueryLog();
         $credentials = $request->validate([
-            'name' => ['required', Rule::exists('users', 'name')],
+            'login' => ['required', Rule::exists('users', 'login')],
             'password' => 'required'
         ]);
         Log::debug('credidentials = ' . print_r($credentials, true));
@@ -67,5 +87,27 @@ class UsersController extends Controller
         $user->password = Hash::make($password);
         $user->save();
         return redirect('home');
+    }
+
+    public function get(): JsonResponse
+    {
+        $user = Auth::user();
+        $organizationId = $user->organization_id;
+        return $this->usersService->get($organizationId);
+    }
+
+    public function create(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'login' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['confirmed'],
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $data = $request->only($this->fillable);
+        return $this->usersService->create($data);
     }
 }

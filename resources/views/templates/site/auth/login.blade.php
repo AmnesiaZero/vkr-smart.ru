@@ -16,7 +16,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name">Имя пользователя</label>
-                                <input id="name" type="text" name="name" placeholder="" class="form-control">
+                                <input id="name" type="text" name="login" placeholder="" class="form-control">
                             </div>
                             <div class="form-group mt-3">
                                 <label for="password">Пароль</label>

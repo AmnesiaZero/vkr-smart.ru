@@ -9,10 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProgramSpecialty extends Model
 {
-    use HasFactory,SoftDeletes,CascadeSoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     protected $table = 'programs_specialties';
-
 
 
     protected $dates = ['deleted_at'];

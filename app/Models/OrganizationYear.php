@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
 
 class OrganizationYear extends Model
 {
-    use HasFactory,SoftDeletes,CascadeSoftDeletes,Cloneable;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes, Cloneable;
 
     protected $cascadeDeletes = ['faculties'];
 
@@ -31,11 +30,9 @@ class OrganizationYear extends Model
     ];
 
 
-
-
     public function faculties(): HasMany
     {
-        return $this->hasMany(Faculty::class,'year_id');
+        return $this->hasMany(Faculty::class, 'year_id');
     }
 
 }

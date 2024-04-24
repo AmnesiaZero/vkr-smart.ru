@@ -11,12 +11,12 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
 
     public function create(array $data): Model
     {
-       return Specialty::query()->create($data);
+        return Specialty::query()->create($data);
     }
 
     public function all(): Collection
     {
-       return Specialty::query()->get();
+        return Specialty::query()->get();
     }
 
     public function update(int $id, array $data): int
@@ -24,13 +24,13 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
         return Specialty::query()->find($id)->update($data);
     }
 
-    public function delete(int $id): bool
-    {
-        return Specialty::query()->find($id)->delete();
-    }
-
     public function find(int $id): Model
     {
         return Specialty::query()->find($id);
+    }
+
+    public function delete(int $id): bool
+    {
+        return Specialty::query()->find($id)->delete();
     }
 }

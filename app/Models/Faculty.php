@@ -7,13 +7,11 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
 
 class Faculty extends Model
 {
-    use HasFactory,SoftDeletes,CascadeSoftDeletes,Cloneable;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes, Cloneable;
 
     protected $table = 'faculties';
 
@@ -36,6 +34,6 @@ class Faculty extends Model
 
     public function facultiesDepartments(): HasMany
     {
-        return $this->hasMany(FacultyDepartment::class,'faculty_id');
+        return $this->hasMany(FacultyDepartment::class, 'faculty_id');
     }
 }

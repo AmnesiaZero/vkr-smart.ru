@@ -12,21 +12,21 @@ interface FacultyDepartmentRepositoryInterface
      * @param array $data
      * @return mixed
      */
-     public function create(array $data): Model;
+    public function create(array $data): Model;
 
     /**
      * Получить кафедры по id факультета
      * @param int $facultyId
      * @return Collection
      */
-    public function get(int $facultyId):Collection;
+    public function get(int $facultyId): Collection;
 
     /**
      * Получить по году
      * @param int $yearId
      * @return Collection
      */
-    public function getByYearId(int $yearId):Collection;
+    public function getByYearId(int $yearId): Collection;
 
 
     /**
@@ -35,7 +35,7 @@ interface FacultyDepartmentRepositoryInterface
      * @param array $data
      * @return int
      */
-    public function update(int $id, array $data):int;
+    public function update(int $id, array $data): int;
 
     /**
      * Мягкое удаление

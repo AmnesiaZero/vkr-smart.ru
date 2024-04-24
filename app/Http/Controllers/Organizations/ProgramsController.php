@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Services\Faculties\FacultiesService;
-use App\Services\FacultiesDepartments\FacultiesDepartmentsService;
 use App\Services\Programs\ProgramsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,7 +34,7 @@ class ProgramsController extends Controller
     {
         Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
-            'faculty_department_id' => ['required','integer']
+            'faculty_department_id' => ['required', 'integer']
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -55,31 +53,31 @@ class ProgramsController extends Controller
         }
         $data = $request->only($this->fillable);
         $user = Auth::user();
-        $data = array_merge($data, ['user_id' => $user->id,'organization_id' => $user->organization_id]);
+        $data = array_merge($data, ['user_id' => $user->id, 'organization_id' => $user->organization_id]);
         Log::debug('request data = ' . print_r($data, true));
         return $this->programsService->create($data);
     }
 
-    public function update(Request $request):JsonResponse
+    public function update(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('programs','id')]
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'integer', Rule::exists('programs', 'id')]
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
         $data = $request->only($this->fillable);
-        Log::debug('data = '.print_r($data,true));
-        return $this->programsService->update($id,$data);
+        Log::debug('data = ' . print_r($data, true));
+        return $this->programsService->update($id, $data);
     }
 
     public function delete(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('programs','id')]
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'integer', Rule::exists('programs', 'id')]
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
@@ -88,10 +86,10 @@ class ProgramsController extends Controller
 
     public function find(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'id' => 'required|integer'
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;

@@ -14,22 +14,11 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-             'name' => 'nvkuzmichev',
-            'password' => bcrypt('00guQbvJlB'),
-
-        ]);
-        User::factory()->create([
-            'name' => 'apav',
+            'name' => 'Павлов Александр Дмитриевич',
+            'login' => 'apav',
+            'gender' => 0, //мужчина
             'password' => bcrypt('YDuuk31nfS'),
             'email' => 'sanekpavlov39@gmail.com'
-        ]);
-        User::factory()->create([
-            'name' => 'marketing',
-            'password' => bcrypt('gmopJCfZW9')
-        ]);
-        User::factory()->create([
-            'name' => 'adm',
-            'password' => bcrypt('ujQxep0Jsd')
         ]);
     }
 }

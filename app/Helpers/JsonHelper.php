@@ -13,12 +13,12 @@ class JsonHelper
      * @param array $data
      * @return JsonResponse
      */
-    public static function sendJsonResponse(bool $success, array $data = [],int $status=200): JsonResponse
+    public static function sendJsonResponse(bool $success, array $data = [], int $status = 200): JsonResponse
     {
         return response()->json([
             'success' => $success,
             'data' => $data
-        ],$status);
+        ], $status);
     }
 
 }

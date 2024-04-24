@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Specialty extends Model
 {
-    use HasFactory,SoftDeletes,CascadeSoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     protected $dates = ['deleted_at'];
 
