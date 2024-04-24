@@ -146,8 +146,15 @@ function copyYear(id)
         },
         success: function (response) {
             if (response.success){
-                const yearCopy = $("#year_row_" + yearId).clone();
-                yearCopy.appendTo("#years_list");
+                const year = response.data.year;
+                const source = $("#year_tmpl").html();
+
+                // Заменяем переменные в шаблоне на значения из данных
+                const html = $.tmpl(source, year);
+
+                // Вставляем созданный HTML перед элементом с id "years_button"
+                $("#years_list").append(html);
+
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message,"error");

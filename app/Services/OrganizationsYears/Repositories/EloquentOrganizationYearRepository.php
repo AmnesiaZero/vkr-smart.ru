@@ -46,6 +46,6 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
 
     public function copy(int $id):Model
     {
-        return OrganizationYear::query()->find($id)->replicate();
+        return OrganizationYear::query()->where('id','=',$id)->first()->duplicate();
     }
 }

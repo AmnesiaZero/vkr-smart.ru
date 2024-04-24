@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "bkwld/cloner": "^3.12",
         "dyrynda/laravel-cascade-soft-deletes": "^4.4",
         "firebase/php-jwt": "^6.10",
         "guzzlehttp/guzzle": "^7.2",

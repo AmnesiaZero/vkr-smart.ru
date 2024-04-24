@@ -26,17 +26,9 @@ class OrganizationsYearsController extends Controller
     ];
     private OrganizationsYearsService $organizationYearsService;
 
-//    private FacultiesService $facultiesService;
-//
-
-    public function __construct(OrganizationsYearsService $yearsService,
-//        FacultiesService $facultiesService,
-    )
+    public function __construct(OrganizationsYearsService $yearsService)
     {
         $this->organizationYearsService = $yearsService;
-//        $this->facultiesService = $facultiesService;
-//        $this->facultiesDepartmentsService = $facultiesDepartmentsService;
-//        $this->programsService = $programsService;
     }
 
     public function get(): JsonResponse

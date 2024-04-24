@@ -110,7 +110,9 @@ class OrganizationsYearsService extends Services
 
        $year = $this->_repository->copy($id);
 
-       if ($year and $year->id) {
+       Log::debug($year);
+
+       if ($year) {
            return JsonHelper::sendJsonResponse(true,[
                'title' => 'Успешно',
                'message' => 'Год скопирован успешно',
@@ -120,8 +122,8 @@ class OrganizationsYearsService extends Services
        else {
            return JsonHelper::sendJsonResponse(false,[
                'title' => 'Ошибка',
-               'message' => 'Ошибка при удалении из базы данных'
-           ],403);
+               'message' => 'Ошибка при копировании элемента'
+           ]);
        }
    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Bkwld\Cloner\Cloneable;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,13 @@ use Illuminate\Support\Facades\Log;
 
 class Program extends Model
 {
-    use HasFactory,SoftDeletes,CascadeSoftDeletes;
+    use HasFactory,SoftDeletes,CascadeSoftDeletes,Cloneable;
+
+    protected $cascadeDeletes = ['programSpecialties'];
+
+    protected $cloneable_relations = ['programSpecialties'];
+
+
 
     protected $table = 'programs';
 

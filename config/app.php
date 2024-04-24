@@ -169,7 +169,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        HelperServiceProvider::class
+        HelperServiceProvider::class,
+        Bkwld\Cloner\ServiceProvider::class
     ])->toArray(),
 
     /*

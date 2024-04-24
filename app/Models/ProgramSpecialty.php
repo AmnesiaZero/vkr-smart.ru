@@ -13,6 +13,8 @@ class ProgramSpecialty extends Model
 
     protected $table = 'programs_specialties';
 
+
+
     protected $dates = ['deleted_at'];
 
 
