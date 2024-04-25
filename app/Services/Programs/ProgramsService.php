@@ -41,9 +41,9 @@ class ProgramsService
         ], 403);
     }
 
-    public function get(int $facultyDepartmentId): JsonResponse
+    public function get(int $departmentId): JsonResponse
     {
-        $programs = $this->_repository->get($facultyDepartmentId);
+        $programs = $this->_repository->get($departmentId);
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно получены кафедры',
             'programs' => $programs

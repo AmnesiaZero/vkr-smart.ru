@@ -34,8 +34,8 @@ class EloquentProgramRepository implements ProgramRepositoryInterface
         return Program::query()->where('year_id', '=', $yearId)->get();
     }
 
-    public function get(int $facultyDepartmentId): Collection
+    public function get(int $departmentId): Collection
     {
-        return Program::query()->where('faculty_department_id', '=', $facultyDepartmentId)->get();
+        return Program::query()->where('department_id', '=', $departmentId)->get();
     }
 }

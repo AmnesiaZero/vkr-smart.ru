@@ -1,12 +1,12 @@
-<div class="create-modal" id="create_employee" style="display: none">
+<div class="create-modal" id="create_admin" style="display: none">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #fff;">
             <div class="modal-header">
                 <h4 class="modal-title">Создать факультет</h4>
             </div>
             <div class="modal-body p-4">
-                <form method="post" id="create_employee_form" class="d-flex flex-column gap-2"
-                      onsubmit="createEmployee();return false;">
+                <form method="post" id="create_admin_form" class="d-flex flex-column gap-2"
+                      onsubmit="createAdmin();return false;">
                     <div class="form-group">
                         <label class="col-sm-4">ФИО</label>
                         <div class="col-sm-8">
@@ -61,35 +61,11 @@
                             </select>
                         </div>
                     </div>
-                    <h3 class="bc-post-title">Определение уровня доступа</h3>
-                    <div class="form-group">
-                        <label class="col-sm-4">Год выпуска</label>
-                        <div class="col-sm-8">
-                            <select name="year" class="form-control" id="years_list" required="">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4">Факультет</label>
-                        <div class="col-sm-8">
-                            <select name="fid" class="form-control" id="faculties_list">
-                                <option value="" selected>Уточните год выпуска...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4">Кафедры</label>
-                        <div class="col-sm-8">
-                            <select name="department_id"  class="form-control" id="departments_menu_list">
-                                <option value="" selected>Уточните факультет...</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="modal-footer br-none">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                onclick="closeModal('create_employee')">Закрыть
+                                onclick="closeModal('create_admin')">Закрыть
                         </button>
-                        <button type="submit" class="btn btn-success" onclick="closeModal('create_employee')">Создать
+                        <button type="submit" class="btn btn-success" onclick="closeModal('create_admin')">Создать
                         </button>
                     </div>
                 </form>

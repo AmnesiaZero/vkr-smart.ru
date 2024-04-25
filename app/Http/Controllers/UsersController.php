@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ValidatorHelper;
 use App\Mail\ResetPassword;
 use App\Models\User;
+use App\Services\Departments\DepartmentsService;
 use App\Services\Users\UsersService;
 use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
@@ -21,14 +22,20 @@ use Illuminate\Validation\Rule;
 class UsersController extends Controller
 {
     public UsersService $usersService;
+
+
     protected $fillable = [
         'name',
+        'role',
         'email',
+        'gender',
         'login',
         'password',
         'organization_id',
         'phone',
-        'date_of_birth'
+        'date_of_birth',
+        'is_active',
+        'department_id'
     ];
 
     public function __construct(UsersService $usersService)
@@ -102,12 +109,28 @@ class UsersController extends Controller
             'name' => 'required|string|max:255',
             'login' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['confirmed'],
+            'password' => 'required|max:255',
+            'gender' => 'required|integer',
+            'is_active' => 'required|integer',
+
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $data = $request->only($this->fillable);
+        Log::debug('request data ='.print_r($data,true));
         return $this->usersService->create($data);
+    }
+
+    public function delete(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required',Rule::exists('users','id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->usersService->delete($id);
     }
 }

@@ -43,4 +43,10 @@ interface UserRepositoryInterface
      */
     public function create(array $data): Model;
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id):bool;
+
 }

@@ -13,14 +13,14 @@ return new class extends Migration {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->integer('organization_id');
-            $table->unsignedBigInteger('faculty_department_id');
+            $table->unsignedBigInteger('department_id');
             $table->integer('user_id');
             $table->string('name');
             $table->integer('educational_level')->default(0);
             $table->integer('level')->default(0);
             $table->softDeletes();
-            $table->foreign('faculty_department_id')->references('id')->
-            on('faculties_departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->
+            on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FacultyDepartment extends Model
+class Department extends Model
 {
     use HasFactory, SoftDeletes, CascadeSoftDeletes, Cloneable;
 
@@ -18,7 +18,7 @@ class FacultyDepartment extends Model
     protected $cloneable_relations = ['programs'];
 
 
-    protected $table = 'faculties_departments';
+    protected $table = 'departments';
 
     protected $dates = ['deleted_at'];
 
@@ -35,6 +35,6 @@ class FacultyDepartment extends Model
 
     public function programs(): HasMany
     {
-        return $this->hasMany(Program::class, 'faculty_department_id');
+        return $this->hasMany(Program::class, 'department_id');
     }
 }

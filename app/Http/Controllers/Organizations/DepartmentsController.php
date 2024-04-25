@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Services\FacultiesDepartments\FacultiesDepartmentsService;
+use App\Services\Departments\DepartmentsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class FacultiesDepartmentsController extends Controller
+class DepartmentsController extends Controller
 {
 
-    public FacultiesDepartmentsService $facultiesDepartmentsService;
+    public DepartmentsService $departmentsService;
 
     protected array $fillable = [
         'faculty_id',
@@ -23,9 +23,9 @@ class FacultiesDepartmentsController extends Controller
         'year_id'
     ];
 
-    public function __construct(FacultiesDepartmentsService $facultiesDepartmentsService)
+    public function __construct(DepartmentsService $departmentsService)
     {
-        $this->facultiesDepartmentsService = $facultiesDepartmentsService;
+        $this->departmentsService = $departmentsService;
     }
 
     public function get(Request $request): JsonResponse
@@ -38,7 +38,7 @@ class FacultiesDepartmentsController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $faculty_id = $request->faculty_id;
-        return $this->facultiesDepartmentsService->get($faculty_id);
+        return $this->departmentsService->get($faculty_id);
     }
 
     public function create(Request $request): JsonResponse
@@ -53,7 +53,7 @@ class FacultiesDepartmentsController extends Controller
         $user = Auth::user();
         $data = array_merge($data, ['user_id' => $user->id, 'organization_id' => $user->organization_id]);
         Log::debug('request data = ' . print_r($data, true));
-        return $this->facultiesDepartmentsService->create($data);
+        return $this->departmentsService->create($data);
     }
 
     public function update(Request $request): JsonResponse
@@ -67,13 +67,13 @@ class FacultiesDepartmentsController extends Controller
         $id = $request->id;
         $data = $request->only($this->fillable);
         Log::debug('data = ' . print_r($data, true));
-        return $this->facultiesDepartmentsService->update($id, $data);
+        return $this->departmentsService->update($id, $data);
     }
 
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required', 'integer', Rule::exists('faculties_departments', 'id')]
+            'id' => ['required', 'integer', Rule::exists('departments', 'id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -82,7 +82,7 @@ class FacultiesDepartmentsController extends Controller
         Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
         Log::debug('data = ' . print_r($data, true));
-        return $this->facultiesDepartmentsService->delete($facultyId);
+        return $this->departmentsService->delete($facultyId);
     }
 
     public function getByUserId(Request $request): JsonResponse
@@ -94,8 +94,18 @@ class FacultiesDepartmentsController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $userId = $request->user_id;
-        return $this->facultiesDepartmentsService->getByUserId($userId);
+        return $this->departmentsService->getByUserId($userId);
+    }
 
-
+    public function getInfo(Request $request):JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'integer', Rule::exists('departments', 'id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->departmentsService->getInfo($id);
     }
 }

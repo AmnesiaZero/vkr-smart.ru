@@ -20,7 +20,7 @@ class ProgramsController extends Controller
     protected array $fillable = [
         'educational_level',
         'level',
-        'faculty_department_id',
+        'department_id',
         'name',
         'year_id'
     ];
@@ -34,13 +34,13 @@ class ProgramsController extends Controller
     {
         Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
-            'faculty_department_id' => ['required', 'integer']
+            'department_id' => ['required', 'integer']
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
-        $facultyDepartmentId = $request->faculty_department_id;
-        return $this->programsService->get($facultyDepartmentId);
+        $departmentId = $request->department_id;
+        return $this->programsService->get($departmentId);
     }
 
     public function create(Request $request): JsonResponse

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\FacultiesDepartments\Repositories;
+namespace App\Services\Departments\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-interface FacultyDepartmentRepositoryInterface
+interface DepartmentRepositoryInterface
 {
     /**
      * Создать новый факультет для организации
@@ -43,4 +43,12 @@ interface FacultyDepartmentRepositoryInterface
      * @return bool
      */
     public function delete(int $id): bool;
+
+    /**
+     * @param int $id
+     * @return Model
+     */
+    public function find(int $id):Model;
+
+
 }

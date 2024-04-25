@@ -16,10 +16,10 @@ interface ProgramRepositoryInterface
 
     /**
      * Получить года организации
-     * @param int $facultyDepartmentId
+     * @param int $departmentId
      * @return Collection
      */
-    public function get(int $facultyDepartmentId): Collection;
+    public function get(int $departmentId): Collection;
 
     /**
      * Получить по году

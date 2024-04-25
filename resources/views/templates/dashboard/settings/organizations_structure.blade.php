@@ -37,21 +37,21 @@
                 </div>
                 @include('layouts.dashboard.include.modal.create.faculty')
                 <div class="br-green-light-2 br-15 py-3 mt-4" style="display: none"
-                     id="faculties_departments_container">
+                     id="departments_container">
                     <div class="row">
                         <div class="col">
                             <p class="mb-2 fw-600 px-3">Кафедры</p>
-                            <div id="faculty_departments_list">
+                            <div id="departments_list">
                             </div>
                             <div class="mx-3">
                                 <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1"
-                                        onclick="openModal('create_faculty_department')">
+                                        onclick="openModal('create_department')">
                                     добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                             </div>
                         </div>
                     </div>
                 </div>
-                @include('layouts.dashboard.include.modal.create.faculty_department')
+                @include('layouts.dashboard.include.modal.create.department')
                 <div class="br-green-light-2 br-15 py-3 mt-4" style="display: none" id="programs_container">
                     <div class="row">
                         <div class="col">
@@ -293,12 +293,12 @@
                 </div>
             </script>
 
-            <script id="faculty_department_tmpl" type="text/x-jquery-tmpl">
-                <div class="row py-2 mx-0 border-bottom" id="faculty_department_row_${id}">
+            <script id="department_tmpl" type="text/x-jquery-tmpl">
+                <div class="row py-2 mx-0 border-bottom" id="department_row_${id}">
                     <div class="col-8 ps-3">
-                        <p class="m-0 fs-14 header" onclick="programs(${id})" id="faculty_department_${id}">${name}</p>
-                        <div class="edit_block" id="edit_block_faculty_department_${id}">
-                            <form onsubmit="updateFacultyDepartment(${id});return false;" id="faculty_department_update_${id}">
+                        <p class="m-0 fs-14 header" onclick="programs(${id})" id="department_${id}">${name}</p>
+                        <div class="edit_block" id="edit_block_department_${id}">
+                            <form onsubmit="updateFacultyDepartment(${id});return false;" id="department_update_${id}">
                                 <div class="row g-2 mt-1">
                                     <div class="col-12">
                                         <p class="fs-12 text-grey m-0">Название:</p>

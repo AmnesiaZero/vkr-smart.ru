@@ -33,4 +33,9 @@ class EloquentUserRepository implements UserRepositoryInterface
     {
         return User::query()->create($data);
     }
+
+    public function delete(int $id):bool
+    {
+       return $this->find($id)->delete();
+    }
 }

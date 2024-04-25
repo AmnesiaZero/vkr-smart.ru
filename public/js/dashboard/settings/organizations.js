@@ -300,7 +300,7 @@ function facultyDepartments(facultyId) {
     $('#faculty_row_' + facultyId).addClass('bg-green');
 
     $.ajax({
-        url: "/dashboard/organizations/faculties-departments/get?faculty_id=" + facultyId,
+        url: "/dashboard/organizations/departments/get?faculty_id=" + facultyId,
         dataType: "json",
         type: "get",
         headers: {
@@ -308,14 +308,14 @@ function facultyDepartments(facultyId) {
         },
         success: function (response) {
             localStorage.setItem('faculty_id', facultyId);
-            const facultyDepartments = response.data.faculty_departments;
+            const facultyDepartments = response.data.departments;
             console.log('fac departments');
             console.log(facultyDepartments);
-            const facultyDepartmentsList = $("#faculty_departments_list");
+            const facultyDepartmentsList = $("#departments_list");
             facultyDepartmentsList.empty();
-            facultyDepartmentsList.html($("#faculty_department_tmpl").tmpl(facultyDepartments));
+            facultyDepartmentsList.html($("#department_tmpl").tmpl(facultyDepartments));
             console.log('Дошёл');
-            $("#faculties_departments_container").css('display', 'block');
+            $("#departments_container").css('display', 'block');
         },
         error: function (response) {
             $.notify(response.data.title + ":" + response.data.message, "error");
@@ -325,13 +325,13 @@ function facultyDepartments(facultyId) {
 
 
 /* createFacultyDepartment() - функция добавления новой кафедры */
-function createFacultyDepartment() {
+function createDepartment() {
     // Получение текущих факультета и года
     const facultyId = localStorage.getItem('faculty_id');
 
     const yearId = localStorage.getItem('year_id');
 
-    let data = $("#faculty_department_form").serialize();
+    let data = $("#department_form").serialize();
 
     let additionalData = {
         faculty_id: facultyId,
@@ -342,7 +342,7 @@ function createFacultyDepartment() {
 
     // Отправляем AJAX-запрос
     $.ajax({
-        url: "/dashboard/organizations/faculties-departments/create",
+        url: "/dashboard/organizations/departments/create",
         type: 'post',
         data: data,
         processData: false,
@@ -351,14 +351,14 @@ function createFacultyDepartment() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            const addedFacultyDepartment = response.data.faculty_department;
-            const source = $("#faculty_department_tmpl").html();
+            const addedFacultyDepartment = response.data.department;
+            const source = $("#department_tmpl").html();
 
             // Заменяем переменные в шаблоне на значения из данных
             const html = $.tmpl(source, addedFacultyDepartment);
 
             // Вставляем созданный HTML
-            $("#faculty_departments_list").append(html);
+            $("#departments_list").append(html);
         },
         error: function (response) {
             $.notify(response.data.title + ":" + response.data.message, "error");
@@ -368,9 +368,9 @@ function createFacultyDepartment() {
 
 /* updateFacultyDepartment(facultyDepartmentId) - функция обновления данных конкретной кафедры
 * args: facultyDepartmentId - id кафедры, которую мы обновляем */
-function updateFacultyDepartment(facultyDepartmentId) {
-    console.log('faculty department = ' + "faculty_department_update_" + facultyDepartmentId);
-    let data = $("#faculty_department_update_" + facultyDepartmentId).serialize();
+function updateDepartment(facultyDepartmentId) {
+    console.log('faculty department = ' + "department_update_" + facultyDepartmentId);
+    let data = $("#department_update_" + facultyDepartmentId).serialize();
     let additionalData = {
         // Дополнительные данные, которые вы хотите отправить на сервер
         id: facultyDepartmentId,
@@ -378,7 +378,7 @@ function updateFacultyDepartment(facultyDepartmentId) {
     };
     data += '&' + $.param(additionalData);
     $.ajax({
-        url: "/dashboard/organizations/faculties-departments/update",
+        url: "/dashboard/organizations/departments/update",
         dataType: "json",
         type: "post",
         data: data,
@@ -387,7 +387,7 @@ function updateFacultyDepartment(facultyDepartmentId) {
         },
         success: function (response) {
             if (response.success) {
-                $("#faculty_department_" + facultyDepartmentId).text(response.data.faculty_department.name);
+                $("#department_" + facultyDepartmentId).text(response.data.department.name);
                 $.notify("Кафедра успешно обновлена", "success");
             } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -401,10 +401,10 @@ function updateFacultyDepartment(facultyDepartmentId) {
 
 /* deleteFacultyDepartment(facultyDepartmentId) - функция удаления кафедры
 * args: facultyDepartmentId - id кафедры, которую мы удаляем */
-function deleteFacultyDepartment(facultyDepartmentId) {
+function deleteDepartment(facultyDepartmentId) {
     if (confirm("Вы действительно хотите удалить данную кафедру? Все связанные с ней данные будут удалены")) {
         $.ajax({
-            url: "/dashboard/organizations/faculties-departments/delete",
+            url: "/dashboard/organizations/departments/delete",
             dataType: "json",
             type: "post",
             data: "id=" + facultyDepartmentId + "&v=" + (new Date()).getTime(),
@@ -413,7 +413,7 @@ function deleteFacultyDepartment(facultyDepartmentId) {
             },
             success: function (response) {
                 if (response.success) {
-                    $("#faculty_department_row_" + facultyDepartmentId).remove();
+                    $("#department_row_" + facultyDepartmentId).remove();
                     $.notify("Кафедра успешно удалена.", "success");
                 } else {
                     $.notify(response.data.title + ":" + response.data.message, "error");
@@ -429,7 +429,7 @@ function deleteFacultyDepartment(facultyDepartmentId) {
 /* showFacultyDepartmentEditBlock(facultyDepartmentId) - функция раскрытия параметров конкретной кафедры
 * args: facultyDepartmentId - id кафедры, которую мы раскрываем */
 function showFacultyDepartmentEditBlock(facultyDepartmentId) {
-    $('#edit_block_faculty_department_' + facultyDepartmentId).toggleClass('d-block');
+    $('#edit_block_department_' + facultyDepartmentId).toggleClass('d-block');
 }
 
 // Профили
@@ -439,16 +439,16 @@ function showFacultyDepartmentEditBlock(facultyDepartmentId) {
 function programs(facultyDepartmentId) {
 
     //Подсвечивание активного элемента
-    $('[id^="faculty_department_row_"]').removeClass('bg-green');
-    $('#faculty_department_row_' + facultyDepartmentId).addClass('bg-green');
+    $('[id^="department_row_"]').removeClass('bg-green');
+    $('#department_row_' + facultyDepartmentId).addClass('bg-green');
 
     $.ajax({
-        url: "/dashboard/organizations/programs/get?faculty_department_id=" + facultyDepartmentId,
+        url: "/dashboard/organizations/programs/get?department_id=" + facultyDepartmentId,
         dataType: "json",
         data: "v=" + (new Date()).getTime(),
         success: function (response) {
             if (response.success) {
-                localStorage.setItem('faculty_department_id', facultyDepartmentId);
+                localStorage.setItem('department_id', facultyDepartmentId);
                 const programs = response.data.programs;
                 $("#programs_list").html($("#program_tmpl").tmpl(programs));
                 $("#programs_container").css('display', 'block');
@@ -469,14 +469,14 @@ function createProgram() {
     // Получение текущих года, факультета и кафедры
     const facultyId = localStorage.getItem('faculty_id');
     const yearId = localStorage.getItem('year_id');
-    const facultyDepartmentId = localStorage.getItem('faculty_department_id');
+    const facultyDepartmentId = localStorage.getItem('department_id');
 
     let data = $("#program_form").serialize();
 
     let additionalData = {
         faculty_id: facultyId,
         year_id: yearId,
-        faculty_department_id: facultyDepartmentId
+        department_id: facultyDepartmentId
     };
 
     data += '&' + $.param(additionalData);

@@ -2,7 +2,7 @@
 
 
 use App\Http\Controllers\Organizations\FacultiesController;
-use App\Http\Controllers\Organizations\FacultiesDepartmentsController;
+use App\Http\Controllers\Organizations\DepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\Organizations\ProgramsController;
@@ -196,13 +196,14 @@ Route::group([
         });
 
         Route::group([
-            'prefix' => 'faculties-departments'
+            'prefix' => 'departments'
         ], function () {
-            Route::get('get', [FacultiesDepartmentsController::class, 'get']);
-            Route::post('create', [FacultiesDepartmentsController::class, 'create']);
-            Route::post('update', [FacultiesDepartmentsController::class, 'update']);
-            Route::post('delete', [FacultiesDepartmentsController::class, 'delete']);
-            Route::get('by-user', [FacultiesDepartmentsController::class, 'getByUserId']);
+            Route::get('get', [DepartmentsController::class, 'get']);
+            Route::post('create', [DepartmentsController::class, 'create']);
+            Route::post('update', [DepartmentsController::class, 'update']);
+            Route::post('delete', [DepartmentsController::class, 'delete']);
+            Route::get('by-user', [DepartmentsController::class, 'getByUserId']);
+            Route::get('get-info',[DepartmentsController::class, 'getInfo']);
         });
 
         Route::group([
@@ -234,6 +235,7 @@ Route::group([
     ], function () {
         Route::get('get', [UsersController::class, 'get']);
         Route::post('create', [UsersController::class, 'create']);
+        Route::post('delete',[UsersController::class,'delete']);
     });
 
 

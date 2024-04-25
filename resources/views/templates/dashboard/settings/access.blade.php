@@ -45,11 +45,11 @@
                 </div>
             </div>
             <div class="col-xxl-3 col-xl-4 col-12 mb-3 order-xl-2 order-1">
-                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p">
+                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p" onclick="openModal('create_admin')">
                     <img src="/images/Plus.svg">
                     <p class="text-grey m-0 pt-3">Добавить администратора</p>
                 </div>
-                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p mt-3" onclick="createEmployee()">
+                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p mt-3" onclick="years();openModal('create_employee')">
                     <img src="/images/Plus.svg">
                     <p class="text-grey m-0 pt-3">Добавить сотрудника</p>
                 </div>
@@ -60,6 +60,8 @@
             </div>
         </div>
     </div>
+    @include('layouts.dashboard.include.modal.create.employee')
+    @include('layouts.dashboard.include.modal.create.admin')
 @endsection
 
 @section('scripts')
@@ -87,23 +89,23 @@
     <script id="department_tmpl" type="text/x-jquery-tmpl">
         <div class="bg-green col-lg-8 mb-3">
                                             <p class="text-grey m-0 fs-14">Кафедра: «${name}»</p>
-                                            <p class="text-grey m-0 fs-14">Подразделение: «»</p>
-                                            <p class="text-grey m-0 fs-14">Год выпуска: «»</p>
+                                            <p class="text-grey m-0 fs-14">Подразделение: «<span id="user_faculty_${id}"> </span>»</p>
+                                            <p class="text-grey m-0 fs-14">Год выпуска: «<span id="user_year_${id}"> </span>»</p>
                                     </div>
     </script>
 
     <script id="user_tmpl" type="text/x-jquery-tmpl">
-        <div class="border-bottom pt-4">
+        <div class="border-bottom pt-4" id="user_${id}">
                               <div class="d-flex mb-3">
                                   <button class="btn copy_edit br-none" type="button"></button>
-                                  <button id="delete" class="btn copy_delete br-none" type="button"></button>
+                                  <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteUser(${id})"></button>
                                   <a href="#" class="text-grey link-active-hover ps-2 fs-14">Настроить доступ</a>
                               </div>
                               <div class="row pb-4">
                                   <div class="col-6">
                                       <p class="mb-2">${name}</p>
-                                      <p class="text-grey fs-14">Сотрудник кафедры</p>
-                                      <div id="departments_list"></div>
+                                      <p class="text-grey fs-14" id="role_${id}"></p>
+                                      <div id="departments_list_${id}"></div>
                                       <div class="me-3">
                                           <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
                                               добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
@@ -141,5 +143,17 @@
                               </div>
                           </div>
     </script>
+    <script id="year_tmpl" type="text/x-jquery-tmpl">
+        <option value="${id}">${year}</option>
+    </script>
+
+    <script id="faculty_tmpl" type="text/x-jquery-tmpl">
+        <option value="${id}">${name}</option>
+    </script>
+
+    <script id="department_list_tmpl" type="text/x-jquery-tmpl">
+        <option value="${id}">${name}</option>
+    </script>
+
     <script src="/js/dashboard/settings/access.js"></script>
 @endsection

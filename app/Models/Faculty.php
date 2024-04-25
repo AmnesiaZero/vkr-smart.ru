@@ -15,9 +15,9 @@ class Faculty extends Model
 
     protected $table = 'faculties';
 
-    protected $cascadeDeletes = ['facultiesDepartments'];
+    protected $cascadeDeletes = ['departments'];
 
-    protected $cloneable_relations = ['facultiesDepartments'];
+    protected $cloneable_relations = ['departments'];
 
 
     protected $dates = ['deleted_at'];
@@ -32,8 +32,8 @@ class Faculty extends Model
     ];
 
 
-    public function facultiesDepartments(): HasMany
+    public function departments(): HasMany
     {
-        return $this->hasMany(FacultyDepartment::class, 'faculty_id');
+        return $this->hasMany(Department::class, 'faculty_id');
     }
 }

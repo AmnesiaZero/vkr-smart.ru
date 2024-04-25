@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
             'OrganizationYear' => 'OrganizationsYears',
             'User' => 'Users',
             'Faculty' => 'Faculties',
-            'FacultyDepartment' => 'FacultiesDepartments',
+            'Department' => 'Departments',
             'Program' => 'Programs',
             'Specialty' => 'Specialties',
             'ProgramSpecialty' => 'ProgramsSpecialties',
