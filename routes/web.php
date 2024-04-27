@@ -1,15 +1,15 @@
 <?php
 
 
-use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\FacultiesController;
-use App\Http\Controllers\Organizations\FacultiesDepartmentsController;
+use App\Http\Controllers\Organizations\DepartmentsController;
+use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\Organizations\ProgramsController;
+use App\Http\Controllers\Organizations\ProgramsSpecialtiesController;
+use App\Http\Controllers\Organizations\SpecialtiesController;
 use App\Http\Controllers\UsersController;
-use App\Models\OrganizationYear;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -124,7 +124,7 @@ Route::group([
     Route::group([
         'prefix' => 'settings'
     ], function () {
-        Route::get('organizations-structure',[OrganizationsController::class, 'organizationsStructure']);
+        Route::get('organizations-structure', [OrganizationsController::class, 'organizationsStructure']);
         Route::get('access', function () {
             return view('templates.dashboard.settings.access');
         });
@@ -176,43 +176,71 @@ Route::group([
 
     Route::group([
         'prefix' => 'organizations'
-    ],function (){
+    ], function () {
         Route::group([
-             'prefix' => 'years'
-           ],function (){
-               Route::get('get',[OrganizationsYearsController::class,'get']);
-               Route::post('create',[OrganizationsYearsController::class,'create']);
-               Route::post('update',[OrganizationsYearsController::class,'update']);
-               Route::post('delete',[OrganizationsYearsController::class,'delete']);
-               Route::post('copy',[OrganizationsYearsController::class,'copy']);
-           });
+            'prefix' => 'years'
+        ], function () {
+            Route::get('get', [OrganizationsYearsController::class, 'get']);
+            Route::post('create', [OrganizationsYearsController::class, 'create']);
+            Route::post('update', [OrganizationsYearsController::class, 'update']);
+            Route::post('delete', [OrganizationsYearsController::class, 'delete']);
+            Route::post('copy', [OrganizationsYearsController::class, 'copy']);
+        });
         Route::group([
             'prefix' => 'faculties'
-        ],function (){
-            Route::get('get',[FacultiesController::class,'get']);
-            Route::post('create',[FacultiesController::class,'create']);
-            Route::post('update',[FacultiesController::class,'update']);
-            Route::post('delete',[FacultiesController::class,'delete']);
+        ], function () {
+            Route::get('get', [FacultiesController::class, 'get']);
+            Route::post('create', [FacultiesController::class, 'create']);
+            Route::post('update', [FacultiesController::class, 'update']);
+            Route::post('delete', [FacultiesController::class, 'delete']);
         });
 
         Route::group([
-            'prefix' => 'faculties-departments'
-        ],function (){
-             Route::get('get',[FacultiesDepartmentsController::class,'get']);
-             Route::post('create',[FacultiesDepartmentsController::class,'create']);
-             Route::post('update',[FacultiesDepartmentsController::class,'update']);
-             Route::post('delete',[FacultiesDepartmentsController::class,'delete']);
+            'prefix' => 'departments'
+        ], function () {
+            Route::get('get', [DepartmentsController::class, 'get']);
+            Route::post('create', [DepartmentsController::class, 'create']);
+            Route::post('update', [DepartmentsController::class, 'update']);
+            Route::post('delete', [DepartmentsController::class, 'delete']);
+            Route::get('by-user', [DepartmentsController::class, 'getByUserId']);
+            Route::get('get-info',[DepartmentsController::class, 'getInfo']);
         });
 
         Route::group([
             'prefix' => 'programs'
-        ],function (){
-           Route::get('get',[ProgramsController::class,'get']);
-           Route::post('create',[ProgramsController::class,'create']);
-           Route::post('delete',[ProgramsController::class,'delete']);
-           Route::post('update',[ProgramsController::class,'update']);
+        ], function () {
+            Route::get('get', [ProgramsController::class, 'get']);
+            Route::post('create', [ProgramsController::class, 'create']);
+            Route::post('delete', [ProgramsController::class, 'delete']);
+            Route::post('update', [ProgramsController::class, 'update']);
+            Route::get('find', [ProgramsController::class, 'find']);
+            Route::group([
+                'prefix' => 'specialties'
+            ], function () {
+                Route::post('create', [ProgramsSpecialtiesController::class, 'create']);
+                Route::get('get', [ProgramsSpecialtiesController::class, 'get']);
+                Route::post('delete', [ProgramsSpecialtiesController::class, 'delete']);
+            });
+        });
+
+        Route::group([
+            'prefix' => 'specialties'
+        ], function () {
+            Route::get('all', [SpecialtiesController::class, 'all']);
         });
     });
+
+    Route::group([
+        'prefix' => 'users'
+    ], function () {
+        Route::get('get', [UsersController::class, 'get']);
+        Route::post('create', [UsersController::class, 'create']);
+        Route::post('delete',[UsersController::class,'delete']);
+        Route::get('find',[UsersController::class,'find']);
+        Route::post('update',[UsersController::class,'update']);
+        Route::post('add-department',[UsersController::class,'addDepartment']);
+    });
+
 
 });
 

@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
+use Bkwld\Cloner\Cloneable;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
 
 class OrganizationYear extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes, Cloneable;
+
+    protected $cascadeDeletes = ['faculties'];
+
+    protected $cloneable_relations = ['faculties'];
 
     protected $table = 'organizations_years';
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'organization_id',
@@ -22,36 +29,10 @@ class OrganizationYear extends Model
         'students_count'
     ];
 
-    protected $dates = ['deleted_at'];
-
-    public static function boot(): void
-    {
-        parent::boot();
-
-        static::deleting(function ($post) {
-            $post->faculties()->delete();
-        });
-       static::replicating(function ($post){
-           Log::debug('replicate у years');
-           $post->faculties()->copyFaculties();
-       });
-    }
-
-    public function copyFaculties(): void
-    {
-        // Получаем все связанные элементы
-        $faculties = $this->faculties()->get();
-
-        // Копируем каждый элемент
-        foreach ($faculties as $faculty) {
-            $newFaculty = $faculty->replicate();
-            $newFaculty->save();
-        }
-    }
 
     public function faculties(): HasMany
     {
-        return $this->hasMany(Faculty::class,'year_id');
+        return $this->hasMany(Faculty::class, 'year_id');
     }
 
 }

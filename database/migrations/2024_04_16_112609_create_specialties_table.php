@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,14 +12,9 @@ return new class extends Migration
     {
         Schema::create('specialties', function (Blueprint $table) {
             $table->id();
-            $table->integer('organization_id');
-            $table->integer('program_id');
-            $table->integer('specialty_id');
-            $table->integer('code');
+            $table->integer('level_id')->default(0);
+            $table->string('code')->nullable();
             $table->string('name');
-            $table->integer('unique_percent');
-            $table->integer('borrowed_percent');
-            $table->boolean('is_deleted');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -11,7 +11,7 @@ interface FacultyRepositoryInterface
      * @param array $data
      * @return mixed
      */
-     public function create(array $data): Model;
+    public function create(array $data): Model;
 
 
     /**
@@ -20,7 +20,7 @@ interface FacultyRepositoryInterface
      * @param array $data
      * @return int
      */
-    public function update(int $id, array $data):int;
+    public function update(int $id, array $data): int;
 
     /**
      * Мягкое удаление
@@ -34,12 +34,12 @@ interface FacultyRepositoryInterface
      * @param int $id
      * @return Model
      */
-    public function find(int $id):Model;
+    public function find(int $id): Model;
 
     /**
      * Получить id года
      * @param int $id
      * @return int
      */
-    public function getYearId(int $id):int;
+    public function getYearId(int $id): int;
 }

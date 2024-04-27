@@ -16,24 +16,24 @@ interface ProgramRepositoryInterface
 
     /**
      * Получить года организации
-     * @param int $facultyDepartmentId
+     * @param int $departmentId
      * @return Collection
      */
-    public function get(int $facultyDepartmentId): Collection;
+    public function get(int $departmentId): Collection;
 
     /**
      * Получить по году
      * @param int $yearId
      * @return Collection
      */
-    public function getByYearId(int $yearId):Collection;
+    public function getByYearId(int $yearId): Collection;
 
     /**
      * Найти по id
      * @param int $id
      * @return Model
      */
-    public function find(int $id):Model;
+    public function find(int $id): Model;
 
     /**
      * Обновить год
@@ -41,7 +41,7 @@ interface ProgramRepositoryInterface
      * @param array $data
      * @return mixed
      */
-    public function update(int $id,array $data):int;
+    public function update(int $id, array $data): int;
 
 
     /**
@@ -49,5 +49,5 @@ interface ProgramRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete(int $id):bool;
+    public function delete(int $id): bool;
 }

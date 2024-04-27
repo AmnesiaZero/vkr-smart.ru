@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Services\FacultiesDepartments\Repositories;
+namespace App\Services\Departments\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-interface FacultyDepartmentRepositoryInterface
+interface DepartmentRepositoryInterface
 {
     /**
      * Создать новый факультет для организации
      * @param array $data
      * @return mixed
      */
-     public function create(array $data): Model;
+    public function create(array $data): Model;
 
     /**
      * Получить кафедры по id факультета
      * @param int $facultyId
      * @return Collection
      */
-    public function get(int $facultyId):Collection;
+    public function get(int $facultyId): Collection;
 
     /**
      * Получить по году
      * @param int $yearId
      * @return Collection
      */
-    public function getByYearId(int $yearId):Collection;
+    public function getByYearId(int $yearId): Collection;
 
 
     /**
@@ -35,7 +35,7 @@ interface FacultyDepartmentRepositoryInterface
      * @param array $data
      * @return int
      */
-    public function update(int $id, array $data):int;
+    public function update(int $id, array $data): int;
 
     /**
      * Мягкое удаление
@@ -43,4 +43,12 @@ interface FacultyDepartmentRepositoryInterface
      * @return bool
      */
     public function delete(int $id): bool;
+
+    /**
+     * @param int $id
+     * @return Model
+     */
+    public function find(int $id):Model;
+
+
 }

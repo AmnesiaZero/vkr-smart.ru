@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
@@ -10,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoleAndPermission;
+    use HasApiTokens, HasFactory, Notifiable, HasRoleAndPermission,SoftDeletes;
 
     protected $table = 'users';
 
@@ -22,7 +24,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'gender',
+        'login',
         'password',
+        'organization_id',
+        'phone',
+        'date_of_birth',
+        'is_active'
     ];
 
     /**
@@ -48,6 +56,10 @@ class User extends Authenticatable
     public static function getByEmail(string $email)
     {
         return User::query()->where('email', '=', $email)->first();
+    }
 
+    public function departments(): BelongsToMany
+    {
+        return $this->belongsToMany(Department::class, 'departments_users','department_id','user_id');
     }
 }

@@ -11,17 +11,22 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
 
     public function create(array $data): Model
     {
-       return Specialty::query()->create($data);
+        return Specialty::query()->create($data);
     }
 
-    public function get(int $facultyDepartmentId): Collection
+    public function all(): Collection
     {
-       return Specialty::query()->where('faculty_department_id','=',$facultyDepartmentId)->get();
+        return Specialty::query()->get();
     }
 
     public function update(int $id, array $data): int
     {
         return Specialty::query()->find($id)->update($data);
+    }
+
+    public function find(int $id): Model
+    {
+        return Specialty::query()->find($id);
     }
 
     public function delete(int $id): bool

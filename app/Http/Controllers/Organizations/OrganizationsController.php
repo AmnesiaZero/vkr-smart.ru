@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Organizations;
 
 use App\Http\Controllers\Controller;
-use App\Services\Organizations\OrganizationsService;
 use App\Services\Faculties\FacultiesService;
+use App\Services\Organizations\OrganizationsService;
 use App\Services\OrganizationsYears\OrganizationsYearsService;
-use Illuminate\Support\Facades\Auth;
 
 class OrganizationsController extends Controller
 {

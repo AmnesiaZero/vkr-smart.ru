@@ -2,10 +2,8 @@
 
 namespace App\Services\OrganizationsYears\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Collection;
-use PhpParser\Node\Expr\AssignOp\Mod;
+use Illuminate\Database\Eloquent\Model;
 
 interface OrganizationYearRepositoryInterface
 {
@@ -14,21 +12,21 @@ interface OrganizationYearRepositoryInterface
      * @param array $data
      * @return Model
      */
-     public function create(array $data): Model;
+    public function create(array $data): Model;
 
     /**
      * Получить года организации
      * @param int $userId
      * @return Collection
      */
-     public function get(int $userId): Collection;
+    public function get(int $userId): Collection;
 
     /**
      * Найти по id
      * @param int $id
      * @return Model
      */
-     public function find(int $id):Model;
+    public function find(int $id): Model;
 
     /**
      * Обновить год
@@ -36,7 +34,7 @@ interface OrganizationYearRepositoryInterface
      * @param array $data
      * @return mixed
      */
-     public function update(int $id,array $data):int;
+    public function update(int $id, array $data): int;
 
     /**
      * Получить год организации по его номеру
@@ -44,20 +42,20 @@ interface OrganizationYearRepositoryInterface
      * @param int $userId
      * @return mixed
      */
-     public function getByYearNumber(int $year,int $userId):Model;
+    public function getByYearNumber(int $year, int $userId): Model;
 
     /**
      * Мягкое удаление года
      * @param int $id
      * @return bool
      */
-     public function delete(int $id):bool;
+    public function delete(int $id): bool;
 
     /**
      * @param int $id
      * @return mixed
      */
-     public function copy(int $id):Model;
+    public function copy(int $id): Model;
 
 
 }

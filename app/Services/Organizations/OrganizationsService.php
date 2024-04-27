@@ -2,7 +2,6 @@
 
 namespace App\Services\Organizations;
 
-use App\Services\Organizations\Repositories\EloquentOrganizationRepository;
 use App\Services\Organizations\Repositories\OrganizationRepositoryInterface;
 use App\Services\Services;
 

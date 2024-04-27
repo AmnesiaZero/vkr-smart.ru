@@ -15,6 +15,6 @@ class ValidatorHelper
         return JsonHelper::sendJsonResponse(false, [
             'title' => 'Ошибка валидации',
             'message' => $message
-        ],400);
+        ]);
     }
 }

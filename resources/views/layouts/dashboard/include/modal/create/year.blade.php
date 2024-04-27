@@ -7,7 +7,8 @@
             </div>
 
             <div class="modal-body">
-                <form method="post" id="yearForm" class="d-flex flex-column gap-2" onsubmit="createYear(); return false;">
+                <form method="post" id="yearForm" class="d-flex flex-column gap-2"
+                      onsubmit="createYear(); return false;">
                     @csrf
                     <div class="form-group">
                         <label for="year">Год</label>
@@ -22,8 +23,11 @@
                         <input type="text" class="form-control" id="comment" name="comment">
                     </div>
                     <div class="modal-footer br-none">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal('create_year')">Закрыть</button>
-                            <button type="submit" class="btn btn-success" onclick="closeModal('create_year')">Создать</button> <!-- Зеленый цвет кнопки "Отправить" -->
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                onclick="closeModal('create_year')">Закрыть
+                        </button>
+                        <button type="submit" class="btn btn-success" onclick="closeModal('create_year')">Создать
+                        </button> <!-- Зеленый цвет кнопки "Отправить" -->
                     </div>
                 </form>
             </div>

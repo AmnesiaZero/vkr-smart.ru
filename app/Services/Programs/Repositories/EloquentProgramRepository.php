@@ -14,21 +14,15 @@ class EloquentProgramRepository implements ProgramRepositoryInterface
         return Program::query()->create($data);
     }
 
-    public function get(int $facultyDepartmentId): Collection
+    public function update(int $id, array $data): int
     {
-        return Program::query()->where('faculty_department_id','=',$facultyDepartmentId)->get();
+        return Program::query()->find($id)->update($data);
     }
 
     public function find(int $id): Model
     {
         return Program::query()->find($id);
     }
-
-    public function update(int $id, array $data): int
-    {
-        return Program::query()->find($id)->update($data);
-    }
-
 
     public function delete(int $id): bool
     {
@@ -37,6 +31,11 @@ class EloquentProgramRepository implements ProgramRepositoryInterface
 
     public function getByYearId(int $yearId): Collection
     {
-       return Program::query()->where('year_id','=',$yearId)->get();
+        return Program::query()->where('year_id', '=', $yearId)->get();
+    }
+
+    public function get(int $departmentId): Collection
+    {
+        return Program::query()->where('department_id', '=', $departmentId)->get();
     }
 }

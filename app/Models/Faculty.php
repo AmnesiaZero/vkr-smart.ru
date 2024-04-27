@@ -2,18 +2,25 @@
 
 namespace App\Models;
 
+use Bkwld\Cloner\Cloneable;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
 
 class Faculty extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes, Cloneable;
 
     protected $table = 'faculties';
+
+    protected $cascadeDeletes = ['departments'];
+
+    protected $cloneable_relations = ['departments'];
+
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'name',
@@ -24,26 +31,9 @@ class Faculty extends Model
         'graduates_count',
     ];
 
-    public function year(): HasOne
-    {
-        return $this->hasOne(OrganizationYear::class);
-    }
 
-    public static function boot(): void
+    public function departments(): HasMany
     {
-        parent::boot();
-
-        static::deleting(function ($post) {
-            $post->facultiesDepartments()->delete();
-        });
-        static::replicating(function ($post){
-            Log::debug('replicate у faculty');
-            $post->facultiesDepartments()->replicate();
-        });
-    }
-
-    public function facultiesDepartments(): HasMany
-    {
-        return $this->hasMany(FacultyDepartment::class,'faculty_id');
+        return $this->hasMany(Department::class, 'faculty_id');
     }
 }
