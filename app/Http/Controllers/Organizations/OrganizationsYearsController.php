@@ -29,9 +29,9 @@ class OrganizationsYearsController extends Controller
     public function get(): JsonResponse
     {
         $user = Auth::user();
-        $result = $this->organizationYearsService->get($user->id);
+        $result = $this->organizationYearsService->get($user->organization_id);
         Log::debug('result = ' . print_r($result, true));
-        return $this->organizationYearsService->get($user->id);
+        return $this->organizationYearsService->get($user->organization_id);
     }
 
     public function create(Request $request): JsonResponse

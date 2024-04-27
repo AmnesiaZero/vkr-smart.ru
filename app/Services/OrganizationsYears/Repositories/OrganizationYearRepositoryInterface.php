@@ -16,10 +16,10 @@ interface OrganizationYearRepositoryInterface
 
     /**
      * Получить года организации
-     * @param int $userId
+     * @param int $organizationId
      * @return Collection
      */
-    public function get(int $userId): Collection;
+    public function get(int $organizationId): Collection;
 
     /**
      * Найти по id

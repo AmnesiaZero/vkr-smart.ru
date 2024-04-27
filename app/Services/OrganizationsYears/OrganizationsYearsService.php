@@ -26,9 +26,9 @@ class OrganizationsYearsService extends Services
         ]);
     }
 
-    public function get(int $userId): JsonResponse
+    public function get(int $organizationId): JsonResponse
     {
-        $years = $this->_repository->get($userId);
+        $years = $this->_repository->get($organizationId);
         Log::debug('years = ' . $years);
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Года успешно получены',

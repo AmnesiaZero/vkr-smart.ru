@@ -177,4 +177,20 @@ class UsersController extends Controller
         $departmentId = $request->department_id;
         return $this->usersService->addDepartment($userId,$departmentId);
     }
+
+    public function search(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $user = Auth::user();
+
+        $organizationId = $user->organization_id;
+        $name = $request->name;
+
+        return $this->usersService->search($name,$organizationId);
+    }
 }

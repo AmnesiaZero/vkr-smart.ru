@@ -11,15 +11,13 @@
                     <div class="form-group">
                         <label class="col-sm-4">Год выпуска</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="years_list" required="">
-                            <select class="form-control" id="years_list" required="">
-                            </select>
+                            <select class="form-control" id="add_department_years_list" required=""> </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4">Факультет</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="faculties_list">
+                            <select class="form-control" id="add_department_faculties_list">
                                 <option value="" selected>Уточните год выпуска...</option>
                             </select>
                         </div>
@@ -27,7 +25,7 @@
                     <div class="form-group">
                         <label class="col-sm-4">Кафедры</label>
                         <div class="col-sm-8">
-                            <select name="department_id"  class="form-control" id="departments_menu_list">
+                            <select name="departments_ids[]"  class="form-control" id="add_departments_menu_list">
                                 <option value="" selected>Уточните факультет...</option>
                             </select>
                         </div>

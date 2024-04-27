@@ -21,17 +21,17 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function get(int $organizationId): Collection
     {
-        return User::query()->where('organization_id', '=', $organizationId)->get();
+        return User::with('roles')->where('organization_id', '=', $organizationId)->get();
     }
 
     public function find(int $id): Model
     {
-        return User::query()->find($id);
+        return User::with('roles')->find($id);
     }
 
     public function create(array $data): Model
     {
-        return User::query()->create($data);
+        return User::with('roles')->create($data);
     }
 
     public function delete(int $id):bool
@@ -42,5 +42,12 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function update(int $id, array $data): int
     {
         return $this->find($id)->update($data);
+    }
+
+    public function search(string $name, int $organizationId): Collection
+    {
+        $query = User::with('roles')
+            ->where('organization_id','=',$organizationId)->where('name','like','%'.$name.'%');
+        return $query->get();
     }
 }

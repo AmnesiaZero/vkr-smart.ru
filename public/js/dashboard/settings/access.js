@@ -2,67 +2,113 @@ $(document).ready(function () {
     users();
     $('.js-example-basic-single').select2();
 
-    // $('#years_list').change(function () {
-    //     const yearId = $(this).val();
-    //     const data = {
-    //         year_id: yearId
-    //     };
-    //     $.ajax({
-    //         url: "/dashboard/organizations/faculties/get",
-    //         dataType: "json",
-    //         data:data,
-    //         type: "get",
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         success: function (response) {
-    //             if(response.success){
-    //                 const faculties = response.data.faculties;
-    //                 const facultiesList = $("#faculties_list");
-    //                 facultiesList.empty();
-    //                 facultiesList.html($("#faculty_tmpl").tmpl(faculties));
-    //                 facultiesList.prepend('<option value="" selected>Выберите.......</option>');
-    //             }
-    //             else{
-    //                 $.notify(response.data.title + ":" + response.data.message, "error");
-    //             }
-    //         },
-    //         error: function () {
-    //             $.notify("Произошла ошибка при выборе года", "error");
-    //         }
-    //     });
-    // });
+    $('#years_list').change(function () {
+        const yearId = $(this).val();
+        const data = {
+            year_id: yearId
+        };
+        faculties(data,'faculties_list');
+    });
+
+    $('#add_department_years_list').change(function () {
+        const yearId = $(this).val();
+        const data = {
+            year_id: yearId
+        };
+        faculties(data,'add_department_faculties_list');
+    });
 
     $('#faculties_list').change(function () {
         const facultyId = $(this).val();
         const data = {
             faculty_id: facultyId
         };
-        $.ajax({
-            url: "/dashboard/organizations/departments/get",
-            dataType: "json",
-            data:data,
-            type: "get",
-            success: function (response) {
-                if(response.success) {
-                    const departments = response.data.departments
-                    console.log(departments);
-                    const departmentsList = $("#departments_menu_list");
-                    departmentsList.html($("#department_list_tmpl").tmpl(departments));
-                    departmentsList.prepend('<option value="" selected>Выберите.......</option>');
-                    console.log('Дошёл до конца');
-                }
-                else{
-                    $.notify(response.data.title + ":" + response.data.message, "error");
-                }
-            },
-            error: function () {
-                $.notify("Произошла ошибка при выборе факультета", "error");
-            }
-        });
+        departments(data,'departments_menu_list');
+        add_departments_menu_list
     });
 
+    $('#add_department_faculties_list').change(function () {
+        const facultyId = $(this).val();
+        const data = {
+            faculty_id: facultyId
+        };
+        departments(data,'add_departments_menu_list');
+    })
+
 });
+
+function years(htmlId)
+{
+    $.ajax({
+        url: "/dashboard/organizations/years/get",
+        dataType: "json",
+        data: "v=" + (new Date()).getTime(),
+        success: function (response) {
+            const years = response.data.years;
+            const yearsList = $("#" + htmlId);
+            yearsList.html($("#year_tmpl").tmpl(years));
+            yearsList.prepend('<option value="" selected>Выбрать...</option>');
+        },
+        error: function (response) {
+            $.notify(response.data.title + ":" + response.data.message, "error");
+        }
+    });
+}
+
+
+
+function faculties(data,htmlId) {
+    $.ajax({
+        url: "/dashboard/organizations/faculties/get",
+        dataType: "json",
+        data:data,
+        type: "get",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+                const faculties = response.data.faculties;
+                const facultiesList = $("#" + htmlId);
+                facultiesList.empty();
+                facultiesList.html($("#faculty_tmpl").tmpl(faculties));
+                facultiesList.prepend('<option value="" selected>Выберите.......</option>');
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при выборе года", "error");
+        }
+    });
+}
+
+function departments(data,htmlId)
+{
+    $.ajax({
+        url: "/dashboard/organizations/departments/get",
+        dataType: "json",
+        data:data,
+        type: "get",
+        success: function (response) {
+            if(response.success) {
+                const departments = response.data.departments
+                console.log(departments);
+                const departmentsList = $("#" + htmlId);
+                departmentsList.html($("#department_list_tmpl").tmpl(departments));
+                departmentsList.prepend('<option value="" selected>Выберите.......</option>');
+                console.log('Дошёл до конца');
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при выборе факультета", "error");
+        }
+    });
+}
 
 
 $('#lock1').click(function () {
@@ -122,11 +168,11 @@ $('.pas').click(function () {
         $('.copy_box').hide();
     }
 });
-//Копировать объект
-document.getElementById("copy").onclick = function () {
-    let text = document.getElementById("content").value;
-    navigator.clipboard.writeText(text);
-}
+// //Копировать объект
+// document.getElementById("copy").onclick = function () {
+//     let text = document.getElementById("content").value;
+//     navigator.clipboard.writeText(text);
+// }
 
 function users() {
     $.ajax({
@@ -146,7 +192,7 @@ function users() {
     });
 }
 
-function departments(userId) {
+function userDepartments(userId) {
     const data = {
         user_id: userId
     };
@@ -177,54 +223,6 @@ function createEmployee() {
     createUser(data);
 }
 
-function years() {
-    console.log('Вошёл в years');
-    $.ajax({
-        url: "/dashboard/organizations/years/get",
-        dataType: "json",
-        data: "v=" + (new Date()).getTime(),
-        success: function (response) {
-            const years = response.data.years;
-            const yearsList = $("#years_list");
-            yearsList.html($("#year_tmpl").tmpl(years));
-            yearsList.prepend('<option value="" selected>Выбрать...</option>');
-        },
-        error: function (response) {
-            $.notify(response.data.title + ":" + response.data.message, "error");
-        }
-    });
-}
-
-function faculties(yearId)
-{
-    const data = {
-        year_id: yearId
-    };
-    $.ajax({
-        url: "/dashboard/organizations/faculties/get",
-        dataType: "json",
-        data:data,
-        type: "get",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (response) {
-            if(response.success){
-                const faculties = response.data.faculties;
-                const facultiesList = $("#faculties_list");
-                facultiesList.empty();
-                facultiesList.html($("#faculty_tmpl").tmpl(faculties));
-                facultiesList.prepend('<option value="" selected>Выберите.......</option>');
-            }
-            else{
-                $.notify(response.data.title + ":" + response.data.message, "error");
-            }
-        },
-        error: function () {
-            $.notify("Произошла ошибка при выборе года", "error");
-        }
-    });
-}
 
 function getDepartmentInfo(id)
 {
@@ -418,9 +416,9 @@ function updateUserCore(id,data)
 
 function loadUserInfo(user)
 {
-    const role = user.role;
+    const role = user.roles[0];
     $("#role_" + user.id).text(role.name);
-    departments(user.id);
+    userDepartments(user.id);
 }
 
 function openAddDepartmentModal(userId)
@@ -465,4 +463,35 @@ function addDepartment()
     });
 }
 
+
+function searchUsers()
+{
+    let data = $("#search_users").serialize();
+    $.ajax({
+        url: "/dashboard/users/search",
+        data: data,
+        type: "GET",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+                const users = response.data.users;
+                $("#users_list").html($("#user_tmpl").tmpl(users));
+                console.log(users);
+                users.forEach(user =>{
+                    loadUserInfo(user)
+                });
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
 

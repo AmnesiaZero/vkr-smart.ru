@@ -239,6 +239,7 @@ Route::group([
         Route::get('find',[UsersController::class,'find']);
         Route::post('update',[UsersController::class,'update']);
         Route::post('add-department',[UsersController::class,'addDepartment']);
+        Route::get('search',[UsersController::class,'search']);
     });
 
 

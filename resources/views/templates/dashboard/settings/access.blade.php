@@ -4,9 +4,9 @@
     <div class="col-xl-9 col-lg-8 col-md-7 col-12">
         <div class="row pt-5 px-0 px-sm-4 mx-sm-0 mx-4">
             <div class="col-xxl-9 col-xl-8 col-12 mb-4 order-xl-1 order-2">
-                <form action="" method="" class="">
+                <form onsubmit="searchUsers();return false" id="search_users" class="">
                     <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                        <input type="text" name="q" value="" class="form-control search br-none"
+                        <input type="text" name="name" value="" class="form-control search br-none"
                                placeholder="Поиск по имени">
                         <button class="btn pe-sm-5 pe-3 py-1" type="submit" id="search">
                             <img src="/images/Search.svg" alt="search">
@@ -45,11 +45,13 @@
                 </div>
             </div>
             <div class="col-xxl-3 col-xl-4 col-12 mb-3 order-xl-2 order-1">
-                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p" onclick="openModal('create_admin')">
+                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p"
+                     onclick="openModal('create_admin')">
                     <img src="/images/Plus.svg">
                     <p class="text-grey m-0 pt-3">Добавить администратора</p>
                 </div>
-                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p mt-3" onclick="years();openModal('create_employee')">
+                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p mt-3"
+                     onclick="years('years_list');openModal('create_employee')">
                     <img src="/images/Plus.svg">
                     <p class="text-grey m-0 pt-3">Добавить сотрудника</p>
                 </div>
@@ -65,7 +67,7 @@
     <div class="create-modal" id="update_user" style="display: none">
 
     </div>
-    @include('layouts.dashboard.include.modal.add.department')
+    @include('layouts.dashboard.include.modal.add.departments')
 @endsection
 
 @section('scripts')
@@ -88,6 +90,7 @@
                        </div>
                    </div>
 
+
     </script>
 
     <script id="department_tmpl" type="text/x-jquery-tmpl">
@@ -96,6 +99,7 @@
                                             <p class="text-grey m-0 fs-14">Подразделение: «<span id="user_faculty_${id}"> </span>»</p>
                                             <p class="text-grey m-0 fs-14">Год выпуска: «<span id="user_year_${id}"> </span>»</p>
                                     </div>
+
     </script>
 
     <script id="user_tmpl" type="text/x-jquery-tmpl">
@@ -111,7 +115,7 @@
                                       <p class="text-grey fs-14" id="role_${id}"></p>
                                       <div id="departments_list_${id}"></div>
                                       <div class="me-3">
-                                          <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openAddDepartmentModal(${id})">
+                                          <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="years('add_department_years_list');openAddDepartmentModal(${id})">
                                               добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                                       </div>
                                   </div>
@@ -151,17 +155,21 @@
                                   </div>
                               </div>
                           </div>
+
     </script>
     <script id="year_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}" onclick="faculties(${id})">${year}</option>
+
     </script>
 
     <script id="faculty_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
+
     </script>
 
     <script id="department_list_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
+
     </script>
     <script id="update_user_tmpl" type="text/x-jquery-tmpl">
     <div class="create-modal" id="update_user" style="display: none">
@@ -235,7 +243,8 @@
     </div>
 </div>
 
-</script>
+
+    </script>
 
     <script src="/js/dashboard/settings/access.js"></script>
 @endsection

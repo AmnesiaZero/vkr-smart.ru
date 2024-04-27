@@ -56,4 +56,12 @@ interface UserRepositoryInterface
      */
     public function update(int $id, array $data):int;
 
+    /**
+     * Поиск по пользователям
+     * @param string $name
+     * @param int $organizationId
+     * @return mixed
+     */
+    public function search(string $name,int $organizationId):Collection;
+
 }

@@ -46,14 +46,10 @@ class UsersService extends Services
     public function get(int $organizationId): JsonResponse
     {
         $users = $this->_repository->get($organizationId);
-        $usersData = [];
         //Сюда можно добавить ещё какую-нибудь инфу
-        foreach ($users as $user){
-           $usersData[] = $this->userData($user);
-        }
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно',
-            'users' => $usersData
+            'users' => $users
         ]);
     }
 
@@ -87,7 +83,7 @@ class UsersService extends Services
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'message' => 'Пользователь успешно создан',
-                'user' => $this->userData($user)
+                'user' => $user
             ]);
         }
         return JsonHelper::sendJsonResponse(false, [
@@ -111,16 +107,6 @@ class UsersService extends Services
         ]);
     }
 
-    public function userData(User $user): array
-    {
-        $roles = $user->roles;
-        $role = $roles[0];
-        $data = [
-            'role' => $role
-        ];
-        unset($user['roles']);
-        return array_merge($user->toArray(),$data);
-    }
 
     public function delete(int $id): JsonResponse
     {
@@ -154,7 +140,7 @@ class UsersService extends Services
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
-                'user' => $this->userData($user)
+                'user' => $user
             ]);
         } else {
             return JsonHelper::sendJsonResponse(false, [
@@ -181,5 +167,30 @@ class UsersService extends Services
            'message' => 'При получении пользователя произошла ошибка'
         ]);
 
+    }
+
+    public function search(string $name,int $organizationId):JsonResponse
+    {
+        if (empty($name)) {
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'Пустой массив данных'
+            ]);
+        }
+
+        $users =  $this->_repository->search($name,$organizationId);
+
+        if ($users) {
+            return JsonHelper::sendJsonResponse(true, [
+                'title' => 'Успех',
+                'message' => 'Пользователи успешно найдены',
+                'users' => $users
+            ]);
+        } else {
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => "Произошла ошибка при получении пользователей",
+            ]);
+        }
     }
 }
