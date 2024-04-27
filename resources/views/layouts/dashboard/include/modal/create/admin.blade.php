@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #fff;">
             <div class="modal-header">
-                <h4 class="modal-title">Создать факультет</h4>
+                <h4 class="modal-title">Создать администратора</h4>
             </div>
             <div class="modal-body p-4">
                 <form method="post" id="create_admin_form" class="d-flex flex-column gap-2"

@@ -38,4 +38,9 @@ class EloquentUserRepository implements UserRepositoryInterface
     {
        return $this->find($id)->delete();
     }
+
+    public function update(int $id, array $data): int
+    {
+        return $this->find($id)->update($data);
+    }
 }

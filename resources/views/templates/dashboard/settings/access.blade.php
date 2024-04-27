@@ -62,6 +62,10 @@
     </div>
     @include('layouts.dashboard.include.modal.create.employee')
     @include('layouts.dashboard.include.modal.create.admin')
+    <div class="create-modal" id="update_user" style="display: none">
+
+    </div>
+    @include('layouts.dashboard.include.modal.add.department')
 @endsection
 
 @section('scripts')
@@ -97,7 +101,7 @@
     <script id="user_tmpl" type="text/x-jquery-tmpl">
         <div class="border-bottom pt-4" id="user_${id}">
                               <div class="d-flex mb-3">
-                                  <button class="btn copy_edit br-none" type="button"></button>
+                                  <button class="btn copy_edit br-none" type="button" onclick="editUserModal(${id})"></button>
                                   <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteUser(${id})"></button>
                                   <a href="#" class="text-grey link-active-hover ps-2 fs-14">Настроить доступ</a>
                               </div>
@@ -107,7 +111,7 @@
                                       <p class="text-grey fs-14" id="role_${id}"></p>
                                       <div id="departments_list_${id}"></div>
                                       <div class="me-3">
-                                          <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1">
+                                          <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="openAddDepartmentModal(${id})">
                                               добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
                                       </div>
                                   </div>
@@ -122,8 +126,13 @@
                                            <p class="text-grey fs-14 m-0" id="active_user2">Заблокирован</p>
                                           @{{/if}}
                                       </div>
-                                      <div id="lock2" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock2"><a
-                                              href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text2">разблокировать</a>
+                                      @{{if is_active}}
+                                       <div id="lock1" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock">
+                                       <a href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text" onclick="blockUser(${id})">заблокировать</a>
+                                       @{{else}}
+                                      <div id="lock2" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock2">
+                                      <a href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text2" onclick="unblockUser(${id})">разблокировать</a>
+                                       @{{/if}}
                                       </div>
                                       <p class="text-grey fs-14 pt-4">${date_of_birth}</p>
                                       <p class="text-grey fs-14">${phone}</p>
@@ -133,7 +142,7 @@
                                           <span class="text-grey fs-14"><img src="/images/Show.svg" alt=""
                                                                              class="pe-2 img_pas">Пароль</span>
                                           <div class="input-group mb-3 mt-2 copy_box" style="width: max-content;">
-                                              <input type="text" class="form-control form-copy" id="content"
+                                              <input type="text" class="form-control form-copy"
                                                      value="${password}" size="8" aria-describedby="button-addon2" readonly>
                                               <button id="copy" class="btn copy_btn" type="button"
                                                       id="button-addon2"></button>
@@ -144,7 +153,7 @@
                           </div>
     </script>
     <script id="year_tmpl" type="text/x-jquery-tmpl">
-        <option value="${id}">${year}</option>
+        <option value="${id}" onclick="faculties(${id})">${year}</option>
     </script>
 
     <script id="faculty_tmpl" type="text/x-jquery-tmpl">
@@ -154,6 +163,79 @@
     <script id="department_list_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
     </script>
+    <script id="update_user_tmpl" type="text/x-jquery-tmpl">
+    <div class="create-modal" id="update_user" style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #fff;">
+            <div class="modal-header">
+                <h4 class="modal-title">Изменить пользователя</h4>
+            </div>
+            <div class="modal-body p-4">
+                <form method="post" id="update_user_form" class="d-flex flex-column gap-2"
+                      onsubmit="updateUser(${id});return false;">
+                    <div class="form-group">
+                        <label class="col-sm-4">ФИО</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="name" value="${name}" value=${password}>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" name="email" value="${email}" value=${password}>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Логин</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="login" value="${login}" value=${password}>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4">Номер телефона</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="phone" value="${phone}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Дата рождения</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" name="date_of_birth" value="${date_of_birth}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Пол</label>
+                        <div class="col-sm-8">
+                            <select name="gender" class="form-control">
+                                <option value="0" @{{if gender==0}} checked @{{/if}}>Муж.</option>
+                                <option value="1" @{{if gender==1}} checked @{{/if}}>Жен.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Статус</label>
+                        <div class="col-sm-8">
+                            <select name="is_active" class="form-control">
+                                <option value="1" @{{if is_active==1}} checked @{{/if}}>Активен</option>
+                                <option value="0" @{{if is_active==0}} checked @{{/if}}>Заблокирован</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer br-none">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                onclick="closeModal('update_user')">Закрыть
+                        </button>
+                        <button type="submit" class="btn btn-success" onclick="closeModal('update_user')">Изменить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</script>
 
     <script src="/js/dashboard/settings/access.js"></script>
 @endsection

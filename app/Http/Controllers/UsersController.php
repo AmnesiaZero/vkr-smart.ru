@@ -45,19 +45,18 @@ class UsersController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
-        Log::debug('Вошёл в login');
-        DB::enableQueryLog();
         $credentials = $request->validate([
             'login' => ['required', Rule::exists('users', 'login')],
             'password' => 'required'
         ]);
-        Log::debug('credidentials = ' . print_r($credentials, true));
         if (Auth::attempt($credentials)) {
-            Log::debug('Успешная авторизация');
             $request->session()->regenerate();
+            $user = Auth::user();
+            if($user->is_active==0){
+                return back()->withErrors(['Вы заблокированы']);
+            }
             return redirect('dashboard');
         }
-        Log::debug('query log = ' . print_r(DB::getQueryLog(), true));
         return back()->withErrors(['Предоставленные данные были некорректными']);
     }
 
@@ -125,12 +124,57 @@ class UsersController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required',Rule::exists('users','id')]
+            'id' => ['required','integer',Rule::exists('users','id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
         return $this->usersService->delete($id);
+    }
+
+    public function find(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required','integer',Rule::exists('users','id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->usersService->find($id);
+    }
+
+    public function update(Request $request):JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required','integer',Rule::exists('users','id')],
+            'name' => 'string|max:255',
+            'login' => 'string|max:255',
+            'email' => 'string|email|max:255',
+            'password' => 'max:255',
+            'gender' => 'integer',
+            'is_active' => 'integer',
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        $data = $request->only($this->fillable);
+        return $this->usersService->update($id,$data);
+    }
+
+    public function addDepartment(Request $request):JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => ['required','integer',Rule::exists('users','id')],
+            'department_id' => ['required','integer',Rule::exists('departments','id')],
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $userId = $request->user_id;
+        $departmentId = $request->department_id;
+        return $this->usersService->addDepartment($userId,$departmentId);
     }
 }

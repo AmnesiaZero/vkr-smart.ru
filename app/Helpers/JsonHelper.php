@@ -8,9 +8,9 @@ class JsonHelper
 {
 
     /**
-     * @param bool $error
-     * @param string $msgType // primary, danger, success, secondary
+     * @param bool $success
      * @param array $data
+     * @param int $status
      * @return JsonResponse
      */
     public static function sendJsonResponse(bool $success, array $data = [], int $status = 200): JsonResponse

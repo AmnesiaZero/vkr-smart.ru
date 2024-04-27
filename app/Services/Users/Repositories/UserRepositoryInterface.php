@@ -49,4 +49,11 @@ interface UserRepositoryInterface
      */
     public function delete(int $id):bool;
 
+    /**
+     * @param int $id
+     * @param array $data
+     * @return int
+     */
+    public function update(int $id, array $data):int;
+
 }

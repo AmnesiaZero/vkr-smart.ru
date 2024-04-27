@@ -4,6 +4,7 @@ namespace App\Services\Users;
 
 
 use App\Helpers\JsonHelper;
+use App\Models\Department;
 use App\Models\User;
 use App\Services\Departments\Repositories\DepartmentRepositoryInterface;
 use App\Services\Roles\Repositories\RoleRepositoryInterface;
@@ -76,10 +77,12 @@ class UsersService extends Services
             }
             $user->attachRole($role);
 
-            if (isset($data['department_id'])){
-                $departmentId = $data['department_id'];
-                Log::debug('department id = '.$departmentId);
-                $user->departments()->attach($departmentId);
+            if (isset($data['departments_ids'])){
+                $departmentsIds = $data['departments_ids'];
+                foreach ($departmentsIds as $id){
+                    Log::debug('department id = '.$id);
+                    $user->departments()->attach($id);
+                }
             }
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
@@ -93,9 +96,19 @@ class UsersService extends Services
         ]);
     }
 
-    public function find(int $id): Model
+    public function find(int $id): JsonResponse
     {
-        return $this->_repository->find($id);
+        $user =  $this->_repository->find($id);
+        if($user and $user->id){
+            return JsonHelper::sendJsonResponse(true,[
+               'title' => 'Успешно',
+                'user' => $user
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+           'title' => 'Ошибка',
+           'message' => 'Ошибка при поиске пользователя'
+        ]);
     }
 
     public function userData(User $user): array
@@ -123,5 +136,50 @@ class UsersService extends Services
                 'message' => 'Ошибка при удалении из базы данных'
             ]);
         }
+    }
+
+    public function update(int $id,array $data):JsonResponse
+    {
+        if (empty($data)) {
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'Пустой массив данных'
+            ]);
+        }
+
+        $result = $this->_repository->update($id, $data);
+
+        if ($result) {
+            $user = User::query()->find($id);
+            return JsonHelper::sendJsonResponse(true, [
+                'title' => 'Успех',
+                'message' => 'Информация успешно сохранена',
+                'user' => $this->userData($user)
+            ]);
+        } else {
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'При сохранении данных произошла ошибка',
+                'id' => $result->id
+            ]);
+        }
+    }
+
+    public function addDepartment(int $userId, int $departmentId): JsonResponse
+    {
+        $user = $this->_repository->find($userId);
+        if($user and $user->id){
+            $user->departments()->attach($departmentId);
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Кафедра успешно привязана',
+                'user' => $user
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+           'title' => 'Ошибка',
+           'message' => 'При получении пользователя произошла ошибка'
+        ]);
+
     }
 }

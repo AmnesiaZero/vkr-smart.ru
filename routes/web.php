@@ -236,6 +236,9 @@ Route::group([
         Route::get('get', [UsersController::class, 'get']);
         Route::post('create', [UsersController::class, 'create']);
         Route::post('delete',[UsersController::class,'delete']);
+        Route::get('find',[UsersController::class,'find']);
+        Route::post('update',[UsersController::class,'update']);
+        Route::post('add-department',[UsersController::class,'addDepartment']);
     });
 
 

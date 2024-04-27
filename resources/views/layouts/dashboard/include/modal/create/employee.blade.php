@@ -65,14 +65,14 @@
                     <div class="form-group">
                         <label class="col-sm-4">Год выпуска</label>
                         <div class="col-sm-8">
-                            <select name="year" class="form-control" id="years_list" required="">
+                            <select class="form-control" id="years_list" required="">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4">Факультет</label>
                         <div class="col-sm-8">
-                            <select name="fid" class="form-control" id="faculties_list">
+                            <select class="form-control" id="faculties_list">
                                 <option value="" selected>Уточните год выпуска...</option>
                             </select>
                         </div>
@@ -80,7 +80,39 @@
                     <div class="form-group">
                         <label class="col-sm-4">Кафедры</label>
                         <div class="col-sm-8">
-                            <select name="department_id"  class="form-control" id="departments_menu_list">
+                            <select name="did[]" id="departments-select" class="form-control bs-select-hidden" data-title="Выбрать несколько..." data-width="100%" multiple="multiple">
+                                <option value="">Выбрать...</option>
+                                <option value="8717">Экономики и права</option>
+                            </select>
+                            <div class="btn-group bootstrap-select show-tick form-control dropup" style="width: 100%;">
+                                <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" data-id="departments-select" title="Экономики и права" aria-expanded="false">
+                                    <span class="filter-option pull-left">Экономики и права</span>
+                                    &nbsp;
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu open" style="max-height: 626.367px; overflow: hidden; min-height: 0px;">
+                                    <ul class="dropdown-menu inner" role="menu" style="max-height: 614.367px; overflow-y: auto; min-height: 0px;">
+                                        <li data-original-index="0">
+                                            <a tabindex="0" class="" style="" data-tokens="null">
+                                                <span class="text">Выбрать...</span>
+                                                <span class="glyphicon glyphicon-ok check-mark"></span>
+                                            </a></li><li data-original-index="1" class="selected">
+                                            <a tabindex="0" class="" style="" data-tokens="null">
+                                                <span class="text">Экономики и права</span>
+                                                <span class="glyphicon glyphicon-ok check-mark">
+
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Кафедры</label>
+                        <div class="col-sm-8">
+                            <select name="departments_ids[]"  class="form-control" id="departments_menu_list" multiple>
                                 <option value="" selected>Уточните факультет...</option>
                             </select>
                         </div>
