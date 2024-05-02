@@ -19,6 +19,9 @@ $(document).ready(function () {
         $(this).attr("disabled", false);
         $('#apply_btn').show();
     })
+
+    // Инициализация bootstrap-select
+    $('.selectpicker').selectpicker();
 });
 
 // function apply() {
