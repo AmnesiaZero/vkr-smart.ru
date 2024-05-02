@@ -112,8 +112,18 @@
                               <div class="row pb-4">
                                   <div class="col-6">
                                       <p class="mb-2">${name}</p>
-                                      <p class="text-grey fs-14" id="role_${id}"></p>
-                                      <div id="departments_list_${id}"></div>
+                                      <p class="text-grey fs-14" id="role_${id}">
+                                        ${roles[0]['name']}
+                                      </p>
+                                      <div id="departments_list_${id}">
+                                       @{{each departments}}
+                                          <div class="bg-green col-lg-8 mb-3">
+                                            <p class="text-grey m-0 fs-14">Кафедра: «${name}»</p>
+                                            <p class="text-grey m-0 fs-14">Подразделение: «${faculty.name}»</p>
+                                            <p class="text-grey m-0 fs-14">Год выпуска: «${year.year}»</p>
+                                          </div>
+                                       @{{/each}}
+                                      </div>
                                       <div class="me-3">
                                           <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="years('add_department_years_list');openAddDepartmentModal(${id})">
                                               добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>

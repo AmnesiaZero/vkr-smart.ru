@@ -151,15 +151,20 @@ class UsersService extends Services
         }
     }
 
-    public function addDepartment(int $userId, int $departmentId): JsonResponse
+    public function addDepartment(int $userId, array $departmentsIds): JsonResponse
     {
         $user = $this->_repository->find($userId);
         if($user and $user->id){
-            $user->departments()->attach($departmentId);
+            foreach ($departmentsIds as $departmentId){
+               if($this->departmentRepository->exist($departmentId)){
+                   $user->departments()->attach($departmentId);
+               }
+            }
+            $updatedUser = $this->_repository->find($userId);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
                 'message' => 'Кафедра успешно привязана',
-                'user' => $user
+                'user' => $updatedUser
             ]);
         }
         return JsonHelper::sendJsonResponse(false,[
@@ -169,16 +174,16 @@ class UsersService extends Services
 
     }
 
-    public function search(string $name,int $organizationId):JsonResponse
+    public function search(array $data):JsonResponse
     {
-        if (empty($name)) {
+        if (empty($data)) {
             return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Пустой массив данных'
             ]);
         }
 
-        $users =  $this->_repository->search($name,$organizationId);
+        $users =  $this->_repository->search($data);
 
         if ($users) {
             return JsonHelper::sendJsonResponse(true, [
@@ -192,5 +197,19 @@ class UsersService extends Services
                 'message' => "Произошла ошибка при получении пользователей",
             ]);
         }
+    }
+
+    public function configureAccess(int $organizationId,array $programSpecialties)
+    {
+        $role = $this->roleRepository->find('inspector');
+        $inspectors = $role->users();
+        $data = [
+            'organization_id' => $organizationId
+        ];
+        $organizationInspectors =  $this->_repository->filterUsers($inspectors,$data);
+        foreach ($organizationInspectors as $inspector){
+
+        }
+
     }
 }

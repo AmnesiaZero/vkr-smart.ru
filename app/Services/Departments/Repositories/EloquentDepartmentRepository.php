@@ -39,4 +39,9 @@ class EloquentDepartmentRepository implements DepartmentRepositoryInterface
     {
         return Department::query()->find($id);
     }
+
+    public function exist(int $id): bool
+    {
+        return Department::query()->where('id','=',$id)->exists();
+    }
 }

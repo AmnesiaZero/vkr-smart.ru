@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Department extends Model
@@ -36,5 +37,15 @@ class Department extends Model
     public function programs(): HasMany
     {
         return $this->hasMany(Program::class, 'department_id');
+    }
+
+    public function faculty():HasOne
+    {
+        return $this->hasOne(Faculty::class,'id','faculty_id');
+    }
+
+    public function year():HasOne
+    {
+        return $this->hasOne(OrganizationYear::class,'id','year_id');
     }
 }

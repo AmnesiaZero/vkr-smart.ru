@@ -60,6 +60,6 @@ class User extends Authenticatable
 
     public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'departments_users','department_id','user_id');
+        return $this->belongsToMany(Department::class, 'departments_users')->with(['faculty','year']);
     }
 }

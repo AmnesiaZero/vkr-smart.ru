@@ -58,10 +58,18 @@ interface UserRepositoryInterface
 
     /**
      * Поиск по пользователям
-     * @param string $name
-     * @param int $organizationId
-     * @return mixed
+     * @param array $data
+     * @return Collection
      */
-    public function search(string $name,int $organizationId):Collection;
+    public function search(array $data):Collection;
+
+
+    /**
+     * @param Collection $users
+     * @param array $data
+     * @return Collection
+     */
+    public function filterUsers(Collection $users,array $data):Collection;
+
 
 }

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use jeremykenedy\LaravelRoles\Models\Role;
 
 class UsersController extends Controller
 {
@@ -35,7 +36,7 @@ class UsersController extends Controller
         'phone',
         'date_of_birth',
         'is_active',
-        'department_id'
+        'departments_ids'
     ];
 
     public function __construct(UsersService $usersService)
@@ -168,14 +169,14 @@ class UsersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_id' => ['required','integer',Rule::exists('users','id')],
-            'department_id' => ['required','integer',Rule::exists('departments','id')],
+            'departments_ids' => ['required','array'],
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $userId = $request->user_id;
-        $departmentId = $request->department_id;
-        return $this->usersService->addDepartment($userId,$departmentId);
+        $departmentsIds = $request->departments_ids;
+        return $this->usersService->addDepartment($userId,$departmentsIds);
     }
 
     public function search(Request $request): JsonResponse
@@ -191,6 +192,10 @@ class UsersController extends Controller
         $organizationId = $user->organization_id;
         $name = $request->name;
 
-        return $this->usersService->search($name,$organizationId);
+        $data = ['name' => $name,'organization_id' => $organizationId];
+
+        return $this->usersService->search($data);
     }
+
+
 }

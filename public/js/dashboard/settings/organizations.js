@@ -19,6 +19,9 @@ $(document).ready(function () {
         $(this).attr("disabled", false);
         $('#apply_btn').show();
     })
+
+    // Инициализация bootstrap-select
+    $('.selectpicker').selectpicker();
 });
 
 // function apply() {
@@ -183,7 +186,6 @@ function faculties(yearId) {
         },
         success: function (response) {
             localStorage.setItem('year_id', yearId);
-
             const faculties = response.data.faculties;
             console.log('faculties')
             console.log(faculties);

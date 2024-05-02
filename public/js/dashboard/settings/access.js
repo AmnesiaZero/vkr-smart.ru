@@ -24,7 +24,6 @@ $(document).ready(function () {
             faculty_id: facultyId
         };
         departments(data,'departments_menu_list');
-        add_departments_menu_list
     });
 
     $('#add_department_faculties_list').change(function () {
@@ -96,8 +95,9 @@ function departments(data,htmlId)
                 const departments = response.data.departments
                 console.log(departments);
                 const departmentsList = $("#" + htmlId);
+                $('.selectpicker').selectpicker('deselectAll');
                 departmentsList.html($("#department_list_tmpl").tmpl(departments));
-                departmentsList.prepend('<option value="" selected>Выберите.......</option>');
+                $('.selectpicker').selectpicker('refresh');
                 console.log('Дошёл до конца');
             }
             else{
@@ -182,9 +182,6 @@ function users() {
         success: function (response) {
             const users = response.data.users;
             $("#users_list").html($("#user_tmpl").tmpl(users));
-            users.forEach((user) => {
-                loadUserInfo(user);
-            });
         },
         error: function (response) {
             $.notify(response.data.title + ":" + response.data.message, "error");
@@ -282,7 +279,6 @@ function createUser(data)
                 // Вставляем созданный HTML
                 $("#users_list").append(html);
 
-                loadUserInfo(user);
 
             }
             else {
@@ -401,7 +397,6 @@ function updateUserCore(id,data)
                 const userHtml = $("#user_" + id);
                 const updatedContent = $("#user_tmpl").tmpl(user);
                 userHtml.replaceWith(updatedContent);
-                loadUserInfo(user);
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -412,13 +407,6 @@ function updateUserCore(id,data)
             $.notify("Произошла ошибка при редактировании пользователя", "error");
         }
     });
-}
-
-function loadUserInfo(user)
-{
-    const role = user.roles[0];
-    $("#role_" + user.id).text(role.name);
-    userDepartments(user.id);
 }
 
 function openAddDepartmentModal(userId)
@@ -450,7 +438,6 @@ function addDepartment()
                 const userHtml = $("#user_" + userId);
                 const updatedContent = $("#user_tmpl").tmpl(user);
                 userHtml.replaceWith(updatedContent);
-                loadUserInfo(user);
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -480,9 +467,6 @@ function searchUsers()
                 const users = response.data.users;
                 $("#users_list").html($("#user_tmpl").tmpl(users));
                 console.log(users);
-                users.forEach(user =>{
-                    loadUserInfo(user)
-                });
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");

@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label class="col-sm-4">Кафедры</label>
                         <div class="col-sm-8">
-                            <select name="departments_ids[]"  class="form-control" id="add_departments_menu_list">
+                            <select name="departments_ids[]" id="add_departments_menu_list" class="selectpicker form-control bs-select-hidden" data-title="Выбрать несколько..." data-width="100%" multiple>
                                 <option value="" selected>Уточните факультет...</option>
                             </select>
                         </div>
