@@ -13,6 +13,8 @@ class OrganizationsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Organization::factory(20)->create();
+        Organization::factory()->create([
+            'name' => 'IPR MEDIA'
+        ]);
     }
 }

@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
             'login' => 'apav',
             'gender' => 0, //мужчина
             'password' => bcrypt('YDuuk31nfS'),
-            'email' => 'sanekpavlov39@gmail.com'
+            'email' => 'sanekpavlov39@gmail.com',
+            'organization_id' => 1
         ]);
     }
 }
