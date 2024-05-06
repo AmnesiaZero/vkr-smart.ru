@@ -20,8 +20,6 @@ return new class extends Migration {
             $table->integer('graduates_count')->default(0);;
             $table->boolean('is_deleted')->default(0);
             $table->softDeletes();
-            $table->foreign('year_id')->references('id')->
-            on('organizations_years')->onDelete('cascade');
             $table->timestamps();
         });
     }
