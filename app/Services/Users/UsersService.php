@@ -69,6 +69,12 @@ class UsersService extends Services
                 'message' => 'Пустой массив данных'
             ]);
         }
+        if(!is_numeric($data['organization_id'])){
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'У вас неккоректно задан id организации'
+            ]);
+        }
         $user = $this->_repository->create($data);
         if ($user and $user->id) {
             $userId = $user->id;

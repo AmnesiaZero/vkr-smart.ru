@@ -110,6 +110,10 @@ class UsersController extends Controller
         }
         $data = $request->only($this->fillable);
         Log::debug('request data ='.print_r($data,true));
+
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        $data['organization_id'] = $organizationId;
         return $this->usersService->create($data);
     }
 

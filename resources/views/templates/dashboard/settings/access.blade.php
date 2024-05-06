@@ -177,7 +177,7 @@
                       <p class="text-grey fs-14 m-0" id="active_user2">Заблокирован</p>
                      @{{/if}}
                     <p class="text-grey fs-14 mb-0">${email}</p>
-                    <a href="#" class="text-grey link-active-hover fs-14">отправить пароль на email</a>
+                    <a href="#" class="text-grey link-active-hover fs-14"  onclick="resetUserPassword('${email}')">отправить пароль на email</a>
                 </div>
             </div>
     </script>
