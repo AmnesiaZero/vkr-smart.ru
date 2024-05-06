@@ -33,7 +33,15 @@ $(document).ready(function () {
             faculty_id: facultyId
         };
         departments(data,'add_departments_menu_list');
-    })
+    });
+
+    $('#checking_specialties').change(function() {
+        $('#specialties_list').find("input[class='specialty_checkbox']").prop('checked', $(this).prop("checked"));
+    });
+
+    $('#checking_departments').change(function() {
+        $('#departments_list').find("input[class='department_checkbox']").prop('checked', $(this).prop("checked"));
+    });
 
 });
 
@@ -505,11 +513,11 @@ function searchUsers()
 
 function inspectorsAccessModal()
 {
-    accessYears();
+    inspectorsAccessYears();
     openModal('inspectors_access_modal');
 }
 
-function accessYears()
+function inspectorsAccessYears()
 {
     $.ajax({
         url: "/dashboard/organizations/years/get",
@@ -518,7 +526,7 @@ function accessYears()
         success: function (response) {
             if(response.success){
                 const years = response.data.years;
-                $("#access_years_list").html($("#access_year_tmpl").tmpl(years));
+                $("#inspectors_access_years_list").html($("#inspectors_access_year_tmpl").tmpl(years));
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -558,14 +566,13 @@ function accessSpecialties(yearId)
                           programSpecialties.forEach(specialty => {
                               specialtiesList.append(`<div className="list-group-item">
                                   <label className="text-success">
-                                      <input type="checkbox" value="${specialty.id}"> ${faculty.name} / ${department.name} / ${program.name} /${specialty.code} | ${specialty.name}
+                                      <input type="checkbox" class="specialty_checkbox" value="${specialty.id}"> ${faculty.name} / ${department.name} / ${program.name} /${specialty.code} | ${specialty.name}
                                   </label>
                               </div>`);
                           });
                        });
                    });
                 });
-                specialtiesList.selectpicker('render');
 
             }
             else {
@@ -585,7 +592,7 @@ function configureInspectorsAccess()
 {
     console.log('Зашёл в функцию accessSpecialties');
     const selectedValues = [];
-    $('input[type="checkbox"]:checked').each(function(){
+    $('input[class="specialty_checkbox"]:checked').each(function(){
         selectedValues.push($(this).val());
     });
     const data = {
@@ -614,14 +621,37 @@ function configureInspectorsAccess()
     });
 }
 
+function userAccessYears()
+{
+    $.ajax({
+        url: "/dashboard/organizations/years/get",
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                const years = response.data.years;
+                $("#user_access_years_list").html($("#user_access_year_tmpl").tmpl(years));
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
 
 function userDepartmentsModal(userId)
 {
+    userAccessYears();
     localStorage.setItem('user_id',userId);
     openModal('configure_user_departments');
 }
 
-function accessDepartments()
+function accessDepartments(yearId)
 {
     const data = {
         id:yearId
@@ -635,20 +665,19 @@ function accessDepartments()
             if(response.success){
                 const year = response.data.year;
                 const faculties = year.faculties;
-                const specialtiesList = $("#specialties_list");
-                specialtiesList.empty();
-                specialtiesList.selectpicker('destroy');
+                const departmentsList = $("#departments_list");
+                departmentsList.empty();
                 faculties.forEach(faculty => {
                     const departments = faculty.departments;
                     departments.forEach(department => {
-                        specialtiesList.append(`<div className="list-group-item">
+                        departmentsList.append(`<div className="list-group-item">
                                   <label className="text-success">
-                                      <input type="checkbox" value="${department.id}"> ${faculty.name} / ${department.name}
+                                      <input type="checkbox" class="department_checkbox" value="${department.id}"> ${faculty.name} / ${department.name}
                                   </label>
                               </div>`);
                     });
                 });
-                specialtiesList.selectpicker('render');
+                departmentsList.selectpicker('render');
 
             }
             else {
@@ -666,11 +695,16 @@ function accessDepartments()
 function configureUserDepartments()
 {
     const userId = localStorage.getItem('user_id');
-    let data = $("#update_user_form").serialize();
-    const additionalData = {
+    console.log('Зашёл в функцию configureUserDepartments');
+    const selectedValues = [];
+    $('input[class="department_checkbox"]:checked').each(function(){
+        selectedValues.push($(this).val());
+    });
+    console.log(selectedValues);
+    const data = {
+        departments_ids:selectedValues,
         user_id:userId
-    };
-    data += '&' + $.param(additionalData);
+    }
     $.ajax({
         url: "/dashboard/users/configure-departments",
         data: data,
@@ -682,7 +716,7 @@ function configureUserDepartments()
         success: function (response) {
             if(response.success){
                 const user = response.data.user;
-                const userHtml = $("#user_" + id);
+                const userHtml = $("#user_" + userId);
                 const updatedContent = $("#user_tmpl").tmpl(user);
                 userHtml.replaceWith(updatedContent);
             }
@@ -695,6 +729,7 @@ function configureUserDepartments()
             $.notify("Произошла ошибка при редактировании пользователя", "error");
         }
     });
+
 }
 
 

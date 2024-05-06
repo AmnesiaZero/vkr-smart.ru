@@ -49,6 +49,7 @@
     @include('layouts.dashboard.include.modal.create.employee')
     @include('layouts.dashboard.include.modal.create.admin')
     @include('layouts.dashboard.include.modal.configure.inspectors_access')
+    @include('layouts.dashboard.include.modal.configure.users_departments')
     <div class="create-modal" id="update_user" style="display: none">
 
     </div>
@@ -73,7 +74,7 @@
                               <div class="d-flex mb-3">
                                   <button class="btn copy_edit br-none" type="button" onclick="editUserModal(${id})"></button>
                                   <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteUser(${id})"></button>
-                                  <a href="#" class="text-grey link-active-hover ps-2 fs-14">Настроить доступ</a>
+                                  <a href="#" class="text-grey link-active-hover ps-2 fs-14" onclick="userDepartmentsModal(${id})">Настроить доступ</a>
                               </div>
                               <div class="row pb-4">
                                   <div class="col-6">
@@ -255,12 +256,21 @@
 </div>
 
     </script>
-    <script id="access_year_tmpl" type="text/x-jquery-tmpl">
+    <script id="inspectors_access_year_tmpl" type="text/x-jquery-tmpl">
       <li>
          <a href="#" onclick="accessSpecialties(${id});">${year}</a>
       </li>
 
     </script>
+
+    <script id="user_access_year_tmpl" type="text/x-jquery-tmpl">
+      <li>
+         <a href="#" onclick="accessDepartments(${id});">${year}</a>
+      </li>
+
+    </script>
+
+
 
 
 

@@ -12,7 +12,7 @@
                         <div id="checking-access-alert"></div>
                         <div id="checkingAccessFormListYears">
                             <nav class="navbar navbar-default">
-                                <ul class="nav navbar-nav" id="access_years_list">
+                                <ul class="nav navbar-nav" id="inspectors_access_years_list">
 
                                 </ul>
                             </nav>
@@ -22,7 +22,7 @@
 
                                 <div class="list-group list-group-sm">
                                     <h4>
-                                        <input id="checking-year-1042" onchange="checkAllSpecialties(${id});" type="checkbox"> Выбрать все</h4>
+                                        <input id="checking_specialties" type="checkbox"> Выбрать все</h4>
 {{--                                    <select name="specialties_ids[]" id="specialties_list" class="selectpicker form-control bs-select-hidden" data-title="Выбрать несколько..." data-width="100%" multiple>--}}
 
 
