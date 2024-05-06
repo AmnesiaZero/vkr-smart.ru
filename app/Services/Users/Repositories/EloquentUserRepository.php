@@ -57,6 +57,9 @@ class EloquentUserRepository implements UserRepositoryInterface
             $values = $data['where_in'];
             $query = $query->whereIn('id',$values);
         }
+        if(isset($data['email'])){
+            $query = $query->where('email','=',$data['email']);
+        }
         return $query->get();
     }
 

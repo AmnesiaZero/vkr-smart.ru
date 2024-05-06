@@ -42,7 +42,6 @@ $(document).ready(function () {
     $('#checking_departments').change(function() {
         $('#departments_list').find("input[class='department_checkbox']").prop('checked', $(this).prop("checked"));
     });
-
 });
 
 
@@ -729,7 +728,34 @@ function configureUserDepartments()
             $.notify("Произошла ошибка при редактировании пользователя", "error");
         }
     });
+}
 
+function resetUserPassword(email)
+{
+    const data = {
+        email:email,
+    }
+    $.ajax({
+        url: "/mail/reset-password",
+        data: data,
+        type: "POST",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+                $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
 }
 
 

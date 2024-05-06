@@ -54,10 +54,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public static function getByEmail(string $email)
-    {
-        return User::query()->where('email', '=', $email)->first();
-    }
+
 
     public function departments(): BelongsToMany
     {

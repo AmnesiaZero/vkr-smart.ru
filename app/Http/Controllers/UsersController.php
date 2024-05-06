@@ -63,20 +63,14 @@ class UsersController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $credentials = $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => ['required', 'email', Rule::exists('users', 'email')]
         ]);
-        $email = $credentials['email'];
-        $user = User::getByEmail($email);
-        $userId = $user->id;
-        $payload = [
-            'exp' => time() + config('jwt.exp'),
-            'user_id' => $userId
-        ];
-        $token = JWT::encode($payload, config('jwt.key'), config('jwt.alg'));
-        $resetLink = config('app.url') . '/password/new?token=' . $token;
-        Mail::to($email)->queue(new ResetPassword($resetLink));
-        return redirect('home');
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $email = $request->email;
+        return $this->usersService->resetPassword($email);
     }
 
     public function you()
@@ -92,13 +86,7 @@ class UsersController extends Controller
         ]);
         $password = $credentials['password'];
         $token = $request->token;
-        list($headersB64, $payloadB64, $sig) = explode('.', $token);
-        $decoded = json_decode(base64_decode($payloadB64), true);
-        $userId = (int)$decoded['user_id'];
-        $user = User::query()->find($userId);
-        $user->password = Hash::make($password);
-        $user->save();
-        return redirect('home');
+        return $this->usersService->newPassword($password,$token);
     }
 
     public function get(): JsonResponse
@@ -214,8 +202,5 @@ class UsersController extends Controller
         $departmentsIds = $request->departments_ids;
         return $this->usersService->configureDepartments($userId,$departmentsIds);
     }
-
-
-
 
 }

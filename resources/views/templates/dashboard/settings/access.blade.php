@@ -118,7 +118,7 @@
                                       <p class="text-grey fs-14 pt-4">${date_of_birth}</p>
                                       <p class="text-grey fs-14">${phone}</p>
                                       <p class="text-grey fs-14 mb-0">${email}</p>
-                                      <a href="#" class="text-grey link-active-hover fs-14">отправить пароль на email</a>
+                                      <a href="#" class="text-grey link-active-hover fs-14" onclick="resetUserPassword('${email}')">отправить пароль на email</a>
                                       <div class="pas cursor-p mt-2">
                                           <span class="text-grey fs-14"><img src="/images/Show.svg" alt=""
                                                                              class="pe-2 img_pas">Пароль</span>

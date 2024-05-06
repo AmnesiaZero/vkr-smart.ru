@@ -4,16 +4,21 @@ namespace App\Services\Users;
 
 
 use App\Helpers\JsonHelper;
+use App\Mail\ResetPassword;
 use App\Models\Department;
 use App\Models\User;
 use App\Services\Departments\Repositories\DepartmentRepositoryInterface;
 use App\Services\Roles\Repositories\RoleRepositoryInterface;
 use App\Services\Services;
 use App\Services\Users\Repositories\UserRepositoryInterface;
+use Error;
+use Firebase\JWT\JWT;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class UsersService extends Services
 {
@@ -226,10 +231,54 @@ class UsersService extends Services
     public function you(): JsonResponse
     {
         $you = Auth::user();
-        $you->organization;
+        $you->organization; //это добавляет в модель поле organization. ->with() не работает,так удобнее всего
         return JsonHelper::sendJsonResponse(true,[
             'title' => 'Успешно',
             'you' => $you
         ]);
+    }
+
+    public function resetPassword(string $email)
+    {
+        $user =  $this->_repository->getByEmail($email);
+        $userId = $user->id;
+        $payload = [
+            'exp' => time() + config('jwt.exp'),
+            'user_id' => $userId
+        ];
+        try {
+            $token = JWT::encode($payload, config('jwt.key'), config('jwt.alg'));
+        }
+        catch (Error $error){
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Ошибка при кодировании токена'
+            ]);
+        }
+        $resetLink = config('app.url') . '/password/new?token=' . $token;
+        try {
+            Mail::to($email)->queue(new ResetPassword($resetLink));
+        }
+        catch (Error $error){
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Ошибка при отправке сообщения на почту'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(true,[
+            'title' => 'Успешно',
+            'message' => 'Ссылка на сброс пароля была успешно отправлена на почту'
+        ]);
+    }
+
+    public function newPassword(string $newPassword,string $token)
+    {
+        list($headersB64, $payloadB64, $sig) = explode('.', $token);
+        $decoded = json_decode(base64_decode($payloadB64), true);
+        $userId = (int)$decoded['user_id'];
+        $user = $this->_repository->find($userId);
+        $user->password = Hash::make($newPassword);
+        $user->save();
+        return redirect('home');
     }
 }
