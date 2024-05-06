@@ -13,6 +13,8 @@
                         </button>
                     </div>
                 </form>
+                <div class="br-green-light-2 br-15 p-4 mt-4" id='you'>
+                </div>
 
 
 
@@ -54,28 +56,7 @@
 @endsection
 
 @section('scripts')
-    <script id="you_tmpl" type="text/x-jquery-tmpl">
 
-        <div class="row mt-3">
-                       <div class="col-6">
-                           <div class="d-flex flex-inline">
-                               <p class="mb-1">Демонстрационная организация</p>
-                               <button class="btn copy_edit br-none ms-lg-5 ms-1" type="button"></button>
-                           </div>
-                           <p class="text-grey fs-14">Администратор организации</p>
-                       </div>
-                       <div class="col brl-grey-2"></div>
-                       <div class="col-5">
-                           <p class="text-grey fs-14"><span><img src="/images/green_active.svg" alt=""
-                                                                 class="pe-2"></span>Активен</p>
-                           <p class="text-grey fs-14 mb-0">${email}</p>
-                           <a href="#" class="text-grey link-active-hover fs-14">отправить пароль на email</a>
-                       </div>
-                   </div>
-
-
-
-    </script>
 
     <script id="department_tmpl" type="text/x-jquery-tmpl">
         <div class="bg-green col-lg-8 mb-3">
@@ -172,8 +153,7 @@
     </script>
 
 
-    <script id="organization_tmpl" type="text/x-jquery-tmpl">
-        <div class="br-green-light-2 br-15 p-4 mt-4">
+    <script id="you_tmpl" type="text/x-jquery-tmpl">
             <div class="d-flex flex-inline justify-content-between">
                 <p class="m-0 text-grey-light fw-600">Вы</p>
                 <img src="/images/pin.svg" alt="">
@@ -182,24 +162,23 @@
                 <div class="col-6">
                     <div class="d-flex flex-inline">
                         <p class="mb-1">${organization.name}</p>
-                        <button class="btn copy_edit br-none ms-lg-5 ms-1" type="button"></button>
+                        <button class="btn copy_edit br-none ms-lg-5 ms-1" type="button" onclick="editUserModal(${id})"></button>
                     </div>
-                    <p class="text-grey fs-14">${user.role[0].name}</p>
+                    <p class="text-grey fs-14">${roles[0].name}</p>
                 </div>
                 <div class="col brl-grey-2"></div>
                 <div class="col-5">
-                    @{{if user.is_active}}
+                    @{{if is_active}}
                     <p class="text-grey fs-14"><span><img src="/images/green_active.svg" alt=""
                                                           class="pe-2"></span>Активен</p>
                     @{{else}}
                      <img src="/images/red.svg" alt="" class="pe-2" id="active_user_img2">
                       <p class="text-grey fs-14 m-0" id="active_user2">Заблокирован</p>
                      @{{/if}}
-                    <p class="text-grey fs-14 mb-0">${user.email}</p>
+                    <p class="text-grey fs-14 mb-0">${email}</p>
                     <a href="#" class="text-grey link-active-hover fs-14">отправить пароль на email</a>
                 </div>
             </div>
-        </div>
     </script>
 
 

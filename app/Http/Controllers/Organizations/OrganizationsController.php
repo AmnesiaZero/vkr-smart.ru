@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class OrganizationsController extends Controller
 {
@@ -42,6 +43,12 @@ class OrganizationsController extends Controller
         $organizationId = $user->organization_id;
         $specialtiesIds = $request->specialties_ids;
         return $this->organizationsService->configureInspectorsAccess($organizationId,$specialtiesIds);
+    }
+
+    public function find()
+    {
+        return $this->organizationsService->find();
+
     }
 
 

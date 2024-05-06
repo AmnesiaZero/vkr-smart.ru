@@ -244,6 +244,8 @@ Route::group([
         Route::post('update',[UsersController::class,'update']);
         Route::post('add-department',[UsersController::class,'addDepartment']);
         Route::get('search',[UsersController::class,'search']);
+        Route::get('you',[UsersController::class,'you']);
+        Route::post('configure-departments',[UsersController::class,'configureDepartments']);
     });
 
 

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     users();
+    getYou();
     $('.js-example-basic-single').select2();
 
     $('#years_list').change(function () {
@@ -37,15 +38,17 @@ $(document).ready(function () {
 });
 
 
-function organization()
+
+
+function getYou()
 {
     $.ajax({
-        url: "/dashboard/organizations/get",
+        url: "/dashboard/users/you",
         dataType: "json",
         success: function (response) {
             if(response.success){
-                const organization = response.data.organization;
-
+                const you = response.data.you;
+                $("#you").html($("#you_tmpl").tmpl(you));
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -599,6 +602,89 @@ function configureInspectorsAccess()
         success: function (response) {
             if(response.success){
                 $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
+
+function userDepartmentsModal(userId)
+{
+    localStorage.setItem('user_id',userId);
+    openModal('configure_user_departments');
+}
+
+function accessDepartments()
+{
+    const data = {
+        id:yearId
+    };
+    $.ajax({
+        url: "/dashboard/organizations/years/find",
+        data: data,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                const year = response.data.year;
+                const faculties = year.faculties;
+                const specialtiesList = $("#specialties_list");
+                specialtiesList.empty();
+                specialtiesList.selectpicker('destroy');
+                faculties.forEach(faculty => {
+                    const departments = faculty.departments;
+                    departments.forEach(department => {
+                        specialtiesList.append(`<div className="list-group-item">
+                                  <label className="text-success">
+                                      <input type="checkbox" value="${department.id}"> ${faculty.name} / ${department.name}
+                                  </label>
+                              </div>`);
+                    });
+                });
+                specialtiesList.selectpicker('render');
+
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
+
+function configureUserDepartments()
+{
+    const userId = localStorage.getItem('user_id');
+    let data = $("#update_user_form").serialize();
+    const additionalData = {
+        user_id:userId
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url: "/dashboard/users/configure-departments",
+        data: data,
+        type: "POST",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+                const user = response.data.user;
+                const userHtml = $("#user_" + id);
+                const updatedContent = $("#user_tmpl").tmpl(user);
+                userHtml.replaceWith(updatedContent);
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");

@@ -8,6 +8,7 @@ use App\Services\Services;
 use App\Services\Specialties\Repositories\SpecialtyRepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizationsService extends Services
 {
@@ -21,12 +22,15 @@ class OrganizationsService extends Services
         $this->specialtyRepository = $specialtyRepository;
     }
 
-    public function find(int $id):  JsonResponse
+    public function find():  JsonResponse
     {
+        $user = Auth::user();
+        $id = $user->organization_id;
         $organization = $this->_repository->find($id);
         return JsonHelper::sendJsonResponse(true,[
             'title' => 'Успешно',
-            'organization' => $organization
+            'organization' => $organization,
+            'user' => $user
         ]);
     }
 
@@ -34,11 +38,6 @@ class OrganizationsService extends Services
     {
         $organization = $this->_repository->find($id);
         try{
-//            foreach ($specialtiesIds as $specialtyId){
-//                 if($this->specialtyRepository->exist($specialtyId)){
-//                     $organization->specialties()->attach($specialtyId)
-//                 }
-//            }
             $organization->specialties()->sync($specialtiesIds);
         }
         catch (QueryException $e) {

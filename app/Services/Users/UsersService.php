@@ -12,6 +12,7 @@ use App\Services\Services;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class UsersService extends Services
@@ -43,9 +44,11 @@ class UsersService extends Services
         return $this->_repository->getByEmail($email);
     }
 
-    public function get(int $organizationId): JsonResponse
+    public function get(): JsonResponse
     {
-        $users = $this->_repository->get($organizationId);
+        $user = Auth::user();
+        $organizationId = $user->organization_id;
+        $users = $this->_repository->get($organizationId)->except(['id' => $user->id]);
         //Сюда можно добавить ещё какую-нибудь инфу
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно',
@@ -138,7 +141,7 @@ class UsersService extends Services
         $result = $this->_repository->update($id, $data);
 
         if ($result) {
-            $user = User::query()->find($id);
+            $user = $this->_repository->find($id);
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
@@ -157,7 +160,11 @@ class UsersService extends Services
     {
         $user = $this->_repository->find($userId);
         if($user and $user->id){
-            $user->departments()->sync($departmentsIds);
+            foreach ($departmentsIds as $departmentId){
+                if($this->departmentRepository->exist($departmentId)){
+                   $user->departments()->attach($departmentId);
+                }
+            }
             $updatedUser = $this->_repository->find($userId);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
@@ -197,10 +204,6 @@ class UsersService extends Services
         }
     }
 
-    public function configureAccess(int $organizationId,array $programSpecialties)
-    {
-
-    }
 
     public function configureDepartments(int $userId, array $departmentsIds): JsonResponse
     {
@@ -217,6 +220,16 @@ class UsersService extends Services
         return JsonHelper::sendJsonResponse(false,[
             'title' => 'Ошибка',
             'message' => 'При получении пользователя произошла ошибка'
+        ]);
+    }
+
+    public function you(): JsonResponse
+    {
+        $you = Auth::user();
+        $you->organization;
+        return JsonHelper::sendJsonResponse(true,[
+            'title' => 'Успешно',
+            'you' => $you
         ]);
     }
 }

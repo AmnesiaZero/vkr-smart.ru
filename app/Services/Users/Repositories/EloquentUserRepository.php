@@ -26,7 +26,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function find(int $id): Model
     {
-        return User::with(['roles','departments'])->find($id);
+        return User::with(['roles','departments','organization'])->find($id);
     }
 
     public function create(array $data): Model

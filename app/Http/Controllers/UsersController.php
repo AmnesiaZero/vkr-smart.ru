@@ -79,6 +79,11 @@ class UsersController extends Controller
         return redirect('home');
     }
 
+    public function you()
+    {
+        return $this->usersService->you();
+    }
+
 
     public function newPassword(Request $request)
     {
@@ -98,9 +103,7 @@ class UsersController extends Controller
 
     public function get(): JsonResponse
     {
-        $user = Auth::user();
-        $organizationId = $user->organization_id;
-        return $this->usersService->get($organizationId);
+        return $this->usersService->get();
     }
 
     public function create(Request $request): JsonResponse
@@ -198,7 +201,7 @@ class UsersController extends Controller
     }
 
 
-    public function configureDepartments(Request $request)
+    public function configureDepartments(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'user_id' => ['required','integer',Rule::exists('users','id')],
@@ -211,6 +214,8 @@ class UsersController extends Controller
         $departmentsIds = $request->departments_ids;
         return $this->usersService->configureDepartments($userId,$departmentsIds);
     }
+
+
 
 
 }
