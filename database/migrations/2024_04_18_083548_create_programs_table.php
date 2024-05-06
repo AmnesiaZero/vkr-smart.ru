@@ -19,8 +19,6 @@ return new class extends Migration {
             $table->integer('educational_level')->default(0);
             $table->integer('level')->default(0);
             $table->softDeletes();
-            $table->foreign('department_id')->references('id')->
-            on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }
