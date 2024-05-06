@@ -58,4 +58,15 @@ interface OrganizationYearRepositoryInterface
     public function copy(int $id): Model;
 
 
+    /**
+     * @param int $id
+     * @return Model
+     */
+    public function findWithInfo(int $id):Model;
+
+
+
+
+
+
 }

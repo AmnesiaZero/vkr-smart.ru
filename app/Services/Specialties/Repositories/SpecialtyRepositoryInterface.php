@@ -41,4 +41,11 @@ interface SpecialtyRepositoryInterface
      * @return Model
      */
     public function find(int $id): Model;
+
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function exist(int $id):bool;
 }

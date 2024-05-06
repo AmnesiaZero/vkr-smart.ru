@@ -62,4 +62,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Department::class, 'departments_users')->with(['faculty','year']);
     }
+
+
 }

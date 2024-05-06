@@ -63,6 +63,7 @@ class UsersService extends Services
         }
         $user = $this->_repository->create($data);
         if ($user and $user->id) {
+            $userId = $user->id;
             if (isset($data['role'])) {
                 Log::debug('role = '.$data['role']);
                 $role = $this->roleRepository->find($data['role']);
@@ -80,10 +81,11 @@ class UsersService extends Services
                     $user->departments()->attach($id);
                 }
             }
+            $updatedUser = $this->_repository->find($userId);
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'message' => 'Пользователь успешно создан',
-                'user' => $user
+                'user' => $updatedUser
             ]);
         }
         return JsonHelper::sendJsonResponse(false, [
@@ -155,11 +157,7 @@ class UsersService extends Services
     {
         $user = $this->_repository->find($userId);
         if($user and $user->id){
-            foreach ($departmentsIds as $departmentId){
-               if($this->departmentRepository->exist($departmentId)){
-                   $user->departments()->attach($departmentId);
-               }
-            }
+            $user->departments()->sync($departmentsIds);
             $updatedUser = $this->_repository->find($userId);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
@@ -201,15 +199,24 @@ class UsersService extends Services
 
     public function configureAccess(int $organizationId,array $programSpecialties)
     {
-        $role = $this->roleRepository->find('inspector');
-        $inspectors = $role->users();
-        $data = [
-            'organization_id' => $organizationId
-        ];
-        $organizationInspectors =  $this->_repository->filterUsers($inspectors,$data);
-        foreach ($organizationInspectors as $inspector){
 
+    }
+
+    public function configureDepartments(int $userId, array $departmentsIds): JsonResponse
+    {
+        $user = $this->_repository->find($userId);
+        if($user and $user->id){
+            $user->departments()->sync($departmentsIds);
+            $updatedUser = $this->_repository->find($userId);
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Кафедры успешно настроены успешно привязана',
+                'user' => $updatedUser
+            ]);
         }
-
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'При получении пользователя произошла ошибка'
+        ]);
     }
 }

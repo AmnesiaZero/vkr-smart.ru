@@ -317,7 +317,7 @@
 
                     <div class="col text-end">
                         <button id="edit" class="btn copy_edit br-none" type="button" onclick="showFacultyDepartmentEditBlock(${id})"></button>
-                        <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteFacultyDepartment(${id})"></button>
+                        <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteDepartment(${id})"></button>
                     </div>
                 </div>
             </script>

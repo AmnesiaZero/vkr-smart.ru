@@ -3,16 +3,18 @@
 namespace App\Services\Organizations\Repositories;
 
 use App\Models\Organization;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentOrganizationRepository implements OrganizationRepositoryInterface
 {
 
-    public function first(array $params): null|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder
+    public function find(int $id): Model
     {
-        $query = Organization::query();
-        foreach ($params as $column => $value) {
-            $query->where($column, '=', $value);
-        }
-        return $query->first();
+        return Organization::query()->find($id);
+    }
+
+    public function exist(int $id): bool
+    {
+        return Organization::query()->find($id)->exists();
     }
 }

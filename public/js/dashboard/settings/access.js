@@ -36,6 +36,27 @@ $(document).ready(function () {
 
 });
 
+
+function organization()
+{
+    $.ajax({
+        url: "/dashboard/organizations/get",
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                const organization = response.data.organization;
+
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("При загрузке информации об организации произошла ошибка", "error");
+        }
+    });
+}
+
 function years(htmlId)
 {
     $.ajax({
@@ -95,10 +116,11 @@ function departments(data,htmlId)
                 const departments = response.data.departments
                 console.log(departments);
                 const departmentsList = $("#" + htmlId);
-                $('.selectpicker').selectpicker('deselectAll');
+                const dropdownList = $('.selectpicker');
+                dropdownList.empty();
+                dropdownList.selectpicker('destroy');
                 departmentsList.html($("#department_list_tmpl").tmpl(departments));
-                $('.selectpicker').selectpicker('refresh');
-                console.log('Дошёл до конца');
+                dropdownList.selectpicker('render');
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -466,7 +488,6 @@ function searchUsers()
             if(response.success){
                 const users = response.data.users;
                 $("#users_list").html($("#user_tmpl").tmpl(users));
-                console.log(users);
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -478,4 +499,117 @@ function searchUsers()
         }
     });
 }
+
+function inspectorsAccessModal()
+{
+    accessYears();
+    openModal('inspectors_access_modal');
+}
+
+function accessYears()
+{
+    $.ajax({
+        url: "/dashboard/organizations/years/get",
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                const years = response.data.years;
+                $("#access_years_list").html($("#access_year_tmpl").tmpl(years));
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
+function accessSpecialties(yearId)
+{
+    console.log('Зашёл в функцию accessSpecialties');
+    const data = {
+        id:yearId
+    };
+    $.ajax({
+        url: "/dashboard/organizations/years/find",
+        data: data,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                const year = response.data.year;
+                const faculties = year.faculties;
+                const specialtiesList = $("#specialties_list");
+                specialtiesList.empty();
+                specialtiesList.selectpicker('destroy');
+                faculties.forEach(faculty => {
+                   const departments = faculty.departments;
+                   departments.forEach(department => {
+                       const programs = department.programs;
+                       programs.forEach(program => {
+                          const programSpecialties = program.program_specialties;
+                          programSpecialties.forEach(specialty => {
+                              specialtiesList.append(`<div className="list-group-item">
+                                  <label className="text-success">
+                                      <input type="checkbox" value="${specialty.id}"> ${faculty.name} / ${department.name} / ${program.name} /${specialty.code} | ${specialty.name}
+                                  </label>
+                              </div>`);
+                          });
+                       });
+                   });
+                });
+                specialtiesList.selectpicker('render');
+
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+    console.log('Вышел из  функции accessSpecialties');
+
+}
+
+function configureInspectorsAccess()
+{
+    console.log('Зашёл в функцию accessSpecialties');
+    const selectedValues = [];
+    $('input[type="checkbox"]:checked').each(function(){
+        selectedValues.push($(this).val());
+    });
+    const data = {
+        specialties_ids:selectedValues
+    }
+    $.ajax({
+        url: "/dashboard/organizations/inspectors-access",
+        data: data,
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
+
 

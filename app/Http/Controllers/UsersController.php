@@ -198,4 +198,19 @@ class UsersController extends Controller
     }
 
 
+    public function configureDepartments(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => ['required','integer',Rule::exists('users','id')],
+            'departments_ids' => ['required','array'],
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $userId = $request->user_id;
+        $departmentsIds = $request->departments_ids;
+        return $this->usersService->configureDepartments($userId,$departmentsIds);
+    }
+
+
 }

@@ -45,4 +45,17 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
     {
         return OrganizationYear::query()->where('id', '=', $id)->first()->duplicate();
     }
+
+    public function findWithInfo(int $id):Model
+    {
+        return OrganizationYear::with('faculties.departments.programs.programSpecialties')->find($id);
+    }
+
+
+    public function all(int $organizationId): Collection
+    {
+        return OrganizationYear::query()->where('organization_id','=',$organizationId)
+            ->with('departments.programs.programSpecialties')->get();
+
+    }
 }

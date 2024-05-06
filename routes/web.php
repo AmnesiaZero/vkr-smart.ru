@@ -177,6 +177,9 @@ Route::group([
     Route::group([
         'prefix' => 'organizations'
     ], function () {
+
+        Route::post('inspectors-access',[OrganizationsController::class,'configureInspectorsAccess']);
+
         Route::group([
             'prefix' => 'years'
         ], function () {
@@ -185,6 +188,7 @@ Route::group([
             Route::post('update', [OrganizationsYearsController::class, 'update']);
             Route::post('delete', [OrganizationsYearsController::class, 'delete']);
             Route::post('copy', [OrganizationsYearsController::class, 'copy']);
+            Route::get('find',[OrganizationsYearsController::class, 'find']);
         });
         Route::group([
             'prefix' => 'faculties'

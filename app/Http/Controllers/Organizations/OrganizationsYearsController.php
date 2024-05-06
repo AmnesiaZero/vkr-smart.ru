@@ -96,4 +96,16 @@ class OrganizationsYearsController extends Controller
         return $this->organizationYearsService->copy($yearId);
     }
 
+    public function find(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'integer', Rule::exists('organizations_years', 'id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $yearId = $request->id;
+        return $this->organizationYearsService->find($yearId);
+    }
+
 }

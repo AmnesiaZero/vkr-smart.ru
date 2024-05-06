@@ -118,4 +118,23 @@ class OrganizationsYearsService extends Services
             ]);
         }
     }
+
+
+    public function find(int $id): JsonResponse
+    {
+        $year = $this->_repository->findWithInfo($id);
+        if ($year) {
+            return JsonHelper::sendJsonResponse(true, [
+                'title' => 'Успешно',
+                'year' => $year
+            ]);
+        } else {
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'Ошибка при получении информации у года'
+            ]);
+        }
+
+
+    }
 }

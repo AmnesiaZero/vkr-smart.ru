@@ -13,28 +13,9 @@
                         </button>
                     </div>
                 </form>
-                <div class="br-green-light-2 br-15 p-4 mt-4">
-                    <div class="d-flex flex-inline justify-content-between">
-                        <p class="m-0 text-grey-light fw-600">Вы</p>
-                        <img src="/images/pin.svg" alt="">
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <div class="d-flex flex-inline">
-                                <p class="mb-1">Демонстрационная организация</p>
-                                <button class="btn copy_edit br-none ms-lg-5 ms-1" type="button"></button>
-                            </div>
-                            <p class="text-grey fs-14">Администратор организации</p>
-                        </div>
-                        <div class="col brl-grey-2"></div>
-                        <div class="col-5">
-                            <p class="text-grey fs-14"><span><img src="/images/green_active.svg" alt=""
-                                                                  class="pe-2"></span>Активен</p>
-                            <p class="text-grey fs-14 mb-0">koshelev76@mail.ru</p>
-                            <a href="#" class="text-grey link-active-hover fs-14">отправить пароль на email</a>
-                        </div>
-                    </div>
-                </div>
+
+
+
                 <div class="br-green-light-2 br-15 p-4 mt-4">
                     <p class="fw-600">Пользователи</p>
                     <div id="users_list">
@@ -55,7 +36,8 @@
                     <img src="/images/Plus.svg">
                     <p class="text-grey m-0 pt-3">Добавить сотрудника</p>
                 </div>
-                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p mt-3">
+                <div class="br-green-light-2 br-15 p-4 text-center bg-green cursor-p mt-3"
+                     onclick="inspectorsAccessModal()">
                     <img src="/images/Plus.svg">
                     <p class="text-grey m-0 pt-3">Доступ<br> для проверяющих</p>
                 </div>
@@ -64,6 +46,7 @@
     </div>
     @include('layouts.dashboard.include.modal.create.employee')
     @include('layouts.dashboard.include.modal.create.admin')
+    @include('layouts.dashboard.include.modal.configure.inspectors_access')
     <div class="create-modal" id="update_user" style="display: none">
 
     </div>
@@ -91,6 +74,7 @@
                    </div>
 
 
+
     </script>
 
     <script id="department_tmpl" type="text/x-jquery-tmpl">
@@ -99,6 +83,7 @@
                                             <p class="text-grey m-0 fs-14">Подразделение: «<span id="user_faculty_${id}"> </span>»</p>
                                             <p class="text-grey m-0 fs-14">Год выпуска: «<span id="user_year_${id}"> </span>»</p>
                                     </div>
+
 
     </script>
 
@@ -115,7 +100,7 @@
                                       <p class="text-grey fs-14" id="role_${id}">
                                         ${roles[0]['name']}
                                       </p>
-                                      <div id="departments_list_${id}">
+
                                        @{{each departments}}
                                           <div class="bg-green col-lg-8 mb-3">
                                             <p class="text-grey m-0 fs-14">Кафедра: «${name}»</p>
@@ -123,7 +108,7 @@
                                             <p class="text-grey m-0 fs-14">Год выпуска: «${year.year}»</p>
                                           </div>
                                        @{{/each}}
-                                      </div>
+
                                       <div class="me-3">
                                           <button class="btn btn-secondary br-none w-100 br-100 mt-4 text-grey fs-14 py-1" onclick="years('add_department_years_list');openAddDepartmentModal(${id})">
                                               добавить<img src="/images/Plus.svg" alt="" class="ps-3"></button>
@@ -166,21 +151,58 @@
                               </div>
                           </div>
 
+
     </script>
     <script id="year_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}" onclick="faculties(${id})">${year}</option>
+
 
     </script>
 
     <script id="faculty_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
 
+
     </script>
 
     <script id="department_list_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
 
+
     </script>
+
+
+    <script id="organization_tmpl" type="text/x-jquery-tmpl">
+        <div class="br-green-light-2 br-15 p-4 mt-4">
+            <div class="d-flex flex-inline justify-content-between">
+                <p class="m-0 text-grey-light fw-600">Вы</p>
+                <img src="/images/pin.svg" alt="">
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <div class="d-flex flex-inline">
+                        <p class="mb-1">${organization.name}</p>
+                        <button class="btn copy_edit br-none ms-lg-5 ms-1" type="button"></button>
+                    </div>
+                    <p class="text-grey fs-14">${user.role[0].name}</p>
+                </div>
+                <div class="col brl-grey-2"></div>
+                <div class="col-5">
+                    @{{if user.is_active}}
+                    <p class="text-grey fs-14"><span><img src="/images/green_active.svg" alt=""
+                                                          class="pe-2"></span>Активен</p>
+                    @{{else}}
+                     <img src="/images/red.svg" alt="" class="pe-2" id="active_user_img2">
+                      <p class="text-grey fs-14 m-0" id="active_user2">Заблокирован</p>
+                     @{{/if}}
+                    <p class="text-grey fs-14 mb-0">${user.email}</p>
+                    <a href="#" class="text-grey link-active-hover fs-14">отправить пароль на email</a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
     <script id="update_user_tmpl" type="text/x-jquery-tmpl">
     <div class="create-modal" id="update_user" style="display: none">
     <div class="modal-dialog">
@@ -253,8 +275,15 @@
     </div>
 </div>
 
+    </script>
+    <script id="access_year_tmpl" type="text/x-jquery-tmpl">
+      <li>
+         <a href="#" onclick="accessSpecialties(${id});">${year}</a>
+      </li>
 
     </script>
+
+
 
     <script src="/js/dashboard/settings/access.js"></script>
 @endsection

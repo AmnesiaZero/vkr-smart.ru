@@ -33,4 +33,9 @@ class EloquentSpecialtyRepository implements SpecialtyRepositoryInterface
     {
         return Specialty::query()->find($id)->delete();
     }
+
+    public function exist(int $id): bool
+    {
+        return Specialty::query()->find($id)->exists();
+    }
 }
