@@ -35,6 +35,9 @@ $(document).ready(function () {
         departments(data,'add_departments_menu_list');
     })
 
+    $('#checking-year-1042').change(function() {
+        $('#specialties_list').find("input[type='checkbox']").prop('checked', $(this).prop("checked"));
+    });
 });
 
 
