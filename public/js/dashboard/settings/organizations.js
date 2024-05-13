@@ -1,16 +1,3 @@
-let number = document.querySelector('[name="number"]');
-
-function inc(element) {
-    let el = document.querySelector(`[name="${element}"]`);
-    el.value = parseInt(el.value) + 1;
-}
-
-function dec(element) {
-    let el = document.querySelector(`[name="${element}"]`);
-    if (parseInt(el.value) > 0) {
-        el.value = parseInt(el.value) - 1;
-    }
-}
 
 $(document).ready(function () {
     console.log('Вошёл в document ready');

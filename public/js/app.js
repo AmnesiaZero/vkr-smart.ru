@@ -10,30 +10,17 @@ function closeModal(modalId) {
     modal.style.display = "none";
 }
 
+let number = document.querySelector('[name="number"]');
 
-function sendForm(url) {
-    $('#myForm').submit(function (event) {
-        // Предотвращаем стандартное поведение формы, чтобы страница не перезагружалась
-        event.preventDefault();
 
-        // Создаем объект FormData для сбора данных формы
-        var formData = new FormData($(this)[0]);
+function inc(element) {
+    let el = document.querySelector(`[name="${element}"]`);
+    el.value = parseInt(el.value) + 1;
+}
 
-        // Отправляем AJAX-запрос
-        $.ajax({
-            url: url, // URL вашего сервера
-            type: 'POST', // Метод запроса
-            data: formData, // Данные формы
-            processData: false, // Не обрабатывать данные
-            contentType: false, // Не устанавливать тип контента
-            success: function (response) {
-                // Обработка успешного ответа от сервера
-                alert('Форма успешно отправлена');
-            },
-            error: function (xhr, status, error) {
-                // Обработка ошибки
-                alert('Произошла ошибка: ' + error);
-            }
-        });
-    });
+function dec(element) {
+    let el = document.querySelector(`[name="${element}"]`);
+    if (parseInt(el.value) > 0) {
+        el.value = parseInt(el.value) - 1;
+    }
 }

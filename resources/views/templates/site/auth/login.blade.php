@@ -40,16 +40,21 @@
                             <p class="mb-5 text-grey fs-14 lh-17">Чтобы пройти регистрацию, <br> введите выданный вам
                                 код приглашения</p>
                         </div>
-                        <form class="auth mb-5" action="" method="POST">
+                        <form class="auth mb-5" method="POST" action="/login/by-code">
+                            @csrf
                             <div class="form-group">
                                 <label for="code">код приглашения</label>
                                 <input id="code" type="text" name="code" placeholder="" class="form-control">
                             </div>
+                            <button type="submit" class="btn br-100 btn-primary w-100">продолжить</button>
                         </form>
-                        <button type="button" class="btn br-100 btn-primary w-100">продолжить</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+    <script src="/js/site/auth.js"> </script>
 @endsection

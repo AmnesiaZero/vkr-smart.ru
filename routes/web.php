@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\InviteCodesController;
 use App\Http\Controllers\Organizations\FacultiesController;
 use App\Http\Controllers\Organizations\DepartmentsController;
 use App\Http\Controllers\Organizations\OrganizationsController;
@@ -88,14 +89,28 @@ Route::get('check-reference', function () {
     return view('templates.site.check_reference');
 });
 
-Route::get('login', function () {
-    return view('templates.site.auth.login');
-})->name('login');
+
 Route::get('reset-password', function () {
     return view('templates.site.auth.reset_password');
 });
 
-Route::post('login', [UsersController::class, 'login']);
+Route::group([
+    'prefix' => 'login'
+],function (){
+    Route::get('/', function () {
+        return view('templates.site.auth.login');
+    })->name('login');
+    Route::post('/', [UsersController::class, 'login']);
+    Route::post('by-code',[UsersController::class,'loginByCode']);
+});
+
+
+Route::group([
+    'prefix' => 'registration',
+],function (){
+    Route::get('by-code',[UsersController::class,'registerByCodeView']);
+});
+
 
 
 Route::group([
@@ -246,6 +261,14 @@ Route::group([
         Route::get('search',[UsersController::class,'search']);
         Route::get('you',[UsersController::class,'you']);
         Route::post('configure-departments',[UsersController::class,'configureDepartments']);
+
+    });
+
+    Route::group([
+        'prefix' => 'invite-codes'
+    ],function (){
+       Route::post('create',[InviteCodesController::class,'create']);
+       Route::get('get',[InviteCodesController::class,'get']);
     });
 
 

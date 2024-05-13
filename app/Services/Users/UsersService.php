@@ -6,8 +6,11 @@ namespace App\Services\Users;
 use App\Helpers\JsonHelper;
 use App\Mail\ResetPassword;
 use App\Models\Department;
+use App\Models\InviteCode;
 use App\Models\User;
 use App\Services\Departments\Repositories\DepartmentRepositoryInterface;
+use App\Services\InviteCodes\Repositories\InviteCodeRepositoryInterface;
+use App\Services\Organizations\Repositories\OrganizationRepositoryInterface;
 use App\Services\Roles\Repositories\RoleRepositoryInterface;
 use App\Services\Services;
 use App\Services\Users\Repositories\UserRepositoryInterface;
@@ -15,6 +18,7 @@ use Error;
 use Firebase\JWT\JWT;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -28,13 +32,21 @@ class UsersService extends Services
 
     private DepartmentRepositoryInterface $departmentRepository;
 
+    private InviteCodeRepositoryInterface $inviteCodeRepository;
+
+
+    private OrganizationRepositoryInterface $organizationRepository;
+
 
     public function __construct(UserRepositoryInterface $userRepository, RoleRepositoryInterface $roleRepository,
-        DepartmentRepositoryInterface $departmentRepository)
+        DepartmentRepositoryInterface $departmentRepository,InviteCodeRepositoryInterface $inviteCodeRepository,
+    OrganizationRepositoryInterface $organizationRepository)
     {
         $this->_repository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->departmentRepository = $departmentRepository;
+        $this->inviteCodeRepository = $inviteCodeRepository;
+        $this->organizationRepository = $organizationRepository;
     }
 
 
@@ -286,5 +298,39 @@ class UsersService extends Services
         $user->password = Hash::make($newPassword);
         $user->save();
         return redirect('home');
+    }
+
+    public function loginByCode(Request $request, int $codeId,int $code)
+    {
+        if($this->inviteCodeRepository->login($codeId,$code)){
+            $request->session()->regenerate();
+            $user = Auth::user();
+            $userId = $user->id;
+            $data = [
+                'user_id' => $userId,
+                'status' => 1
+            ];
+            $flag = $this->inviteCodeRepository->update($codeId,$data);
+            $codeModel = $this->inviteCodeRepository->find($codeId);
+            Log::debug('code = '.$codeModel);
+            if ($flag and $codeModel->id)
+            {
+                return redirect('/registration/by-code')->with('invite_code',$codeModel);
+            }
+            return back()->withErrors(['Возникла ошибка при обновлении информации кода приглашения']);
+        }
+        return back()->withErrors(['Данный регистрационный код неккоректен']);
+
+    }
+
+    public function registerByCodeView(InviteCode $code)
+    {
+        $organizationId = $code->organization_id;
+        $organization = $this->organizationRepository->find($organizationId);
+        $organizationName = $organization->name;
+        return view('templates.site.auth.code-registration',[
+            'code' => $code,
+            'organization_name' => $organizationName
+        ]);
     }
 }

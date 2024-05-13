@@ -51,17 +51,32 @@ class UsersController extends Controller
             'password' => 'required'
         ]);
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
             $user = Auth::user();
             if($user->is_active==0){
                 return back()->withErrors(['Вы заблокированы']);
             }
+            $request->session()->regenerate();
             return redirect('dashboard');
         }
         return back()->withErrors(['Предоставленные данные были некорректными']);
     }
 
-    public function resetPassword(Request $request)
+    public function loginByCode(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'code' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $fullCode = $request->code;
+        $codeArray = explode('-',$fullCode);
+        $codeId = $codeArray[0];
+        $code = $codeArray[1];
+        return $this->usersService->loginByCode($request,$codeId,$code);
+    }
+
+    public function resetPassword(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email', Rule::exists('users', 'email')]
@@ -73,7 +88,16 @@ class UsersController extends Controller
         return $this->usersService->resetPassword($email);
     }
 
-    public function you()
+    public function registerByCodeView(Request $request)
+    {
+        $code = session('invite_code');
+
+        Log::debug('code session = '.$code);
+
+        return $this->usersService->registerByCodeView($code);
+    }
+
+    public function you(): JsonResponse
     {
         return $this->usersService->you();
     }
