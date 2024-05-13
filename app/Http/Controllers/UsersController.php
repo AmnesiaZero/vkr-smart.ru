@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\JsonHelper;
 use App\Helpers\ValidatorHelper;
 use App\Mail\ResetPassword;
 use App\Models\User;
@@ -97,6 +98,40 @@ class UsersController extends Controller
         return $this->usersService->registerByCodeView($code);
     }
 
+    public function registerByCode(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|max:255',
+            'gender' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $data = $request->only($this->fillable);
+        Log::debug('request data ='.print_r($data,true));
+        $code = session('invite_code');
+        $data['organization_id'] = $code->organization_id;
+        $data['login'] = $data['email'];
+        if($code->type==1)
+        {
+            $data['role'] = 'teacher';
+        }
+        elseif ($code->type==2)
+        {
+            $data['role'] = 'user';
+        }
+        else{
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Неккоректный тип кода регистрации'
+            ]);
+        }
+        return $this->usersService->create($data);
+
+    }
+
     public function you(): JsonResponse
     {
         return $this->usersService->you();
@@ -127,7 +162,6 @@ class UsersController extends Controller
             'password' => 'required|max:255',
             'gender' => 'required|integer',
             'is_active' => 'required|integer',
-
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);

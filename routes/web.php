@@ -109,6 +109,7 @@ Route::group([
     'prefix' => 'registration',
 ],function (){
     Route::get('by-code',[UsersController::class,'registerByCodeView']);
+    Route::post('by-code',[UsersController::class,'registerByCode']);
 });
 
 

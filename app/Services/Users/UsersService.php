@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class UsersService extends Services
 {
@@ -315,7 +316,8 @@ class UsersService extends Services
             Log::debug('code = '.$codeModel);
             if ($flag and $codeModel->id)
             {
-                return redirect('/registration/by-code')->with('invite_code',$codeModel);
+                Session::put('invite_code',$codeModel);
+                return redirect('/registration/by-code');
             }
             return back()->withErrors(['Возникла ошибка при обновлении информации кода приглашения']);
         }
@@ -333,4 +335,5 @@ class UsersService extends Services
             'organization_name' => $organizationName
         ]);
     }
+
 }

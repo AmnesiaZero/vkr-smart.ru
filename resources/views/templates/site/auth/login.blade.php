@@ -44,7 +44,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="code">код приглашения</label>
-                                <input id="code" type="text" name="code" placeholder="" class="form-control">
+                                <input id="code" type="text" name="code"  placeholder="" class="form-control">
                             </div>
                             <button type="submit" class="btn br-100 btn-primary w-100">продолжить</button>
                         </form>
@@ -55,6 +55,3 @@
     </main>
 @endsection
 
-@section('scripts')
-    <script src="/js/site/auth.js"> </script>
-@endsection

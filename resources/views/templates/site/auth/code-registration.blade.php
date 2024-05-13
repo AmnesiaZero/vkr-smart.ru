@@ -11,16 +11,17 @@
                         <p>Специально для наших пользователей мы разработали модуль персональной регистрации, после прохождения которой становятся доступными дополнительные возможности при работе в системе.</p>
                         <p>На данную страницу участники попадают автоматически при указании временного кода приглашения.</p>
                         <p>Для прохождения регистрации заполните все необходимые поля формы. Если вы уже регистрировались в системе ранее или авторизованы автоматически в Вашем вузе, нажмите кнопку "Авторизация", вы будете перемещены на форму входа.</p>
-                        <a href="http://www.vkr-vuz.ru/signin/" class="btn btn-success btn-block">Авторизация</a>
+                        <a href="/login" class="btn btn-success btn-block">Авторизация</a>
                     </blockquote>
                 </div>
-                <div class="col-sm-8">
-                    <form class="form-horizontal" id="regForm" onsubmit="registration(); return false;">
+                <div class="col-sm-8" id="code_registration">
+                    <form class="form-horizontal" id="registration_form" onsubmit="registration(); return false;">
                         <div class="form-group">
                             <label class="form-label col-sm-4">Ваша организация:</label>
 
                             <div class="col-sm-8">
-                               {{$organization_name}}				</div>
+                               {{$organization_name}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label col-sm-4">Ваш тип пользователя:</label>
@@ -39,7 +40,7 @@
                                 <h4 class="bc-post-title-xs">Укажите сведения о себе:</h4>
                             </div>
                         </div>
-                        div class="form-group">
+                        <div class="form-group">
                         <label class="col-sm-4">Год выпуска</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="years_list" required="">
@@ -66,7 +67,28 @@
                         <div class="form-group">
                             <label class="form-label col-sm-4">Укажите ваше ФИО:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="fullname" placeholder="..." required="">
+                                <input type="text" class="form-control" name="name" placeholder="..." required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Номер телефона</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Дата рождения</label>
+                            <div class="col-sm-8">
+                                <input type="date" class="form-control" name="date_of_birth">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Пол</label>
+                            <div class="col-sm-8">
+                                <select name="gender" class="form-control">
+                                    <option value="1">Муж.</option>
+                                    <option value="2">Жен.</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -94,7 +116,7 @@
                             </div>
                         </div>
                     </form>
-                    <div id="success-registration">
+                    <div id="success_registration">
 
                     </div>
                 </div>
@@ -116,9 +138,23 @@
 
     </script>
 
-            <script id="department_list_tmpl" type="text/x-jquery-tmpl">
+                <script id="department_list_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
 
 
     </script>
+
+                <script id="success_registration_tmpl" type="text/x-jquery-tmpl">
+                <div class="alert alert-success">
+                <p>Вы успешно прошли регистрацию в комплексе систем по размещению и проверке работ на заимствования.</p>
+                <p>Ваши учетные данные для авторизации на платформе:</p>
+                <p>Имя пользователя: <strong id="reg-name">${login}</strong>
+                </p><p>Пароль: <strong id="reg-password">${password}</strong>
+               </p>
+               <p>Данные также были отправлены на адрес Вашей электронной почты.</p>
+               <p><a href="/login" class="btn btn-lg btn-success">Авторизоваться по логину и паролю</a></p>
+               </div>
+            </script>
+
+                <script src="/js/site/auth.js"> </script>
 @endsection

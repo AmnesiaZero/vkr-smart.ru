@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Organizations;
 
+use App\Helpers\JsonHelper;
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
 use App\Services\OrganizationsYears\OrganizationsYearsService;
@@ -29,9 +30,23 @@ class OrganizationsYearsController extends Controller
     public function get(): JsonResponse
     {
         $user = Auth::user();
-        $result = $this->organizationYearsService->get($user->organization_id);
-        Log::debug('result = ' . print_r($result, true));
-        return $this->organizationYearsService->get($user->organization_id);
+        //Это для получения годов у незарегестрированных пользователей
+        if($user==null)
+        {
+            if($code = session('invite_code')){
+                $organizationId = $code->organizationId;
+            }
+            else{
+                 return JsonHelper::sendJsonResponse(false,[
+                    'title' => 'Ошибка',
+                    'message' => 'Не передан параметр organization id'
+                ]);
+            }
+        }
+        else{
+            $organizationId = $user->organization_id;
+        }
+        return $this->organizationYearsService->get($organizationId);
     }
 
     public function create(Request $request): JsonResponse

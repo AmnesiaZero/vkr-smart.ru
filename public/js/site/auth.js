@@ -1,4 +1,7 @@
+
 $(document).ready(function () {
+    console.log('Страница загрузилась');
+    years();
     $('#years_list').change(function () {
         const yearId = $(this).val();
         const data = {
@@ -20,8 +23,13 @@ $(document).ready(function () {
 
 
 
+
+
+
+
 function years()
 {
+    console.log('Вошёл в years');
     $.ajax({
         url: "/dashboard/organizations/years/get",
         dataType: "json",
@@ -91,4 +99,33 @@ function departments(data,htmlId)
             $.notify("Произошла ошибка при выборе факультета", "error");
         }
     });
+}
+
+
+function registration()
+{
+    const data  = $("#registration_form").serialize();
+    $.ajax({
+        url: "/registration/by-code",
+        dataType: "json",
+        data:data,
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+               $("#code_registration").empty();
+               const user = response.data.user;
+               $("#success_registration").html($("#success_registration_tmpl").tmpl(user));
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при выборе факультета", "error");
+        }
+    });
+
 }
