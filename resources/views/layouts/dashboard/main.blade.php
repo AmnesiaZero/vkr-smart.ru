@@ -47,6 +47,23 @@
 		                        		</span>
                     </a>
                 </li>
+
+                <div class="user-menu col-sm-5 text-right">
+                    <a href="admin-office/" class="btn btn-default btn-testaccess"><span class="glyphicon glyphicon-user"></span> Личный кабинет</a>
+                    <a href="#" class="btn btn-default btn-testaccess dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                        <li><a href="/organization-settings"><span class=""></span> Настройки</a></li><li><a href="/organization-works"><span class=""></span> Работы</a></li><li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li><li><a href="/organization-reports"><span class=""></span> Отчеты</a></li><li><a href="/organization-documents"><span class=""></span> Документация</a></li>
+                        <li><a href="#" onclick="logout(); return false;"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
+
+                        <li class="organization-info">
+                            <span class="organization-name">vkr_demo</span>
+                            <span class="organization-name">Организация: «Организация для тестирования»</span>
+                            <span class="user-role">Роль: «Администратор организации»</span>
+                            <span class="user-role">Срок предоставления доступа: 13.01.2016 - 31.10.2025</span>
+                        </li>
+
+                    </ul>
+                </div>
             </ul>
         </div>
     </nav>
