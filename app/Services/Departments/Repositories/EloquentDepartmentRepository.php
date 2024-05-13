@@ -44,4 +44,13 @@ class EloquentDepartmentRepository implements DepartmentRepositoryInterface
     {
         return Department::query()->where('id','=',$id)->exists();
     }
+
+    public function getProgramSpecialties(int $id)
+    {
+        $department =  Department::with('programs.programSpecialties')
+            ->find($id);
+        return $department->programs->map(function ($program) {
+            return $program->programSpecialties;
+        })->collapse();
+    }
 }

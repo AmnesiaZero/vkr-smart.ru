@@ -1,4 +1,4 @@
-@extends('layouts.site.main')
+@extends('layouts.dashboard.main')
 
 @section('content')
     <div class="bc-post">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label col-sm-4">Ваш тип пользователя:</label>
-                            @if($code->type==1)
+                            @if($code->type==2)
                                 <div class="col-sm-8">
                                     Преподаватель
                                 </div>
@@ -58,12 +58,34 @@
                 <div class="form-group">
                     <label class="col-sm-4">Кафедры</label>
                     <div class="col-sm-8">
-                        <select name="departments_ids[]" id="departments_menu_list" class="selectpicker form-control bs-select-hidden" data-title="Выбрать несколько..." data-width="100%" multiple>
-                            <option value="" selected>Уточните факультет...</option>
+                        @if($code->type==1)
+                            <select class="form-control" id="departments_list">
+                                <option value="" selected>Уточните факультет...</option>
+                            </select>
+                        @else
+                            <select name="departments_ids[]" id="departments_list_multiple" class="selectpicker form-control bs-select-hidden" data-title="Выбрать несколько..." data-width="100%" multiple>
+                                <option value="" selected>Уточните факультет...</option>
 
-                        </select>
+                            </select>
+                        @endif
                     </div>
                 </div>
+                        @if($code->type==1)
+                            <div class="form-group">
+                                <label class="form-label col-sm-4">Выберите свое направление подготовки:</label>
+                                <div class="col-sm-8">
+                                    <select name="specialty_id"  id="programs_specialties_list">
+                                        <option value="" selected>Уточните кафедру...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label col-sm-4">Укажите группу:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="group" placeholder="Уточните группу, в которой вы обучаетесь..." required="">
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label class="form-label col-sm-4">Укажите ваше ФИО:</label>
                             <div class="col-sm-8">
@@ -143,18 +165,21 @@
 
 
     </script>
+                <script id="program_specialty_tmpl" type="text/x-jquery-tmpl">
+        <option value="${id}">${code}|${name}</option>
 
+
+    </script>
                 <script id="success_registration_tmpl" type="text/x-jquery-tmpl">
                 <div class="alert alert-success">
                 <p>Вы успешно прошли регистрацию в комплексе систем по размещению и проверке работ на заимствования.</p>
                 <p>Ваши учетные данные для авторизации на платформе:</p>
                 <p>Имя пользователя: <strong id="reg-name">${login}</strong>
-                </p><p>Пароль: <strong id="reg-password">${password}</strong>
                </p>
-               <p>Данные также были отправлены на адрес Вашей электронной почты.</p>
+               <p>Пароль и логин отправлены на ваш адрес электронной почты</p>
                <p><a href="/login" class="btn btn-lg btn-success">Авторизоваться по логину и паролю</a></p>
                </div>
             </script>
 
-                <script src="/js/site/auth.js"> </script>
+                <script src="/js/site/code-register.js"> </script>
 @endsection

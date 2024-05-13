@@ -35,6 +35,8 @@ class UsersController extends Controller
         'password',
         'organization_id',
         'phone',
+        'group',
+        'specialty_id',
         'date_of_birth',
         'is_active',
         'departments_ids'
@@ -109,26 +111,9 @@ class UsersController extends Controller
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
-        $data = $request->only($this->fillable);
-        Log::debug('request data ='.print_r($data,true));
         $code = session('invite_code');
-        $data['organization_id'] = $code->organization_id;
-        $data['login'] = $data['email'];
-        if($code->type==1)
-        {
-            $data['role'] = 'teacher';
-        }
-        elseif ($code->type==2)
-        {
-            $data['role'] = 'user';
-        }
-        else{
-            return JsonHelper::sendJsonResponse(false,[
-                'title' => 'Ошибка',
-                'message' => 'Неккоректный тип кода регистрации'
-            ]);
-        }
-        return $this->usersService->create($data);
+        $data = $request->only($this->fillable);
+        return $this->usersService->register($code,$data);
 
     }
 

@@ -41,6 +41,7 @@ app021_dev_vkr_smart_ru:
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan view:clear"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan cache:clear"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan route:clear"
+    - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan db:seed --class=CreateTeacherRole"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan config:cache"
   only:
     refs:
@@ -72,7 +73,6 @@ app022_vkr_smart_ru:
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan cache:clear"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan route:clear"
     - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan config:cache"
-    - ssh $CI_PHP_HOST "$CI_PHP_PATH /mnt/$CI_NFS_PATH/artisan db:seed --class=CreateTeacherRole"
     - ssh $CI_PHP_HOST "/usr/bin/IPRdjango \"На vkr-smart.ru задеплоен комит https://git.iprmedia.ru/gitlab/2023/vkr-smart.ru/-/commit/$CI_COMMIT_SHA\" developers"
   only:
     refs:

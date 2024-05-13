@@ -231,10 +231,6 @@ function userDepartments(userId) {
         dataType: "json",
         success: function (response) {
             const departments = response.data.departments;
-            departments.forEach(department => {
-                const departmentId = department.id;
-                getDepartmentInfo(departmentId);
-            });
             $("#departments_list_" + userId).html($("#department_tmpl").tmpl(departments));
         },
         error: function (response) {
@@ -259,15 +255,13 @@ function getDepartmentInfo(id)
         id:id
     };
     $.ajax({
-        url: "/dashboard/organizations/departments/get-info",
+        url: "/dashboard/organizations/departments/find",
         dataType: "json",
         data: data,
         success: function (response) {
             if (response.success){
-                const year = response.data.year;
-                $("#user_year_" + id).append(year.year);
-                const faculty = response.data.faculty;
-                $("#user_faculty_" + id).append(faculty.name);
+                const department = response.data.department;
+
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message, "error");

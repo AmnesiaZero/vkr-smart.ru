@@ -16,7 +16,15 @@ $(document).ready(function () {
         const data = {
             faculty_id: facultyId
         };
-        departments(data,'departments_menu_list');
+        departments(data,'departments_list');
+    });
+
+    $('#departments_list').change(function () {
+        const departmentId = $(this).val();
+        const data = {
+            department_id: departmentId
+        };
+        programsSpecialties(data);
     });
 });
 
@@ -73,7 +81,7 @@ function faculties(data,htmlId) {
     });
 }
 
-function departments(data,htmlId)
+function departments(data)
 {
     $.ajax({
         url: "/dashboard/organizations/departments/get",
@@ -84,12 +92,22 @@ function departments(data,htmlId)
             if(response.success) {
                 const departments = response.data.departments
                 console.log(departments);
-                const departmentsList = $("#" + htmlId);
-                const dropdownList = $('.selectpicker');
-                dropdownList.empty();
-                dropdownList.selectpicker('destroy');
-                departmentsList.html($("#department_list_tmpl").tmpl(departments));
-                dropdownList.selectpicker('render');
+                let departmentsList = '';
+                if($("#departments_list").length>0)
+                {
+                    departmentsList = $("#departments_list");
+                    departmentsList.html($("#department_list_tmpl").tmpl(departments));
+                }
+                else{
+                     departmentsList = $("#departments_list_multiple");
+                    const dropdownList = $('.selectpicker');
+                    dropdownList.empty();
+                    dropdownList.selectpicker('destroy');
+                    departmentsList.html($("#department_list_tmpl").tmpl(departments));
+                    dropdownList.selectpicker('render');
+                }
+                departmentsList.prepend('<option value="" selected>Выберите.......</option>');
+
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -99,6 +117,30 @@ function departments(data,htmlId)
             $.notify("Произошла ошибка при выборе факультета", "error");
         }
     });
+}
+
+function programsSpecialties(data)
+{
+    $.ajax({
+        url: "/dashboard/organizations/departments/program-specialties",
+        dataType: "json",
+        data:data,
+        type: "GET",
+        success: function (response) {
+            if(response.success) {
+                const programSpecialties = response.data.program_specialties;
+                const programsSpecialtiesList = $("#programs_specialties_list");
+                programsSpecialtiesList.html($("#program_specialty_tmpl").tmpl(programSpecialties));
+            }
+            else{
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при выборе факультета", "error");
+        }
+    });
+
 }
 
 
@@ -117,6 +159,7 @@ function registration()
             if(response.success){
                $("#code_registration").empty();
                const user = response.data.user;
+               console.log('user = ' + user);
                $("#success_registration").html($("#success_registration_tmpl").tmpl(user));
             }
             else{

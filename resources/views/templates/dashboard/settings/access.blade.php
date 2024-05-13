@@ -62,8 +62,8 @@
     <script id="department_tmpl" type="text/x-jquery-tmpl">
         <div class="bg-green col-lg-8 mb-3">
                                             <p class="text-grey m-0 fs-14">Кафедра: «${name}»</p>
-                                            <p class="text-grey m-0 fs-14">Подразделение: «<span id="user_faculty_${id}"> </span>»</p>
-                                            <p class="text-grey m-0 fs-14">Год выпуска: «<span id="user_year_${id}"> </span>»</p>
+                                            <p class="text-grey m-0 fs-14">Подразделение: «${faculty.name}»</p>
+                                            <p class="text-grey m-0 fs-14">Год выпуска: «${year.year}»</p>
                                     </div>
 
 

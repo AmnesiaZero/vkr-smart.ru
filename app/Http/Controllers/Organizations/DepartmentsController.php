@@ -97,7 +97,7 @@ class DepartmentsController extends Controller
         return $this->departmentsService->getByUserId($userId);
     }
 
-    public function getInfo(Request $request):JsonResponse
+    public function find(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'id' => ['required', 'integer', Rule::exists('departments', 'id')]
@@ -106,6 +106,24 @@ class DepartmentsController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
-        return $this->departmentsService->getInfo($id);
+        return $this->departmentsService->find($id);
     }
+
+
+    public function getProgramSpecialties(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'department_id' => ['required', 'integer', Rule::exists('departments', 'id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->department_id;
+        return $this->departmentsService->getProgramSpecialties($id);
+    }
+
+
+
+
+
 }

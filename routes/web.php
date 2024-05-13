@@ -223,7 +223,8 @@ Route::group([
             Route::post('update', [DepartmentsController::class, 'update']);
             Route::post('delete', [DepartmentsController::class, 'delete']);
             Route::get('by-user', [DepartmentsController::class, 'getByUserId']);
-            Route::get('get-info',[DepartmentsController::class, 'getInfo']);
+            Route::get('get-info',[DepartmentsController::class, 'find']);
+            Route::get('program-specialties',[DepartmentsController::class,'getProgramSpecialties']);
         });
 
         Route::group([

@@ -31,6 +31,8 @@ class User extends Authenticatable
         'organization_id',
         'phone',
         'date_of_birth',
+        'group',
+        'specialty_id',
         'is_active'
     ];
 

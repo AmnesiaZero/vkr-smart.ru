@@ -121,6 +121,71 @@ class UsersService extends Services
         ]);
     }
 
+    public function register(InviteCode $inviteCode, array $data)
+    {
+        if (empty($data)) {
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'Пустой массив данных'
+            ]);
+        }
+        $data['organization_id'] = $inviteCode->organization_id;
+        $data['login'] = $data['email'];
+        if($inviteCode->type==1)
+        {
+            $data['role'] = 'user';
+        }
+        elseif ($inviteCode->type==2)
+        {
+            $data['role'] = 'teacher';
+        }
+        else{
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Неккоректный тип кода регистрации'
+            ]);
+        }
+        if(!is_numeric($data['organization_id'])){
+            return JsonHelper::sendJsonResponse(false, [
+                'title' => 'Ошибка',
+                'message' => 'У вас неккоректно задан id организации'
+            ]);
+        }
+        $user = $this->_repository->create($data);
+        if ($user and $user->id) {
+            $userId = $user->id;
+
+            $inviteCode->delete();
+
+            if (isset($data['role'])) {
+                Log::debug('role = '.$data['role']);
+                $role = $this->roleRepository->find($data['role']);
+                Log::debug('role eloquent = '.$role);
+            }
+            else {
+                $role = $this->roleRepository->find('user');
+            }
+            $user->attachRole($role);
+
+            if (isset($data['departments_ids'])){
+                $departmentsIds = $data['departments_ids'];
+                foreach ($departmentsIds as $id){
+                    $user->departments()->attach($id);
+                }
+            }
+            $updatedUser = $this->_repository->find($userId);
+            return JsonHelper::sendJsonResponse(true, [
+                'title' => 'Успешно',
+                'message' => 'Пользователь успешно создан',
+                'user' => $updatedUser
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false, [
+            'title' => 'Ошибка',
+            'message' => 'При сохранении данных произошла  ошибка'
+        ]);
+    }
+
     public function find(int $id): JsonResponse
     {
         $user =  $this->_repository->find($id);

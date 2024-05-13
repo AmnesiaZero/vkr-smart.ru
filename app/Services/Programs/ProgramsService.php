@@ -45,7 +45,7 @@ class ProgramsService
     {
         $programs = $this->_repository->get($departmentId);
         return JsonHelper::sendJsonResponse(true, [
-            'title' => 'Успешно получены кафедры',
+            'title' => 'Успешно получены программы',
             'programs' => $programs
         ]);
     }

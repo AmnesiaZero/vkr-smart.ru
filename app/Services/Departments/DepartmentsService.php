@@ -149,31 +149,30 @@ class DepartmentsService extends Services
         ]);
     }
 
-    public function getInfo(int $id):JsonResponse
+    public function find(int $id):JsonResponse
     {
-       $department = $this->departmentRepository->find($id);
-       $facultyId = $department->faculty_id;
-       if($facultyId==null)
-       {
-          return JsonHelper::sendJsonResponse(false,[
-             'title' => 'Ошибка',
-             'message' => 'Некорректный id факультета'
-          ]);
-       }
-       $faculty = $this->facultyRepository->find($facultyId);
-       $yearId = $faculty->year_id;
-        if($yearId==null)
-        {
-            return JsonHelper::sendJsonResponse(false,[
-                'title' => 'Ошибка',
-                'message' => 'Некорректный id года'
-            ]);
-        }
-       $year = $this->yearRepository->find($yearId);
+        $department = $this->departmentRepository->find($id);
         return JsonHelper::sendJsonResponse(true,[
            'title' => 'Успех',
-           'faculty' => $faculty,
-           'year' => $year
+           'department' => $department
         ]);
     }
+
+    public function getProgramSpecialties(int $id): JsonResponse
+    {
+        $programSpecialties = $this->departmentRepository->getProgramSpecialties($id);
+        if($programSpecialties)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'program_specialties' => $programSpecialties,
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false, [
+            'title' => 'Ошибка',
+            'message' => 'При получении специальностей произошла ошибка',
+        ]);
+    }
+
+
 }

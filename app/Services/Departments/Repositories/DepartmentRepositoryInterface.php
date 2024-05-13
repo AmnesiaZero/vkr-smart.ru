@@ -2,6 +2,7 @@
 
 namespace App\Services\Departments\Repositories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,6 +56,12 @@ interface DepartmentRepositoryInterface
      * @return bool
      */
     public function exist(int $id):bool;
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function getProgramSpecialties(int $id);
 
 
 }
