@@ -146,6 +146,14 @@ function programsSpecialties(data)
 
 function registration()
 {
+    let password = $('#password').val();
+    let repassword = $('#repassword').val();
+
+    if(password !== repassword){
+        $.notify("Введенные пароли не совпадают", "error");
+        return false;
+    }
+
     const data  = $("#registration_form").serialize();
     $.ajax({
         url: "/registration/by-code",
@@ -172,3 +180,4 @@ function registration()
     });
 
 }
+
