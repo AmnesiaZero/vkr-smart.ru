@@ -40,30 +40,31 @@
                 <li><a class="nav-link text-black-black" href="/check-reference">Проверка справки</a></li>
                 <li><a class="nav-link text-black-black" href="https://api.vkr-vuz.ru" target="_blank">API</a></li>
                 <li>
-                    <a href="/login" class="nav-link">
+                    <a href="/logout" class="nav-link">
 		                        		<span class="badge br-40 br-green-1"
                                               style="padding-top: 7px; padding-bottom: 7px;">
-		                        			<span class="fs-16 ps-1 pe-1 text-black-black">вход</span>
+		                        			<span class="fs-16 ps-1 pe-1 text-black-black">выйти</span>
 		                        		</span>
                     </a>
                 </li>
 
-                <div class="user-menu col-sm-5 text-right">
-                    <a href="admin-office/" class="btn btn-default btn-testaccess"><span class="glyphicon glyphicon-user"></span> Личный кабинет</a>
-                    <a href="#" class="btn btn-default btn-testaccess dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                        <li><a href="/organization-settings"><span class=""></span> Настройки</a></li><li><a href="/organization-works"><span class=""></span> Работы</a></li><li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li><li><a href="/organization-reports"><span class=""></span> Отчеты</a></li><li><a href="/organization-documents"><span class=""></span> Документация</a></li>
-                        <li><a href="#" onclick="logout(); return false;"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
+{{--                <div class="user-menu col-sm-5 text-right">--}}
+{{--                    <a href="admin-office/" class="btn btn-default btn-testaccess"><span class="glyphicon glyphicon-user"></span> Личный кабинет</a>--}}
+{{--                    <a href="#" class="btn btn-default btn-testaccess dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>--}}
+{{--                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu">--}}
+{{--                        <li><a href="/organization-settings">--}}
+{{--                                <span class=""></span> Настройки</a></li><li><a href="/organization-works"><span class=""></span> Работы</a></li><li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li><li><a href="/organization-reports"><span class=""></span> Отчеты</a></li><li><a href="/organization-documents"><span class=""></span> Документация</a></li>--}}
+{{--                        <li><a href="#" onclick="logout(); return false;"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>--}}
 
-                        <li class="organization-info">
-                            <span class="organization-name">vkr_demo</span>
-                            <span class="organization-name">Организация: «Организация для тестирования»</span>
-                            <span class="user-role">Роль: «Администратор организации»</span>
-                            <span class="user-role">Срок предоставления доступа: 13.01.2016 - 31.10.2025</span>
-                        </li>
+{{--                        <li class="organization-info">--}}
+{{--                            <span class="organization-name">vkr_demo</span>--}}
+{{--                            <span class="organization-name">Организация: «Организация для тестирования»</span>--}}
+{{--                            <span class="user-role">Роль: «Администратор организации»</span>--}}
+{{--                            <span class="user-role">Срок предоставления доступа: 13.01.2016 - 31.10.2025</span>--}}
+{{--                        </li>--}}
 
-                    </ul>
-                </div>
+{{--                    </ul>--}}
+{{--                </div>--}}
             </ul>
         </div>
     </nav>
@@ -191,6 +192,8 @@
 <script src="/js/app.js"></script>
 
 <script src="/js/jquery/jquery.tmpl.min.js"></script>
+
+<script src="/js/jquery/jquery.simplePagination.js"> </script>
 
 @yield('scripts')
 </body>

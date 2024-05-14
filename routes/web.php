@@ -93,6 +93,7 @@ Route::get('check-reference', function () {
 Route::get('reset-password', function () {
     return view('templates.site.auth.reset_password');
 });
+Route::get('logout',[UsersController::class,'logout']);
 
 Route::group([
     'prefix' => 'login'

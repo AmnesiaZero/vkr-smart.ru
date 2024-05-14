@@ -57,8 +57,8 @@
                     <div id="students_codes_list">
 
                     </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination m-0">
+                    <nav aria-label="Page navigation example" id="students_codes_pagination">
+                        <ul class="pagination m-0" id="students_pages">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>
@@ -84,8 +84,8 @@
                     <div id="teachers_codes_list">
 
                     </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination m-0">
+                    <nav aria-label="Page navigation example" id="teachers_codes_pagination">
+                        <ul class="pagination m-0" id="teachers_pages">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>

@@ -64,6 +64,13 @@ class UsersController extends Controller
         return back()->withErrors(['Предоставленные данные были некорректными']);
     }
 
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
+    }
+
     public function loginByCode(Request $request)
     {
         $validator = Validator::make($request->all(), [

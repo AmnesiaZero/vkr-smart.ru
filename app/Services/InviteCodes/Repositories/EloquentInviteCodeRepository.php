@@ -5,6 +5,7 @@ namespace App\Services\InviteCodes\Repositories;
 use App\Models\InviteCode;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class EloquentInviteCodeRepository implements InviteCodeRepositoryInterface
 {
@@ -14,9 +15,11 @@ class EloquentInviteCodeRepository implements InviteCodeRepositoryInterface
         return InviteCode::query()->create($data);
     }
 
-    public function get(int $organizationId): Collection
+    public function get(int $organizationId, int $pageNumber,int $type): LengthAwarePaginator
     {
-       return InviteCode::query()->where('organization_id','=',$organizationId)->get();
+       return InviteCode::query()->where('organization_id','=',$organizationId)
+           ->where('type','=',$type)
+           ->paginate(10,'*','page',$pageNumber);
     }
 
     public function find(int $id): Model

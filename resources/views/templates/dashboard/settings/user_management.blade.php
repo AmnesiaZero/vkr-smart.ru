@@ -6,7 +6,7 @@
             <div class="col-xxl-4 col-xl-5 col-lg-6">
                 <div id="tree" class="br-green-light-2 br-15 p-3">
                     <ul class="ui-fancytree fancytree-container fancytree-plain" tabindex="0">
-                        <li class="">
+                        <li class="fancytree-lastsib">
 		    							<span
                                             class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    								<span class="fancytree-title">2018</span>
@@ -18,7 +18,7 @@
 		    										<span class="fancytree-expander"></span>
 		    										<span class="fancytree-title">Экономический факультет</span>
 		    									</span>
-                                    <ul style="display: block;">
+                                    <ul>
                                         <li class="fancytree-lastsib">
 		    											<span
                                                             class="fancytree-node fancytree-active fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
@@ -736,6 +736,36 @@
         @endsection
 
         @section('scripts')
+
+            <script id="year_tmpl" type="text/x-jquery-tmpl">
+                <li>
+		    							<span
+                                            class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    								<span class="fancytree-title">2018</span>
+		    							</span>
+                    <ul id="departments_list_${id}">
+                        <li class="fancytree-lastsib">
+		    									<span
+                                                    class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
+		    										<span class="fancytree-expander"></span>
+		    										<span class="fancytree-title">Экономический факультет</span>
+		    									</span>
+                            <ul>
+                                <li class="fancytree-lastsib">
+		    											<span
+                                                            class="fancytree-node fancytree-active fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    												<span class="fancytree-expander"></span>
+		    												<span class="fancytree-title">Кафедра экономической теории и национальной экономики</span>
+		    											</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </script>
+        <script id="department_tmpl">
+
+        </script>
             <script>
                 $(document).ready(function () {
                     getReport(0);
@@ -963,4 +993,5 @@
                     elemOutKod.innerHTML += '<div class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2">' + text + '</div>';
                 }
             </script>
+
 @endsection

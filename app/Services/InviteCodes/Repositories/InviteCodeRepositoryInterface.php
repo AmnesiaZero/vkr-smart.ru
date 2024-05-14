@@ -5,6 +5,7 @@ namespace App\Services\InviteCodes\Repositories;
 use App\Models\InviteCode;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface InviteCodeRepositoryInterface
 {
@@ -19,7 +20,7 @@ interface InviteCodeRepositoryInterface
      * @param int $organizationId
      * @return mixed
      */
-    public function get(int $organizationId):Collection;
+    public function get(int $organizationId,int $pageNumber,int $type):LengthAwarePaginator;
 
 
     /**

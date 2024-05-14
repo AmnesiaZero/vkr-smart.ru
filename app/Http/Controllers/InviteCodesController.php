@@ -38,10 +38,19 @@ class InviteCodesController extends Controller
         return $this->inviteCodesService->create($data);
     }
 
-    public function get():JsonResponse
+    public function get(Request $request):JsonResponse
     {
+        $validator = Validator::make($request->all(), [
+            'page' => 'required|integer',
+            'type' => 'required|integer|in:1,2'
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
         $user = Auth::user();
         $organizationId = $user->organization_id;
-        return $this->inviteCodesService->get($organizationId);
+        $pageNumber = $request->page;
+        $type = $request->type;
+        return $this->inviteCodesService->get($organizationId,$pageNumber,$type);
     }
 }
