@@ -19,9 +19,12 @@ class EloquentUserRepository implements UserRepositoryInterface
     }
 
 
-    public function get(int $organizationId): Collection
+    public function get(int $organizationId,array $roles): Collection
     {
-        return User::with(['roles','departments'])->where('organization_id', '=', $organizationId)->get();
+        return User::with(['roles','departments'])->where('organization_id', '=', $organizationId)
+            ->get()->filter(function ($user) use ($roles) {
+                return $user->roles->whereIn('slug', $roles)->isNotEmpty();
+            });
     }
 
     public function find(int $id): Model
@@ -60,7 +63,29 @@ class EloquentUserRepository implements UserRepositoryInterface
         if(isset($data['email'])){
             $query = $query->where('email','=',$data['email']);
         }
-        return $query->get();
+        if (isset($data['is_active'])){
+            $query = $query->where('is_active','=',$data['is_active']);
+        }
+        if (isset($data['group'])){
+            $query = $query->where('group','=',$data['group']);
+        }
+        $users = $query->get();
+
+        if (isset($data['roles']))
+        {
+            $roles = $data['roles'];
+            $users = $users->filter(function ($user) use ($roles) {
+                return $user->roles->whereIn('slug', $roles)->isNotEmpty();
+            });
+        }
+        if (isset($data['role']))
+        {
+            $role = $data['role'];
+            $users = $users->filter(function ($user) use ($role) {
+                return $user->roles->where('slug','=' ,$role)->isNotEmpty();
+            });
+        }
+        return $users;
     }
 
     public function filterUsers(Collection $users,array $data):Collection

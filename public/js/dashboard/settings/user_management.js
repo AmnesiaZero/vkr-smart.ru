@@ -1,0 +1,109 @@
+$(document).ready(function () {
+    localStorage.setItem('selected_years','');
+    localStorage.setItem('selected_departments','');
+    users();
+    $(".fancytree-title").on('click', function () {
+        addBadge($(this));
+    })
+    $(".clicked").on('click', function () {
+        deleteTreeElement($(this));
+    })
+})
+const addBadge = function (clickedElement) {
+    const id = clickedElement.attr('id');
+    const text = clickedElement.text();
+    console.log('id = ' + id);
+    console.log('text = ' + text);
+    if(id.includes('year_')){
+        let selectedYears = localStorage.getItem('selected_years');
+        const match = id.match(/\d+/); // Находим все последовательности цифр в строке
+        const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
+        selectedYears = selectedYears ? selectedYears.split(",") : [];
+        console.log(selectedYears)
+        if(!selectedYears.includes(number)){
+            selectedYears.push(number);
+            console.log('вошёл');
+            document.querySelector('.out-kod').style.display = "block";
+            const elemOutKod = document.querySelector('.out-kod');
+            elemOutKod.innerHTML += `<div class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2" id="clicked_${id}">${text}</div>`;
+        }
+        localStorage.setItem('selected_years',selectedYears.join(','));
+    }
+    else if (id.includes('department_'))
+    {
+        let selectedDepartments = localStorage.getItem('selected_departments');
+        const match = id.match(/\d+/); // Находим все последовательности цифр в строке
+        const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
+        selectedDepartments = selectedDepartments ? selectedDepartments.split(",") : [];
+        if(!selectedDepartments.includes(number)){
+            selectedDepartments.push(number);
+            document.querySelector('.out-kod').style.display = "block";
+            const elemOutKod = document.querySelector('.out-kod');
+            elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2 clicked"  onclick="deleteTreeElement(${id})">${text}</span>`;
+        }
+        localStorage.setItem('selected_departments',selectedDepartments.join(','));
+
+    }
+}
+
+
+function deleteTreeElement(id)
+{
+    $("#" + id).remove();
+}
+
+function users() {
+    const roles = ['teacher','user'];
+    const data = {
+        roles:roles
+    };
+    $.ajax({
+        url: "/dashboard/users/get",
+        dataType: "json",
+        data: data,
+        success: function (response) {
+            const users = response.data.users;
+            console.log(users);
+            $("#users_list").html($("#user_tmpl").tmpl(users));
+        },
+        error: function (response) {
+            $.notify(response.data.title + ":" + response.data.message, "error");
+        }
+    });
+}
+
+
+function searchUsers()
+{
+    let data = $("#search_users").serialize();
+    data = serializeRemoveNull(data);
+    $.ajax({
+        url: "/dashboard/users/search",
+        data: data,
+        type: "GET",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+                const users = response.data.users;
+                console.log(users);
+                $("#users_list").html($("#user_tmpl").tmpl(users));
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
+function serializeRemoveNull(serStr){
+    return serStr.split("&").filter(str => !str.endsWith("=")).join("&");
+}
+
+
+

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Departments\Repositories\DepartmentRepositoryInterface;
 use App\Services\InviteCodes\Repositories\InviteCodeRepositoryInterface;
 use App\Services\Organizations\Repositories\OrganizationRepositoryInterface;
+use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
 use App\Services\Roles\Repositories\RoleRepositoryInterface;
 use App\Services\Services;
 use App\Services\Users\Repositories\UserRepositoryInterface;
@@ -31,6 +32,8 @@ class UsersService extends Services
 
     private RoleRepositoryInterface $roleRepository;
 
+    private OrganizationYearRepositoryInterface $yearRepository;
+
     private DepartmentRepositoryInterface $departmentRepository;
 
     private InviteCodeRepositoryInterface $inviteCodeRepository;
@@ -41,13 +44,14 @@ class UsersService extends Services
 
     public function __construct(UserRepositoryInterface $userRepository, RoleRepositoryInterface $roleRepository,
         DepartmentRepositoryInterface $departmentRepository,InviteCodeRepositoryInterface $inviteCodeRepository,
-    OrganizationRepositoryInterface $organizationRepository)
+    OrganizationRepositoryInterface $organizationRepository,OrganizationYearRepositoryInterface $yearRepository)
     {
         $this->_repository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->departmentRepository = $departmentRepository;
         $this->inviteCodeRepository = $inviteCodeRepository;
         $this->organizationRepository = $organizationRepository;
+        $this->yearRepository = $yearRepository;
     }
 
 
@@ -62,11 +66,11 @@ class UsersService extends Services
         return $this->_repository->getByEmail($email);
     }
 
-    public function get(): JsonResponse
+    public function get(array $roles): JsonResponse
     {
-        $user = Auth::user();
-        $organizationId = $user->organization_id;
-        $users = $this->_repository->get($organizationId)->except(['id' => $user->id]);
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        $users = $this->_repository->get($organizationId,$roles)->except(['id' => $you->id]);
         //Сюда можно добавить ещё какую-нибудь инфу
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно',
@@ -278,19 +282,11 @@ class UsersService extends Services
         }
 
         $users =  $this->_repository->search($data);
-
-        if ($users) {
-            return JsonHelper::sendJsonResponse(true, [
-                'title' => 'Успех',
-                'message' => 'Пользователи успешно найдены',
-                'users' => $users
-            ]);
-        } else {
-            return JsonHelper::sendJsonResponse(false, [
-                'title' => 'Ошибка',
-                'message' => "Произошла ошибка при получении пользователей",
-            ]);
-        }
+        return JsonHelper::sendJsonResponse(true, [
+            'title' => 'Успех',
+            'message' => 'Пользователи успешно найдены',
+            'users' => $users
+        ]);
     }
 
 
@@ -394,11 +390,21 @@ class UsersService extends Services
     {
         $organizationId = $code->organization_id;
         $organization = $this->organizationRepository->find($organizationId);
-        $organizationName = $organization->name;
-        return view('templates.site.auth.code-registration',[
-            'code' => $code,
-            'organization_name' => $organizationName
-        ]);
+        if($organization and $organization->id)
+        {
+            $organizationName = $organization->name;
+            return view('templates.site.auth.code-registration',[
+                'code' => $code,
+                'organization_name' => $organizationName
+            ]);
+        }
+        return redirect('login')->withErrors(['К вашему коду привязана неккоректная организация']);
+    }
+
+    public function userManagement($organizationId): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $years = $this->yearRepository->get($organizationId);
+        return view('templates.dashboard.settings.user_management',['years' => $years]);
     }
 
 }

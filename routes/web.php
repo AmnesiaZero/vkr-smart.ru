@@ -148,9 +148,7 @@ Route::group([
         Route::get('invite-codes', function () {
             return view('templates.dashboard.settings.invite_codes');
         });
-        Route::get('user-management', function () {
-            return view('templates.dashboard.settings.user_management');
-        });
+        Route::get('user-management', [UsersController::class,'userManagement']);
         Route::get('handbook-management', function () {
             return view('templates.dashboard.settings.handbook_management');
         });

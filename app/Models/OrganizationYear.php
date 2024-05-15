@@ -35,4 +35,9 @@ class OrganizationYear extends Model
         return $this->hasMany(Faculty::class, 'year_id');
     }
 
+    public function departments():HasMany
+    {
+        return $this->hasMany(Department::class,'year_id');
+    }
+
 }

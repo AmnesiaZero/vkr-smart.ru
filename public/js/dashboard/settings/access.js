@@ -207,10 +207,14 @@ $('.pas').click(function () {
 // }
 
 function users() {
+    const roles = ['admin','employee'];
+    const data = {
+        roles:roles
+    };
     $.ajax({
         url: "/dashboard/users/get",
         dataType: "json",
-        data: "v=" + (new Date()).getTime(),
+        data: data,
         success: function (response) {
             const users = response.data.users;
             $("#users_list").html($("#user_tmpl").tmpl(users));

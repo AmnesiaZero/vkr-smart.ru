@@ -39,7 +39,10 @@ class UsersController extends Controller
         'specialty_id',
         'date_of_birth',
         'is_active',
-        'departments_ids'
+        'departments_ids',
+        'roles',
+        'role',
+        'is_active'
     ];
 
     public function __construct(UsersService $usersService)
@@ -140,9 +143,16 @@ class UsersController extends Controller
         return $this->usersService->newPassword($password,$token);
     }
 
-    public function get(): JsonResponse
+    public function get(Request $request): JsonResponse
     {
-        return $this->usersService->get();
+        $validator = Validator::make($request->all(), [
+            'roles.*' => ['required',Rule::exists('roles','slug')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $roles = $request->roles;
+        return $this->usersService->get($roles);
     }
 
     public function create(Request $request): JsonResponse
@@ -227,17 +237,21 @@ class UsersController extends Controller
     public function search(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
+            'where_in.*' => ['integer',Rule::exists('users','id')],
+            'email' => ['email','max:250'],
+            'group' => 'max:250',
+            'role' => [Rule::exists('roles','slug')],
+            'is_active' => 'integer:in:0,1'
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
-        $user = Auth::user();
+        $you = Auth::user();
 
-        $organizationId = $user->organization_id;
-        $name = $request->name;
-
-        $data = ['name' => $name,'organization_id' => $organizationId];
+        $data = $request->only($this->fillable);
+        Log::debug('request data = '.print_r($data,true));
+        $data['organization_id'] = $you->organization_id;
 
         return $this->usersService->search($data);
     }
@@ -255,6 +269,14 @@ class UsersController extends Controller
         $userId = $request->user_id;
         $departmentsIds = $request->departments_ids;
         return $this->usersService->configureDepartments($userId,$departmentsIds);
+    }
+
+
+    public function userManagement()
+    {
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        return $this->usersService->userManagement($organizationId);
     }
 
 }

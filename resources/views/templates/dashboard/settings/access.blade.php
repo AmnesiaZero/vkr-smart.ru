@@ -109,10 +109,10 @@
                                       </div>
                                       @{{if is_active}}
                                        <div id="lock1" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock">
-                                       <a href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text" onclick="blockUser(${id})">заблокировать</a>
+                                       <a class="text-grey link-active-hover fs-14 ps-2" id="lock_text" onclick="blockUser(${id})">заблокировать</a>
                                        @{{else}}
                                       <div id="lock2" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock2">
-                                      <a href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text2" onclick="unblockUser(${id})">разблокировать</a>
+                                      <a class="text-grey link-active-hover fs-14 ps-2" id="lock_text2" onclick="unblockUser(${id})">разблокировать</a>
                                        @{{/if}}
                                       </div>
                                       <p class="text-grey fs-14 pt-4">${date_of_birth}</p>
