@@ -80,7 +80,7 @@ function createInviteCodes()
 function createStudentsCodes(studentsCodes)
 {
     console.log('students codes = ' + studentsCodes);
-   $("#students_codes_list").append($("#invite_code_tmpl").tmpl(studentsCodes));
+    $("#students_codes_list").append($("#invite_code_tmpl").tmpl(studentsCodes));
    // updateStudentsCodesPagination();
 }
 
@@ -99,9 +99,15 @@ function teachersCodes(pageNumber= 1)
         success: function (response) {
             if(response.success){
                 const inviteCodes = response.data.invite_codes.data;
-                console.log(inviteCodes);
-                $("#teachers_codes_list").html($("#invite_code_tmpl").tmpl(inviteCodes));
-                // updateTeachersPagination(pageNumber);
+                const teachersCodesList = $("#teachers_codes_list");
+                if(inviteCodes.length>0)
+                {
+                    $("#teachers_list_head").append($("#load_tmpl").tmpl({type:2}));
+                    teachersCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                }
+                else{
+                    teachersCodesList.append($("#empty_tmpl").tmpl());
+                }
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -147,8 +153,15 @@ function studentsCodes(pageNumber= 1)
             if(response.success){
                 const inviteCodes = response.data.invite_codes.data;
                 console.log(inviteCodes);
-                $("#students_codes_list").html($("#invite_code_tmpl").tmpl(inviteCodes));
-                // updateStudentsCodesPagination(pageNumber);
+                const studentsCodesList = $("#students_codes_list");
+                if(inviteCodes.length>0)
+                {
+                    $("#students_list_head").append($("#load_tmpl").tmpl({type:1}));
+                    studentsCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                }
+                else{
+                    studentsCodesList.append($("#empty_tmpl").tmpl());
+                }
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -181,46 +194,6 @@ function updateStudentsCodesPagination(currentPage) {
 
 
 
-// function printInviteCodes(inviteCodes,create=false)
-// {
-//     let teachersListFlag = false;
-//     let studentsListFlag = false;
-//     inviteCodes.forEach(inviteCode => {
-//         const inviteCodeHtml = $("#invite_code_tmpl").tmpl(inviteCode);
-//         if(inviteCode.type==1)
-//         {
-//             if(!studentsListFlag){
-//                 studentsListFlag = true;
-//                 if(!$("#load_students_codes").length){
-//                     $("#students_list_head").append($("#load_tmpl").tmpl({id:"load_students_codes"}));
-//                 }
-//             }
-//             inviteCodeHtml.appendTo("#students_codes_list");
-//         }
-//         else {
-//             if (!teachersListFlag){
-//                 teachersListFlag = true;
-//                 if(!$("#load_teachers_codes").length){
-//                     $("#teachers_list_head").append($("#load_tmpl").tmpl({id:"load_teachers_codes"}));
-//                 }
-//             }
-//             inviteCodeHtml.appendTo("#teachers_codes_list");
-//         }
-//     });
-//     if(create){
-//         if(!studentsListFlag)
-//         {
-//             $("#students_codes_list").append($("#empty_tmpl").tmpl());
-//         }
-//         else if (!teachersListFlag)
-//         {
-//             $("#teachers_codes_list").append($("#empty_tmpl").tmpl());
-//         }
-//         else{
-//             $(".empty_codes").remove();
-//         }
-//     }
-// }
 
 
 

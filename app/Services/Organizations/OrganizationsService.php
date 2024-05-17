@@ -52,4 +52,12 @@ class OrganizationsService extends Services
         ]);
 
     }
+
+    public function integrationView()
+    {
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        $organization = $this->_repository->find($organizationId);
+        return view('templates.dashboard.settings.integration',['organization' => $organization]);
+    }
 }

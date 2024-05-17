@@ -152,9 +152,7 @@ Route::group([
         Route::get('handbook-management', function () {
             return view('templates.dashboard.settings.handbook_management');
         });
-        Route::get('integration', function () {
-            return view('templates.dashboard.settings.integration');
-        });
+        Route::get('integration', [OrganizationsController::class,'integrationView']);
         Route::get('api', function () {
             return view('templates.dashboard.settings.api');
         });
@@ -193,6 +191,7 @@ Route::group([
         'prefix' => 'organizations'
     ], function () {
 
+        Route::get('find',[OrganizationsController::class,'find']);
         Route::post('inspectors-access',[OrganizationsController::class,'configureInspectorsAccess']);
 
         Route::group([
@@ -270,6 +269,7 @@ Route::group([
     ],function (){
        Route::post('create',[InviteCodesController::class,'create']);
        Route::get('get',[InviteCodesController::class,'get']);
+       Route::get('load',[InviteCodesController::class,'loadExcel']);
     });
 
 

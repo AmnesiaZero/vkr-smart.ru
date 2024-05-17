@@ -235,6 +235,13 @@ class UsersService extends Services
 
         if ($result) {
             $user = $this->_repository->find($id);
+            if(isset($data['role']))
+            {
+                $roleSlug = $data['role'];
+                $role = $this->roleRepository->find($roleSlug);
+                $roleId = $role->id;
+                $user->syncRoles([$roleId]);
+            }
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
@@ -281,7 +288,7 @@ class UsersService extends Services
             ]);
         }
 
-        $users =  $this->_repository->search($data);
+        $users =  $this->_repository->search($data)->except([]);
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успех',
             'message' => 'Пользователи успешно найдены',

@@ -21,4 +21,5 @@ class InviteCode extends Model
 
 
 
+
 }

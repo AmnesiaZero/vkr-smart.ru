@@ -42,7 +42,9 @@ class UsersController extends Controller
         'departments_ids',
         'roles',
         'role',
-        'is_active'
+        'is_active',
+        'selected_years',
+        'selected_departments'
     ];
 
     public function __construct(UsersService $usersService)
@@ -211,6 +213,7 @@ class UsersController extends Controller
             'password' => 'max:255',
             'gender' => 'integer',
             'is_active' => 'integer',
+            'role' => [Rule::exists('roles','slug')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -239,10 +242,12 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'where_in.*' => ['integer',Rule::exists('users','id')],
-            'email' => ['email','max:250'],
+            'email' => ['max:250'],
             'group' => 'max:250',
             'role' => [Rule::exists('roles','slug')],
-            'is_active' => 'integer:in:0,1'
+            'is_active' => 'integer:in:0,1',
+            'selected_departments.*' => ['integer',Rule::exists('departments','id')],
+            'selected_years.*' => ['integer',Rule::exists('organizations_years','id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);

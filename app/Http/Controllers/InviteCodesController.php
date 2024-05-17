@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
+use App\Models\InviteCodesExport;
 use App\Services\InviteCodes\InviteCodesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -52,5 +53,21 @@ class InviteCodesController extends Controller
         $pageNumber = $request->page;
         $type = $request->type;
         return $this->inviteCodesService->get($organizationId,$pageNumber,$type);
+    }
+
+
+    //Будет работать,когда эта библиотека наконец установится,думаю её можно сразу на серваке настроить
+    public function loadExcel(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'type' => 'required|integer|in:1,2'
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        $type = $request->type;
+        return Excel::download(new InviteCodesExport($organizationId,$type), 'invite_codes.xlsx');
     }
 }

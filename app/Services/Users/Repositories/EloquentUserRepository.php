@@ -5,6 +5,7 @@ namespace App\Services\Users\Repositories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
@@ -61,15 +62,32 @@ class EloquentUserRepository implements UserRepositoryInterface
             $query = $query->whereIn('id',$values);
         }
         if(isset($data['email'])){
-            $query = $query->where('email','=',$data['email']);
+            $query = $query->where('email','like','%'.$data['email'].'%');
         }
         if (isset($data['is_active'])){
             $query = $query->where('is_active','=',$data['is_active']);
         }
         if (isset($data['group'])){
-            $query = $query->where('group','=',$data['group']);
+            $query = $query->where('group','like','%'.$data['group'].'%');
         }
         $users = $query->get();
+
+        if (isset($data['selected_departments']))
+        {
+            Log::debug('Вошёл в условие');
+            $departmentsIds = $data['selected_departments'];
+            $users = $users->filter(function ($user) use ($departmentsIds) {
+                return $user->departments->whereIn('id', $departmentsIds)->isNotEmpty();
+            });
+        }
+
+        if (isset($data['selected_years']))
+        {
+            $yearsIds = $data['selected_years'];
+            $users = $users->filter(function ($user) use ($yearsIds) {
+                return $user->departments->whereIn('year.id', $yearsIds)->isNotEmpty();
+            });
+        }
 
         if (isset($data['roles']))
         {
@@ -82,7 +100,7 @@ class EloquentUserRepository implements UserRepositoryInterface
         {
             $role = $data['role'];
             $users = $users->filter(function ($user) use ($role) {
-                return $user->roles->where('slug','=' ,$role)->isNotEmpty();
+                return $user->roles->where('slug','=',$role)->isNotEmpty();
             });
         }
         return $users;

@@ -10,7 +10,7 @@
                 <div class="d-flex flex-inline">
                     <p class="fs-14 text-grey lh-17 pe-3">Идентификатор<br> домена организации:</p>
                     <div class="input-group mb-3" style="width: max-content;">
-                        <input type="text" class="form-control form-copy" id="content" value="595" size="2"
+                        <input type="text" class="form-control form-copy" id="content" value="{{$organization->id}}" size="2"
                                aria-describedby="button-addon2" readonly>
                         <button id="copy" class="btn copy_btn" type="button" id="button-addon2"></button>
                     </div>
@@ -19,7 +19,7 @@
                 </p>
                 <div class="input-group" style="width: max-content;">
                     <input type="text" class="form-control form-copy" id="content_1"
-                           value="JSQvqtezPKmWLpCvzftmkBy87Krdhpuq" aria-describedby="button-addon3" readonly>
+                           value="{{$organization->jwt_key}}" aria-describedby="button-addon3" readonly>
                     <button id="copy_1" class="btn copy_btn" type="button" id="button-addon3"></button>
                 </div>
 

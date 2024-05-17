@@ -131,6 +131,6 @@
     </script>
 
     <script id="load_tmpl" type="text/x-jquery-tmpl">
-        <span id=${id} class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></span>
+        <a href="/dashboard/invite-codes/load?type=${type}" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
     </script>
 @endsection
