@@ -27,9 +27,10 @@ interface UserRepositoryInterface
     /**
      * Получить список пользователей по их организации
      * @param int $organizationId
+     * @param array $roles
      * @return Collection
      */
-    public function get(int $organizationId): Collection;
+    public function get(int $organizationId,array $roles): Collection;
 
     /**
      * @param int $id

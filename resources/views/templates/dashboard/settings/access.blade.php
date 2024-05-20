@@ -54,9 +54,32 @@
 
     </div>
     @include('layouts.dashboard.include.modal.add.departments')
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEdit">
+        <div class="offcanvas-header border-bottom">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <h5 class="offcanvas-title fw-600 fs-16 text-center pe-5">Редактирование пользователя</h5>
+        </div>
+        <div class="offcanvas-body" id="edit_canvas_body">
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCreate">
+        <div class="offcanvas-header border-bottom">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <h5 class="offcanvas-title fw-600 fs-16 text-center pe-5">Создание пользователя</h5>
+        </div>
+        <div class="offcanvas-body" id="create_canvas_body">
+
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
+
+    <script src="/js/user.js"></script>
+
 
 
     <script id="department_tmpl" type="text/x-jquery-tmpl">
@@ -72,7 +95,7 @@
     <script id="user_tmpl" type="text/x-jquery-tmpl">
         <div class="border-bottom pt-4" id="user_${id}">
                               <div class="d-flex mb-3">
-                                  <button class="btn copy_edit br-none" type="button" onclick="editUserModal(${id})"></button>
+                                  <button class="btn copy_edit br-none" type="button" onclick="openUpdateUserCanvas(${id})"></button>
                                   <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteUser(${id})"></button>
                                   <a href="#" class="text-grey link-active-hover ps-2 fs-14" onclick="userDepartmentsModal(${id})">Настроить доступ</a>
                               </div>
@@ -109,10 +132,10 @@
                                       </div>
                                       @{{if is_active}}
                                        <div id="lock1" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock">
-                                       <a href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text" onclick="blockUser(${id})">заблокировать</a>
+                                       <a class="text-grey link-active-hover fs-14 ps-2" id="lock_text" onclick="blockUser(${id})">заблокировать</a>
                                        @{{else}}
                                       <div id="lock2" class="mt-2"><img src="/images/Lock_1.svg" alt="" id="/imageslock2">
-                                      <a href="#" class="text-grey link-active-hover fs-14 ps-2" id="lock_text2" onclick="unblockUser(${id})">разблокировать</a>
+                                      <a class="text-grey link-active-hover fs-14 ps-2" id="lock_text2" onclick="unblockUser(${id})">разблокировать</a>
                                        @{{/if}}
                                       </div>
                                       <p class="text-grey fs-14 pt-4">${date_of_birth}</p>
@@ -268,6 +291,53 @@
          <a href="#" onclick="accessDepartments(${id});">${year}</a>
       </li>
 
+    </script>
+
+
+    <script type="text/x-jquery-tmpl" id="off_canvas_user_update">
+        <div class="px-4">
+        <form onsubmit="updateUser(${id});return false" id="update_user_form">
+            <div class="mb-3 pt-4">
+                <label for="fio">ФИО</label>
+                <input type="text" name="name" class="form-control bg-grey-form fs-14 text-grey fw-500" id="fio"
+                       value="${name}">
+            </div>
+            <div class="mb-3">
+                <label for="email">Email-адрес</label>
+                <input type="text" name="email" class="form-control bg-grey-form fs-14 text-grey fw-500" id="email"
+                       value="${email}">
+            </div>
+            <div class="mb-3">
+                <label for="email">Дата рождения </label>
+                <input type="text" name="date_of_birth" class="form-control bg-grey-form fs-14 text-grey fw-500"
+                       value="${date_of_birth}">
+            </div>
+            <div class="mb-3">
+                <label for="email">Пол</label>
+                <select name="gender" class="form-control">
+                                <option value="1">Муж.</option>
+                                <option value="2">Жен.</option>
+                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="email">Номер телефона</label>
+                <input type="text" name="phone" class="form-control bg-grey-form fs-14 text-grey fw-500"
+                       value="${phone}">
+            </div>
+            <div class="mb-3">
+                <label for="email">Логин</label>
+                <input type="text" name="login" class="form-control bg-grey-form fs-14 text-grey fw-500"
+                       value="${login}">
+            </div>
+
+            <div class="mb-3">
+                <label for="date_registration">Дата регистрации</label>
+                <input type="text" class="form-control bg-grey-form fs-14 text-grey fw-500" id="date_registration"
+                       value="06.11.2019" readonly>
+            </div>
+            <button type="submit" class="btn btn-secondary w-100 text-grey fs-14 br-100 br-none mt-4 mb-5">Применить</button>
+            </form>
+        </div>
     </script>
 
 

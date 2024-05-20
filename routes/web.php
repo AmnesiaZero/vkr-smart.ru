@@ -93,6 +93,7 @@ Route::get('check-reference', function () {
 Route::get('reset-password', function () {
     return view('templates.site.auth.reset_password');
 });
+Route::get('logout',[UsersController::class,'logout']);
 
 Route::group([
     'prefix' => 'login'
@@ -147,18 +148,12 @@ Route::group([
         Route::get('invite-codes', function () {
             return view('templates.dashboard.settings.invite_codes');
         });
-        Route::get('user-management', function () {
-            return view('templates.dashboard.settings.user_management');
-        });
+        Route::get('user-management', [UsersController::class,'userManagement']);
         Route::get('handbook-management', function () {
             return view('templates.dashboard.settings.handbook_management');
         });
-        Route::get('integration', function () {
-            return view('templates.dashboard.settings.integration');
-        });
-        Route::get('api', function () {
-            return view('templates.dashboard.settings.api');
-        });
+        Route::get('integration', [OrganizationsController::class,'integrationView']);
+        Route::get('api',[UsersController::class,'apiView']);
     });
 
     Route::group([
@@ -194,6 +189,7 @@ Route::group([
         'prefix' => 'organizations'
     ], function () {
 
+        Route::get('find',[OrganizationsController::class,'find']);
         Route::post('inspectors-access',[OrganizationsController::class,'configureInspectorsAccess']);
 
         Route::group([
@@ -264,6 +260,12 @@ Route::group([
         Route::get('you',[UsersController::class,'you']);
         Route::post('configure-departments',[UsersController::class,'configureDepartments']);
 
+        Route::group([
+            'prefix' => 'jwt'
+        ],function (){
+           Route::post('generate',[UsersController::class,'generateApiKey']);
+        });
+
     });
 
     Route::group([
@@ -271,6 +273,7 @@ Route::group([
     ],function (){
        Route::post('create',[InviteCodesController::class,'create']);
        Route::get('get',[InviteCodesController::class,'get']);
+       Route::get('load',[InviteCodesController::class,'loadExcel']);
     });
 
 

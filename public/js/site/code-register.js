@@ -169,6 +169,9 @@ function registration()
                const user = response.data.user;
                console.log('user = ' + user);
                $("#success_registration").html($("#success_registration_tmpl").tmpl(user));
+               const password = data.password;
+               console.log('password - ' + password);
+               $("#reg-password").text(password);
             }
             else{
                 $.notify(response.data.title + ":" + response.data.message, "error");

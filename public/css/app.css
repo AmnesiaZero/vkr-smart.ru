@@ -374,22 +374,22 @@ a.btn.btn-link.btn-smart {
     z-index: -1;
 }
 
-#code_registration .form-control,
-#code_registration .btn.dropdown-toggle.btn-light {
-    border-radius: 14px !important;
-}
-#code_registration .btn.dropdown-toggle.btn-light {
-    background: white !important;
-    border: 1px solid #ced4da;
-    padding: 6px 12px;
-}
-#code_registration .filter-option-inner-inner {
-    font-weight: 400;
-}
-#code_registration input::placeholder {
-    font-weight: 400;
-    color: #9BA1A7;
-}
+/*#code_registration .form-control,*/
+/*#code_registration .btn.dropdown-toggle.btn-light {*/
+/*    border-radius: 14px !important;*/
+/*}*/
+/*#code_registration .btn.dropdown-toggle.btn-light {*/
+/*    background: white !important;*/
+/*    border: 1px solid #ced4da;*/
+/*    padding: 6px 12px;*/
+/*}*/
+/*#code_registration .filter-option-inner-inner {*/
+/*    font-weight: 400;*/
+/*}*/
+/*#code_registration input::placeholder {*/
+/*    font-weight: 400;*/
+/*    color: #9BA1A7;*/
+/*}*/
 
 @media (min-width: 1200px) {
     .nav-link {

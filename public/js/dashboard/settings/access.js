@@ -207,10 +207,14 @@ $('.pas').click(function () {
 // }
 
 function users() {
+    const roles = ['admin','employee'];
+    const data = {
+        roles:roles
+    };
     $.ajax({
         url: "/dashboard/users/get",
         dataType: "json",
-        data: "v=" + (new Date()).getTime(),
+        data: data,
         success: function (response) {
             const users = response.data.users;
             $("#users_list").html($("#user_tmpl").tmpl(users));
@@ -378,41 +382,18 @@ function editUserModal(id)
     });
 }
 
-function updateUser(id)
+
+
+function openUpdateUserCanvas(id)
 {
-    let data = $("#update_user_form").serialize();
-    const additionalData = {
-      id:id
+    console.log('Вошёл в функцию открытия canvas');
+    const data = {
+        id:id
     };
-    data += '&' + $.param(additionalData);
-    updateUserCore(id,data);
-}
-
-function blockUser(id)
-{
-    const data = {
-        id:id,
-        is_active:0
-    }
-    updateUserCore(id,data);
-}
-
-function unblockUser(id)
-{
-    const data = {
-        id:id,
-        is_active:1
-    }
-    updateUserCore(id,data);
-}
-
-
-function updateUserCore(id,data)
-{
     $.ajax({
-        url: "/dashboard/users/update",
+        url: "/dashboard/users/find",
         data: data,
-        type: "POST",
+        type: "GET",
         dataType: "json",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -420,20 +401,51 @@ function updateUserCore(id,data)
         success: function (response) {
             if(response.success){
                 const user = response.data.user;
-                const userHtml = $("#user_" + id);
-                const updatedContent = $("#user_tmpl").tmpl(user);
-                userHtml.replaceWith(updatedContent);
+                $("#edit_canvas_body").html($("#off_canvas_user_update").tmpl(user));
+                const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasEdit'));
+                offcanvas.show();
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
-
         },
         error: function () {
             $.notify("Произошла ошибка при редактировании пользователя", "error");
         }
     });
 }
+
+function openCreateUserCanvas(id)
+{
+    console.log('Вошёл в функцию открытия canvas');
+    const data = {
+        id:id
+    };
+    $.ajax({
+        url: "/dashboard/users/find",
+        data: data,
+        type: "GET",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if(response.success){
+                const user = response.data.user;
+                $("#create_canvas_body").html($("#off_canvas_user_create").tmpl(user));
+                const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasCreate'));
+                offcanvas.show();
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
+
 
 function openAddDepartmentModal(userId)
 {
@@ -724,33 +736,6 @@ function configureUserDepartments()
     });
 }
 
-function resetUserPassword(email)
-{
-    const data = {
-        email:email,
-    }
-    $.ajax({
-        url: "/mail/reset-password",
-        data: data,
-        type: "POST",
-        dataType: "json",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (response) {
-            if(response.success){
-                $.notify(response.data.title + ":" + response.data.message, "success");
-            }
-            else {
-                $.notify(response.data.title + ":" + response.data.message, "error");
-            }
-
-        },
-        error: function () {
-            $.notify("Произошла ошибка при редактировании пользователя", "error");
-        }
-    });
-}
 
 
 

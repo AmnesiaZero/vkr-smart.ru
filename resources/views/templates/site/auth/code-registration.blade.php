@@ -33,9 +33,9 @@
                         <div class="form-group">
                             <label class="form-label"><span>Ваш тип пользователя:</span></label>
                             @if($code->type==1)
-                                <span class="col-sm-8">Преподаватель</span>
-                            @else
                                 <span class="col-sm-8">Студент</span>
+                            @else
+                                <span class="col-sm-8">Преподаватель</span>
                             @endif
                         </div>
 
@@ -182,9 +182,10 @@
                             </div>
                         </div>
                     </form>
-                    <div id="success_registration">
+                </div>
 
-                    </div>
+                <div id="success_registration">
+
                 </div>
             </div>
 
@@ -216,7 +217,7 @@
                     <p>Вы успешно прошли регистрацию в комплексе систем по размещению и проверке работ на заимствования.</p>
                     <p>Ваши учетные данные для авторизации на платформе:</p>
                     <p>Имя пользователя: <strong id="reg-name">${login}</strong>
-                    </p><p>Пароль: <strong id="reg-password">${password}</strong>
+                    </p><p>Пароль: <strong id="reg-password"></strong>
                    </p>
                    <p>Данные также были отправлены на адрес Вашей электронной почты.</p>
                    <p><a href="/login" class="btn btn-lg btn-success">Авторизоваться по логину и паролю</a></p>

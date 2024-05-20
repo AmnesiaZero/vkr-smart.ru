@@ -1,6 +1,6 @@
 <?php
 return [
-    'exp' => 50000,
-    'key' => env('JWT_KEY','JxZBDAQ6XpdYGkt'),
+    'expires_At' => env('JWT_EXP',50000000),
+    'api_key' => env('API_KEY'),
     'alg' => 'HS256'
 ];

@@ -54,9 +54,9 @@ class InviteCodesService
     }
 
 
-    public function get(int $organizationId): JsonResponse
+    public function get(int $organizationId,int $pageNumber,int $type): JsonResponse
     {
-        $inviteCodes = $this->_repository->get($organizationId);
+        $inviteCodes = $this->_repository->get($organizationId,$pageNumber,$type);
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно получены коды регистраций',
             'invite_codes' => $inviteCodes

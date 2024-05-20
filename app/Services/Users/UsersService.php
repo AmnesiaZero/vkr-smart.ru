@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Departments\Repositories\DepartmentRepositoryInterface;
 use App\Services\InviteCodes\Repositories\InviteCodeRepositoryInterface;
 use App\Services\Organizations\Repositories\OrganizationRepositoryInterface;
+use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
 use App\Services\Roles\Repositories\RoleRepositoryInterface;
 use App\Services\Services;
 use App\Services\Users\Repositories\UserRepositoryInterface;
@@ -24,12 +25,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class UsersService extends Services
 {
     private UserRepositoryInterface $_repository;
 
     private RoleRepositoryInterface $roleRepository;
+
+    private OrganizationYearRepositoryInterface $yearRepository;
 
     private DepartmentRepositoryInterface $departmentRepository;
 
@@ -41,13 +45,14 @@ class UsersService extends Services
 
     public function __construct(UserRepositoryInterface $userRepository, RoleRepositoryInterface $roleRepository,
         DepartmentRepositoryInterface $departmentRepository,InviteCodeRepositoryInterface $inviteCodeRepository,
-    OrganizationRepositoryInterface $organizationRepository)
+    OrganizationRepositoryInterface $organizationRepository,OrganizationYearRepositoryInterface $yearRepository)
     {
         $this->_repository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->departmentRepository = $departmentRepository;
         $this->inviteCodeRepository = $inviteCodeRepository;
         $this->organizationRepository = $organizationRepository;
+        $this->yearRepository = $yearRepository;
     }
 
 
@@ -62,11 +67,11 @@ class UsersService extends Services
         return $this->_repository->getByEmail($email);
     }
 
-    public function get(): JsonResponse
+    public function get(array $roles): JsonResponse
     {
-        $user = Auth::user();
-        $organizationId = $user->organization_id;
-        $users = $this->_repository->get($organizationId)->except(['id' => $user->id]);
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        $users = $this->_repository->get($organizationId,$roles)->except(['id' => $you->id]);
         //Сюда можно добавить ещё какую-нибудь инфу
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно',
@@ -88,6 +93,7 @@ class UsersService extends Services
                 'message' => 'У вас неккоректно задан id организации'
             ]);
         }
+        $data['secret_key'] = Str::random(10);
         $user = $this->_repository->create($data);
         if ($user and $user->id) {
             $userId = $user->id;
@@ -231,6 +237,13 @@ class UsersService extends Services
 
         if ($result) {
             $user = $this->_repository->find($id);
+            if(isset($data['role']))
+            {
+                $roleSlug = $data['role'];
+                $role = $this->roleRepository->find($roleSlug);
+                $roleId = $role->id;
+                $user->syncRoles([$roleId]);
+            }
             return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успех',
                 'message' => 'Информация успешно сохранена',
@@ -277,20 +290,12 @@ class UsersService extends Services
             ]);
         }
 
-        $users =  $this->_repository->search($data);
-
-        if ($users) {
-            return JsonHelper::sendJsonResponse(true, [
-                'title' => 'Успех',
-                'message' => 'Пользователи успешно найдены',
-                'users' => $users
-            ]);
-        } else {
-            return JsonHelper::sendJsonResponse(false, [
-                'title' => 'Ошибка',
-                'message' => "Произошла ошибка при получении пользователей",
-            ]);
-        }
+        $users =  $this->_repository->search($data)->except([]);
+        return JsonHelper::sendJsonResponse(true, [
+            'title' => 'Успех',
+            'message' => 'Пользователи успешно найдены',
+            'users' => $users
+        ]);
     }
 
 
@@ -394,10 +399,48 @@ class UsersService extends Services
     {
         $organizationId = $code->organization_id;
         $organization = $this->organizationRepository->find($organizationId);
-        $organizationName = $organization->name;
-        return view('templates.site.auth.code-registration',[
-            'code' => $code,
-            'organization_name' => $organizationName
+        if($organization and $organization->id)
+        {
+            $organizationName = $organization->name;
+            return view('templates.site.auth.code-registration',[
+                'code' => $code,
+                'organization_name' => $organizationName
+            ]);
+        }
+        return redirect('login')->withErrors(['К вашему коду привязана неккоректная организация']);
+    }
+
+    public function userManagement($organizationId): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $years = $this->yearRepository->get($organizationId);
+        return view('templates.dashboard.settings.user_management',['years' => $years]);
+    }
+
+    public function generateApiKey(int $id, string $apiKey, string $secretKey): JsonResponse
+    {
+        if (config('jwt.api_key')!=$apiKey)
+        {
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Неккоректный API ключ'
+            ]);
+        }
+        $you = Auth::user();
+        if($you->secret_key!=$secretKey)
+        {
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Неккоректный secret key'
+            ]);
+        }
+        $payload = [
+          'user_id' => $id,
+          'expires_at' => time() + config('jwt.ex')
+        ];
+        $token = JWT::encode($payload,$secretKey,config('jwt.alg'));
+        return JsonHelper::sendJsonResponse(true,[
+            'title' => 'Успешно',
+            'token' => $token
         ]);
     }
 

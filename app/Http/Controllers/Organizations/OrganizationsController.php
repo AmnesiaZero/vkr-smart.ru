@@ -51,5 +51,10 @@ class OrganizationsController extends Controller
 
     }
 
+    public function integrationView()
+    {
+        return $this->organizationsService->integrationView();
+    }
+
 
 }

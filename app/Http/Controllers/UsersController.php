@@ -39,7 +39,12 @@ class UsersController extends Controller
         'specialty_id',
         'date_of_birth',
         'is_active',
-        'departments_ids'
+        'departments_ids',
+        'roles',
+        'role',
+        'is_active',
+        'selected_years',
+        'selected_departments'
     ];
 
     public function __construct(UsersService $usersService)
@@ -62,6 +67,13 @@ class UsersController extends Controller
             return redirect('dashboard');
         }
         return back()->withErrors(['Предоставленные данные были некорректными']);
+    }
+
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 
     public function loginByCode(Request $request)
@@ -133,9 +145,16 @@ class UsersController extends Controller
         return $this->usersService->newPassword($password,$token);
     }
 
-    public function get(): JsonResponse
+    public function get(Request $request): JsonResponse
     {
-        return $this->usersService->get();
+        $validator = Validator::make($request->all(), [
+            'roles.*' => ['required',Rule::exists('roles','slug')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $roles = $request->roles;
+        return $this->usersService->get($roles);
     }
 
     public function create(Request $request): JsonResponse
@@ -194,6 +213,7 @@ class UsersController extends Controller
             'password' => 'max:255',
             'gender' => 'integer',
             'is_active' => 'integer',
+            'role' => [Rule::exists('roles','slug')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -220,17 +240,23 @@ class UsersController extends Controller
     public function search(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
+            'where_in.*' => ['integer',Rule::exists('users','id')],
+            'email' => ['max:250'],
+            'group' => 'max:250',
+            'role' => [Rule::exists('roles','slug')],
+            'is_active' => 'integer:in:0,1',
+            'selected_departments.*' => ['integer',Rule::exists('departments','id')],
+            'selected_years.*' => ['integer',Rule::exists('organizations_years','id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
-        $user = Auth::user();
+        $you = Auth::user();
 
-        $organizationId = $user->organization_id;
-        $name = $request->name;
-
-        $data = ['name' => $name,'organization_id' => $organizationId];
+        $data = $request->only($this->fillable);
+        Log::debug('request data = '.print_r($data,true));
+        $data['organization_id'] = $you->organization_id;
 
         return $this->usersService->search($data);
     }
@@ -249,5 +275,39 @@ class UsersController extends Controller
         $departmentsIds = $request->departments_ids;
         return $this->usersService->configureDepartments($userId,$departmentsIds);
     }
+
+
+    public function userManagement()
+    {
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        return $this->usersService->userManagement($organizationId);
+    }
+
+    public function generateApiKey(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required','integer',Rule::exists('users','id')],
+            'api_key' => 'required',
+            'secret_key' => ['required',Rule::exists('users','secret_key')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        $apiKey = $request->api_key;
+        $secretKey = $request->secret_key;
+        return $this->usersService->generateApiKey($id,$apiKey,$secretKey);
+    }
+
+    public function apiView()
+    {
+        $you = Auth::user();
+        $apiKey = config('jwt.api_key');
+        return view('templates.dashboard.settings.api',['you' => $you,'api_key' => $apiKey]);
+    }
+
+
+
 
 }
