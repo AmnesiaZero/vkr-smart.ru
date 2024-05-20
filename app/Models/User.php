@@ -33,7 +33,8 @@ class User extends Authenticatable
         'date_of_birth',
         'group',
         'specialty_id',
-        'is_active'
+        'is_active',
+        'secret_key'
     ];
 
     /**

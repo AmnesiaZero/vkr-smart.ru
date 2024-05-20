@@ -27,6 +27,10 @@ class InviteCodesExport extends Model implements FromCollection
             $query->where('type', '=', $this->type);
         }
 
-        return $query->get();
+        $result = $query->get();
+
+        $query->delete();
+
+        return $result;
     }
 }

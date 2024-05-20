@@ -284,4 +284,30 @@ class UsersController extends Controller
         return $this->usersService->userManagement($organizationId);
     }
 
+    public function generateApiKey(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required','integer',Rule::exists('users','id')],
+            'api_key' => 'required',
+            'secret_key' => ['required',Rule::exists('users','secret_key')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        $apiKey = $request->api_key;
+        $secretKey = $request->secret_key;
+        return $this->usersService->generateApiKey($id,$apiKey,$secretKey);
+    }
+
+    public function apiView()
+    {
+        $you = Auth::user();
+        $apiKey = config('jwt.api_key');
+        return view('templates.dashboard.settings.api',['you' => $you,'api_key' => $apiKey]);
+    }
+
+
+
+
 }

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class UsersService extends Services
 {
@@ -92,6 +93,7 @@ class UsersService extends Services
                 'message' => 'У вас неккоректно задан id организации'
             ]);
         }
+        $data['secret_key'] = Str::random(10);
         $user = $this->_repository->create($data);
         if ($user and $user->id) {
             $userId = $user->id;
@@ -412,6 +414,34 @@ class UsersService extends Services
     {
         $years = $this->yearRepository->get($organizationId);
         return view('templates.dashboard.settings.user_management',['years' => $years]);
+    }
+
+    public function generateApiKey(int $id, string $apiKey, string $secretKey): JsonResponse
+    {
+        if (config('jwt.api_key')!=$apiKey)
+        {
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Неккоректный API ключ'
+            ]);
+        }
+        $you = Auth::user();
+        if($you->secret_key!=$secretKey)
+        {
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Неккоректный secret key'
+            ]);
+        }
+        $payload = [
+          'user_id' => $id,
+          'expires_at' => time() + config('jwt.ex')
+        ];
+        $token = JWT::encode($payload,$secretKey,config('jwt.alg'));
+        return JsonHelper::sendJsonResponse(true,[
+            'title' => 'Успешно',
+            'token' => $token
+        ]);
     }
 
 }

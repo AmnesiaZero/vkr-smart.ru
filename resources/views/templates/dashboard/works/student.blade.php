@@ -6,199 +6,28 @@
             <div class="col-xxl-4 col-xl-5 col-lg-6">
                 <div id="tree" class="br-green-light-2 br-15 p-3">
                     <ul class="ui-fancytree fancytree-container fancytree-plain" tabindex="0">
-                        <li class="">
-		    							<span
-                                            class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    								<span class="fancytree-title">2018</span>
-		    							</span>
-                            <ul>
+                        @if(is_iterable($years))
+                            @foreach($years as $year)
                                 <li class="fancytree-lastsib">
-		    									<span
-                                                    class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
-		    										<span class="fancytree-expander"></span>
-		    										<span class="fancytree-title">Экономический факультет</span>
-		    									</span>
-                                    <ul style="display: block;">
-                                        <li class="fancytree-lastsib">
-		    											<span
-                                                            class="fancytree-node fancytree-active fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    												<span class="fancytree-expander"></span>
-		    												<span class="fancytree-title">Кафедра экономической теории и национальной экономики</span>
-		    											</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-		    							<span
-                                            class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    								<span class="fancytree-title">2019</span>
+		    							<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    								<span class="fancytree-title" id="year_{{$year->id}}">{{$year->year}}</span>
 		    							</span>
-                            <ul>
-                                <li class="fancytree-lastsib">
-		    									<span
-                                                    class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
-		    										<span class="fancytree-expander"></span>
-		    										<span class="fancytree-title">Юридический факультет</span>
-		    									</span>
-                                    <ul style="">
-                                        <li class="fancytree-lastsib">
+                                    <ul>
+                                        @if(is_iterable($year->departments))
+                                            @foreach($year->departments as $department)
+                                                <li class="fancytree-lastsib">
 		    											<span
                                                             class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c"><span
                                                                 class="fancytree-expander"></span>
-		    											<span class="fancytree-title">Кафедра политических наук</span>
+		    											<span class="fancytree-title" id="department_{{$department->id}}">{{$department->name}}</span>
 		    										</span>
-                                        </li>
+                                                </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="">
-		    						<span
-                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">	<span
-                                            class="fancytree-title">2020</span>
-		    						</span>
-                            <ul>
-                                <li class="fancytree-lastsib">
-		    								<span
-                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
-		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title">Факультет финансов и учета</span>
-		    								</span>
-                                    <ul style="">
-                                        <li class="fancytree-lastsib">
-		    										<span
-                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span
-                                                            class="fancytree-title">Кафедра налогов и налогообложения</span>
-		    										</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-		    						<span
-                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-exp-n fancytree-ico-ef">
-		    							<span class="fancytree-title">2018</span>
-		    						</span>
-                        </li>
-                        <li class="">
-		    						<span
-                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    							<span class="fancytree-title">2032</span>
-		    						</span>
-                            <ul>
-                                <li class="fancytree-lastsib">
-		    								<span
-                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
-		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title">Факультет финансов и учета</span>
-		    								</span>
-                                    <ul style="">
-                                        <li class="fancytree-lastsib">
-		    										<span
-                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span
-                                                            class="fancytree-title">Кафедра налогов и налогообложения</span>
-		    										</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-		    						<span
-                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    							<span class="fancytree-title">2029</span>
-		    						</span>
-                            <ul>
-                                <li class="fancytree-lastsib">
-		    								<span
-                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
-		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title">Факультет экономики и управления</span>
-		    								</span>
-                                    <ul style="">
-                                        <li class="fancytree-lastsib">
-		    										<span
-                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">кафедра экономики</span>
-		    										</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-		    						<span
-                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    							<span class="fancytree-title">2021</span>
-		    						</span>
-                            <ul>
-                                <li class="fancytree-lastsib">
-		    								<span
-                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title">Факультет финансов и учета</span>
-		    								</span>
-                                    <ul style="">
-                                        <li class="fancytree-lastsib">
-		    										<span
-                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span
-                                                            class="fancytree-title">Кафедра налогов и налогообложения</span>
-		    										</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="fancytree-lastsib">
-		    								<span
-                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title">Факультет менеджмента</span>
-		    								</span>
-                                    <ul style="">
-                                        <li class="">
-		    										<span class="fancytree-node fancytree-exp-n fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span class="fancytree-title">менеджмента</span>
-		    										</span>
-                                        </li>
-                                        <li class="fancytree-lastsib">
-		    										<span
-                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span
-                                                            class="fancytree-title">Реклама и связи с общественностью</span>
-		    										</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="fancytree-lastsib">
-		    								<span
-                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-ef">
-		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title">Факультет энергетики</span>
-		    								</span>
-                                    <ul style="">
-                                        <li class="fancytree-lastsib">
-		    										<span
-                                                        class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
-		    											<span class="fancytree-expander"></span>
-		    											<span
-                                                            class="fancytree-title">Кафедра физики твердого тела</span>
-		    										</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

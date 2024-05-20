@@ -153,9 +153,7 @@ Route::group([
             return view('templates.dashboard.settings.handbook_management');
         });
         Route::get('integration', [OrganizationsController::class,'integrationView']);
-        Route::get('api', function () {
-            return view('templates.dashboard.settings.api');
-        });
+        Route::get('api',[UsersController::class,'apiView']);
     });
 
     Route::group([
@@ -261,6 +259,12 @@ Route::group([
         Route::get('search',[UsersController::class,'search']);
         Route::get('you',[UsersController::class,'you']);
         Route::post('configure-departments',[UsersController::class,'configureDepartments']);
+
+        Route::group([
+            'prefix' => 'jwt'
+        ],function (){
+           Route::post('generate',[UsersController::class,'generateApiKey']);
+        });
 
     });
 

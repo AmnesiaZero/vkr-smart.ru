@@ -130,8 +130,6 @@ function updateTeachersPagination(currentPage) {
         itemsOnPage: itemsPerPage,
         currentPage: currentPage, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
-        prevText: 'Назад',
-        nextText: 'Вперед',
         onPageClick: function(pageNumber, event) {
             teachersCodes(pageNumber);
         }
@@ -191,6 +189,8 @@ function updateStudentsCodesPagination(currentPage) {
         }
     });
 }
+
+
 
 
 
