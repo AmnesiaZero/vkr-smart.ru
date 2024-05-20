@@ -21,9 +21,19 @@ function showEditBlock(int) {
     document.getElementById('edit_block').classList.toggle('d-block');
 }
 
-// Инициализация селект 2
+
 $(document).ready(function () {
+    // Инициализация селект 2
     $('.js-example-basic-single').select2();
+
+
+    $('#dropdownMenu').click(function () {
+        if($('.dropdown-menu.header').css('display') === 'none') {
+            $('.dropdown-menu.header').show();
+        } else {
+            $('.dropdown-menu.header').hide();
+        }
+    })
 });
 
 
