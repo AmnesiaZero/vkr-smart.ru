@@ -35,20 +35,12 @@
         <div class="navbar-collapse collapse justify-content-end" id="bdNavbar">
             <ul class="navbar-nav" style="align-items: baseline;">
                 <li><a class="nav-link text-black-black" href="/home">Главная</a></li>
-                <li><a class="nav-link text-black-black" href="/about/product">Хранение работ</a></li>
+                <li><a class="nav-link text-black-black" href="/about/product">Хранение&nbsp;работ</a></li>
 
-                <li><a class="nav-link text-black-black" href="/search/borrowings">Поиск заимствований</a></li>
+                <li><a class="nav-link text-black-black" href="/search/borrowings">Поиск&nbsp;заимствований</a></li>
                 <li><a class="nav-link text-black-black" href="/portfolio">Портфолио</a></li>
-                <li><a class="nav-link text-black-black" href="/check-reference">Проверка справки</a></li>
+                <li><a class="nav-link text-black-black" href="/check-reference">Проверка&nbsp;справки</a></li>
                 <li><a class="nav-link text-black-black" href="https://api.vkr-vuz.ru" target="_blank">API</a></li>
-                <li>
-                    <a href="/login" class="nav-link">
-                        <span class="badge br-40 br-green-1"
-                              style="padding-top: 7px; padding-bottom: 7px;">
-                            <span class="fs-16 ps-1 pe-1 text-black-black">вход</span>
-                        </span>
-                    </a>
-                </li>
 
                 <li class="user-menu col-sm-5 text-right">
                     <a href="admin-office/" class="btn btn-default btn-testaccess"><span class="glyphicon glyphicon-user"></span> Личный кабинет</a>
@@ -176,8 +168,10 @@
     </div>
 </main>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script src="http://www.vkr-vuz.ru/assets/templates/c/js/jquery.fancytree.min.js"></script>
