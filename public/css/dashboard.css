@@ -1114,6 +1114,31 @@ input {
     cursor: pointer;
 }
 
+.header.dropdown-menu {
+    background: #2C3E50;
+    margin-top: 8px;
+}
+.header.dropdown-menu li {
+    padding: 10px 30px 10px 20px;
+    border-bottom: 1px #333 solid;
+}
+.header.dropdown-menu li.organization-info {
+    background: #005477;
+    color: #D7F5FF;
+}
+.header.dropdown-menu li:hover {
+    background: #199AB5;
+}
+.header.dropdown-menu a {
+    clear: both;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 300;
+    white-space: inherit;
+    line-height: 1;
+    text-decoration: none !important;
+}
+
 @media (min-width: 1200px) {
     .nav-link {
         padding-right: 1rem !important;
