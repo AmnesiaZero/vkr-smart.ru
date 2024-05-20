@@ -10,6 +10,7 @@ use App\Http\Controllers\Organizations\ProgramsController;
 use App\Http\Controllers\Organizations\ProgramsSpecialtiesController;
 use App\Http\Controllers\Organizations\SpecialtiesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WorksController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -159,20 +160,14 @@ Route::group([
     Route::group([
         'prefix' => 'works'
     ], function () {
-        Route::get('student', function () {
-            return view('templates.dashboard.works.student');
-        });
-        Route::get('employee', function () {
-            return view('templates.dashboard.works.employee');
-        });
+        Route::get('student', [WorksController::class,'studentsWorksView']);
+        Route::get('employee', [WorksController::class]);
     });
 
     Route::group([
         'prefix' => 'portfolio'
     ], function () {
-        Route::get('students', function () {
-            return view('templates.dashboard.portfolio.students');
-        });
+        Route::get('students', [WorksController::class,'studentsWorksView']);
         Route::get('teachers', function () {
             return view('templates.dashboard.portfolio.teachers');
         });
@@ -275,6 +270,9 @@ Route::group([
        Route::get('get',[InviteCodesController::class,'get']);
        Route::get('load',[InviteCodesController::class,'loadExcel']);
     });
+
+
+
 
 
 });

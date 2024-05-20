@@ -100,10 +100,12 @@ function teachersCodes(pageNumber= 1)
             if(response.success){
                 const inviteCodes = response.data.invite_codes.data;
                 const teachersCodesList = $("#teachers_codes_list");
+                const pagination = response.data.invite_codes;
                 if(inviteCodes.length>0)
                 {
                     $("#teachers_list_head").append($("#load_tmpl").tmpl({type:2}));
                     teachersCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                    $("#teachers_pages").html($("#pagination_tmpl").tmpl(pagination));
                 }
                 else{
                     teachersCodesList.append($("#empty_tmpl").tmpl());

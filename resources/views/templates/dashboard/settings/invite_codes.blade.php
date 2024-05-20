@@ -86,19 +86,7 @@
                     </div>
                     <nav aria-label="Page navigation example" id="teachers_codes_pagination">
                         <ul class="pagination m-0" id="teachers_pages">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>
-                                </a>
-                            </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -132,5 +120,22 @@
 
     <script id="load_tmpl" type="text/x-jquery-tmpl">
         <a href="/dashboard/invite-codes/load?type=${type}" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
+    </script>
+
+    <script id="pagination_tmpl" type="text/x-jquery-tmpl">
+                            <li class="page-item">
+                                <a class="page-link" href="/dashboard/invite-codes/get?page=${current_page-1}">
+                                    <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>
+                                </a>
+                            </li>
+                            @{{each links}}
+                               <li class="page-item active"><a class="page-link" href="${url}">${label}</a></li>
+                            @{{/each}}
+                            <li class="page-item">
+                                <a class="page-link" href="/dashboard/invite-codes/get?page=${current_page+1}" >
+                                    <span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>
+                                </a>
+                            </li>
+
     </script>
 @endsection

@@ -31,6 +31,18 @@ class Work extends Model
          'agreement',
          'agreement_file',
          'report_id',
+         'borrowings_percent',
+         'quotes_percent',
+         'reporting_type',
+         'manual',
+         'complete',
+         'report_access',
+         'work_status',
+         'description',
+         'activity_id',
+         'report_status',
+         'percent_person',
+         'check_code'
 
 
     ];
