@@ -94,7 +94,6 @@ Route::get('check-reference', function () {
 Route::get('reset-password', function () {
     return view('templates.site.auth.reset_password');
 });
-Route::get('logout',[UsersController::class,'logout']);
 
 Route::group([
     'prefix' => 'login'
@@ -254,6 +253,7 @@ Route::group([
         Route::get('search',[UsersController::class,'search']);
         Route::get('you',[UsersController::class,'you']);
         Route::post('configure-departments',[UsersController::class,'configureDepartments']);
+        Route::get('logout',[UsersController::class,'logout']);
 
         Route::group([
             'prefix' => 'jwt'

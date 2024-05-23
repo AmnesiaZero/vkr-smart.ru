@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    teachersCodes();
-    studentsCodes();
+    updateTeachersPagination();
+    updateStudentsCodesPagination();
 
 });
 
@@ -126,7 +126,6 @@ function updateTeachersPagination(currentPage) {
     const totalItems = $('#teachers_pages').children().length; // Обновленное общее количество элементов
     const itemsPerPage = 10; // Количество элементов на странице (может быть какая-то другая величина)
     const totalPages = Math.ceil(totalItems / itemsPerPage); // Пересчет количества страниц
-
      $("#teachers_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,
@@ -174,7 +173,7 @@ function studentsCodes(pageNumber= 1)
 }
 
 
-function updateStudentsCodesPagination(currentPage) {
+function updateStudentsCodesPagination(page) {
     const totalItems = $('#students_pages').children().length; // Обновленное общее количество элементов
     const itemsPerPage = 10; // Количество элементов на странице (может быть какая-то другая величина)
     const totalPages = Math.ceil(totalItems / itemsPerPage); // Пересчет количества страниц
@@ -182,7 +181,7 @@ function updateStudentsCodesPagination(currentPage) {
     $("#students_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,
-        currentPage: currentPage, // Установка текущей страницы в начало после добавления новых элементов
+        currentPage: page, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
         prevText: 'Назад',
         nextText: 'Вперед',
@@ -191,6 +190,7 @@ function updateStudentsCodesPagination(currentPage) {
         }
     });
 }
+
 
 
 

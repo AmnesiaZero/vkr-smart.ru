@@ -129,7 +129,7 @@
                                 </a>
                             </li>
                             @{{each links}}
-                               <li class="page-item active"><a class="page-link" href="${url}">${label}</a></li>
+                               <li class="page-item active"><a class="page-link" href="#" onclick="">${label}</a></li>
                             @{{/each}}
                             <li class="page-item">
                                 <a class="page-link" href="/dashboard/invite-codes/get?page=${current_page+1}" >

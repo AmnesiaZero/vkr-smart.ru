@@ -59,7 +59,7 @@
 
                     <ul class="header dropdown-menu" aria-labelledby="dropdownMenu">
                         <li><a href="/organization-settings"><span class=""></span> Настройки</a></li><li><a href="/organization-works"><span class=""></span> Работы</a></li><li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li><li><a href="/organization-reports"><span class=""></span> Отчеты</a></li><li><a href="/organization-documents"><span class=""></span> Документация</a></li>
-                        <li><a href="#" onclick="logout(); return false;"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
+                        <li><a href="/dashboard/users/logout" ><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
                         <li class="organization-info"></li>
                     </ul>
                 </li>
@@ -191,6 +191,8 @@
 <script src="/js/app.js"></script>
 
 <script src="/js/jquery/jquery.tmpl.min.js"></script>
+
+<script src="/js/jquery/jquery.simplePagination.js"></script>
 
 @yield('scripts')
 </body>
