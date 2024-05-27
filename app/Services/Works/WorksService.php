@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class WorksService
 {
 
-    private WorkRepositoryInterface $workRepository;
+    public WorkRepositoryInterface $workRepository;
 
     public function __construct(WorkRepositoryInterface $workRepository)
     {

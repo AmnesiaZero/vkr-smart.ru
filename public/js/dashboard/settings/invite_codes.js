@@ -1,7 +1,6 @@
 $(document).ready(function () {
-    updateTeachersPagination();
-    updateStudentsCodesPagination();
-
+    loadTeachersCodes();
+    studentsCodes();
 });
 
 document.getElementById("copy").onclick = function () {
@@ -84,7 +83,53 @@ function createStudentsCodes(studentsCodes)
    // updateStudentsCodesPagination();
 }
 
+//функция для изначальной подгрузки кодов со всеми дополнительными операциями
+function loadTeachersCodes()
+{
+    const data = {
+        type:2,
+        page:1
+    };
+    $.ajax({
+        url: "/dashboard/invite-codes/get",
+        type: "GET",
+        dataType: "json",
+        data:data,
+        success: function (response) {
+            if(response.success){
+                const pagination = response.data.invite_codes;
+                const links = pagination.links;
+                links.shift();
+                links.pop();
+                pagination.links = links;
+                const inviteCodes = pagination.data;
+                const teachersCodesList = $("#teachers_codes_list");
+                if(inviteCodes.length>0)
+                {
+                    $("#teachers_list_head").append($("#load_tmpl").tmpl({type:2}));
+                    teachersCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                    $("#teachers_pages").html($("#pagination_tmpl").tmpl(pagination));
+                }
+                else{
+                    teachersCodesList.append($("#empty_tmpl").tmpl());
+                }
+                const currentPage = pagination.current_page;
+                const perPage = pagination.per_page;
+                const totalItems = pagination.total;
+                const totalPages = pagination.links.length;
+                updateTeachersPagination(currentPage,totalItems,totalPages,perPage);
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
 
+//функция для пагинации
 function teachersCodes(pageNumber= 1)
 {
     const data = {
@@ -98,18 +143,15 @@ function teachersCodes(pageNumber= 1)
         data:data,
         success: function (response) {
             if(response.success){
-                const inviteCodes = response.data.invite_codes.data;
-                const teachersCodesList = $("#teachers_codes_list");
                 const pagination = response.data.invite_codes;
-                if(inviteCodes.length>0)
-                {
-                    $("#teachers_list_head").append($("#load_tmpl").tmpl({type:2}));
-                    teachersCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
-                    $("#teachers_pages").html($("#pagination_tmpl").tmpl(pagination));
-                }
-                else{
-                    teachersCodesList.append($("#empty_tmpl").tmpl());
-                }
+                const inviteCodes = pagination.data;
+                const teachersCodesList = $("#teachers_codes_list");
+                teachersCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                const currentPage = pagination.current_page;
+                const perPage = pagination.per_page;
+                const totalItems = pagination.total;
+                const totalPages = pagination.links.length - 2;
+                updateTeachersPagination(currentPage,totalItems,totalPages,perPage);
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -122,21 +164,63 @@ function teachersCodes(pageNumber= 1)
 }
 
 
-function updateTeachersPagination(currentPage) {
-    const totalItems = $('#teachers_pages').children().length; // Обновленное общее количество элементов
-    const itemsPerPage = 10; // Количество элементов на странице (может быть какая-то другая величина)
-    const totalPages = Math.ceil(totalItems / itemsPerPage); // Пересчет количества страниц
+function updateTeachersPagination(currentPage,totalItems,totalPages,itemsPerPage) {
+    console.log('total items = ' + totalItems);
+    console.log('total pages = ' + totalPages);
+    console.log('per page = ' + itemsPerPage);
      $("#teachers_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,
         currentPage: currentPage, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
+         cssStyle: '',
+         prevText: 'Previous', // Текст для кнопки "предыдущая"
+         nextText: 'Next', // Текст для кнопки "следующая"
         onPageClick: function(pageNumber, event) {
             teachersCodes(pageNumber);
         }
     });
 }
 
+function loadStudentsCodes()
+{
+    const data = {
+        type:1,
+        page:1
+    };
+    $.ajax({
+        url: "/dashboard/invite-codes/get",
+        type: "GET",
+        dataType: "json",
+        data:data,
+        success: function (response) {
+            if(response.success){
+                const pagination = response.data.invite_codes;
+                const inviteCodes = pagination.data;
+                const studentsCodesList = $("#students_codes_list");
+                if(inviteCodes.length>0)
+                {
+                    $("#students_list_head").append($("#load_tmpl").tmpl({type:1}));
+                    studentsCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                }
+                else{
+                    studentsCodesList.append($("#empty_tmpl").tmpl());
+                }
+                const currentPage = pagination.current_page;
+                const perPage = pagination.per_page;
+                const totalItems = pagination.total;
+                const totalPages = pagination.links.length - 2;
+                updateStudentsCodesPagination(currentPage,totalItems,totalPages,perPage);
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Произошла ошибка при редактировании пользователя", "error");
+        }
+    });
+}
 function studentsCodes(pageNumber= 1)
 {
     const data = {
@@ -150,17 +234,15 @@ function studentsCodes(pageNumber= 1)
         data:data,
         success: function (response) {
             if(response.success){
-                const inviteCodes = response.data.invite_codes.data;
-                console.log(inviteCodes);
+                const pagination = response.data.invite_codes;
+                const inviteCodes = pagination.data;
                 const studentsCodesList = $("#students_codes_list");
-                if(inviteCodes.length>0)
-                {
-                    $("#students_list_head").append($("#load_tmpl").tmpl({type:1}));
-                    studentsCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
-                }
-                else{
-                    studentsCodesList.append($("#empty_tmpl").tmpl());
-                }
+                studentsCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
+                const currentPage = pagination.current_page;
+                const perPage = pagination.per_page;
+                const totalItems = pagination.total;
+                const totalPages = pagination.links.length - 2;
+                updateStudentsCodesPagination(currentPage,totalItems,totalPages,perPage);
             }
             else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
@@ -173,18 +255,13 @@ function studentsCodes(pageNumber= 1)
 }
 
 
-function updateStudentsCodesPagination(page) {
-    const totalItems = $('#students_pages').children().length; // Обновленное общее количество элементов
-    const itemsPerPage = 10; // Количество элементов на странице (может быть какая-то другая величина)
-    const totalPages = Math.ceil(totalItems / itemsPerPage); // Пересчет количества страниц
+function updateStudentsCodesPagination(page,totalItems,totalPages,itemsPerPage) {
 
     $("#students_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,
         currentPage: page, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
-        prevText: 'Назад',
-        nextText: 'Вперед',
         onPageClick: function(pageNumber, event) {
             studentsCodes(pageNumber);
         }
