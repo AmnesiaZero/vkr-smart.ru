@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 class InviteCodesExport extends Model implements FromCollection
 {
     use HasFactory;
+
     public function __construct(int $organizationId,int $type)
     {
        $this->organization_id = $organizationId;

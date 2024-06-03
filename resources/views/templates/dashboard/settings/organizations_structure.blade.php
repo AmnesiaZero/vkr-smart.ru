@@ -298,7 +298,7 @@
                     <div class="col-8 ps-3">
                         <p class="m-0 fs-14 header" onclick="programs(${id})" id="department_${id}">${name}</p>
                         <div class="edit_block" id="edit_block_department_${id}">
-                            <form onsubmit="updateFacultyDepartment(${id});return false;" id="department_update_${id}">
+                            <form onsubmit="updateDepartment(${id});return false;" id="department_update_${id}">
                                 <div class="row g-2 mt-1">
                                     <div class="col-12">
                                         <p class="fs-12 text-grey m-0">Название:</p>

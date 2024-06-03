@@ -32,7 +32,7 @@ class EloquentFacultyRepository implements FacultyRepositoryInterface
 
     public function find(int $id): Model
     {
-        return Faculty::with(['faculty','year'])->find($id);
+        return Faculty::with(['departments'])->find($id);
     }
 
     public function getYearId(int $id): int

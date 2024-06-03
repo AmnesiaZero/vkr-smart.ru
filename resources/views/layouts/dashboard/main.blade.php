@@ -121,7 +121,7 @@
                                     <li class="list-select"><a href="/dashboard/works/employee"
                                                                class="select-a @if(request()->is('*/works/employee')) nav-link-active @endif">Загруженные
                                             <br>сотрудниками</a></li>
-                                    <li class="list-select"><a href="/dashboard/works/student"
+                                    <li class="list-select"><a href="/dashboard/works/students"
                                                                class="select-a  @if(request()->is('*/works/student')) nav-link-active @endif">Загруженные
                                             <br>студентами</a></li>
                                 </ul>

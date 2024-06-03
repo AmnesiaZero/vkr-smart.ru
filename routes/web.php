@@ -159,7 +159,12 @@ Route::group([
     Route::group([
         'prefix' => 'works'
     ], function () {
-        Route::get('student', [WorksController::class,'studentsWorksView']);
+        Route::group([
+            'prefix' => 'students'
+        ],function (){
+            Route::get('/', [WorksController::class,'studentsWorksView']);
+            Route::get('get',[WorksController::class,'get']);
+        });
         Route::get('employee', [WorksController::class]);
     });
 

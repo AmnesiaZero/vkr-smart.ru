@@ -96,7 +96,7 @@ span.fancytree-drag-helper-img,
     vertical-align: top;
     /* background-repeat: no-repeat; */
     /* background-position: left; */
-    background-image: url("img/chevron-down.svg");
+    background-image: url("/images/chevron-down.svg");
     background-position: 0px -1px;
     background-size: 19px 19px;
 }
