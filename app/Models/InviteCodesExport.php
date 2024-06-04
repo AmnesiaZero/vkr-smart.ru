@@ -30,17 +30,32 @@ class InviteCodesExport extends Model implements FromCollection
             $query->where('type', '=', $this->type);
         }
 
-        $codes = $query->get();
+        return $query->get();
+    }
 
-        $result = [];
-        foreach ($codes as $code)
+    public function headings(): array
+    {
+        return [
+            'Код приглашения',
+            'Дата окончания',
+            'Тип приглашения'
+        ];
+    }
+
+    public function map($code): array
+    {
+        $codeExport = $code->id.'-'.$code->code;
+        if ($code->type==1)
         {
-            $codeExport = $code->id.'-'.$code->code;
-            $result[] = $codeExport;
+            $type = 'Для студентов';
         }
-
-        $query->delete();
-
-        return collect($result);
+        else{
+            $type = 'Для преподавателей';
+        }
+        return [
+            $codeExport,
+            $code->expires_at,
+            $type
+        ];
     }
 }
