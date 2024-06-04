@@ -41,6 +41,6 @@ class InviteCodesExport extends Model implements FromCollection
 
         $query->delete();
 
-        return $result;
+        return collect($result);
     }
 }
