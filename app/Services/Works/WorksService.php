@@ -48,4 +48,15 @@ class WorksService
         ]);
 
     }
+
+    public function employeesWorksView()
+    {
+        $you = Auth::user();
+        $organizationId = $you->organization_id;
+        $years = $this->yearRepository->get($organizationId);
+        $works = $this->workRepository->get($organizationId);
+        $specialties = $this->specialtyRepository->all();
+        return view('templates.dashboard.works.employee',['years' => $years,'works' => $works,'specialties' => $specialties]);
+
+    }
 }

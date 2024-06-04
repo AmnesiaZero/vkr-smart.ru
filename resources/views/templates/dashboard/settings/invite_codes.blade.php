@@ -53,6 +53,7 @@
                 <div class="br-green-light-2 br-15 p-3">
                     <div class="d-flex inline-flex justify-content-between mb-3" id="students_list_head">
                         <p class="m-0 fw-600">Для студентов</p>
+                        <a href="/dashboard/invite-codes/load?type=1" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
                     </div>
                     <div id="students_codes_list">
 
@@ -80,6 +81,8 @@
                 <div class="br-green-light-2 br-15 p-3">
                     <div class="d-flex inline-flex justify-content-between mb-3" id="teachers_list_head">
                         <p class="m-0 fw-600">Для преподавателей</p>
+                        <a href="/dashboard/invite-codes/load?type=2" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
+
                     </div>
                     <div id="teachers_codes_list">
 
@@ -118,9 +121,7 @@
                     </div>
     </script>
 
-    <script id="load_tmpl" type="text/x-jquery-tmpl">
-        <a href="/dashboard/invite-codes/load?type=${type}" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
-    </script>
+
 
     <script id="pagination_tmpl" type="text/x-jquery-tmpl">
                             <li class="page-item">

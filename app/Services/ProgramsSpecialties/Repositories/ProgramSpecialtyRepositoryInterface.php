@@ -15,11 +15,13 @@ interface ProgramSpecialtyRepositoryInterface
     public function create(array $data): Model;
 
     /**
-     * Получить года организации
+     * Получить специальности по id программы
      * @param int $programId
      * @return Collection
      */
     public function get(int $programId): Collection;
+
+
 
 
     /**
@@ -52,4 +54,6 @@ interface ProgramSpecialtyRepositoryInterface
      * @return bool
      */
     public function specialtyExists(int $specialtyId, int $userId): bool;
+
+
 }

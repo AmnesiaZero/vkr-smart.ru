@@ -20,6 +20,8 @@ class InviteCodesExport extends Model implements FromCollection
     {
         $query = InviteCode::query();
 
+        $query->select(['id','code']);
+
         if ($this->organization_id) {
             $query->where('organization_id', '=', $this->organization_id);
         }
@@ -28,7 +30,14 @@ class InviteCodesExport extends Model implements FromCollection
             $query->where('type', '=', $this->type);
         }
 
-        $result = $query->get();
+        $codes = $query->get();
+
+        $result = [];
+        foreach ($codes as $code)
+        {
+            $codeExport = $code->id.'-'.$code->code;
+            $result[] = $codeExport;
+        }
 
         $query->delete();
 

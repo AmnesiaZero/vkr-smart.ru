@@ -23,6 +23,11 @@ class WorksController extends Controller
         return $this->worksService->studentsWorksView();
     }
 
+    public function employeesWorksView()
+    {
+        return $this->worksService->employeesWorksView();
+    }
+
     public function get(): JsonResponse
     {
         return $this->worksService->get();

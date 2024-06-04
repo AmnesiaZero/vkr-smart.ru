@@ -40,7 +40,6 @@ class ProgramsSpecialtiesController extends Controller
 
     public function get(Request $request): JsonResponse
     {
-        Log::debug('Вошёл в get у faculty departments');
         $validator = Validator::make($request->all(), [
             'program_id' => 'required|integer'
         ]);
@@ -50,6 +49,8 @@ class ProgramsSpecialtiesController extends Controller
         $programId = $request->program_id;
         return $this->programsSpecialtiesService->get($programId);
     }
+
+
 
     public function create(Request $request): JsonResponse
     {

@@ -48,7 +48,7 @@
                 </div>
                 <p class="fs-14 m-0 text-grey pt-4">Тип пользователя</p>
                 <div class="form-check">
-                    <input class="form-check-input green" type="radio" name="role" id="user_type1" value="user">
+                    <input class="form-check-input green" type="radio" name="role" id="user_type1" value="user" checked>
                     <label class="form-check-label" for="user_type1">
                         студентам
                     </label>

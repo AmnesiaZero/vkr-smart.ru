@@ -165,7 +165,7 @@ Route::group([
             Route::get('/', [WorksController::class,'studentsWorksView']);
             Route::get('get',[WorksController::class,'get']);
         });
-        Route::get('employee', [WorksController::class]);
+        Route::get('employee', [WorksController::class,'employeesWorksView']);
     });
 
     Route::group([
@@ -235,6 +235,7 @@ Route::group([
             ], function () {
                 Route::post('create', [ProgramsSpecialtiesController::class, 'create']);
                 Route::get('get', [ProgramsSpecialtiesController::class, 'get']);
+                Route::get('get-by-department',[ProgramsSpecialtiesController::class,'getByDepartment']);
                 Route::post('delete', [ProgramsSpecialtiesController::class, 'delete']);
             });
         });
