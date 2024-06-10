@@ -1133,6 +1133,11 @@ span.current {
 .header.dropdown-menu {
     background: #2C3E50;
     margin-top: 8px;
+    left: auto;
+    right: 0;
+}
+.header .dropdown-item {
+    background: transparent;
 }
 .header.dropdown-menu li {
     padding: 10px 30px 10px 20px;

@@ -45,14 +45,18 @@
                 <li class="user-menu col-sm-5 text-right">
                     <a href="admin-office/" class="btn btn-default btn-testaccess"><span class="glyphicon glyphicon-user"></span> Личный кабинет</a>
 
-                    <a href="#" class="btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="btn dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="caret"></span>
                     </a>
 
                     <ul class="header dropdown-menu" aria-labelledby="dropdownMenu">
-                        <li><a href="/organization-settings"><span class=""></span> Настройки</a></li><li><a href="/organization-works"><span class=""></span> Работы</a></li><li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li><li><a href="/organization-reports"><span class=""></span> Отчеты</a></li><li><a href="/organization-documents"><span class=""></span> Документация</a></li>
-                        <li><a href="#" onclick="logout(); return false;"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
-                        <li class="organization-info"></li>
+                        <li><a class="dropdown-item" href="/organization-settings">Настройки</a></li>
+                        <li><a class="dropdown-item" href="/organization-works">Работы</a></li>
+                        <li><a class="dropdown-item" href="/org-users">Электронное портфолио</a></li>
+                        <li><a class="dropdown-item" href="/organization-reports">Отчеты</a></li>
+                        <li><a class="dropdown-item" href="/organization-documents">Документация</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout(); return false;">Выйти</a></li>
+                        <li class="dropdown-item organization-info"></li>
                     </ul>
                 </li>
             </ul>
