@@ -16,6 +16,6 @@ class EloquentWorksTypeRepository implements WorksTypeRepositoryInterface
 
     public function get(int $organizationId): Collection
     {
-        return WorksType::query()->where('organization_id','=',$organizationId)->get();
+        return WorksType::query()->where('organization_id', '=', $organizationId)->get();
     }
 }

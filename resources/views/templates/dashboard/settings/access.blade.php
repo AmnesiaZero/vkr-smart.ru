@@ -17,7 +17,6 @@
                 </div>
 
 
-
                 <div class="br-green-light-2 br-15 p-4 mt-4">
                     <p class="fw-600">Пользователи</p>
                     <div id="users_list">
@@ -90,6 +89,7 @@
                                     </div>
 
 
+
     </script>
 
     <script id="user_tmpl" type="text/x-jquery-tmpl">
@@ -157,9 +157,11 @@
                           </div>
 
 
+
     </script>
     <script id="year_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}" onclick="faculties(${id})">${year}</option>
+
 
 
     </script>
@@ -168,10 +170,12 @@
         <option value="${id}">${name}</option>
 
 
+
     </script>
 
     <script id="department_list_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
+
 
 
     </script>
@@ -203,6 +207,7 @@
                     <a href="#" class="text-grey link-active-hover fs-14"  onclick="resetUserPassword('${email}')">отправить пароль на email</a>
                 </div>
             </div>
+
     </script>
 
 
@@ -278,11 +283,13 @@
     </div>
 </div>
 
+
     </script>
     <script id="inspectors_access_year_tmpl" type="text/x-jquery-tmpl">
       <li>
          <a href="#" onclick="accessSpecialties(${id});">${year}</a>
       </li>
+
 
     </script>
 
@@ -290,6 +297,7 @@
       <li>
          <a href="#" onclick="accessDepartments(${id});">${year}</a>
       </li>
+
 
     </script>
 
@@ -338,6 +346,7 @@
             <button type="submit" class="btn btn-secondary w-100 text-grey fs-14 br-100 br-none mt-4 mb-5">Применить</button>
             </form>
         </div>
+
     </script>
 
 

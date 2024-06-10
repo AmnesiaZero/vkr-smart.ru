@@ -62,11 +62,7 @@ interface OrganizationYearRepositoryInterface
      * @param int $id
      * @return Model
      */
-    public function findWithInfo(int $id):Model;
-
-
-
-
+    public function findWithInfo(int $id): Model;
 
 
 }

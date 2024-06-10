@@ -10,17 +10,17 @@ class InviteCodesExport extends Model implements FromCollection
 {
     use HasFactory;
 
-    public function __construct(int $organizationId,int $type)
+    public function __construct(int $organizationId, int $type)
     {
-       $this->organization_id = $organizationId;
-       $this->type = $type;
+        $this->organization_id = $organizationId;
+        $this->type = $type;
     }
 
     public function collection()
     {
         $query = InviteCode::query();
 
-        $query->select(['id','code']);
+        $query->select(['id', 'code']);
 
         if ($this->organization_id) {
             $query->where('organization_id', '=', $this->organization_id);
@@ -44,12 +44,10 @@ class InviteCodesExport extends Model implements FromCollection
 
     public function map($code): array
     {
-        $codeExport = $code->id.'-'.$code->code;
-        if ($code->type==1)
-        {
+        $codeExport = $code->id . '-' . $code->code;
+        if ($code->type == 1) {
             $type = 'Для студентов';
-        }
-        else{
+        } else {
             $type = 'Для преподавателей';
         }
         return [

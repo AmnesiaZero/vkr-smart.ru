@@ -31,19 +31,16 @@ class OrganizationsYearsController extends Controller
     {
         $user = Auth::user();
         //Это для получения годов у незарегестрированных пользователей
-        if($user==null)
-        {
-            if($code = session('invite_code')){
+        if ($user == null) {
+            if ($code = session('invite_code')) {
                 $organizationId = $code->organizationId;
-            }
-            else{
-                 return JsonHelper::sendJsonResponse(false,[
+            } else {
+                return JsonHelper::sendJsonResponse(false, [
                     'title' => 'Ошибка',
                     'message' => 'Не передан параметр organization id'
                 ]);
             }
-        }
-        else{
+        } else {
             $organizationId = $user->organization_id;
         }
         return $this->organizationYearsService->get($organizationId);

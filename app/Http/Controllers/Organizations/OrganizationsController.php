@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Services\Faculties\FacultiesService;
 use App\Services\Organizations\OrganizationsService;
-use App\Services\OrganizationsYears\OrganizationsYearsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class OrganizationsController extends Controller
 {
@@ -21,7 +18,7 @@ class OrganizationsController extends Controller
 
     public function __construct(OrganizationsService $organizationsService)
     {
-       $this->organizationsService = $organizationsService;
+        $this->organizationsService = $organizationsService;
     }
 
 
@@ -42,7 +39,7 @@ class OrganizationsController extends Controller
         $user = Auth::user();
         $organizationId = $user->organization_id;
         $specialtiesIds = $request->specialties_ids;
-        return $this->organizationsService->configureInspectorsAccess($organizationId,$specialtiesIds);
+        return $this->organizationsService->configureInspectorsAccess($organizationId, $specialtiesIds);
     }
 
     public function find()

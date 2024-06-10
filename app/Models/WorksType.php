@@ -10,7 +10,7 @@ class WorksType extends Model
     use HasFactory;
 
     protected $fillable = [
-      'name',
-      'organization_id'
+        'name',
+        'organization_id'
     ];
 }

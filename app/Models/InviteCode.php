@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class InviteCode extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'organization_id',
@@ -17,9 +17,6 @@ class InviteCode extends Model
         'code',
         'status'
     ];
-
-
-
 
 
 }

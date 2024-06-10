@@ -10,7 +10,7 @@ class ScientificSupervisor extends Model
     use HasFactory;
 
     protected $fillable = [
-       'name',
+        'name',
         'organization_id'
     ];
 }

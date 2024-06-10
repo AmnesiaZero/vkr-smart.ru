@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Services\ScientificSupervisors\Repositories\ScientificSupervisorRepositoryInterface;
 use App\Services\WorksTypes\Repositories\WorksTypeRepositoryInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HandbookController extends Controller
@@ -15,7 +13,7 @@ class HandbookController extends Controller
     protected WorksTypeRepositoryInterface $worksTypeRepository;
 
 
-    public function __construct(ScientificSupervisorRepositoryInterface $scientificSupervisorRepository,WorksTypeRepositoryInterface $worksTypeRepository)
+    public function __construct(ScientificSupervisorRepositoryInterface $scientificSupervisorRepository, WorksTypeRepositoryInterface $worksTypeRepository)
     {
         $this->scientificSupervisorRepository = $scientificSupervisorRepository;
         $this->worksTypeRepository = $worksTypeRepository;
@@ -27,7 +25,7 @@ class HandbookController extends Controller
         $organizationId = $you->organization_id;
         $scientificSupervisors = $this->scientificSupervisorRepository->get($organizationId);
         $worksTypes = $this->worksTypeRepository->get($organizationId);
-        return view('templates.dashboard.settings.handbook_management',[
+        return view('templates.dashboard.settings.handbook_management', [
             'scientific_supervisors' => $scientificSupervisors,
             'works_types' => $worksTypes
         ]);

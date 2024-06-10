@@ -9,24 +9,29 @@
                         @if(is_iterable($years))
                             @foreach($years as $year)
                                 <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title" id="year_{{$year->id}}">{{$year->year}}</span>
 		    						</span>
                                     <ul>
                                         @if(is_iterable($year->faculties))
                                             @foreach($year->faculties as $faculty)
                                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    									<span class="fancytree-expander"></span>
-		    									<span class="fancytree-title" id="faculty_{{$faculty->id}}">{{$faculty->name}}</span>
+		    									<span class="fancytree-title"
+                                                      id="faculty_{{$faculty->id}}">{{$faculty->name}}</span>
                                             </span>
                                                     <ul style="">
                                                         @if(is_iterable($faculty->departments))
                                                             @foreach($faculty->departments as $department)
                                                                 <li class="fancytree-lastsib">
-		    										               <span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+		    										               <span
+                                                                       class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
                                                                        <span class="fancytree-expander"></span>
-		    											              <span class="fancytree-title" id="department_{{$department->id}}">{{$department->name}}</span>
+		    											              <span class="fancytree-title"
+                                                                            id="department_{{$department->id}}">{{$department->name}}</span>
 		    										                </span>
                                                                 </li>
                                                             @endforeach
@@ -82,7 +87,8 @@
                                 <select class="js-example-basic-single w-100" name="state">
                                     @if(is_iterable($specialties))
                                         @foreach($specialties as $specialty)
-                                            <option value="{{$specialty->id}}">{{$specialty->code}} | {{$specialty->name}}</option>
+                                            <option value="{{$specialty->id}}">{{$specialty->code}}
+                                                | {{$specialty->name}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -315,5 +321,6 @@
             </td>
             <td><img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
         </tr>
+
     </script>
 @endsection

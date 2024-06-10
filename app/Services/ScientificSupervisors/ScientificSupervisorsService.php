@@ -5,7 +5,6 @@ namespace App\Services\ScientificSupervisors;
 use App\Helpers\JsonHelper;
 use App\Services\ScientificSupervisors\Repositories\ScientificSupervisorRepositoryInterface;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 
 class ScientificSupervisorsService
 {

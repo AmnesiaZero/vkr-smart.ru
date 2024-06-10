@@ -17,6 +17,6 @@ interface RoleRepositoryInterface
      * @param array $data
      * @return Collection
      */
-    public function search(array $data):Collection;
+    public function search(array $data): Collection;
 
 }

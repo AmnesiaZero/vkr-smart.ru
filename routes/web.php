@@ -100,22 +100,21 @@ Route::get('reset-password', function () {
 
 Route::group([
     'prefix' => 'login'
-],function (){
+], function () {
     Route::get('/', function () {
         return view('templates.site.auth.login');
     })->name('login');
     Route::post('/', [UsersController::class, 'login']);
-    Route::post('by-code',[UsersController::class,'loginByCode']);
+    Route::post('by-code', [UsersController::class, 'loginByCode']);
 });
 
 
 Route::group([
     'prefix' => 'registration',
-],function (){
-    Route::get('by-code',[UsersController::class,'registerByCodeView']);
-    Route::post('by-code',[UsersController::class,'registerByCode']);
+], function () {
+    Route::get('by-code', [UsersController::class, 'registerByCodeView']);
+    Route::post('by-code', [UsersController::class, 'registerByCode']);
 });
-
 
 
 Route::group([
@@ -151,10 +150,10 @@ Route::group([
         Route::get('invite-codes', function () {
             return view('templates.dashboard.settings.invite_codes');
         });
-        Route::get('user-management', [UsersController::class,'userManagement']);
-        Route::get('handbook-management',[HandbookController::class,'view']);
-        Route::get('integration', [OrganizationsController::class,'integrationView']);
-        Route::get('api',[UsersController::class,'apiView']);
+        Route::get('user-management', [UsersController::class, 'userManagement']);
+        Route::get('handbook-management', [HandbookController::class, 'view']);
+        Route::get('integration', [OrganizationsController::class, 'integrationView']);
+        Route::get('api', [UsersController::class, 'apiView']);
     });
 
     Route::group([
@@ -162,17 +161,21 @@ Route::group([
     ], function () {
         Route::group([
             'prefix' => 'students'
-        ],function (){
-            Route::get('/', [WorksController::class,'studentsWorksView']);
-            Route::get('get',[WorksController::class,'get']);
+        ], function () {
+            Route::get('/', [WorksController::class, 'studentsWorksView']);
+            Route::get('get', [WorksController::class, 'get']);
         });
-        Route::get('employee', [WorksController::class,'employeesWorksView']);
+        Route::group([
+            'prefix' => 'employees'
+        ], function () {
+            Route::get('/', [WorksController::class, 'employeesWorksView']);
+        });
     });
 
     Route::group([
         'prefix' => 'portfolio'
     ], function () {
-        Route::get('students', [WorksController::class,'studentsWorksView']);
+        Route::get('students', [WorksController::class, 'studentsWorksView']);
         Route::get('teachers', function () {
             return view('templates.dashboard.portfolio.teachers');
         });
@@ -189,8 +192,8 @@ Route::group([
         'prefix' => 'organizations'
     ], function () {
 
-        Route::get('find',[OrganizationsController::class,'find']);
-        Route::post('inspectors-access',[OrganizationsController::class,'configureInspectorsAccess']);
+        Route::get('find', [OrganizationsController::class, 'find']);
+        Route::post('inspectors-access', [OrganizationsController::class, 'configureInspectorsAccess']);
 
         Route::group([
             'prefix' => 'years'
@@ -200,7 +203,7 @@ Route::group([
             Route::post('update', [OrganizationsYearsController::class, 'update']);
             Route::post('delete', [OrganizationsYearsController::class, 'delete']);
             Route::post('copy', [OrganizationsYearsController::class, 'copy']);
-            Route::get('find',[OrganizationsYearsController::class, 'find']);
+            Route::get('find', [OrganizationsYearsController::class, 'find']);
         });
         Route::group([
             'prefix' => 'faculties'
@@ -219,8 +222,8 @@ Route::group([
             Route::post('update', [DepartmentsController::class, 'update']);
             Route::post('delete', [DepartmentsController::class, 'delete']);
             Route::get('by-user', [DepartmentsController::class, 'getByUserId']);
-            Route::get('get-info',[DepartmentsController::class, 'find']);
-            Route::get('program-specialties',[DepartmentsController::class,'getProgramSpecialties']);
+            Route::get('get-info', [DepartmentsController::class, 'find']);
+            Route::get('program-specialties', [DepartmentsController::class, 'getProgramSpecialties']);
         });
 
         Route::group([
@@ -236,7 +239,7 @@ Route::group([
             ], function () {
                 Route::post('create', [ProgramsSpecialtiesController::class, 'create']);
                 Route::get('get', [ProgramsSpecialtiesController::class, 'get']);
-                Route::get('get-by-department',[ProgramsSpecialtiesController::class,'getByDepartment']);
+                Route::get('get-by-department', [ProgramsSpecialtiesController::class, 'getByDepartment']);
                 Route::post('delete', [ProgramsSpecialtiesController::class, 'delete']);
             });
         });
@@ -253,47 +256,44 @@ Route::group([
     ], function () {
         Route::get('get', [UsersController::class, 'get']);
         Route::post('create', [UsersController::class, 'create']);
-        Route::post('delete',[UsersController::class,'delete']);
-        Route::get('find',[UsersController::class,'find']);
-        Route::post('update',[UsersController::class,'update']);
-        Route::post('add-department',[UsersController::class,'addDepartment']);
-        Route::get('search',[UsersController::class,'search']);
-        Route::get('you',[UsersController::class,'you']);
-        Route::post('configure-departments',[UsersController::class,'configureDepartments']);
-        Route::get('logout',[UsersController::class,'logout']);
+        Route::post('delete', [UsersController::class, 'delete']);
+        Route::get('find', [UsersController::class, 'find']);
+        Route::post('update', [UsersController::class, 'update']);
+        Route::post('add-department', [UsersController::class, 'addDepartment']);
+        Route::get('search', [UsersController::class, 'search']);
+        Route::get('you', [UsersController::class, 'you']);
+        Route::post('configure-departments', [UsersController::class, 'configureDepartments']);
+        Route::get('logout', [UsersController::class, 'logout']);
 
         Route::group([
             'prefix' => 'jwt'
-        ],function (){
-           Route::post('generate',[UsersController::class,'generateApiKey']);
+        ], function () {
+            Route::post('generate', [UsersController::class, 'generateApiKey']);
         });
 
     });
 
     Route::group([
         'prefix' => 'invite-codes'
-    ],function (){
-       Route::post('create',[InviteCodesController::class,'create']);
-       Route::get('get',[InviteCodesController::class,'get']);
-       Route::get('load',[InviteCodesController::class,'loadExcel']);
+    ], function () {
+        Route::post('create', [InviteCodesController::class, 'create']);
+        Route::get('get', [InviteCodesController::class, 'get']);
+        Route::get('load', [InviteCodesController::class, 'loadExcel']);
     });
 
     Route::group([
         'prefix' => 'scientific-supervisors'
-    ],function (){
-       Route::get('get',[ScientificSupervisorsController::class,'get']);
-       Route::post('create',[ScientificSupervisorsController::class,'create']);
+    ], function () {
+        Route::get('get', [ScientificSupervisorsController::class, 'get']);
+        Route::post('create', [ScientificSupervisorsController::class, 'create']);
     });
 
     Route::group([
         'prefix' => 'work-types'
-    ],function (){
-       Route::get('get',[WorksTypesController::class,'get']);
-       Route::post('create',[WorksTypesController::class,'create']);
+    ], function () {
+        Route::get('get', [WorksTypesController::class, 'get']);
+        Route::post('create', [WorksTypesController::class, 'create']);
     });
-
-
-
 
 
 });

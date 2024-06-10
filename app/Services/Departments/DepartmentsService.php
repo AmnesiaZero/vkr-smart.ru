@@ -4,8 +4,8 @@ namespace App\Services\Departments;
 
 use App\Helpers\JsonHelper;
 use App\Models\Department;
-use App\Services\Faculties\Repositories\FacultyRepositoryInterface;
 use App\Services\Departments\Repositories\DepartmentRepositoryInterface;
+use App\Services\Faculties\Repositories\FacultyRepositoryInterface;
 use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
 use App\Services\Services;
 use App\Services\Users\Repositories\UserRepositoryInterface;
@@ -25,11 +25,12 @@ class DepartmentsService extends Services
 
 
     public function __construct(
-        DepartmentRepositoryInterface $departmentRepository,
-        FacultyRepositoryInterface $facultyRepository,
-        UserRepositoryInterface $userRepository,
+        DepartmentRepositoryInterface       $departmentRepository,
+        FacultyRepositoryInterface          $facultyRepository,
+        UserRepositoryInterface             $userRepository,
         OrganizationYearRepositoryInterface $yearRepository
-    ) {
+    )
+    {
         $this->departmentRepository = $departmentRepository;
         $this->facultyRepository = $facultyRepository;
         $this->userRepository = $userRepository;
@@ -115,6 +116,15 @@ class DepartmentsService extends Services
         }
     }
 
+    public function find(int $id): JsonResponse
+    {
+        $department = $this->departmentRepository->find($id);
+        return JsonHelper::sendJsonResponse(true, [
+            'title' => 'Успех',
+            'department' => $department
+        ]);
+    }
+
     public function delete(int $id): JsonResponse
     {
         $result = $this->departmentRepository->delete($id);
@@ -149,21 +159,11 @@ class DepartmentsService extends Services
         ]);
     }
 
-    public function find(int $id):JsonResponse
-    {
-        $department = $this->departmentRepository->find($id);
-        return JsonHelper::sendJsonResponse(true,[
-           'title' => 'Успех',
-           'department' => $department
-        ]);
-    }
-
     public function getProgramSpecialties(int $id): JsonResponse
     {
         $programSpecialties = $this->departmentRepository->getProgramSpecialties($id);
-        if($programSpecialties)
-        {
-            return JsonHelper::sendJsonResponse(true,[
+        if ($programSpecialties) {
+            return JsonHelper::sendJsonResponse(true, [
                 'title' => 'Успешно',
                 'program_specialties' => $programSpecialties,
             ]);

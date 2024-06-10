@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentOrganizationRepository implements OrganizationRepositoryInterface
 {
 
-    public function find(int $id): Model
-    {
-        return Organization::query()->find($id);
-    }
-
     public function exist(int $id): bool
     {
         return Organization::query()->find($id)->exists();
+    }
+
+    public function find(int $id): Model
+    {
+        return Organization::query()->find($id);
     }
 }

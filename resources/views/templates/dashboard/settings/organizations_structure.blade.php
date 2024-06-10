@@ -262,6 +262,7 @@
                     </div>
                 </div>
 
+
             </script>
 
 
@@ -291,6 +292,7 @@
                         <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteFaculty(${id})"></button>
                     </div>
                 </div>
+
             </script>
 
             <script id="department_tmpl" type="text/x-jquery-tmpl">
@@ -320,6 +322,7 @@
                         <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteDepartment(${id})"></button>
                     </div>
                 </div>
+
             </script>
 
             <script id="program_tmpl" type="text/x-jquery-tmpl">
@@ -333,9 +336,11 @@
                     <button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteProgram(${id})"></button>
                 </div>
             </div>
+
             </script>
             <script id="specialty_menu_tmpl" type="text/x-jquery-tmpl">
                 <option value="${id}"> ${code} | ${name} </option>
+
             </script>
             <script id="specialty_tmpl" type="text/x-jquery-tmpl">
                 <tr class="program_specialty_${id}">
@@ -343,6 +348,7 @@
                                        <td>${name}</td>
                                        <td class="pe-4"><button id="delete" class="btn copy_delete br-none" type="button" onclick="deleteProgramSpecialty(${id})"></button></td>
                                    </tr>
+
             </script>
 
 

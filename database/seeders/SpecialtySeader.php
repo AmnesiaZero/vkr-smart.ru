@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Specialty;
-use Database\Factories\SpecialtyFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SpecialtySeader extends Seeder

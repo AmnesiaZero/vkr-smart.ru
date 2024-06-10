@@ -1,5 +1,4 @@
-function generateApiKey()
-{
+function generateApiKey() {
     console.log('Вошёл в функцию открытия canvas');
     const data = $("#generate_key_form").serialize();
     $.ajax({
@@ -11,11 +10,10 @@ function generateApiKey()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const data = response.data;
                 $("#generate_key_form").append($("#jwt_tmpl").tmpl(data));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Organizations;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Services\Faculties\FacultiesService;
 use App\Services\Departments\DepartmentsService;
+use App\Services\Faculties\FacultiesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +25,10 @@ class FacultiesController extends Controller
     ];
 
     public function __construct(
-        FacultiesService $facultiesService,
+        FacultiesService   $facultiesService,
         DepartmentsService $facultiesDepartmentsService
-    ) {
+    )
+    {
         $this->facultiesService = $facultiesService;
         $this->facultiesDepartmentsService = $facultiesDepartmentsService;
     }

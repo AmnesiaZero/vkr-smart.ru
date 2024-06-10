@@ -9,20 +9,17 @@ document.getElementById("copy").onclick = function () {
 }
 
 
-
-function inviteCodes(data)
-{
+function inviteCodes(data) {
     $.ajax({
         url: "/dashboard/invite-codes/get",
         type: "GET",
         dataType: "json",
-        data:data,
+        data: data,
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const inviteCodes = response.data.data;
-                printInviteCodes(inviteCodes,true);
-            }
-            else {
+                printInviteCodes(inviteCodes, true);
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -33,15 +30,7 @@ function inviteCodes(data)
 }
 
 
-function createTeachersCodes(teachersCodes)
-{
-    console.log('teachers codes');
-    console.log(teachersCodes);
-    $("#teachers_codes_list").append($("#invite_code_tmpl").tmpl(teachersCodes));
-}
-
-function createInviteCodes()
-{
+function createInviteCodes() {
     const data = $("#create_invite_codes_form").serialize();
     $.ajax({
         url: "/dashboard/invite-codes/create",
@@ -52,21 +41,18 @@ function createInviteCodes()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const inviteCodes = response.data.invite_codes;
                 const formDataArray = $("#create_invite_codes_form").serializeArray();
                 const type = formDataArray.find(item => item.name === 'type')?.value;
                 console.log('type = ' + type);
-                if(type==1)
-                {
+                if (type == 1) {
                     createStudentsCodes(inviteCodes);
-                }
-                else{
+                } else {
                     createTeachersCodes(inviteCodes);
                 }
 
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -76,27 +62,30 @@ function createInviteCodes()
     });
 }
 
-function createStudentsCodes(studentsCodes)
-{
-    console.log('students codes = ' + studentsCodes);
+function createStudentsCodes(studentsCodes) {
     $("#students_codes_list").append($("#invite_code_tmpl").tmpl(studentsCodes));
-   // updateStudentsCodesPagination();
+    updateStudentsCodesPagination();
 }
 
+function createTeachersCodes(teachersCodes) {
+    $("#teachers_codes_list").append($("#invite_code_tmpl").tmpl(teachersCodes));
+    updateTeachersPagination();
+}
+
+
 //функция для изначальной подгрузки кодов со всеми дополнительными операциями
-function loadTeachersCodes()
-{
+function loadTeachersCodes() {
     const data = {
-        type:2,
-        page:1
+        type: 2,
+        page: 1
     };
     $.ajax({
         url: "/dashboard/invite-codes/get",
         type: "GET",
         dataType: "json",
-        data:data,
+        data: data,
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const pagination = response.data.invite_codes;
                 const links = pagination.links;
                 links.shift();
@@ -104,22 +93,19 @@ function loadTeachersCodes()
                 pagination.links = links;
                 const inviteCodes = pagination.data;
                 const teachersCodesList = $("#teachers_codes_list");
-                if(inviteCodes.length>0)
-                {
-                    $("#teachers_list_head").append($("#load_tmpl").tmpl({type:2}));
+                if (inviteCodes.length > 0) {
+                    $("#teachers_list_head").append($("#load_tmpl").tmpl({type: 2}));
                     teachersCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
                     $("#teachers_pages").html($("#pagination_tmpl").tmpl(pagination));
-                }
-                else{
+                } else {
                     teachersCodesList.append($("#empty_tmpl").tmpl());
                 }
                 const currentPage = pagination.current_page;
                 const perPage = pagination.per_page;
                 const totalItems = pagination.total;
                 const totalPages = pagination.links.length;
-                updateTeachersPagination(currentPage,totalItems,totalPages,perPage);
-            }
-            else {
+                updateTeachersPagination(currentPage, totalItems, totalPages, perPage);
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -130,19 +116,18 @@ function loadTeachersCodes()
 }
 
 //функция для пагинации
-function teachersCodes(pageNumber= 1)
-{
+function teachersCodes(pageNumber = 1) {
     const data = {
-        type:2,
-        page:pageNumber
+        type: 2,
+        page: pageNumber
     };
     $.ajax({
         url: "/dashboard/invite-codes/get",
         type: "GET",
         dataType: "json",
-        data:data,
+        data: data,
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const pagination = response.data.invite_codes;
                 const inviteCodes = pagination.data;
                 const teachersCodesList = $("#teachers_codes_list");
@@ -151,9 +136,8 @@ function teachersCodes(pageNumber= 1)
                 const perPage = pagination.per_page;
                 const totalItems = pagination.total;
                 const totalPages = pagination.links.length - 2;
-                updateTeachersPagination(currentPage,totalItems,totalPages,perPage);
-            }
-            else {
+                updateTeachersPagination(currentPage, totalItems, totalPages, perPage);
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -164,55 +148,51 @@ function teachersCodes(pageNumber= 1)
 }
 
 
-function updateTeachersPagination(currentPage,totalItems,totalPages,itemsPerPage) {
+function updateTeachersPagination(currentPage, totalItems, totalPages, itemsPerPage) {
     console.log('total items = ' + totalItems);
     console.log('total pages = ' + totalPages);
     console.log('per page = ' + itemsPerPage);
-     $("#teachers_codes_pagination").pagination({
+    $("#teachers_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,
         currentPage: currentPage, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
-         cssStyle: '',
-         prevText: 'Previous', // Текст для кнопки "предыдущая"
-         nextText: 'Next', // Текст для кнопки "следующая"
-        onPageClick: function(pageNumber, event) {
+        cssStyle: '',
+        prevText: 'Previous', // Текст для кнопки "предыдущая"
+        nextText: 'Next', // Текст для кнопки "следующая"
+        onPageClick: function (pageNumber, event) {
             teachersCodes(pageNumber);
         }
     });
 }
 
-function loadStudentsCodes()
-{
+function loadStudentsCodes() {
     const data = {
-        type:1,
-        page:1
+        type: 1,
+        page: 1
     };
     $.ajax({
         url: "/dashboard/invite-codes/get",
         type: "GET",
         dataType: "json",
-        data:data,
+        data: data,
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const pagination = response.data.invite_codes;
                 const inviteCodes = pagination.data;
                 const studentsCodesList = $("#students_codes_list");
-                if(inviteCodes.length>0)
-                {
-                    $("#students_list_head").append($("#load_tmpl").tmpl({type:1}));
+                if (inviteCodes.length > 0) {
+                    $("#students_list_head").append($("#load_tmpl").tmpl({type: 1}));
                     studentsCodesList.html($("#invite_code_tmpl").tmpl(inviteCodes));
-                }
-                else{
+                } else {
                     studentsCodesList.append($("#empty_tmpl").tmpl());
                 }
                 const currentPage = pagination.current_page;
                 const perPage = pagination.per_page;
                 const totalItems = pagination.total;
                 const totalPages = pagination.links.length - 2;
-                updateStudentsCodesPagination(currentPage,totalItems,totalPages,perPage);
-            }
-            else {
+                updateStudentsCodesPagination(currentPage, totalItems, totalPages, perPage);
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -221,19 +201,19 @@ function loadStudentsCodes()
         }
     });
 }
-function studentsCodes(pageNumber= 1)
-{
+
+function studentsCodes(pageNumber = 1) {
     const data = {
-        type:1,
-        page:pageNumber
+        type: 1,
+        page: pageNumber
     };
     $.ajax({
         url: "/dashboard/invite-codes/get",
         type: "GET",
         dataType: "json",
-        data:data,
+        data: data,
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const pagination = response.data.invite_codes;
                 const inviteCodes = pagination.data;
                 const studentsCodesList = $("#students_codes_list");
@@ -242,9 +222,8 @@ function studentsCodes(pageNumber= 1)
                 const perPage = pagination.per_page;
                 const totalItems = pagination.total;
                 const totalPages = pagination.links.length - 2;
-                updateStudentsCodesPagination(currentPage,totalItems,totalPages,perPage);
-            }
-            else {
+                updateStudentsCodesPagination(currentPage, totalItems, totalPages, perPage);
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -255,14 +234,14 @@ function studentsCodes(pageNumber= 1)
 }
 
 
-function updateStudentsCodesPagination(page,totalItems,totalPages,itemsPerPage) {
+function updateStudentsCodesPagination(page, totalItems, totalPages, itemsPerPage) {
 
     $("#students_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,
         currentPage: page, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
-        onPageClick: function(pageNumber, event) {
+        onPageClick: function (pageNumber, event) {
             studentsCodes(pageNumber);
         }
     });

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ValidatorHelper;
-use App\Http\Controllers\Controller;
 use App\Services\ScientificSupervisors\ScientificSupervisorsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

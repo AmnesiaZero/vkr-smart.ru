@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    localStorage.setItem('selected_years','');
-    localStorage.setItem('selected_departments','');
+    localStorage.setItem('selected_years', '');
+    localStorage.setItem('selected_departments', '');
     users();
     $(".fancytree-title").on('click', function () {
         addBadge($(this));
@@ -14,81 +14,75 @@ const addBadge = function (clickedElement) {
     const text = clickedElement.text();
     console.log('id = ' + id);
     console.log('text = ' + text);
-    if(id.includes('year_')){
+    if (id.includes('year_')) {
         let selectedYears = localStorage.getItem('selected_years');
         const match = id.match(/\d+/); // Находим все последовательности цифр в строке
         const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
         selectedYears = selectedYears ? selectedYears.split(",") : [];
         console.log(selectedYears)
-        if(!selectedYears.includes(number)){
+        if (!selectedYears.includes(number)) {
             selectedYears.push(number);
             console.log('вошёл');
             document.querySelector('.out-kod').style.display = "block";
             const elemOutKod = document.querySelector('.out-kod');
             elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2" id="clicked_${id}" onclick="deleteTreeElement('${id}')">${text}</span>`;
         }
-        localStorage.setItem('selected_years',selectedYears.join(','));
-    }
-    else if (id.includes('department_'))
-    {
+        localStorage.setItem('selected_years', selectedYears.join(','));
+    } else if (id.includes('department_')) {
         let selectedDepartments = localStorage.getItem('selected_departments');
         const match = id.match(/\d+/); // Находим все последовательности цифр в строке
         const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
         selectedDepartments = selectedDepartments ? selectedDepartments.split(",") : [];
-        if(!selectedDepartments.includes(number)){
+        if (!selectedDepartments.includes(number)) {
             selectedDepartments.push(number);
             document.querySelector('.out-kod').style.display = "block";
             const elemOutKod = document.querySelector('.out-kod');
             elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2 clicked" id="clicked_${id}"  onclick="deleteTreeElement('${id}')">${text}</span>`;
         }
-        localStorage.setItem('selected_departments',selectedDepartments.join(','));
+        localStorage.setItem('selected_departments', selectedDepartments.join(','));
 
     }
 }
 
 
-
-function deleteTreeElement(id)
-{
+function deleteTreeElement(id) {
     console.log('id = ' + id);
     const match = id.match(/\d+/);
     const number = match ? match[0] : '';
     $("#clicked_" + id).remove();
-    if(id.includes('year_')){
+    if (id.includes('year_')) {
         let selectedYears = localStorage.getItem('selected_years');
         const match = id.match(/\d+/); // Находим все последовательности цифр в строке
         const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
-        if(selectedYears.includes(number)){
+        if (selectedYears.includes(number)) {
             let yearsArray = selectedYears.split(',');
-            yearsArray = yearsArray.filter(function(item) {
+            yearsArray = yearsArray.filter(function (item) {
                 return item !== number;
             });
             selectedYears = yearsArray.join(',');
-            localStorage.setItem('selected_years',selectedYears);
+            localStorage.setItem('selected_years', selectedYears);
         }
 
-    }
-    else if (id.includes('department_'))
-    {
+    } else if (id.includes('department_')) {
         let selectedDepartments = localStorage.getItem('selected_departments');
         const match = id.match(/\d+/); // Находим все последовательности цифр в строке
         const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
-        if(selectedDepartments.includes(number)){
+        if (selectedDepartments.includes(number)) {
             let departmentsArray = selectedDepartments.split(',');
-            departmentsArray = departmentsArray.filter(function(item) {
+            departmentsArray = departmentsArray.filter(function (item) {
                 return item !== number;
             });
             selectedDepartments = departmentsArray.join(',');
-            localStorage.setItem('selected_departments',selectedDepartments);
+            localStorage.setItem('selected_departments', selectedDepartments);
         }
     }
 
 }
 
 function users() {
-    const roles = ['teacher','user'];
+    const roles = ['teacher', 'user'];
     const data = {
-        roles:roles
+        roles: roles
     };
     $.ajax({
         url: "/dashboard/users/get",
@@ -107,16 +101,15 @@ function users() {
 }
 
 
-function searchUsers()
-{
+function searchUsers() {
     let data = $("#search_users").serialize();
     data = serializeRemoveNull(data);
     const selectedYears = localStorage.getItem('selected_years');
     const selectedDepartments = localStorage.getItem('selected_departments');
 
     const additionalData = {
-        selected_years:selectedYears,
-        selected_departments:selectedDepartments,
+        selected_years: selectedYears,
+        selected_departments: selectedDepartments,
     };
 
     data += '&' + $.param(additionalData);
@@ -126,12 +119,11 @@ function searchUsers()
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const users = response.data.users;
                 console.log(users);
                 $("#users_list").html($("#user_tmpl").tmpl(users));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -141,10 +133,9 @@ function searchUsers()
     });
 }
 
-function openUpdateUserCanvas(id)
-{
+function openUpdateUserCanvas(id) {
     const data = {
-        id:id
+        id: id
     };
     $.ajax({
         url: "/dashboard/users/find",
@@ -155,11 +146,10 @@ function openUpdateUserCanvas(id)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 $("#canvas_body").html($("#off_canvas_user").tmpl(user));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -170,7 +160,7 @@ function openUpdateUserCanvas(id)
 }
 
 
-function serializeRemoveNull(serStr){
+function serializeRemoveNull(serStr) {
     return serStr.split("&").filter(str => !str.endsWith("=")).join("&");
 }
 

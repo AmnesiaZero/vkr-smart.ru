@@ -39,13 +39,13 @@ class Department extends Model
         return $this->hasMany(Program::class, 'department_id');
     }
 
-    public function faculty():HasOne
+    public function faculty(): HasOne
     {
-        return $this->hasOne(Faculty::class,'id','faculty_id');
+        return $this->hasOne(Faculty::class, 'id', 'faculty_id');
     }
 
-    public function year():HasOne
+    public function year(): HasOne
     {
-        return $this->hasOne(OrganizationYear::class,'id','year_id');
+        return $this->hasOne(OrganizationYear::class, 'id', 'year_id');
     }
 }

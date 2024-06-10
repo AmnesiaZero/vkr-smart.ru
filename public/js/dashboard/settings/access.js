@@ -8,7 +8,7 @@ $(document).ready(function () {
         const data = {
             year_id: yearId
         };
-        faculties(data,'faculties_list');
+        faculties(data, 'faculties_list');
     });
 
     $('#add_department_years_list').change(function () {
@@ -16,7 +16,7 @@ $(document).ready(function () {
         const data = {
             year_id: yearId
         };
-        faculties(data,'add_department_faculties_list');
+        faculties(data, 'add_department_faculties_list');
     });
 
     $('#faculties_list').change(function () {
@@ -24,7 +24,7 @@ $(document).ready(function () {
         const data = {
             faculty_id: facultyId
         };
-        departments(data,'departments_menu_list');
+        departments(data, 'departments_menu_list');
     });
 
     $('#add_department_faculties_list').change(function () {
@@ -32,32 +32,28 @@ $(document).ready(function () {
         const data = {
             faculty_id: facultyId
         };
-        departments(data,'add_departments_menu_list');
+        departments(data, 'add_departments_menu_list');
     });
 
-    $('#checking_specialties').change(function() {
+    $('#checking_specialties').change(function () {
         $('#specialties_list').find("input[class='specialty_checkbox']").prop('checked', $(this).prop("checked"));
     });
 
-    $('#checking_departments').change(function() {
+    $('#checking_departments').change(function () {
         $('#departments_list').find("input[class='department_checkbox']").prop('checked', $(this).prop("checked"));
     });
 });
 
 
-
-
-function getYou()
-{
+function getYou() {
     $.ajax({
         url: "/dashboard/users/you",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const you = response.data.you;
                 $("#you").html($("#you_tmpl").tmpl(you));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -67,8 +63,7 @@ function getYou()
     });
 }
 
-function years(htmlId)
-{
+function years(htmlId) {
     $.ajax({
         url: "/dashboard/organizations/years/get",
         dataType: "json",
@@ -86,25 +81,23 @@ function years(htmlId)
 }
 
 
-
-function faculties(data,htmlId) {
+function faculties(data, htmlId) {
     $.ajax({
         url: "/dashboard/organizations/faculties/get",
         dataType: "json",
-        data:data,
+        data: data,
         type: "get",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const faculties = response.data.faculties;
                 const facultiesList = $("#" + htmlId);
                 facultiesList.empty();
                 facultiesList.html($("#faculty_tmpl").tmpl(faculties));
                 facultiesList.prepend('<option value="" selected>Выберите.......</option>');
-            }
-            else{
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -114,15 +107,14 @@ function faculties(data,htmlId) {
     });
 }
 
-function departments(data,htmlId)
-{
+function departments(data, htmlId) {
     $.ajax({
         url: "/dashboard/organizations/departments/get",
         dataType: "json",
-        data:data,
+        data: data,
         type: "get",
         success: function (response) {
-            if(response.success) {
+            if (response.success) {
                 const departments = response.data.departments
                 console.log(departments);
                 const departmentsList = $("#" + htmlId);
@@ -131,8 +123,7 @@ function departments(data,htmlId)
                 dropdownList.selectpicker('destroy');
                 departmentsList.html($("#department_list_tmpl").tmpl(departments));
                 dropdownList.selectpicker('render');
-            }
-            else{
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -207,9 +198,9 @@ $('.pas').click(function () {
 // }
 
 function users() {
-    const roles = ['admin','employee'];
+    const roles = ['admin', 'employee'];
     const data = {
-        roles:roles
+        roles: roles
     };
     $.ajax({
         url: "/dashboard/users/get",
@@ -253,21 +244,19 @@ function createEmployee() {
 }
 
 
-function getDepartmentInfo(id)
-{
+function getDepartmentInfo(id) {
     const data = {
-        id:id
+        id: id
     };
     $.ajax({
         url: "/dashboard/organizations/departments/find",
         dataType: "json",
         data: data,
         success: function (response) {
-            if (response.success){
+            if (response.success) {
                 const department = response.data.department;
 
-            }
-            else{
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -278,8 +267,7 @@ function getDepartmentInfo(id)
 }
 
 
-function createAdmin()
-{
+function createAdmin() {
     let data = $("#create_admin_form").serialize();
     const additionalData = {
         role: 'admin',
@@ -288,8 +276,7 @@ function createAdmin()
     createUser(data);
 }
 
-function createUser(data)
-{
+function createUser(data) {
     $.ajax({
         url: "/dashboard/users/create",
         data: data,
@@ -299,7 +286,7 @@ function createUser(data)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 const source = $("#user_tmpl").html();
 
@@ -310,8 +297,7 @@ function createUser(data)
                 $("#users_list").append(html);
 
 
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -322,11 +308,10 @@ function createUser(data)
     });
 }
 
-function deleteUser(id)
-{
+function deleteUser(id) {
     if (confirm("Вы действительно хотите удалить данного пользователя?")) {
         const data = {
-            id:id
+            id: id
         }
         $.ajax({
             url: "/dashboard/users/delete",
@@ -351,11 +336,10 @@ function deleteUser(id)
     }
 }
 
-function editUserModal(id)
-{
+function editUserModal(id) {
     console.log('Вошёл в editUserModal');
     const data = {
-        id:id
+        id: id
     };
     $.ajax({
         url: "/dashboard/users/find",
@@ -363,15 +347,14 @@ function editUserModal(id)
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 const updateModal = $("#update_user");
                 console.log(updateModal);
                 const updatedContent = $("#update_user_tmpl").tmpl(user);
                 updateModal.replaceWith(updatedContent);
                 openModal('update_user');
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -383,12 +366,10 @@ function editUserModal(id)
 }
 
 
-
-function openUpdateUserCanvas(id)
-{
+function openUpdateUserCanvas(id) {
     console.log('Вошёл в функцию открытия canvas');
     const data = {
-        id:id
+        id: id
     };
     $.ajax({
         url: "/dashboard/users/find",
@@ -399,13 +380,12 @@ function openUpdateUserCanvas(id)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 $("#edit_canvas_body").html($("#off_canvas_user_update").tmpl(user));
                 const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasEdit'));
                 offcanvas.show();
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -415,11 +395,10 @@ function openUpdateUserCanvas(id)
     });
 }
 
-function openCreateUserCanvas(id)
-{
+function openCreateUserCanvas(id) {
     console.log('Вошёл в функцию открытия canvas');
     const data = {
-        id:id
+        id: id
     };
     $.ajax({
         url: "/dashboard/users/find",
@@ -430,13 +409,12 @@ function openCreateUserCanvas(id)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 $("#create_canvas_body").html($("#off_canvas_user_create").tmpl(user));
                 const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasCreate'));
                 offcanvas.show();
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -447,19 +425,17 @@ function openCreateUserCanvas(id)
 }
 
 
-function openAddDepartmentModal(userId)
-{
-    localStorage.setItem('user_id',userId);
+function openAddDepartmentModal(userId) {
+    localStorage.setItem('user_id', userId);
     openModal('add_department');
 }
 
 
-function addDepartment()
-{
+function addDepartment() {
     let data = $("#add_department_form").serialize();
     const userId = localStorage.getItem('user_id');
     const additionalData = {
-        user_id:userId
+        user_id: userId
     }
     data += '&' + $.param(additionalData);
     $.ajax({
@@ -471,13 +447,12 @@ function addDepartment()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 const userHtml = $("#user_" + userId);
                 const updatedContent = $("#user_tmpl").tmpl(user);
                 userHtml.replaceWith(updatedContent);
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -489,8 +464,7 @@ function addDepartment()
 }
 
 
-function searchUsers()
-{
+function searchUsers() {
     let data = $("#search_users").serialize();
     $.ajax({
         url: "/dashboard/users/search",
@@ -501,11 +475,10 @@ function searchUsers()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const users = response.data.users;
                 $("#users_list").html($("#user_tmpl").tmpl(users));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -516,24 +489,21 @@ function searchUsers()
     });
 }
 
-function inspectorsAccessModal()
-{
+function inspectorsAccessModal() {
     inspectorsAccessYears();
     openModal('inspectors_access_modal');
 }
 
-function inspectorsAccessYears()
-{
+function inspectorsAccessYears() {
     $.ajax({
         url: "/dashboard/organizations/years/get",
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const years = response.data.years;
                 $("#inspectors_access_years_list").html($("#inspectors_access_year_tmpl").tmpl(years));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -544,11 +514,10 @@ function inspectorsAccessYears()
     });
 }
 
-function accessSpecialties(yearId)
-{
+function accessSpecialties(yearId) {
     console.log('Зашёл в функцию accessSpecialties');
     const data = {
-        id:yearId
+        id: yearId
     };
     $.ajax({
         url: "/dashboard/organizations/years/find",
@@ -556,31 +525,30 @@ function accessSpecialties(yearId)
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const year = response.data.year;
                 const faculties = year.faculties;
                 const specialtiesList = $("#specialties_list");
                 specialtiesList.empty();
                 specialtiesList.selectpicker('destroy');
                 faculties.forEach(faculty => {
-                   const departments = faculty.departments;
-                   departments.forEach(department => {
-                       const programs = department.programs;
-                       programs.forEach(program => {
-                          const programSpecialties = program.program_specialties;
-                          programSpecialties.forEach(specialty => {
-                              specialtiesList.append(`<div className="list-group-item">
+                    const departments = faculty.departments;
+                    departments.forEach(department => {
+                        const programs = department.programs;
+                        programs.forEach(program => {
+                            const programSpecialties = program.program_specialties;
+                            programSpecialties.forEach(specialty => {
+                                specialtiesList.append(`<div className="list-group-item">
                                   <label className="text-success">
                                       <input type="checkbox" class="specialty_checkbox" value="${specialty.id}"> ${faculty.name} / ${department.name} / ${program.name} /${specialty.code} | ${specialty.name}
                                   </label>
                               </div>`);
-                          });
-                       });
-                   });
+                            });
+                        });
+                    });
                 });
 
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -593,15 +561,14 @@ function accessSpecialties(yearId)
 
 }
 
-function configureInspectorsAccess()
-{
+function configureInspectorsAccess() {
     console.log('Зашёл в функцию accessSpecialties');
     const selectedValues = [];
-    $('input[class="specialty_checkbox"]:checked').each(function(){
+    $('input[class="specialty_checkbox"]:checked').each(function () {
         selectedValues.push($(this).val());
     });
     const data = {
-        specialties_ids:selectedValues
+        specialties_ids: selectedValues
     }
     $.ajax({
         url: "/dashboard/organizations/inspectors-access",
@@ -612,10 +579,9 @@ function configureInspectorsAccess()
         },
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 $.notify(response.data.title + ":" + response.data.message, "success");
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -626,18 +592,16 @@ function configureInspectorsAccess()
     });
 }
 
-function userAccessYears()
-{
+function userAccessYears() {
     $.ajax({
         url: "/dashboard/organizations/years/get",
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const years = response.data.years;
                 $("#user_access_years_list").html($("#user_access_year_tmpl").tmpl(years));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -649,17 +613,15 @@ function userAccessYears()
 }
 
 
-function userDepartmentsModal(userId)
-{
+function userDepartmentsModal(userId) {
     userAccessYears();
-    localStorage.setItem('user_id',userId);
+    localStorage.setItem('user_id', userId);
     openModal('configure_user_departments');
 }
 
-function accessDepartments(yearId)
-{
+function accessDepartments(yearId) {
     const data = {
-        id:yearId
+        id: yearId
     };
     $.ajax({
         url: "/dashboard/organizations/years/find",
@@ -667,7 +629,7 @@ function accessDepartments(yearId)
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const year = response.data.year;
                 const faculties = year.faculties;
                 const departmentsList = $("#departments_list");
@@ -684,8 +646,7 @@ function accessDepartments(yearId)
                 });
                 departmentsList.selectpicker('render');
 
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -697,18 +658,17 @@ function accessDepartments(yearId)
 }
 
 
-function configureUserDepartments()
-{
+function configureUserDepartments() {
     const userId = localStorage.getItem('user_id');
     console.log('Зашёл в функцию configureUserDepartments');
     const selectedValues = [];
-    $('input[class="department_checkbox"]:checked').each(function(){
+    $('input[class="department_checkbox"]:checked').each(function () {
         selectedValues.push($(this).val());
     });
     console.log(selectedValues);
     const data = {
-        departments_ids:selectedValues,
-        user_id:userId
+        departments_ids: selectedValues,
+        user_id: userId
     }
     $.ajax({
         url: "/dashboard/users/configure-departments",
@@ -719,13 +679,12 @@ function configureUserDepartments()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 const userHtml = $("#user_" + userId);
                 const updatedContent = $("#user_tmpl").tmpl(user);
                 userHtml.replaceWith(updatedContent);
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 

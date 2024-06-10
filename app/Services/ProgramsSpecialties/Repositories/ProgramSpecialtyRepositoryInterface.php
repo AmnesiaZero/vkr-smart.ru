@@ -22,8 +22,6 @@ interface ProgramSpecialtyRepositoryInterface
     public function get(int $programId): Collection;
 
 
-
-
     /**
      * Найти по id
      * @param int $id

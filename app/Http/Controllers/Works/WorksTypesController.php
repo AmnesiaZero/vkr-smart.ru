@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Works;
 
 use App\Helpers\ValidatorHelper;
 use App\Http\Controllers\Controller;
-use App\Services\Works\WorksService;
 use App\Services\WorksTypes\WorksTypesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -45,7 +44,6 @@ class WorksTypesController extends Controller
         $organizationId = $you->organization_id;
         return $this->worksTypesService->get($organizationId);
     }
-
 
 
 }

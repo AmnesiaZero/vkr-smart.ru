@@ -9,15 +9,18 @@
                         @if(is_iterable($years))
                             @foreach($years as $year)
                                 <li class="">
-		    						<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    						<span
+                                        class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    							<span class="fancytree-title" id="year_{{$year->id}}">{{$year->year}}</span>
 		    						</span>
                                     <ul>
                                         @if(is_iterable($year->faculties))
                                             @foreach($year->faculties as $faculty)
                                                 <li class="fancytree-lastsib">
-		    								<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    									<span class="fancytree-title" id="faculty_{{$faculty->id}}">{{$faculty->name}}</span>
+		    								<span
+                                                class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    									<span class="fancytree-title"
+                                                      id="faculty_{{$faculty->id}}">{{$faculty->name}}</span>
                                             </span>
                                                 </li>
                                             @endforeach
@@ -113,7 +116,8 @@
             </div>
         </div>
         <div class="d-flex mt-5">
-            <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 w-75 me-3"  onclick="openModal('add_work_modal')">добавить<img
+            <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 w-75 me-3"
+                    onclick="openModal('add_work_modal')">добавить<img
                     src="/images/pl-green.svg" alt="" class="ps-2"></button>
             <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 w-25">импорт из файла<img
                     src="/images/File_Download_green.svg" alt="" class="ps-2"></button>
@@ -269,13 +273,16 @@
         <option value="${id}">${name}</option>
 
 
+
     </script>
 
     <script id="department_tmpl" type="text/x-jquery-tmpl">
      <option value="${id}">${name}</option>
+
     </script>
 
     <script id="specialty_tmpl" type="text/x-jquery-tmpl">
      <option value="${id}">${name}</option>
+
     </script>
 @endsection

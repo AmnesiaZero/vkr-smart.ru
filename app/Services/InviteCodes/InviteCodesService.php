@@ -32,17 +32,17 @@ class InviteCodesService
             'expires_at' => now()->addYear(),
             'status' => true
         ];
-        $data = array_merge($data,$additionalData);
-        Log::debug(print_r($data,true));
-        if(!isset($data['amount'])){
+        $data = array_merge($data, $additionalData);
+        Log::debug(print_r($data, true));
+        if (!isset($data['amount'])) {
             $data['amount'] = 1;
         }
         $amount = $data['amount'];
         $inviteCodes = [];
-        for ($i=0;$i<$amount;$i++){
-            $data['code'] = rand(10000,99999);
+        for ($i = 0; $i < $amount; $i++) {
+            $data['code'] = rand(10000, 99999);
             $inviteCode = $this->_repository->create($data);
-            if($inviteCode and  $inviteCode->id){
+            if ($inviteCode and $inviteCode->id) {
                 $inviteCodes[] = $inviteCode;
             }
         }
@@ -54,9 +54,9 @@ class InviteCodesService
     }
 
 
-    public function get(int $organizationId,int $pageNumber,int $type): JsonResponse
+    public function get(int $organizationId, int $pageNumber, int $type): JsonResponse
     {
-        $inviteCodes = $this->_repository->get($organizationId,$pageNumber,$type);
+        $inviteCodes = $this->_repository->get($organizationId, $pageNumber, $type);
         return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно получены коды регистраций',
             'invite_codes' => $inviteCodes

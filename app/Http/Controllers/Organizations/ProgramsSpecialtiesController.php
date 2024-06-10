@@ -31,8 +31,9 @@ class ProgramsSpecialtiesController extends Controller
 
     public function __construct(
         ProgramsSpecialtiesService $programsSpecialtiesService,
-        SpecialtiesService $specialtiesService
-    ) {
+        SpecialtiesService         $specialtiesService
+    )
+    {
         $this->programsSpecialtiesService = $programsSpecialtiesService;
         $this->specialtiesService = $specialtiesService;
     }
@@ -49,7 +50,6 @@ class ProgramsSpecialtiesController extends Controller
         $programId = $request->program_id;
         return $this->programsSpecialtiesService->get($programId);
     }
-
 
 
     public function create(Request $request): JsonResponse

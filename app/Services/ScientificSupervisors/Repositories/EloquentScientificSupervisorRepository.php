@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentScientificSupervisorRepository implements ScientificSupervisorRepositoryInterface
 {
 
-    public function create(array $data):Model
+    public function create(array $data): Model
     {
-       return ScientificSupervisor::query()->create($data);
+        return ScientificSupervisor::query()->create($data);
     }
 
     public function get(int $organizationId): Collection
     {
-        return ScientificSupervisor::query()->where('organization_id','=',$organizationId)->get();
+        return ScientificSupervisor::query()->where('organization_id', '=', $organizationId)->get();
     }
 }

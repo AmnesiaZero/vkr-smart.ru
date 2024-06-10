@@ -7,13 +7,18 @@
             <div class="row">
                 <div class="col-sm-6">
                     <blockquote>
-                        <p>Добро пожаловать в систему персональной регистрации пользователей комплекса систем хранения и проверок на
+                        <p>Добро пожаловать в систему персональной регистрации пользователей комплекса систем хранения и
+                            проверок на
                             замствования ВКР-ВУЗ. </p>
-                        <p>Специально для наших пользователей мы разработали модуль персональной регистрации, после прохождения
+                        <p>Специально для наших пользователей мы разработали модуль персональной регистрации, после
+                            прохождения
                             которой становятся доступными дополнительные возможности при работе в системе.</p>
-                        <p>На данную страницу участники попадают автоматически при указании временного кода приглашения.</p>
-                        <p>Для прохождения регистрации заполните все необходимые поля формы. Если вы уже регистрировались в системе
-                            ранее или авторизованы автоматически в Вашем вузе, нажмите кнопку "Авторизация", вы будете перемещены на
+                        <p>На данную страницу участники попадают автоматически при указании временного кода
+                            приглашения.</p>
+                        <p>Для прохождения регистрации заполните все необходимые поля формы. Если вы уже
+                            регистрировались в системе
+                            ранее или авторизованы автоматически в Вашем вузе, нажмите кнопку "Авторизация", вы будете
+                            перемещены на
                             форму входа.</p>
                         <a href="/login" class="btn btn-success btn-block">Авторизация</a>
                     </blockquote>
@@ -53,7 +58,7 @@
                                 <span>Год выпуска</span>
                             </label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="years_list" >
+                                <select class="form-control" id="years_list">
                                 </select>
                             </div>
                         </div>
@@ -76,11 +81,12 @@
                             <div class="col-sm-8">
                                 @if($code->type==1)
                                     <select class="form-control" id="departments_list">
-                                    <option value="" selected>Выбрать</option>
+                                        <option value="" selected>Выбрать</option>
                                     </select>
                                 @else
                                     <select name="departments_ids[]" id="departments_menu_list"
-                                            class="selectpicker form-control bs-select-hidden" data-title="Выбрать несколько..." data-width="100%"
+                                            class="selectpicker form-control bs-select-hidden"
+                                            data-title="Выбрать несколько..." data-width="100%"
                                             multiple>
                                         <option value="" selected>Выбрать</option>
 
@@ -106,7 +112,8 @@
                                     <span>Укажите вашу группу</span>
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="group" placeholder="Уточните группу, в которой вы обучаетесь..." required="">
+                                    <input type="text" class="form-control" name="group"
+                                           placeholder="Уточните группу, в которой вы обучаетесь..." required="">
                                 </div>
                             </div>
 
@@ -124,7 +131,7 @@
                                 <span>Номер телефона</span>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="phone"placeholder="+7 999 999 99 99">
+                                <input type="text" class="form-control" name="phone" placeholder="+7 999 999 99 99">
                             </div>
                         </div>
                         <div class="form-group pt-2">
@@ -151,7 +158,8 @@
                                 <span>Укажите ваш email-адрес:</span>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="email" placeholder="Необходимо для формирования логина..."
+                                <input type="text" class="form-control" name="email"
+                                       placeholder="Необходимо для формирования логина..."
                                        required="">
                             </div>
                         </div>
@@ -160,7 +168,8 @@
                                 <span>Придумайте пароль:</span>
                             </label>
                             <div class="col-sm-8">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="Не менее 8 символов..."
+                                <input type="password" id="password" class="form-control" name="password"
+                                       placeholder="Не менее 8 символов..."
                                        required="" aria-autocomplete="list">
                             </div>
                         </div>
@@ -169,7 +178,8 @@
                                 <span>Повторите ввод пароля:</span>
                             </label>
                             <div class="col-sm-8">
-                                <input type="password" id="repassword" class="form-control" name="repassword" placeholder="Подтвердите пароль"
+                                <input type="password" id="repassword" class="form-control" name="repassword"
+                                       placeholder="Подтвердите пароль"
                                        required="">
                             </div>
                         </div>
@@ -178,7 +188,9 @@
                                 <span>Действия:</span>
                             </label>
                             <div class="col-sm-8 mb-2">
-                                <button class="btn btn-success" id="registration-button" type="submit">Зарегистрироваться</button>
+                                <button class="btn btn-success" id="registration-button" type="submit">
+                                    Зарегистрироваться
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -197,19 +209,23 @@
                     <option value="${id}" onclick="faculties(${id})">${year}</option>
 
 
+
                 </script>
 
                 <script id="faculty_tmpl" type="text/x-jquery-tmpl">
                     <option value="${id}">${name}</option>
 
 
+
                 </script>
-            <script id="program_specialty_tmpl" type="text/x-jquery-tmpl">
+                <script id="program_specialty_tmpl" type="text/x-jquery-tmpl">
                 <option value="${id}">${code}|${name}</option>
-            </script>
+
+                </script>
 
                 <script id="department_list_tmpl" type="text/x-jquery-tmpl">
                     <option value="${id}">${name}</option>
+
                 </script>
 
                 <script id="success_registration_tmpl" type="text/x-jquery-tmpl">
@@ -222,7 +238,8 @@
                    <p>Данные также были отправлены на адрес Вашей электронной почты.</p>
                    <p><a href="/login" class="btn btn-lg btn-success">Авторизоваться по логину и паролю</a></p>
                    </div>
+
                 </script>
 
-                <script src="/js/site/code-register.js"> </script>
+                <script src="/js/site/code-register.js"></script>
 @endsection

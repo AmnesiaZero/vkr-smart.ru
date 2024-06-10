@@ -29,32 +29,32 @@ class VerifyToken
             $decoded = JWT::decode($token, new Key(config('jwt.key'), config('jwt.alg')));
         } catch (InvalidArgumentException $e) {
             // provided key/key-array is empty or malformed.
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Ключ невалиден'
             ]);
         } catch (DomainException $e) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Алгоритм кодирования невалиден'
             ]);
         } catch (SignatureInvalidException $e) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка в верификации сигнатуры'
             ]);
         } catch (BeforeValidException $e) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Неккоректное время формирования токена'
             ]);
         } catch (ExpiredException $e) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Время жизни токена истекло,обновите его'
             ]);
         } catch (UnexpectedValueException $e) {
-            return JsonHelper::sendJsonResponse(false,[
+            return JsonHelper::sendJsonResponse(false, [
                 'title' => 'Ошибка',
                 'message' => 'Токен закодирован неправильным ключом'
             ]);

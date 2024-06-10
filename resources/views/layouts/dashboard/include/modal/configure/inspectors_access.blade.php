@@ -4,11 +4,13 @@
             <div class="modal-header">
                 <h3>Настройка доступа для проверяющих</h3>
             </div>
-            <form class="form form-inline" id="checkingAccessForm" onsubmit="configureInspectorsAccess(); return false;">
+            <form class="form form-inline" id="checkingAccessForm"
+                  onsubmit="configureInspectorsAccess(); return false;">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h5>Выберите те направления подготовки, доступ к которым будет иметь проверяющий организации</h5>
+                            <h5>Выберите те направления подготовки, доступ к которым будет иметь проверяющий
+                                организации</h5>
                             <div id="checking-access-alert"></div>
                             <div id="checkingAccessFormListYears">
                                 <nav class="navbar navbar-default">
@@ -33,8 +35,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" onclick="closeModal('inspectors_access_modal');" class="btn btn-success">Сохранить изменения</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal('inspectors_access_modal')">Закрыть окно</button>
+                        <button type="submit" onclick="closeModal('inspectors_access_modal');" class="btn btn-success">
+                            Сохранить изменения
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                onclick="closeModal('inspectors_access_modal')">Закрыть окно
+                        </button>
                     </div>
                 </div>
             </form>

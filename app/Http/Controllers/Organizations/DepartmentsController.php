@@ -97,7 +97,7 @@ class DepartmentsController extends Controller
         return $this->departmentsService->getByUserId($userId);
     }
 
-    public function find(Request $request):JsonResponse
+    public function find(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'id' => ['required', 'integer', Rule::exists('departments', 'id')]
@@ -121,9 +121,6 @@ class DepartmentsController extends Controller
         $id = $request->department_id;
         return $this->departmentsService->getProgramSpecialties($id);
     }
-
-
-
 
 
 }

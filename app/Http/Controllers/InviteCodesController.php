@@ -3,24 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ValidatorHelper;
-use App\Http\Controllers\Controller;
 use App\Models\InviteCodesExport;
 use App\Services\InviteCodes\InviteCodesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class InviteCodesController extends Controller
 {
-    private InviteCodesService $inviteCodesService;
-
     protected array $fillable = [
         'type',
         'amount'
     ];
+    private InviteCodesService $inviteCodesService;
 
     public function __construct(InviteCodesService $inviteCodesService)
     {
@@ -40,7 +37,7 @@ class InviteCodesController extends Controller
         return $this->inviteCodesService->create($data);
     }
 
-    public function get(Request $request):JsonResponse
+    public function get(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'page' => 'required|integer',
@@ -53,7 +50,7 @@ class InviteCodesController extends Controller
         $organizationId = $user->organization_id;
         $pageNumber = $request->page;
         $type = $request->type;
-        return $this->inviteCodesService->get($organizationId,$pageNumber,$type);
+        return $this->inviteCodesService->get($organizationId, $pageNumber, $type);
     }
 
 
@@ -69,6 +66,6 @@ class InviteCodesController extends Controller
         $you = Auth::user();
         $organizationId = $you->organization_id;
         $type = $request->type;
-        return Excel::download(new InviteCodesExport($organizationId,$type), 'invite_codes.xlsx');
+        return Excel::download(new InviteCodesExport($organizationId, $type), 'invite_codes.xlsx');
     }
 }

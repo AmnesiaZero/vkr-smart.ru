@@ -47,5 +47,5 @@ interface SpecialtyRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function exist(int $id):bool;
+    public function exist(int $id): bool;
 }

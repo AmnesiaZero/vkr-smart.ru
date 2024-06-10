@@ -14,17 +14,10 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
         return OrganizationYear::query()->create($data);
     }
 
-
-    public function get(int $organizationId): Collection
-    {
-        return OrganizationYear::with('departments')->where('organization_id', '=', $organizationId)->get();
-    }
-
     public function update(int $id, array $data): int
     {
         return OrganizationYear::query()->where('id', '=', $id)->update($data);
     }
-
 
     public function getByYearNumber(int $year, int $userId): Model
     {
@@ -46,16 +39,20 @@ class EloquentOrganizationYearRepository implements OrganizationYearRepositoryIn
         return OrganizationYear::query()->where('id', '=', $id)->first()->duplicate();
     }
 
-    public function findWithInfo(int $id):Model
+    public function findWithInfo(int $id): Model
     {
         return OrganizationYear::with('faculties.departments.programs.programSpecialties')->find($id);
     }
 
-
     public function all(int $organizationId): Collection
     {
-        return OrganizationYear::query()->where('organization_id','=',$organizationId)
+        return OrganizationYear::query()->where('organization_id', '=', $organizationId)
             ->with('departments.programs.programSpecialties')->get();
 
+    }
+
+    public function get(int $organizationId): Collection
+    {
+        return OrganizationYear::with('departments')->where('organization_id', '=', $organizationId)->get();
     }
 }

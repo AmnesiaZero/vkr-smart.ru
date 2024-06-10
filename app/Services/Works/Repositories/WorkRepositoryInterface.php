@@ -11,5 +11,5 @@ interface WorkRepositoryInterface
      * @param int $organizationId
      * @return Collection
      */
-    public function get(int $organizationId):Collection;
+    public function get(int $organizationId): Collection;
 }

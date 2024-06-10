@@ -3,19 +3,17 @@ $(document).ready(function () {
 });
 
 
-function works()
-{
+function works() {
     $.ajax({
         url: "/dashboard/works/get",
         type: "GET",
         dataType: "json",
-        data:data,
+        data: data,
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const inviteCodes = response.data.data;
-                printInviteCodes(inviteCodes,true);
-            }
-            else {
+                printInviteCodes(inviteCodes, true);
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },

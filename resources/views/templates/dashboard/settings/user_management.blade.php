@@ -9,7 +9,8 @@
                         @if(is_iterable($years))
                             @foreach($years as $year)
                                 <li class="fancytree-lastsib">
-		    							<span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+		    							<span
+                                            class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
 		    								<span class="fancytree-title" id="year_{{$year->id}}">{{$year->year}}</span>
 		    							</span>
                                     <ul>
@@ -19,7 +20,8 @@
 		    											<span
                                                             class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c"><span
                                                                 class="fancytree-expander"></span>
-		    											<span class="fancytree-title" id="department_{{$department->id}}">{{$department->name}}</span>
+		    											<span class="fancytree-title"
+                                                              id="department_{{$department->id}}">{{$department->name}}</span>
 		    										</span>
                                                 </li>
                                             @endforeach
@@ -33,32 +35,34 @@
             </div>
             <div class="col">
                 <form class="pt-4 col-xxl-4 col-xl-5 col-md-8" onsubmit="searchUsers();return false;" id="search_users">
-                <p class="fs-14 m-0 text-grey">Статус</p>
-                <div class="form-check">
-                    <input class="form-check-input green" type="radio" name="is_active" id="status1" value="1" checked>
-                    <label class="form-check-label" for="status1">
-                        активен
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input green" type="radio" name="is_active" id="status2" value="0">
-                    <label class="form-check-label" for="status2">
-                        заблокирован
-                    </label>
-                </div>
-                <p class="fs-14 m-0 text-grey pt-4">Тип пользователя</p>
-                <div class="form-check">
-                    <input class="form-check-input green" type="radio" name="role" id="user_type1" value="user" checked>
-                    <label class="form-check-label" for="user_type1">
-                        студентам
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input green" type="radio" name="role" id="user_type2" value="teacher">
-                    <label class="form-check-label" for="user_type2">
-                        преподавателям
-                    </label>
-                </div>
+                    <p class="fs-14 m-0 text-grey">Статус</p>
+                    <div class="form-check">
+                        <input class="form-check-input green" type="radio" name="is_active" id="status1" value="1"
+                               checked>
+                        <label class="form-check-label" for="status1">
+                            активен
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input green" type="radio" name="is_active" id="status2" value="0">
+                        <label class="form-check-label" for="status2">
+                            заблокирован
+                        </label>
+                    </div>
+                    <p class="fs-14 m-0 text-grey pt-4">Тип пользователя</p>
+                    <div class="form-check">
+                        <input class="form-check-input green" type="radio" name="role" id="user_type1" value="user"
+                               checked>
+                        <label class="form-check-label" for="user_type1">
+                            студентам
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input green" type="radio" name="role" id="user_type2" value="teacher">
+                        <label class="form-check-label" for="user_type2">
+                            преподавателям
+                        </label>
+                    </div>
                     <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
                         <input type="text" name="name" class="form-control search br-none fs-14 form-small-p"
                                placeholder="Поиск по имени">
@@ -67,7 +71,7 @@
                         </button>
                     </div>
                     <div class="input-group input-group-lg br-100 br-green-light-2 focus-form mt-3">
-                        <input type="text" name="email"  class="form-control search br-none fs-14 form-small-p"
+                        <input type="text" name="email" class="form-control search br-none fs-14 form-small-p"
                                placeholder="Поиск по email">
                         <button class="btn pe-3 py-0" type="submit" id="search">
                             <img src="/images/Search.svg" alt="search">
@@ -80,7 +84,9 @@
                             <img src="/images/Search.svg" alt="search">
                         </button>
                     </div>
-                    <button type="submit" class="btn btn-secondary w-100 text-grey fs-14 br-100 br-none mt-4 mb-5">Применить</button>
+                    <button type="submit" class="btn btn-secondary w-100 text-grey fs-14 br-100 br-none mt-4 mb-5">
+                        Применить
+                    </button>
                 </form>
                 <div class="out-kod mt-5"></div>
             </div>
@@ -88,7 +94,6 @@
         <div class="pt-5 px-md-0 px-3">
             <p class="text-grey fs-14">Пользователей: <span class="text-black" id="users_total"></span></p>
             <div class="row g-3" id="users_list">
-
 
 
             </div>
@@ -104,15 +109,15 @@
 
         </div>
     </div>
-        @endsection
+@endsection
 
-        @section('scripts')
+@section('scripts')
 
-            <script src="/js/dashboard/settings/user_management.js">
+    <script src="/js/dashboard/settings/user_management.js">
 
-            </script>
-            <script src="/js/user.js"></script>
-        <script id="user_tmpl" type="text/x-jquery-tmpl">
+    </script>
+    <script src="/js/user.js"></script>
+    <script id="user_tmpl" type="text/x-jquery-tmpl">
             <div class="col-xl-3 col-lg-4 col-sm-6 col-12" id="user_${id}">
                 <div class="br-green-light-1 p-3 br-15">
                         <div class="d-flex justify-content-between pb-4">
@@ -152,7 +157,8 @@
                     </div>
                 </div>
             </div>
-        </script>
+
+    </script>
     <script type="text/x-jquery-tmpl" id="off_canvas_user">
         <div class="px-4">
         <form onsubmit="updateUser(${id});return false" id="update_user_form">
@@ -192,14 +198,7 @@
             <button type="submit" class="btn btn-secondary w-100 text-grey fs-14 br-100 br-none mt-4 mb-5">Применить</button>
             </form>
         </div>
+
     </script>
-
-
-
-
-
-
-
-
 
 @endsection

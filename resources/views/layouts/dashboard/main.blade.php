@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="ru">
 <>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ВКР Смарт</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ВКР Смарт</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 {{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">--}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"
-          type="text/css"/>
-    <link rel="stylesheet" href="{{'/css/bootstrap-select.css'}}">
-    <link rel="stylesheet" type="text/css" href="{{'/css/dashboard.css'}}">
-    <link rel="stylesheet" type="text/css" href="{{'/css/fancy_style.css'}}">
-    <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    @yield('styles')
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"
+      type="text/css"/>
+<link rel="stylesheet" href="{{'/css/bootstrap-select.css'}}">
+<link rel="stylesheet" type="text/css" href="{{'/css/dashboard.css'}}">
+<link rel="stylesheet" type="text/css" href="{{'/css/fancy_style.css'}}">
+<meta name="csrf-token" content="{{ csrf_token() }}"/>
+@yield('styles')
 </head>
 <body>
 <header style="margin-bottom: 88px;">
@@ -43,15 +43,22 @@
                 <li><a class="nav-link text-black-black" href="https://api.vkr-vuz.ru" target="_blank">API</a></li>
 
                 <li class="user-menu col-sm-5 text-right">
-                    <a href="admin-office/" class="btn btn-default btn-testaccess"><span class="glyphicon glyphicon-user"></span> Личный кабинет</a>
+                    <a href="admin-office/" class="btn btn-default btn-testaccess"><span
+                            class="glyphicon glyphicon-user"></span> Личный кабинет</a>
 
-                    <a href="#" class="btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                     </a>
 
                     <ul class="header dropdown-menu" aria-labelledby="dropdownMenu">
-                        <li><a href="/organization-settings"><span class=""></span> Настройки</a></li><li><a href="/organization-works"><span class=""></span> Работы</a></li><li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li><li><a href="/organization-reports"><span class=""></span> Отчеты</a></li><li><a href="/organization-documents"><span class=""></span> Документация</a></li>
-                        <li><a href="#" onclick="logout(); return false;"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
+                        <li><a href="/organization-settings"><span class=""></span> Настройки</a></li>
+                        <li><a href="/organization-works"><span class=""></span> Работы</a></li>
+                        <li><a href="/org-users"><span class=""></span> Электронное портфолио</a></li>
+                        <li><a href="/organization-reports"><span class=""></span> Отчеты</a></li>
+                        <li><a href="/organization-documents"><span class=""></span> Документация</a></li>
+                        <li><a href="#" onclick="logout(); return false;"><span
+                                    class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
                         <li class="organization-info"></li>
                     </ul>
                 </li>
@@ -118,7 +125,7 @@
                              aria-labelledby="headingTwo" data-bs-parent="#accordionTwo" style="">
                             <div class="accordion-body p-0">
                                 <ul class="list-custom-1 m-0">
-                                    <li class="list-select"><a href="/dashboard/works/employee"
+                                    <li class="list-select"><a href="/dashboard/works/employees"
                                                                class="select-a @if(request()->is('*/works/employee')) nav-link-active @endif">Загруженные
                                             <br>сотрудниками</a></li>
                                     <li class="list-select"><a href="/dashboard/works/students"

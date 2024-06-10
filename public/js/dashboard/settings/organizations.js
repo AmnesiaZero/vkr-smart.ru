@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     console.log('Вошёл в document ready');
     years();
@@ -28,7 +27,7 @@ $(document).ready(function () {
 
 
     $('#dropdownMenu').click(function () {
-        if($('.dropdown-menu.header').css('display') === 'none') {
+        if ($('.dropdown-menu.header').css('display') === 'none') {
             $('.dropdown-menu.header').show();
         } else {
             $('.dropdown-menu.header').hide();

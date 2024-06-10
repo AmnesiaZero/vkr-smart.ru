@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoleAndPermission,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoleAndPermission, SoftDeletes;
 
     protected $table = 'users';
 
@@ -58,18 +58,15 @@ class User extends Authenticatable
     ];
 
 
-
     public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'departments_users')->with(['faculty','year']);
+        return $this->belongsToMany(Department::class, 'departments_users')->with(['faculty', 'year']);
     }
 
-    public function organization():HasOne
+    public function organization(): HasOne
     {
-        return $this->hasOne(Organization::class,'id','organization_id');
+        return $this->hasOne(Organization::class, 'id', 'organization_id');
     }
-
-
 
 
 }

@@ -5,30 +5,30 @@
             <div class="col-xxl-5 col-xl-6 col-lg-8 col-md-12 col-12 mb-3">
                 <div class="br-green-light-2 br-15 p-3">
                     <form id="create_invite_codes_form" onsubmit="createInviteCodes();return false;">
-                    <div class="row">
-                        <div class="col">
-                            <p class="mb-2 fw-600">Код приглашения</p>
-                            <div class="form-check">
-                                <input class="form-check-input green" type="radio" name="type"
-                                       id="flexRadioDefault1" value="1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    студентам
-                                </label>
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-2 fw-600">Код приглашения</p>
+                                <div class="form-check">
+                                    <input class="form-check-input green" type="radio" name="type"
+                                           id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        студентам
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input green" type="radio" name="type"
+                                           id="flexRadioDefault2" value="2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        преподавателям
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input green" type="radio" name="type"
-                                       id="flexRadioDefault2" value="2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    преподавателям
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mb-3 col-lg-3">
-                                <label for="amount" class="form-label fs-16 fw-600">Количество</label>
-                                <span
-                                    class="d-flex inline-flex br-green-light-2 br-100 px-3 text-pale-grey fs-14 align-items-center"
-                                    style="width: 124px">
+                            <div class="col">
+                                <div class="mb-3 col-lg-3">
+                                    <label for="amount" class="form-label fs-16 fw-600">Количество</label>
+                                    <span
+                                        class="d-flex inline-flex br-green-light-2 br-100 px-3 text-pale-grey fs-14 align-items-center"
+                                        style="width: 124px">
 					                            <span class="d-flex inline-flex align-items-center">
 					                                <button type="button" onclick="dec('amount')"
                                                             class="btn btn-minus btn-minus-white"></button>
@@ -39,11 +39,12 @@
                                                             class="btn btn-plus btn-plus-white"></button>
 					                            </span>
 					                        </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button class="btn btn-secondary br-none text-grey br-100 w-100 mt-4 fs-14 p-btn" type="submit">сгенерировать
-                    </button>
+                        <button class="btn btn-secondary br-none text-grey br-100 w-100 mt-4 fs-14 p-btn" type="submit">
+                            сгенерировать
+                        </button>
                     </form>
                 </div>
             </div>
@@ -53,7 +54,9 @@
                 <div class="br-green-light-2 br-15 p-3">
                     <div class="d-flex inline-flex justify-content-between mb-3" id="students_list_head">
                         <p class="m-0 fw-600">Для студентов</p>
-                        <a href="/dashboard/invite-codes/load?type=1" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
+                        <a href="/dashboard/invite-codes/load?type=1"
+                           class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img
+                                src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
                     </div>
                     <div id="students_codes_list">
 
@@ -81,7 +84,9 @@
                 <div class="br-green-light-2 br-15 p-3">
                     <div class="d-flex inline-flex justify-content-between mb-3" id="teachers_list_head">
                         <p class="m-0 fw-600">Для преподавателей</p>
-                        <a href="/dashboard/invite-codes/load?type=2" class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
+                        <a href="/dashboard/invite-codes/load?type=2"
+                           class="badge bg-green br-100 text-grey fs-14 cursor-p ps-3">выгрузить <img
+                                src="/images/File_Download.svg" alt="" class="ps-1 pe-2"></a>
 
                     </div>
                     <div id="teachers_codes_list">
@@ -112,6 +117,7 @@
                         <p class="text-grey fs-12 mb-2">Время истечения срока действия ${expires_at}</p>
                     </div>
 
+
     </script>
 
     <script id="empty_tmpl" type="text/x-jquery-tmpl">
@@ -119,6 +125,7 @@
                         <p>Пока здесь пусто</p>
                         <p class="m-0">Сгенерируйте код доступа</p>
                     </div>
+
     </script>
 
 
@@ -137,6 +144,7 @@
                                     <span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>
                                 </a>
                             </li>
+
 
     </script>
 @endsection

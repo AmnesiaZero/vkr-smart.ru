@@ -2,24 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\JsonHelper;
 use App\Helpers\ValidatorHelper;
-use App\Mail\ResetPassword;
-use App\Models\User;
-use App\Services\Departments\DepartmentsService;
 use App\Services\Users\UsersService;
-use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use jeremykenedy\LaravelRoles\Models\Role;
 
 class UsersController extends Controller
 {
@@ -60,7 +51,7 @@ class UsersController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            if($user->is_active==0){
+            if ($user->is_active == 0) {
                 return back()->withErrors(['Вы заблокированы']);
             }
             $request->session()->regenerate();
@@ -85,10 +76,10 @@ class UsersController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $fullCode = $request->code;
-        $codeArray = explode('-',$fullCode);
+        $codeArray = explode('-', $fullCode);
         $codeId = $codeArray[0];
         $code = $codeArray[1];
-        return $this->usersService->loginByCode($request,$codeId,$code);
+        return $this->usersService->loginByCode($request, $codeId, $code);
     }
 
     public function resetPassword(Request $request): JsonResponse
@@ -107,7 +98,7 @@ class UsersController extends Controller
     {
         $code = session('invite_code');
 
-        Log::debug('code session = '.$code);
+        Log::debug('code session = ' . $code);
 
         return $this->usersService->registerByCodeView($code);
     }
@@ -125,7 +116,7 @@ class UsersController extends Controller
         }
         $code = session('invite_code');
         $data = $request->only($this->fillable);
-        return $this->usersService->register($code,$data);
+        return $this->usersService->register($code, $data);
 
     }
 
@@ -142,13 +133,13 @@ class UsersController extends Controller
         ]);
         $password = $credentials['password'];
         $token = $request->token;
-        return $this->usersService->newPassword($password,$token);
+        return $this->usersService->newPassword($password, $token);
     }
 
     public function get(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'roles.*' => ['required',Rule::exists('roles','slug')]
+            'roles.*' => ['required', Rule::exists('roles', 'slug')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -171,7 +162,7 @@ class UsersController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $data = $request->only($this->fillable);
-        Log::debug('request data ='.print_r($data,true));
+        Log::debug('request data =' . print_r($data, true));
 
         $you = Auth::user();
         $organizationId = $you->organization_id;
@@ -182,7 +173,7 @@ class UsersController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required','integer',Rule::exists('users','id')]
+            'id' => ['required', 'integer', Rule::exists('users', 'id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -194,7 +185,7 @@ class UsersController extends Controller
     public function find(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required','integer',Rule::exists('users','id')]
+            'id' => ['required', 'integer', Rule::exists('users', 'id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -203,51 +194,51 @@ class UsersController extends Controller
         return $this->usersService->find($id);
     }
 
-    public function update(Request $request):JsonResponse
+    public function update(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required','integer',Rule::exists('users','id')],
+            'id' => ['required', 'integer', Rule::exists('users', 'id')],
             'name' => 'string|max:255',
             'login' => 'string|max:255',
             'email' => 'string|email|max:255',
             'password' => 'max:255',
             'gender' => 'integer',
             'is_active' => 'integer',
-            'role' => [Rule::exists('roles','slug')]
+            'role' => [Rule::exists('roles', 'slug')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
         $data = $request->only($this->fillable);
-        return $this->usersService->update($id,$data);
+        return $this->usersService->update($id, $data);
     }
 
-    public function addDepartment(Request $request):JsonResponse
+    public function addDepartment(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => ['required','integer',Rule::exists('users','id')],
-            'departments_ids' => ['required','array'],
+            'user_id' => ['required', 'integer', Rule::exists('users', 'id')],
+            'departments_ids' => ['required', 'array'],
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $userId = $request->user_id;
         $departmentsIds = $request->departments_ids;
-        return $this->usersService->addDepartment($userId,$departmentsIds);
+        return $this->usersService->addDepartment($userId, $departmentsIds);
     }
 
     public function search(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
-            'where_in.*' => ['integer',Rule::exists('users','id')],
+            'where_in.*' => ['integer', Rule::exists('users', 'id')],
             'email' => ['max:250'],
             'group' => 'max:250',
-            'role' => [Rule::exists('roles','slug')],
+            'role' => [Rule::exists('roles', 'slug')],
             'is_active' => 'integer:in:0,1',
-            'selected_departments.*' => ['integer',Rule::exists('departments','id')],
-            'selected_years.*' => ['integer',Rule::exists('organizations_years','id')]
+            'selected_departments.*' => ['integer', Rule::exists('departments', 'id')],
+            'selected_years.*' => ['integer', Rule::exists('organizations_years', 'id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -255,7 +246,7 @@ class UsersController extends Controller
         $you = Auth::user();
 
         $data = $request->only($this->fillable);
-        Log::debug('request data = '.print_r($data,true));
+        Log::debug('request data = ' . print_r($data, true));
         $data['organization_id'] = $you->organization_id;
 
         return $this->usersService->search($data);
@@ -265,15 +256,15 @@ class UsersController extends Controller
     public function configureDepartments(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => ['required','integer',Rule::exists('users','id')],
-            'departments_ids' => ['required','array'],
+            'user_id' => ['required', 'integer', Rule::exists('users', 'id')],
+            'departments_ids' => ['required', 'array'],
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $userId = $request->user_id;
         $departmentsIds = $request->departments_ids;
-        return $this->usersService->configureDepartments($userId,$departmentsIds);
+        return $this->usersService->configureDepartments($userId, $departmentsIds);
     }
 
 
@@ -287,9 +278,9 @@ class UsersController extends Controller
     public function generateApiKey(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required','integer',Rule::exists('users','id')],
+            'id' => ['required', 'integer', Rule::exists('users', 'id')],
             'api_key' => 'required',
-            'secret_key' => ['required',Rule::exists('users','secret_key')]
+            'secret_key' => ['required', Rule::exists('users', 'secret_key')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
@@ -297,17 +288,15 @@ class UsersController extends Controller
         $id = $request->id;
         $apiKey = $request->api_key;
         $secretKey = $request->secret_key;
-        return $this->usersService->generateApiKey($id,$apiKey,$secretKey);
+        return $this->usersService->generateApiKey($id, $apiKey, $secretKey);
     }
 
     public function apiView()
     {
         $you = Auth::user();
         $apiKey = config('jwt.api_key');
-        return view('templates.dashboard.settings.api',['you' => $you,'api_key' => $apiKey]);
+        return view('templates.dashboard.settings.api', ['you' => $you, 'api_key' => $apiKey]);
     }
-
-
 
 
 }

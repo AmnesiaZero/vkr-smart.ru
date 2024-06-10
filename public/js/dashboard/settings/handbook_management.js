@@ -27,8 +27,7 @@ function checkForEnter_1(e) {
 }
 
 
-function addScientificAdvisor()
-{
+function addScientificAdvisor() {
     const data = $("#add_scientific_advisor_form").serialize();
     $.ajax({
         url: "/dashboard/scientific-supervisors/create",
@@ -39,11 +38,10 @@ function addScientificAdvisor()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const scientificSupervisor = response.data.scientific_supervisor;
                 $("#scientific_supervisors_list").append($("#scientific_supervisor_tmpl").tmpl(scientificSupervisor));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },
@@ -53,8 +51,7 @@ function addScientificAdvisor()
     });
 }
 
-function addWorksType()
-{
+function addWorksType() {
     const data = $("#add_works_type_form").serialize();
     $.ajax({
         url: "/dashboard/work-types/create",
@@ -65,11 +62,10 @@ function addWorksType()
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const worksType = response.data.works_type;
                 $("#works_types_list").append($("#works_type_tmpl").tmpl(worksType));
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },

@@ -11,11 +11,11 @@ interface WorksTypeRepositoryInterface
      * @param array $data
      * @return Model
      */
-   public function create(array $data):Model;
+    public function create(array $data): Model;
 
     /**
      * @param int $organizationId
      * @return Collection
      */
-   public function get(int $organizationId):Collection;
+    public function get(int $organizationId): Collection;
 }

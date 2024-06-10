@@ -1,35 +1,30 @@
-
-
 function updateUser(id) {
     let data = $("#update_user_form").serialize();
     let additionalData = {
         id: id,
     };
     data += '&' + $.param(additionalData);
-    updateUserCore(id,data);
+    updateUserCore(id, data);
 }
 
-function blockUser(id)
-{
+function blockUser(id) {
     const data = {
-        id:id,
-        is_active:0
+        id: id,
+        is_active: 0
     }
-    updateUserCore(id,data);
+    updateUserCore(id, data);
 }
 
-function unblockUser(id)
-{
+function unblockUser(id) {
     const data = {
-        id:id,
-        is_active:1
+        id: id,
+        is_active: 1
     }
-    updateUserCore(id,data);
+    updateUserCore(id, data);
 }
 
 
-function updateUserCore(id,data)
-{
+function updateUserCore(id, data) {
     $.ajax({
         url: "/dashboard/users/update",
         data: data,
@@ -39,13 +34,12 @@ function updateUserCore(id,data)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 const user = response.data.user;
                 const userHtml = $("#user_" + id);
                 const updatedContent = $("#user_tmpl").tmpl(user);
                 userHtml.replaceWith(updatedContent);
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 
@@ -56,10 +50,9 @@ function updateUserCore(id,data)
     });
 }
 
-function resetUserPassword(email)
-{
+function resetUserPassword(email) {
     const data = {
-        email:email,
+        email: email,
     }
     $.ajax({
         url: "/mail/reset-password",
@@ -70,10 +63,9 @@ function resetUserPassword(email)
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            if(response.success){
+            if (response.success) {
                 $.notify(response.data.title + ":" + response.data.message, "success");
-            }
-            else {
+            } else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
 

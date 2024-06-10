@@ -2,7 +2,6 @@
 
 namespace App\Services\Departments\Repositories;
 
-use App\Models\Department;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -49,13 +48,13 @@ interface DepartmentRepositoryInterface
      * @param int $id
      * @return Model
      */
-    public function find(int $id):Model;
+    public function find(int $id): Model;
 
     /**
      * @param int $id
      * @return bool
      */
-    public function exist(int $id):bool;
+    public function exist(int $id): bool;
 
     /**
      * @param int $id

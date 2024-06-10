@@ -30,7 +30,7 @@ interface UserRepositoryInterface
      * @param array $roles
      * @return Collection
      */
-    public function get(int $organizationId,array $roles): Collection;
+    public function get(int $organizationId, array $roles): Collection;
 
     /**
      * @param int $id
@@ -48,21 +48,21 @@ interface UserRepositoryInterface
      * @param int $id
      * @return bool
      */
-    public function delete(int $id):bool;
+    public function delete(int $id): bool;
 
     /**
      * @param int $id
      * @param array $data
      * @return int
      */
-    public function update(int $id, array $data):int;
+    public function update(int $id, array $data): int;
 
     /**
      * Поиск по пользователям
      * @param array $data
      * @return Collection
      */
-    public function search(array $data):Collection;
+    public function search(array $data): Collection;
 
 
     /**
@@ -70,7 +70,7 @@ interface UserRepositoryInterface
      * @param array $data
      * @return Collection
      */
-    public function filterUsers(Collection $users,array $data):Collection;
+    public function filterUsers(Collection $users, array $data): Collection;
 
 
 }

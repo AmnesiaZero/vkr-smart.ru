@@ -10,6 +10,6 @@ class EloquentWorkRepository implements WorkRepositoryInterface
 
     public function get(int $organizationId): Collection
     {
-        return Work::query()->where('organization_id','=',$organizationId)->get();
+        return Work::query()->where('organization_id', '=', $organizationId)->get();
     }
 }
