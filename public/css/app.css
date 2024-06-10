@@ -206,18 +206,17 @@ p {
     box-shadow: 0px 11px 15px rgba(3, 30, 128, 0.05);
 }
 
-.modal-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    pointer-events: auto;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 2px solid #06a1ae;
-    border-radius: 1.3rem;
-    outline: 0;
-}
+/*.modal-content {*/
+/*    position: relative;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    pointer-events: auto;*/
+/*    background-color: #fff;*/
+/*    background-clip: padding-box;*/
+/*    border: 2px solid #06a1ae;*/
+/*    border-radius: 1.3rem;*/
+/*    outline: 0;*/
+/*}*/
 
 .modal-header {
     padding: 1rem 2rem;
