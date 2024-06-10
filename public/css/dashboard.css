@@ -1110,6 +1110,22 @@ input {
     display: none;
 }
 
+span.current {
+    color: #00A2B0;
+    background-color: #fff;
+    border-color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: .375rem .75rem;
+    display: block;
+}
+
+#students_codes_pagination ul,
+#teachers_codes_pagination ul{
+    list-style: none;
+    display: flex;
+}
+
 .header {
     cursor: pointer;
 }

@@ -173,9 +173,9 @@ function updateTeachersPagination(currentPage,totalItems,totalPages,itemsPerPage
         itemsOnPage: itemsPerPage,
         currentPage: currentPage, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
-         cssStyle: '',
-         prevText: 'Previous', // Текст для кнопки "предыдущая"
-         nextText: 'Next', // Текст для кнопки "следующая"
+        cssStyle: '',
+        prevText: '<span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>',
+        nextText: '<span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>',
         onPageClick: function(pageNumber, event) {
             teachersCodes(pageNumber);
         }
@@ -256,13 +256,15 @@ function studentsCodes(pageNumber= 1)
 
 
 function updateStudentsCodesPagination(page,totalItems,totalPages,itemsPerPage) {
-
+    console.log(totalItems, totalPages, itemsPerPage)
     $("#students_codes_pagination").pagination({
         items: totalItems,
+        prevText: '<span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>',
+        nextText: '<span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>',
         itemsOnPage: itemsPerPage,
         currentPage: page, // Установка текущей страницы в начало после добавления новых элементов
         displayedPages: totalPages,
-        onPageClick: function(pageNumber, event) {
+        onPageClick: function (pageNumber, event) {
             studentsCodes(pageNumber);
         }
     });
