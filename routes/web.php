@@ -1,16 +1,19 @@
 <?php
 
 
+use App\Http\Controllers\HandbookController;
 use App\Http\Controllers\InviteCodesController;
-use App\Http\Controllers\Organizations\FacultiesController;
 use App\Http\Controllers\Organizations\DepartmentsController;
+use App\Http\Controllers\Organizations\FacultiesController;
 use App\Http\Controllers\Organizations\OrganizationsController;
 use App\Http\Controllers\Organizations\OrganizationsYearsController;
 use App\Http\Controllers\Organizations\ProgramsController;
 use App\Http\Controllers\Organizations\ProgramsSpecialtiesController;
 use App\Http\Controllers\Organizations\SpecialtiesController;
+use App\Http\Controllers\ScientificSupervisorsController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\WorksController;
+use App\Http\Controllers\Works\WorksController;
+use App\Http\Controllers\Works\WorksTypesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -149,9 +152,7 @@ Route::group([
             return view('templates.dashboard.settings.invite_codes');
         });
         Route::get('user-management', [UsersController::class,'userManagement']);
-        Route::get('handbook-management', function () {
-            return view('templates.dashboard.settings.handbook_management');
-        });
+        Route::get('handbook-management',[HandbookController::class,'view']);
         Route::get('integration', [OrganizationsController::class,'integrationView']);
         Route::get('api',[UsersController::class,'apiView']);
     });
@@ -275,6 +276,20 @@ Route::group([
        Route::post('create',[InviteCodesController::class,'create']);
        Route::get('get',[InviteCodesController::class,'get']);
        Route::get('load',[InviteCodesController::class,'loadExcel']);
+    });
+
+    Route::group([
+        'prefix' => 'scientific-supervisors'
+    ],function (){
+       Route::get('get',[ScientificSupervisorsController::class,'get']);
+       Route::post('create',[ScientificSupervisorsController::class,'create']);
+    });
+
+    Route::group([
+        'prefix' => 'work-types'
+    ],function (){
+       Route::get('get',[WorksTypesController::class,'get']);
+       Route::post('create',[WorksTypesController::class,'create']);
     });
 
 
