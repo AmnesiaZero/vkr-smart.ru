@@ -161,23 +161,14 @@
     </script>
     <script id="year_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}" onclick="faculties(${id})">${year}</option>
-
-
-
     </script>
 
     <script id="faculty_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
-
-
-
     </script>
 
     <script id="department_list_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
-
-
-
     </script>
 
 
@@ -317,7 +308,7 @@
             </div>
             <div class="mb-3">
                 <label for="email">Дата рождения </label>
-                <input type="text" name="date_of_birth" class="form-control bg-grey-form fs-14 text-grey fw-500"
+                <input type="date" name="date_of_birth" class="form-control bg-grey-form fs-14 text-grey fw-500"
                        value="${date_of_birth}">
             </div>
             <div class="mb-3">
@@ -348,10 +339,6 @@
         </div>
 
     </script>
-
-
-
-
 
     <script src="/js/dashboard/settings/access.js"></script>
 @endsection

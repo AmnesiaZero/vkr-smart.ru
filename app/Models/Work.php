@@ -20,10 +20,11 @@ class Work extends Model
         'user_id',
         'admin_id',
         'name',
+        'path',
         'student',
         'group',
         'document_name',
-        'scientific_adviser',
+        'scientific_supervisor',
         'work_type',
         'protect_date',
         'self_check',
@@ -48,7 +49,7 @@ class Work extends Model
 
     public function specialty(): HasOne
     {
-        return $this->hasOne(Specialty::class, 'id', 'specialty_id');
+        return $this->hasOne(ProgramSpecialty::class, 'id', 'specialty_id');
     }
 
     public function user(): HasOne

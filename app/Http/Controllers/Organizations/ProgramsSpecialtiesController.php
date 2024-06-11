@@ -42,13 +42,25 @@ class ProgramsSpecialtiesController extends Controller
     public function get(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'program_id' => 'required|integer'
+            'program_id' => ['required','integer',Rule::exists('programs','id')]
         ]);
         if ($validator->fails()) {
             return ValidatorHelper::validatorError($validator);
         }
         $programId = $request->program_id;
         return $this->programsSpecialtiesService->get($programId);
+    }
+
+    public function getByOrganization(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'organization_id' => ['required','integer',Rule::exists('organizations','id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $organizationId = $request->organization_id;
+        return $this->programsSpecialtiesService->getByOrganizationId($organizationId);
     }
 
 
@@ -97,9 +109,7 @@ class ProgramsSpecialtiesController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
-        Log::debug('Вошёл в create у faculties');
         $data = $request->only($this->fillable);
-        Log::debug('data = ' . print_r($data, true));
         return $this->programsSpecialtiesService->delete($id);
     }
 }

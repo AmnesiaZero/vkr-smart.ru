@@ -47,9 +47,6 @@ function faculties(data) {
         dataType: "json",
         data: data,
         type: "get",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
         success: function (response) {
             if (response.success) {
                 const faculties = response.data.faculties;
@@ -171,3 +168,67 @@ var addBadge = function (e) {
     var elemOutKod = document.querySelector('.out-kod');
     elemOutKod.innerHTML += '<div class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2">' + text + '</div>';
 }
+
+$("#addWorkForm").on('submit', function(e) {
+    e.preventDefault(); // Предотвращаем стандартное поведение формы
+
+    // Создаем объект FormData и добавляем в него данные формы
+    const formData = new FormData(this);
+
+    $.ajax({
+        url: '/dashboard/works/employees/create',
+        type: 'POST',
+        data: formData,
+        processData: false, // Не обрабатываем файлы (не превращаем в строку)
+        contentType: false, // Не устанавливаем заголовок Content-Type
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            const work = response.data.work;
+            $("#works_table").append($("#work_tmpl").tmpl(work));
+            closeModal('add_work_modal');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Обработка ошибок
+            console.error('Ошибка загрузки файла: ' + textStatus);
+        }
+    });
+});
+
+function getAssessmentDescription(assessment)
+{
+    switch (assessment) {
+        case 0:
+            return 'Без оценки';
+        case 2:
+            return 'Неудовлетворительно';
+        case 3:
+            return 'Удовлетворительно';
+        case 4:
+            return 'Хорошо';
+        case 5:
+            return 'Отлично';
+        default:
+            return 'Неизвестно';
+    }
+}
+
+function getSelfCheckDescription(selfCheck)
+{
+    switch (selfCheck) {
+        case 0:
+            return 'Не пройдена';
+        case 1:
+            return 'Пройдена';
+        default:
+            return 'Неизвестно';
+    }
+}
+
+function searchWorks()
+{
+
+}
+
+

@@ -100,4 +100,20 @@ class ProgramsSpecialtiesService extends Controller
         }
     }
 
+    public function getByOrganizationId(int $organizationId): JsonResponse
+    {
+        $programSpecialties = $this->_repository->getByOrganization($organizationId);
+        if(!isEmpty($programSpecialties))
+        {
+            return JsonHelper::sendJsonResponse(true,[
+               'title' => 'Успешно',
+               'program_specialties' => $programSpecialties
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Ошибка при получении специальностей'
+        ]);
+    }
+
 }

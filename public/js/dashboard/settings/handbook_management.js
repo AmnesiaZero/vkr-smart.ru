@@ -74,3 +74,32 @@ function addWorksType() {
         }
     });
 }
+
+function deleteScientificSupervisor(id)
+{
+    const data = {
+      id:id
+    };
+    $.ajax({
+        url: "/dashboard/scientific-supervisors/delete",
+        dataType: "json",
+        data: data,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            if (response.success) {
+                $("#scientific_supervisor" + id).remove();
+                $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("При загрузке информации об организации произошла ошибка", "error");
+        }
+    });
+
+}

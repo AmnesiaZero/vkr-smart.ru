@@ -4,12 +4,15 @@ namespace App\Services\Works;
 
 use App\Helpers\JsonHelper;
 use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
+use App\Services\ProgramsSpecialties\Repositories\ProgramSpecialtyRepositoryInterface;
 use App\Services\ScientificSupervisors\Repositories\ScientificSupervisorRepositoryInterface;
 use App\Services\Specialties\Repositories\SpecialtyRepositoryInterface;
 use App\Services\Works\Repositories\WorkRepositoryInterface;
 use App\Services\WorksTypes\Repositories\WorksTypeRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class WorksService
 {
@@ -18,22 +21,21 @@ class WorksService
 
     private WorkRepositoryInterface $workRepository;
 
-    private SpecialtyRepositoryInterface $specialtyRepository;
+    private ProgramSpecialtyRepositoryInterface $programSpecialtyRepository;
 
     private ScientificSupervisorRepositoryInterface $scientificSupervisorRepository;
 
     private WorksTypeRepositoryInterface $worksTypeRepository;
 
-    public function __construct(WorkRepositoryInterface      $workRepository, OrganizationYearRepositoryInterface $yearRepository,
-                                SpecialtyRepositoryInterface $specialtyRepository, ScientificSupervisorRepositoryInterface $scientificSupervisorRepository,
-                                WorksTypeRepositoryInterface $worksTypeRepository
-    )
+    public function __construct(WorkRepositoryInterface $workRepository, OrganizationYearRepositoryInterface $yearRepository,
+                                ScientificSupervisorRepositoryInterface $scientificSupervisorRepository, ProgramSpecialtyRepositoryInterface $programSpecialtyRepository,
+                                WorksTypeRepositoryInterface $worksTypeRepository)
     {
         $this->workRepository = $workRepository;
         $this->yearRepository = $yearRepository;
-        $this->specialtyRepository = $specialtyRepository;
         $this->scientificSupervisorRepository = $scientificSupervisorRepository;
         $this->worksTypeRepository = $worksTypeRepository;
+        $this->programSpecialtyRepository = $programSpecialtyRepository;
 
     }
 
@@ -65,16 +67,54 @@ class WorksService
         $organizationId = $you->organization_id;
         $years = $this->yearRepository->get($organizationId);
         $works = $this->workRepository->get($organizationId);
-        $specialties = $this->specialtyRepository->all();
+        $programSpecialties = $this->programSpecialtyRepository->getByOrganization($organizationId);
         $scientificSupervisors = $this->scientificSupervisorRepository->get($organizationId);
         $worksTypes = $this->worksTypeRepository->get($organizationId);
         return view('templates.dashboard.works.employee', [
             'years' => $years,
             'works' => $works,
-            'specialties' => $specialties,
+            'program_specialties' => $programSpecialties,
             'scientific_supervisors' => $scientificSupervisors,
             'works_types' => $worksTypes
         ]);
 
+    }
+
+    public function create(UploadedFile $workFile, array $data):JsonResponse
+    {
+        $you = Auth::user();
+        $userId = $you->id;
+        $organizationId = $you->organization_id;
+        $data = array_merge($data,['user_id' => $userId,'organization_id' => $organizationId]);
+        $workFileName = $workFile->getClientOriginalName();
+        $path =  $workFile->storeAs('works',$workFileName);
+        if(isset($path)){
+            $data['path'] = $path;
+        }
+        if(isset($data['certificate_file']))
+        {
+            $certificateFile = $data['certificate_file'];
+            $certificatePath =  $certificateFile->store('certificates');
+            if(isset($certificatePath))
+            {
+                Log::debug('certificate = '.$certificatePath);
+                $data['certificate'] = $certificatePath;
+            }
+        }
+        $work = $this->workRepository->create($data);
+        if($work and $work->id)
+        {
+            //Подгружаю через find,чтобы связь specialty сохранилась
+            $workId = $work->id;
+            $workWithRelations = $this->workRepository->find($workId);
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'work' => $workWithRelations
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+           'title' => 'Ошибка',
+           'message' => 'Ошибка при добавлении работы'
+        ]);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ScientificSupervisorsController extends Controller
 {
@@ -40,11 +41,23 @@ class ScientificSupervisorsController extends Controller
         return $this->scientificSupervisorsService->create($data);
     }
 
-    public function get(Request $request): JsonResponse
+    public function get(): JsonResponse
     {
         $you = Auth::user();
         $organizationId = $you->organization_id;
         return $this->scientificSupervisorsService->get($organizationId);
+    }
+
+    public function delete(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'id' =>  ['required','integer',Rule::exists('scientific_supervisors','id')]
+        ]);
+        if ($validator->fails()) {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->scientificSupervisorsService->delete($id);
     }
 
 }

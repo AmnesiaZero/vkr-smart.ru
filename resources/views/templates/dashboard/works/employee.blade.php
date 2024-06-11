@@ -39,19 +39,19 @@
                         <div class="col-xl-6">
                             <p class="fs-14 mb-2 text-grey">Сотрудник</p>
                             <div id="bg-white" class="bg-white">
-                                <select class="js-example-basic-single w-100" name="state">
-                                    <option value="0">Иванов Иван Иванович</option>
-                                    <option value="1">Козлова Олеся Алексеевна</option>
-                                    <option value="2">Кошелев Александр Анатольевич</option>
-                                    <option value="3">Менделеев Дмитрий Иванович</option>
-                                    <option value="4">Назарова Светлана Анатольевна</option>
+                                <select class="js-example-basic-single w-100" name="scientific_supervisor">
+                                     @if(isset($scientific_supervisors) and is_iterable($scientific_supervisors)))
+                                         @foreach($scientific_supervisors as $scientific_supervisor)
+                                               <option value="{{$scientific_supervisor->name}}">{{$scientific_supervisor->name}}</option>
+                                         @endforeach
+                                     @endif
                                 </select>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <p class="text-grey mb-2 fs-14">ФИО обучающегося</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                <input type="text" name="q" value=""
+                                <input type="text" name="student" value=""
                                        class="form-control search br-none fs-14 form-small-p" placeholder="">
                                 <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
                                     <img src="/images/Search.svg" alt="search">
@@ -62,7 +62,7 @@
                         <div class="col-xl-6">
                             <p class="text-grey mb-2 fs-14">Группа</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                <input type="text" name="q" value=""
+                                <input type="text" name="group" value=""
                                        class="form-control search br-none fs-14 form-small-p" placeholder="">
                                 <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
                                     <img src="/images/Search.svg" alt="search">
@@ -72,7 +72,7 @@
                         <div class="col-xl-6">
                             <p class="text-grey mb-2 fs-14">Тип работы</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form">
-                                <input type="text" name="q" value=""
+                                <input type="text" name="work_type" value=""
                                        class="form-control search br-none fs-14 form-small-p" placeholder="">
                                 <button class="btn pe-3 py-0 fs-14" type="submit" id="search">
                                     <img src="/images/Search.svg" alt="search">
@@ -82,11 +82,12 @@
                         <div class="col-xl-6">
                             <p class="fs-14 mb-2 text-grey">УГНП</p>
                             <div id="bg-white_1">
-                                <select class="js-example-basic-single w-100" name="state">
-                                    <option value="0">01 Математика и механика</option>
-                                    <option value="1">02 Компьютерные и информационные науки</option>
-                                    <option value="2">03 Физика и астрономия</option>
-                                    <option value="3">04 Химия</option>
+                                <select class="js-example-basic-single w-100" name="specialty">
+                                    @if(isset($program_specialties) and is_iterable($program_specialties))
+                                        @foreach($program_specialties as $program_specialty)
+                                            <option value="{{$program_specialty->id}}">{{$program_specialty->name}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -122,7 +123,8 @@
             <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 w-25">импорт из файла<img
                     src="/images/File_Download_green.svg" alt="" class="ps-2"></button>
         </div>
-        <p class="fs-14 pt-3"><span class="text-grey">Пользователей:</span> 8</p>
+        <p class="fs-14 pt-3">
+            <span class="text-grey">Пользователей:</span> 8</p>
         <div class="pt-3 px-md-0 px-3 position-relative">
             <div class="big-table">
                 <table class="table fs-14">
@@ -139,59 +141,12 @@
                         <th scope="col"><img src="/images/nine_dots.svg" alt="" class="pb-2"></th>
                     </tr>
                     </thead>
-                    <tbody class="lh-17 brb-green-light-2">
-                    <tr>
-                        <th scope="row">38.03.02 |Менеджмент</th>
-                        <td>Козлова Олеся Алексеевна</td>
-                        <td>123</td>
-                        <td>18.06.2020</td>
-                        <td>Экономика (Дипломная работа)</td>
-                        <td>Не проставлена</td>
-                        <td>Пройдена</td>
-                        <td>
-                            <div class="mt-2"><span class="bg-active px-2 d-flex align-items-center"><div
-                                        class="me-2 green-c"></div>Отчет</span></div>
-                        </td>
-                        <td><img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">38.03.02 |Менеджмент</th>
-                        <td>Кузьмичев Николай Валерьевич</td>
-                        <td>522</td>
-                        <td>20.06.2008</td>
-                        <td>Теория решения задачи квадратуры круга</td>
-                        <td>Хорошо</td>
-                        <td>Не пройдена</td>
-                        <td><span class="bg-warning-c px-2 d-flex align-items-center"><div class="me-2"><div
-                                        class="orange-c"></div></div>Файл не загружен</span></td>
-                        <td><img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">38.03.02 |Менеджмент</th>
-                        <td>Козлова Олеся Алексеевна</td>
-                        <td>123</td>
-                        <td>18.06.2020</td>
-                        <td>Экономика (Дипломная работа)</td>
-                        <td>Не проставлена</td>
-                        <td>Пройдена</td>
-                        <td>
-                            <div class="mt-2"><span class="bg-block px-2 d-flex align-items-center"><div
-                                        class="me-2 red-c"></div>не выполняется</span></div>
-                        </td>
-                        <td><img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">38.03.02 |Менеджмент</th>
-                        <td>Кузьмичев Николай Валерьевич</td>
-                        <td>522</td>
-                        <td>20.06.2008</td>
-                        <td>Теория решения задачи квадратуры круга</td>
-                        <td>Хорошо</td>
-                        <td>Не пройдена</td>
-                        <td><span class="bg-warning-c px-2 d-flex align-items-center"><div class="me-2"><div
-                                        class="orange-c"></div></div>Файл не загружен</span></td>
-                        <td><img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
-                    </tr>
+                    <tbody class="lh-17 brb-green-light-2" id="works_table">
+                      @if(isset($works) and is_iterable($works))
+                          @foreach($works as $work)
+                              @include('layouts.dashboard.include.elements.work',['work' => $work])
+                          @endforeach
+                      @endif
                     </tbody>
                 </table>
             </div>
@@ -271,9 +226,6 @@
 
     <script id="faculty_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
-
-
-
     </script>
 
     <script id="department_tmpl" type="text/x-jquery-tmpl">
@@ -285,4 +237,22 @@
      <option value="${id}">${name}</option>
 
     </script>
+
+    <script id="work_tmpl" type="text/x-jquery-tmpl">
+        <tr>
+    <th scope="row">${specialty.name}</th>
+    <td>${student}</td>
+    <td>${group}</td>
+    <td>${protect_date}</td>
+    <td>${name}</td>
+    <td>${getAssessmentDescription(assessment)}</td>
+    <td>${getSelfCheckDescription(self_check)}</td>
+        <td>
+            <div class="mt-2"><span class="bg-active px-2 d-flex align-items-center"><div
+                        class="me-2 green-c"></div>Отчет</span></div>
+        </td>
+        <td>
+            <img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
+    </tr>
+</script>
 @endsection

@@ -53,5 +53,11 @@ interface ProgramSpecialtyRepositoryInterface
      */
     public function specialtyExists(int $specialtyId, int $userId): bool;
 
+    /**
+     * @param int $organizationId
+     * @return Collection
+     */
+    public function getByOrganization(int $organizationId):Collection;
+
 
 }

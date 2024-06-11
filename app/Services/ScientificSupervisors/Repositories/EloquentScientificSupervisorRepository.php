@@ -18,4 +18,9 @@ class EloquentScientificSupervisorRepository implements ScientificSupervisorRepo
     {
         return ScientificSupervisor::query()->where('organization_id', '=', $organizationId)->get();
     }
+
+    public function delete(int $id): bool
+    {
+        return ScientificSupervisor::query()->find($id)->delete();
+    }
 }

@@ -40,4 +40,8 @@ class EloquentProgramSpecialtyRepository implements ProgramSpecialtyRepositoryIn
             $specialtyId)->exists();
     }
 
+    public function getByOrganization(int $organizationId): Collection
+    {
+        return ProgramSpecialty::query()->where('organization_id','=',$organizationId)->get();
+    }
 }

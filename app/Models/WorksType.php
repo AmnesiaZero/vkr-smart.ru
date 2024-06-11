@@ -9,6 +9,8 @@ class WorksType extends Model
 {
     use HasFactory;
 
+    protected $table = 'works_types';
+
     protected $fillable = [
         'name',
         'organization_id'

@@ -45,4 +45,20 @@ class ScientificSupervisorsService
             'scientific_supervisors' => $programs
         ]);
     }
+
+    public function delete(int $id): JsonResponse
+    {
+        $flag = $this->scientificSupervisorRepository->delete($id);
+        if($flag)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Научный руководитель был успешно удален'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Произошла ошибка при удалении научного руководитял'
+        ]);
+    }
 }

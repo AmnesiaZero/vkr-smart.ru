@@ -22,8 +22,7 @@
                 <p class="mt-2">Научные руководители:</p>
                 @if(isset($scientific_supervisors) and is_iterable($scientific_supervisors))
                     @foreach($scientific_supervisors as $scientific_supervisor)
-                        <div
-                            class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1">{{$scientific_supervisor->name}}</div>
+                        <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1" onclick="deleteScientificSupervisor({{$scientific_supervisor->id}})" id="scientific_supervisor_{{$scientific_supervisor->id}}">{{$scientific_supervisor->name}}</div>
                     @endforeach
                 @endif
             </div>
@@ -81,14 +80,10 @@
     </script>
 
     <script id="scientific_supervisor_tmpl" type="text/x-jquery-tmpl">
-       <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1">${name}</div>
-
-
+       <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1" onclick="deleteScientificSupervisor(${id})" id="scientific_supervisor_${id}">${name}</div>
     </script>
 
     <script id="works_type_tmpl" type="text/x-jquery-tmpl">
        <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1">${name}</div>
-
-
     </script>
 @endsection

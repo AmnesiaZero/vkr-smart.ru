@@ -169,6 +169,7 @@ Route::group([
             'prefix' => 'employees'
         ], function () {
             Route::get('/', [WorksController::class, 'employeesWorksView']);
+            Route::post('create',[WorksController::class,'create']);
         });
     });
 
@@ -240,6 +241,7 @@ Route::group([
                 Route::post('create', [ProgramsSpecialtiesController::class, 'create']);
                 Route::get('get', [ProgramsSpecialtiesController::class, 'get']);
                 Route::get('get-by-department', [ProgramsSpecialtiesController::class, 'getByDepartment']);
+                Route::get('get-by-organization',[ProgramsSpecialtiesController::class,'getByOrganization']);
                 Route::post('delete', [ProgramsSpecialtiesController::class, 'delete']);
             });
         });
@@ -286,6 +288,7 @@ Route::group([
     ], function () {
         Route::get('get', [ScientificSupervisorsController::class, 'get']);
         Route::post('create', [ScientificSupervisorsController::class, 'create']);
+        Route::post('delete',[ScientificSupervisorsController::class,'delete']);
     });
 
     Route::group([

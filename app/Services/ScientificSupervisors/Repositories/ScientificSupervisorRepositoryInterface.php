@@ -19,4 +19,10 @@ interface ScientificSupervisorRepositoryInterface
      * @return Collection
      */
     public function get(int $organizationId): Collection;
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id):bool;
 }
