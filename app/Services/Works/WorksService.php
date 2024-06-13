@@ -51,12 +51,12 @@ class WorksService
         return view('templates.dashboard.works.students', ['years' => $years, 'works' => $works, 'specialties' => $specialties]);
     }
 
-    public function get(): JsonResponse
+    public function get(int $pageNumber): JsonResponse
     {
         $you = Auth::user();
         $organizationId = $you->organization_id;
-        $works = $this->workRepository->get($organizationId);
-        return JsonHelper::sendJsonResponse(false, [
+        $works = $this->workRepository->get($organizationId,$pageNumber);
+        return JsonHelper::sendJsonResponse(true, [
             'title' => 'Успешно',
             'works' => $works
         ]);
@@ -68,13 +68,11 @@ class WorksService
         $you = Auth::user();
         $organizationId = $you->organization_id;
         $years = $this->yearRepository->get($organizationId);
-        $works = $this->workRepository->get($organizationId);
         $programSpecialties = $this->programSpecialtyRepository->getByOrganization($organizationId);
         $scientificSupervisors = $this->scientificSupervisorRepository->get($organizationId);
         $worksTypes = $this->worksTypeRepository->get($organizationId);
         return view('templates.dashboard.works.employee', [
             'years' => $years,
-            'works' => $works,
             'program_specialties' => $programSpecialties,
             'scientific_supervisors' => $scientificSupervisors,
             'works_types' => $worksTypes

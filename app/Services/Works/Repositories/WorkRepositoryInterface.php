@@ -4,15 +4,17 @@ namespace App\Services\Works\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface WorkRepositoryInterface
 {
 
     /**
      * @param int $organizationId
-     * @return Collection
+     * @param int $pageNumber
+     * @return LengthAwarePaginator
      */
-    public function get(int $organizationId): Collection;
+    public function get(int $organizationId,int $pageNumber): LengthAwarePaginator;
 
     /**
      * @param array $data
@@ -28,7 +30,7 @@ interface WorkRepositoryInterface
 
     /**
      * @param array $data
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function search(array $data):Collection;
+    public function search(array $data):LengthAwarePaginator;
 }

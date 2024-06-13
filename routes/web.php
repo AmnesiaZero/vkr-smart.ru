@@ -170,6 +170,7 @@ Route::group([
         ], function () {
             Route::get('/', [WorksController::class, 'employeesWorksView']);
             Route::post('create',[WorksController::class,'create']);
+            Route::get('get',[WorksController::class,'get']);
             Route::get('search',[WorksController::class,'search']);
         });
     });

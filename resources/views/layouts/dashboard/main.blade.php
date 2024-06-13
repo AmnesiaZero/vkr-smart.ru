@@ -55,7 +55,7 @@
                         <li><a class="dropdown-item" href="/org-users">Электронное портфолио</a></li>
                         <li><a class="dropdown-item" href="/organization-reports">Отчеты</a></li>
                         <li><a class="dropdown-item" href="/organization-documents">Документация</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="logout(); return false;">Выйти</a></li>
+                        <li><a class="dropdown-item" href="/dashboard/users/logout">Выйти</a></li>
                         <li class="dropdown-item organization-info"></li>
                     </ul>
                 </li>
@@ -189,13 +189,7 @@
 
 <script src="/js/jquery/jquery.simplePagination.js"></script>
 
-<!-- Подключение скриптов Bootstrap (может потребоваться для Datepicker) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Подключение скриптов Bootstrap Datepicker -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ru.min.js"></script>
 
 @yield('scripts')
 </body>

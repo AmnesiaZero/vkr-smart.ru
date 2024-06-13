@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    works();
+    localStorage.setItem('selected_years', '');
+    localStorage.setItem('selected_faculties', '');
+
     $('#years_list').change(function () {
         const yearId = $(this).val();
         const data = {
@@ -52,9 +56,8 @@ $('.btn-info-box').click(function () {
 const addBadge = function (clickedElement) {
     console.log(clickedElement);
     const id = clickedElement.attr('id');
-    const text = clickedElement.text();
     console.log('id = ' + id);
-    console.log('text = ' + text);
+    const text = clickedElement.text();
     if (id.includes('year_')) {
         let selectedYears = localStorage.getItem('selected_years');
         const match = id.match(/\d+/); // Находим все последовательности цифр в строке
@@ -66,21 +69,22 @@ const addBadge = function (clickedElement) {
             console.log('вошёл');
             document.querySelector('.out-kod').style.display = "block";
             const elemOutKod = document.querySelector('.out-kod');
-            elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2" id="clicked_${id}" onclick="deleteTreeElement('${id}')">${text}</span>`;
+            elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2 clicked" id="clicked_${id}" onclick="deleteTreeElement('${id}')">${text}</span>`;
         }
         localStorage.setItem('selected_years', selectedYears.join(','));
-    } else if (id.includes('faculty_')) {
-        let selectedDepartments = localStorage.getItem('selected_faculties');
+    }
+    else if (id.includes('faculty_')) {
+        let selectedFaculties = localStorage.getItem('selected_faculties');
         const match = id.match(/\d+/); // Находим все последовательности цифр в строке
         const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
-        selectedDepartments = selectedDepartments ? selectedDepartments.split(",") : [];
-        if (!selectedDepartments.includes(number)) {
-            selectedDepartments.push(number);
+        selectedFaculties = selectedFaculties ? selectedFaculties.split(",") : [];
+        if (!selectedFaculties.includes(number)) {
+            selectedFaculties.push(number);
             document.querySelector('.out-kod').style.display = "block";
             const elemOutKod = document.querySelector('.out-kod');
             elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2 clicked" id="clicked_${id}"  onclick="deleteTreeElement('${id}')">${text}</span>`;
         }
-        localStorage.setItem('selected_faculties', selectedDepartments.join(','));
+        localStorage.setItem('selected_faculties', selectedFaculties.join(','));
 
     }
 }
@@ -310,15 +314,56 @@ function getSelfCheckDescription(selfCheck)
     }
 }
 
+function works(page= 1)
+{
+    const data = {
+      page:page
+    };
+    $.ajax({
+        url: "/dashboard/works/employees/get",
+        type: 'GET',
+        data:data,
+        contentType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                const pagination = response.data.works;
+                const links = pagination.links;
+                //Обрезаем из массива линков Previos и Next
+                links.shift();
+                links.pop();
+                pagination.links = links;
+                const works = pagination.data;
+                const worksTable = $("#works_table");
+                worksTable.html($("#work_tmpl").tmpl(works));
+                const currentPage = pagination.current_page;
+                const perPage = pagination.per_page;
+                const totalItems = pagination.total;
+                const totalPages = pagination.links.length;
+                updatePagination(currentPage,totalItems,totalPages,perPage);
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
 function searchWorks() {
     let data = $("#search_form").serialize();
     data = serializeRemoveNull(data);
     const selectedYears = localStorage.getItem('selected_years');
+    const selectedYearsArray = selectedYears.split(',');
     const selectedFaculties = localStorage.getItem('selected_faculties');
+    const selectedFacultiesArray = selectedFaculties.split(',');
 
     const additionalData = {
-        selected_years: selectedYears,
-        selected_faculties: selectedFaculties,
+        selected_years: selectedYearsArray,
+        selected_faculties: selectedFacultiesArray,
     };
     data += '&' + $.param(additionalData);
     $.ajax({
@@ -329,8 +374,21 @@ function searchWorks() {
         success: function(response) {
             if (response.success)
             {
-                const works = response.data.works;
-                $("#works_table").html($("#work_tmpl").tmpl(works));
+                const pagination = response.data.works;
+                const links = pagination.links;
+                //Обрезаем из массива линков Previos и Next
+                links.shift();
+                links.pop();
+                pagination.links = links;
+                const works = pagination.data;
+                console.log(works);
+                const worksTable = $("#works_table");
+                worksTable.html($("#work_tmpl").tmpl(works));
+                const currentPage = pagination.current_page;
+                const perPage = pagination.per_page;
+                const totalItems = pagination.total;
+                const totalPages = pagination.links.length;
+                updatePagination(currentPage,totalItems,totalPages,perPage);
             }
             else
             {
@@ -339,6 +397,21 @@ function searchWorks() {
         },
         error: function() {
             $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+function updatePagination(currentPage,totalItems,totalPages,itemsPerPage) {
+    $("#pagination").pagination({
+        items: totalItems,
+        itemsOnPage: itemsPerPage,
+        currentPage: currentPage, // Установка текущей страницы в начало после добавления новых элементов
+        displayedPages: totalPages,
+        cssStyle: '',
+        prevText: '<span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>',
+        nextText: '<span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>',
+        onPageClick: function(pageNumber) {
+            works(pageNumber);
         }
     });
 }

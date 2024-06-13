@@ -10,27 +10,6 @@ document.getElementById("copy").onclick = function () {
 
 
 
-function inviteCodes(data)
-{
-    $.ajax({
-        url: "/dashboard/invite-codes/get",
-        type: "GET",
-        dataType: "json",
-        data:data,
-        success: function (response) {
-            if(response.success){
-                const inviteCodes = response.data.data;
-                printInviteCodes(inviteCodes,true);
-            }
-            else {
-                $.notify(response.data.title + ":" + response.data.message, "error");
-            }
-        },
-        error: function () {
-            $.notify("Произошла ошибка при редактировании пользователя", "error");
-        }
-    });
-}
 
 
 function createTeachersCodes(teachersCodes)
@@ -165,9 +144,6 @@ function teachersCodes(pageNumber= 1)
 
 
 function updateTeachersPagination(currentPage,totalItems,totalPages,itemsPerPage) {
-    console.log('total items = ' + totalItems);
-    console.log('total pages = ' + totalPages);
-    console.log('per page = ' + itemsPerPage);
      $("#teachers_codes_pagination").pagination({
         items: totalItems,
         itemsOnPage: itemsPerPage,

@@ -61,7 +61,7 @@
                     <div id="students_codes_list">
 
                     </div>
-                    <nav aria-label="Page navigation example" id="students_codes_pagination">
+                    <nav aria-label="Page navigation example" class="custom_pagination" id="students_codes_pagination">
                         <ul class="pagination m-0" id="students_pages">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
@@ -92,7 +92,7 @@
                     <div id="teachers_codes_list">
 
                     </div>
-                    <nav aria-label="Page navigation example" id="teachers_codes_pagination">
+                    <nav aria-label="Page navigation example" class="custom_pagination" id="teachers_codes_pagination">
                         <ul class="pagination m-0" id="teachers_pages">
 
                         </ul>

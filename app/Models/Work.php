@@ -61,4 +61,9 @@ class Work extends Model
     {
         return $this->hasOne(Faculty::class,'id','faculty_id');
     }
+
+    public function year():HasOne
+    {
+        return $this->hasOne(OrganizationYear::class,'id','year_id');
+    }
 }

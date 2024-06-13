@@ -1120,8 +1120,7 @@ span.current {
     display: block;
 }
 
-#students_codes_pagination ul,
-#teachers_codes_pagination ul{
+.custom_pagination ul{
     list-style: none;
     display: flex;
 }

@@ -28,7 +28,9 @@ class WorksController extends Controller
         'agreement',
         'work_file',
         'self_check',
-        'certificate_file'
+        'certificate_file',
+        'selected_faculties',
+        'selected_years'
     ];
 
     protected WorksService $worksService;
@@ -49,9 +51,17 @@ class WorksController extends Controller
         return $this->worksService->employeesWorksView();
     }
 
-    public function get(): JsonResponse
+    public function get(Request $request): JsonResponse
     {
-        return $this->worksService->get();
+        $validator = Validator::make($request->all(),[
+            'page' => 'required|integer'
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $pageNumber = $request->page;
+        return $this->worksService->get($pageNumber);
     }
 
     public function create(Request $request):JsonResponse
@@ -87,7 +97,9 @@ class WorksController extends Controller
             'student' => 'max:250',
             'group' => 'max:250',
             'scientific_supervisor' => 'max:250',
-            'protect_date' => 'max:250'
+            'protect_date' => 'max:250',
+//            'selected_faculties.*' => ['integer', Rule::exists('faculties', 'id')],
+//            'selected_years.*' => ['integer', Rule::exists('organizations_years', 'id')]
         ]);
         if ($validator->fails())
         {

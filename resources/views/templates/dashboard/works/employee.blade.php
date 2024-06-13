@@ -105,7 +105,7 @@
                             <div class="mt-auto">
                                 <button type="submit" class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 me-3">применить
                                 </button>
-                                <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 me-3">сбросить</button>
+                                <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 me-3" onclick="works()">сбросить</button>
                                 <button class="btn bg-green br-100 text-grey fs-14 py-1">выгрузить<img
                                         src="/images/File_Download_green.svg" alt="" class="ps-2"></button>
                             </div>
@@ -140,11 +140,6 @@
                     </tr>
                     </thead>
                     <tbody class="lh-17 brb-green-light-2" id="works_table">
-                      @if(isset($works) and is_iterable($works))
-                          @foreach($works as $work)
-                              @include('layouts.dashboard.include.elements.work',['work' => $work])
-                          @endforeach
-                      @endif
                     </tbody>
                 </table>
             </div>
@@ -196,21 +191,9 @@
                 </div>
             </div>
         </div>
-        <nav class="mt-3 mb-5">
-            <ul class="pagination m-0">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true"><img src="/images/Chevron_Left.svg" alt=""></span>
-                    </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true"><img src="/images/Chevron_Right.svg" alt=""></span>
-                    </a>
-                </li>
+        <nav aria-label="Page navigation example" class="custom_pagination" id="pagination">
+            <ul class="pagination m-0" id="pages">
+
             </ul>
         </nav>
     </div>
