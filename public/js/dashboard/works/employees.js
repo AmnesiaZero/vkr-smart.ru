@@ -8,6 +8,14 @@ $(document).ready(function () {
         console.log('изменение');
         faculties(data);
     });
+    localStorage.setItem('selected_years', '');
+    localStorage.setItem('selected_departments', '');
+    $(".fancytree-title").on('click', function () {
+        addBadge($(this));
+    })
+    $(".clicked").on('click', function () {
+        deleteTreeElement($(this));
+    })
 
 
     $('#faculties_list').change(function () {
@@ -34,10 +42,83 @@ $(document).ready(function () {
     $('#checking_departments').change(function () {
         $('#departments_list').find("input[class='department_checkbox']").prop('checked', $(this).prop("checked"));
     });
+
+
 });
 $('.btn-info-box').click(function () {
     $("#info_box").fadeToggle(100);
 });
+
+const addBadge = function (clickedElement) {
+    console.log(clickedElement);
+    const id = clickedElement.attr('id');
+    const text = clickedElement.text();
+    console.log('id = ' + id);
+    console.log('text = ' + text);
+    if (id.includes('year_')) {
+        let selectedYears = localStorage.getItem('selected_years');
+        const match = id.match(/\d+/); // Находим все последовательности цифр в строке
+        const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
+        selectedYears = selectedYears ? selectedYears.split(",") : [];
+        console.log(selectedYears)
+        if (!selectedYears.includes(number)) {
+            selectedYears.push(number);
+            console.log('вошёл');
+            document.querySelector('.out-kod').style.display = "block";
+            const elemOutKod = document.querySelector('.out-kod');
+            elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2" id="clicked_${id}" onclick="deleteTreeElement('${id}')">${text}</span>`;
+        }
+        localStorage.setItem('selected_years', selectedYears.join(','));
+    } else if (id.includes('faculty_')) {
+        let selectedDepartments = localStorage.getItem('selected_faculties');
+        const match = id.match(/\d+/); // Находим все последовательности цифр в строке
+        const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
+        selectedDepartments = selectedDepartments ? selectedDepartments.split(",") : [];
+        if (!selectedDepartments.includes(number)) {
+            selectedDepartments.push(number);
+            document.querySelector('.out-kod').style.display = "block";
+            const elemOutKod = document.querySelector('.out-kod');
+            elemOutKod.innerHTML += `<span class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2 clicked" id="clicked_${id}"  onclick="deleteTreeElement('${id}')">${text}</span>`;
+        }
+        localStorage.setItem('selected_faculties', selectedDepartments.join(','));
+
+    }
+}
+
+
+function deleteTreeElement(id) {
+    console.log('id = ' + id);
+    const match = id.match(/\d+/);
+    const number = match ? match[0] : '';
+    $("#clicked_" + id).remove();
+    if (id.includes('year_')) {
+        let selectedYears = localStorage.getItem('selected_years');
+        const match = id.match(/\d+/); // Находим все последовательности цифр в строке
+        const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
+        if (selectedYears.includes(number)) {
+            let yearsArray = selectedYears.split(',');
+            yearsArray = yearsArray.filter(function (item) {
+                return item !== number;
+            });
+            selectedYears = yearsArray.join(',');
+            localStorage.setItem('selected_years', selectedYears);
+        }
+
+    } else if (id.includes('faculty_')) {
+        let selectedDepartments = localStorage.getItem('selected_faculties');
+        const match = id.match(/\d+/); // Находим все последовательности цифр в строке
+        const number = match ? match[0] : ''; // Если найдены цифры, сохраняем их
+        if (selectedDepartments.includes(number)) {
+            let departmentsArray = selectedDepartments.split(',');
+            departmentsArray = departmentsArray.filter(function (item) {
+                return item !== number;
+            });
+            selectedDepartments = departmentsArray.join(',');
+            localStorage.setItem('selected_faculties', selectedDepartments);
+        }
+    }
+
+}
 
 
 function faculties(data) {
@@ -162,12 +243,6 @@ $(document).ready(function () {
         addBadge($(this).text());
     })
 })
-var addBadge = function (e) {
-    let text = e;
-    document.querySelector('.out-kod').style.display = "block";
-    var elemOutKod = document.querySelector('.out-kod');
-    elemOutKod.innerHTML += '<div class="badge text-black bg-green-light br-100 fs-12 me-3 mb-2">' + text + '</div>';
-}
 
 $("#addWorkForm").on('submit', function(e) {
     e.preventDefault(); // Предотвращаем стандартное поведение формы
@@ -185,15 +260,24 @@ $("#addWorkForm").on('submit', function(e) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(response) {
-            const work = response.data.work;
-            $("#works_table").append($("#work_tmpl").tmpl(work));
-            closeModal('add_work_modal');
+            if (response.success)
+            {
+                const work = response.data.work;
+                $("#works_table").append($("#work_tmpl").tmpl(work));
+                closeModal('add_work_modal');
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // Обработка ошибок
-            console.error('Ошибка загрузки файла: ' + textStatus);
+        error: function() {
+            $.notify("Ошибка при добавлении работы. Обратитесь к системному администратору", "error");
+
         }
     });
+
+
 });
 
 function getAssessmentDescription(assessment)
@@ -226,9 +310,38 @@ function getSelfCheckDescription(selfCheck)
     }
 }
 
-function searchWorks()
-{
+function searchWorks() {
+    let data = $("#search_form").serialize();
+    data = serializeRemoveNull(data);
+    const selectedYears = localStorage.getItem('selected_years');
+    const selectedFaculties = localStorage.getItem('selected_faculties');
 
+    const additionalData = {
+        selected_years: selectedYears,
+        selected_faculties: selectedFaculties,
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url: "/dashboard/works/employees/search",
+        type: 'GET',
+        data: data,
+        contentType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                const works = response.data.works;
+                $("#works_table").html($("#work_tmpl").tmpl(works));
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
 }
+
 
 

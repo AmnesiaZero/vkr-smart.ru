@@ -9,7 +9,9 @@ $(document).ready(function () {
         deleteTreeElement($(this));
     })
 })
+
 const addBadge = function (clickedElement) {
+    console.log(clickedElement);
     const id = clickedElement.attr('id');
     const text = clickedElement.text();
     console.log('id = ' + id);
@@ -78,6 +80,7 @@ function deleteTreeElement(id) {
     }
 
 }
+
 
 function users() {
     const roles = ['teacher', 'user'];
@@ -159,10 +162,6 @@ function openUpdateUserCanvas(id) {
     });
 }
 
-
-function serializeRemoveNull(serStr) {
-    return serStr.split("&").filter(str => !str.endsWith("=")).join("&");
-}
 
 
 

@@ -668,7 +668,8 @@ function updateProgramName() {
                 const program = response.data.program;
                 $("#program_" + programId).text(program.name);
                 $.notify("Имя успешно обновлено", "success");
-            } else {
+            }
+            else {
                 $.notify(response.data.title + ":" + response.data.message, "error");
             }
         },

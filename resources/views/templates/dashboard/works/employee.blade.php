@@ -19,8 +19,7 @@
                                                 <li class="fancytree-lastsib">
 		    								<span
                                                 class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
-		    									<span class="fancytree-title"
-                                                      id="faculty_{{$faculty->id}}">{{$faculty->name}}</span>
+		    									<span class="fancytree-title" id="faculty_{{$faculty->id}}">{{$faculty->name}}</span>
                                             </span>
                                                 </li>
                                             @endforeach
@@ -34,7 +33,7 @@
             </div>
             <div class="col">
                 <div class="out-kod"></div>
-                <form action="" method="" class="pt-4 col-xl-10">
+                <form class="pt-4 col-xl-10" id="search_form" onsubmit="searchWorks();return false">
                     <div class="row g-4">
                         <div class="col-xl-6">
                             <p class="fs-14 mb-2 text-grey">Сотрудник</p>
@@ -94,18 +93,17 @@
                         <div class="col-xl-6">
                             <p class="fs-14 mb-2 text-grey">Период загрузки работ</p>
                             <div class="input-group input-group-lg br-100 br-green-light-2 focus-form pe-2">
-                                <button class="btn pe-3 py-0 fs-14" disabled>
+                                <button class="btn pe-3 py-0 fs-14">
                                     <img src="/images/Calendar.svg" alt="">
                                 </button>
-                                <input type="text" name="daterange" value="01/01/2023 - 01/15/2023"
-                                       class=" fs-14 text-grey p-date w-75"/>
+                                <input type="text" name="daterange" value="01/01/2023 - 01/15/2023" class=" fs-14 text-grey p-date w-75"/>
                             </div>
                         </div>
                     </div>
                     <div class="row pt-4 d-flex align-items-end">
                         <div class="col">
                             <div class="mt-auto">
-                                <button class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 me-3">применить
+                                <button type="submit" class="btn btn-secondary br-100 br-none text-grey fs-14 py-1 me-3">применить
                                 </button>
                                 <button class="btn br-green-light-2 br-100 text-grey fs-14 py-1 me-3">сбросить</button>
                                 <button class="btn bg-green br-100 text-grey fs-14 py-1">выгрузить<img
@@ -124,7 +122,7 @@
                     src="/images/File_Download_green.svg" alt="" class="ps-2"></button>
         </div>
         <p class="fs-14 pt-3">
-            <span class="text-grey">Пользователей:</span> 8</p>
+            <span class="text-grey">Работ:</span> 8</p>
         <div class="pt-3 px-md-0 px-3 position-relative">
             <div class="big-table">
                 <table class="table fs-14">
@@ -254,5 +252,5 @@
         <td>
             <img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p"></td>
     </tr>
-</script>
+   </script>
 @endsection

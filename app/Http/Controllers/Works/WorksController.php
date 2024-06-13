@@ -77,9 +77,23 @@ class WorksController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $data = $request->only($this->fillable);
-        $workFile = $request->file('work_file');
-        return $this->worksService->create($workFile,$data);
+        return $this->worksService->create($data);
+    }
 
-
+    public function search(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'specialty_id' => ['integer',Rule::exists('programs_specialties','id')],
+            'student' => 'max:250',
+            'group' => 'max:250',
+            'scientific_supervisor' => 'max:250',
+            'protect_date' => 'max:250'
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $data = $request->only($this->fillable);
+        return $this->worksService->search($data);
     }
 }

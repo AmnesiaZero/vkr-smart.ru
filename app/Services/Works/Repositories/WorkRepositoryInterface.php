@@ -25,4 +25,10 @@ interface WorkRepositoryInterface
      * @return Model
      */
     public function find(int $id):Model;
+
+    /**
+     * @param array $data
+     * @return Collection
+     */
+    public function search(array $data):Collection;
 }

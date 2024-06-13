@@ -56,4 +56,9 @@ class Work extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function faculty():HasOne
+    {
+        return $this->hasOne(Faculty::class,'id','faculty_id');
+    }
 }

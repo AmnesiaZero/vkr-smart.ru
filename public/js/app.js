@@ -36,3 +36,7 @@ function show_hide_password(target) {
     }
     return false;
 }
+
+function serializeRemoveNull(serStr) {
+    return serStr.split("&").filter(str => !str.endsWith("=")).join("&");
+}

@@ -2,6 +2,7 @@
 
 namespace App\Services\Works;
 
+use App\Helpers\FilesHelper;
 use App\Helpers\JsonHelper;
 use App\Services\OrganizationsYears\Repositories\OrganizationYearRepositoryInterface;
 use App\Services\ProgramsSpecialties\Repositories\ProgramSpecialtyRepositoryInterface;
@@ -13,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class WorksService
 {
@@ -80,32 +82,43 @@ class WorksService
 
     }
 
-    public function create(UploadedFile $workFile, array $data):JsonResponse
+    public function create( array $data):JsonResponse
     {
         $you = Auth::user();
         $userId = $you->id;
         $organizationId = $you->organization_id;
         $data = array_merge($data,['user_id' => $userId,'organization_id' => $organizationId]);
-        $workFileName = $workFile->getClientOriginalName();
-        $path =  $workFile->storeAs('works',$workFileName);
-        if(isset($path)){
-            $data['path'] = $path;
-        }
-        if(isset($data['certificate_file']))
-        {
-            $certificateFile = $data['certificate_file'];
-            $certificatePath =  $certificateFile->store('certificates');
-            if(isset($certificatePath))
-            {
-                Log::debug('certificate = '.$certificatePath);
-                $data['certificate'] = $certificatePath;
-            }
-        }
         $work = $this->workRepository->create($data);
         if($work and $work->id)
         {
-            //Подгружаю через find,чтобы связь specialty сохранилась
+            //Вообще,можно в отдельную функцию вынести разбиение по директориям,но лучше не надо
             $workId = $work->id;
+            if (isset($data['work_file']) and is_file($data['work_file']))
+            {
+                $workFile = $data['work_file'];
+                $directoryNumber = ceil($workId/1000);
+                $workDirectory = 'works/'.$directoryNumber;
+                $workFileName = $workId.'.'.$workFile->extension();
+                $workPath =  $workFile->storeAs($workDirectory,$workFileName);
+                $work->path = $workPath;
+            }
+            else
+            {
+                return JsonHelper::sendJsonResponse(false,[
+                    'title' => 'Ошибка',
+                    'message' => 'В запросе нет файла работы'
+                ]);
+            }
+            if(isset($data['certificate_file']) and is_file($data['work_file']))
+            {
+                $certificateFile = $data['certificate_file'];
+                $certificateFileName = $workId.'.'.$certificateFile->extension();
+                $certificateDirectory = 'certificates/'.$directoryNumber;
+                $certificatePath = $certificateFile->storeAs($certificateDirectory,$certificateFileName);
+                $work->certificate = $certificatePath;
+            }
+            $work->save();
+            //Подгружаю через find,чтобы связь specialty сохранилась
             $workWithRelations = $this->workRepository->find($workId);
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
@@ -115,6 +128,22 @@ class WorksService
         return JsonHelper::sendJsonResponse(false,[
            'title' => 'Ошибка',
            'message' => 'Ошибка при добавлении работы'
+        ]);
+    }
+
+    public function search(array $data): JsonResponse
+    {
+        $works = $this->workRepository->search($data);
+        if ($works)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'works' => $works
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Ошибка при поиске работ'
         ]);
     }
 }
