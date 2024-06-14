@@ -12,7 +12,6 @@ class InviteCodesExport implements FromCollection
 
     public function __construct(int $organizationId, int $type)
     {
-        parent::__construct();
         $this->organization_id = $organizationId;
         $this->type = $type;
     }
