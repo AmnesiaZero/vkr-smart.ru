@@ -96,6 +96,7 @@ class WorksService
                 $workFile = $data['work_file'];
                 $directoryNumber = ceil($workId/1000);
                 $workDirectory = 'works/'.$directoryNumber;
+                Storage::makeDirectory($workDirectory);
                 $workFileName = $workId.'.'.$workFile->extension();
                 $workPath =  $workFile->storeAs($workDirectory,$workFileName);
                 $work->path = $workPath;
@@ -112,6 +113,7 @@ class WorksService
                 $certificateFile = $data['certificate_file'];
                 $certificateFileName = $workId.'.'.$certificateFile->extension();
                 $certificateDirectory = 'certificates/'.$directoryNumber;
+                Storage::makeDirectory($certificateDirectory);
                 $certificatePath = $certificateFile->storeAs($certificateDirectory,$certificateFileName);
                 $work->certificate = $certificatePath;
             }
@@ -144,4 +146,39 @@ class WorksService
             'message' => 'Ошибка при поиске работ'
         ]);
     }
+
+    public function update(int $id,array $data): JsonResponse
+    {
+        $result = $this->workRepository->update($id,$data);
+        if($result)
+        {
+            $work = $this->workRepository->find($id);
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'work' => $work,
+                'message' => 'Информация о работе была успешно обновлена'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при обновлении работы'
+        ]);
+    }
+
+    public function find(int $id): JsonResponse
+    {
+        $work = $this->workRepository->find($id);
+        if($work and $work->id)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'work' => $work,
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при получении работы'
+        ]);
+    }
+
 }

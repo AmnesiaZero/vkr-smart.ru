@@ -54,7 +54,7 @@ function addScientificAdvisor() {
 function addWorksType() {
     const data = $("#add_works_type_form").serialize();
     $.ajax({
-        url: "/dashboard/work-types/create",
+        url: "/dashboard/works/types/create",
         dataType: "json",
         data: data,
         type: 'POST',
@@ -80,26 +80,60 @@ function deleteScientificSupervisor(id)
     const data = {
       id:id
     };
-    $.ajax({
-        url: "/dashboard/scientific-supervisors/delete",
-        dataType: "json",
-        data: data,
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (response) {
-            if (response.success) {
-                $("#scientific_supervisor" + id).remove();
-                $.notify(response.data.title + ":" + response.data.message, "success");
+    if(confirm('Вы уверены,что хотите удалить этого научного руководителя?'))
+    {
+        $.ajax({
+            url: "/dashboard/scientific-supervisors/delete",
+            dataType: "json",
+            data: data,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if (response.success) {
+                    $("#scientific_supervisor_" + id).remove();
+                    $.notify(response.data.title + ":" + response.data.message, "success");
+                }
+                else {
+                    $.notify(response.data.title + ":" + response.data.message, "error");
+                }
+            },
+            error: function () {
+                $.notify("При загрузке информации об организации произошла ошибка", "error");
             }
-            else {
-                $.notify(response.data.title + ":" + response.data.message, "error");
+        });
+    }
+}
+
+function deleteWorkType(id)
+{
+    const data = {
+        id:id
+    };
+    if(confirm('Вы уверены,что хотите удалить эту работу?'))
+    {
+        $.ajax({
+            url: "/dashboard/works/types/delete",
+            dataType: "json",
+            data: data,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if (response.success) {
+                    $("#work_type_" + id).remove();
+                    $.notify(response.data.title + ":" + response.data.message, "success");
+                }
+                else {
+                    $.notify(response.data.title + ":" + response.data.message, "error");
+                }
+            },
+            error: function () {
+                $.notify("При загрузке информации об организации произошла ошибка", "error");
             }
-        },
-        error: function () {
-            $.notify("При загрузке информации об организации произошла ошибка", "error");
-        }
-    });
+        });
+    }
 
 }

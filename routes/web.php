@@ -172,6 +172,15 @@ Route::group([
             Route::post('create',[WorksController::class,'create']);
             Route::get('get',[WorksController::class,'get']);
             Route::get('search',[WorksController::class,'search']);
+            Route::post('update',[WorksController::class,'update']);
+            Route::get('find',[WorksController::class,'find']);
+        });
+        Route::group([
+            'prefix' => 'types'
+        ],function (){
+            Route::get('get', [WorksTypesController::class, 'get']);
+            Route::post('create', [WorksTypesController::class, 'create']);
+            Route::post('delete',[WorksTypesController::class,'delete']);
         });
     });
 
@@ -293,12 +302,6 @@ Route::group([
         Route::post('delete',[ScientificSupervisorsController::class,'delete']);
     });
 
-    Route::group([
-        'prefix' => 'work-types'
-    ], function () {
-        Route::get('get', [WorksTypesController::class, 'get']);
-        Route::post('create', [WorksTypesController::class, 'create']);
-    });
 
 
 });

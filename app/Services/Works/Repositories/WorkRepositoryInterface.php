@@ -33,4 +33,11 @@ interface WorkRepositoryInterface
      * @return LengthAwarePaginator
      */
     public function search(array $data):LengthAwarePaginator;
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return mixed
+     */
+    public function update(int $id,array $data);
 }

@@ -46,4 +46,20 @@ class WorksTypesService
         ]);
     }
 
+    public function delete(int $id):JsonResponse
+    {
+        $flag = $this->worksTypeRepository->delete($id);
+        if($flag)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Тип работы успешно удален'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Тип работы успешно удален'
+        ]);
+    }
+
 }

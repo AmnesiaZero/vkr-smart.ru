@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models;
-
+namespace App\Exports;
+use App\Models\InviteCode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class InviteCodesExport extends Model implements FromCollection
+class WorksExport implements FromCollection
 {
     use HasFactory;
 
     public function __construct(int $organizationId, int $type)
     {
+        parent::__construct();
         $this->organization_id = $organizationId;
         $this->type = $type;
     }

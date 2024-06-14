@@ -40,3 +40,15 @@ function show_hide_password(target) {
 function serializeRemoveNull(serStr) {
     return serStr.split("&").filter(str => !str.endsWith("=")).join("&");
 }
+
+function getArrayFromLocalStorage(fieldName)
+{
+    const items = localStorage.getItem(fieldName);
+    let itemsArray = [];
+    if(items)
+    {
+        itemsArray = items.split(',');
+    }
+    return itemsArray;
+}
+

@@ -18,4 +18,9 @@ class EloquentWorksTypeRepository implements WorksTypeRepositoryInterface
     {
         return WorksType::query()->where('organization_id', '=', $organizationId)->get();
     }
+
+    public function delete(int $id): bool
+    {
+        return WorksType::query()->find($id)->delete();
+    }
 }

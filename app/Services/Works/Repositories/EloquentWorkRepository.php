@@ -23,7 +23,7 @@ class EloquentWorkRepository implements WorkRepositoryInterface
 
     public function find(int $id): Model
     {
-        return Work::with('specialty')->find($id);
+        return Work::with('specialty','year','faculty','department','user')->find($id);
     }
 
     public function search(array $data): LengthAwarePaginator
@@ -35,37 +35,40 @@ class EloquentWorkRepository implements WorkRepositoryInterface
         }
         if (isset($data['student']))
         {
-            $query = $query->where('student','like','%'.$data['student']);
+            $query = $query->where('student','like','%'.$data['student'].'%');
         }
         if (isset($data['group']))
         {
-            $query = $query->where('group','like','%'.$data['group']);
+            $query = $query->where('group','like','%'.$data['group'].'%');
         }
         if (isset($data['work_type']))
         {
-            $query = $query->where('work_type','like','%'.$data['work_type']);
+            $query = $query->where('work_type','like','%'.$data['work_type'].'%');
+        }
+        if (isset($data['name']))
+        {
+            $query = $query->where('name','like','%'.$data['name'].'%');
         }
         if(isset($data['specialty_id']))
         {
             $query = $query->where('specialty_id','=',$data['specialty_id']);
         }
-        $worksPagination = $query->paginate(config('pagination.per_page'),'*','page',1);
-        $works = $query->get();
-        if (isset($data['selected_faculties'])) {
-            Log::debug('Вошёл в условие');
+        if (isset($data['selected_faculties']) and count($data['selected_faculties'])>0) {
+            Log::debug('selected_faculties = '.print_r($data['selected_faculties'],true));
             $facultiesIds = $data['selected_faculties'];
-            Log::debug('faculties = '.print_r($facultiesIds,true));
-            $works = $works->filter(function ($work) use ($facultiesIds) {
-                return in_array($work->faculty,$facultiesIds);
-            });
+            $query = $query->whereIn('faculty_id', $facultiesIds);
         }
-        if (isset($data['selected_years'])) {
+        if (isset($data['selected_years']) and count($data['selected_years'])>0) {
+            Log::debug('вошёл в selected_years');
             $yearsIds = $data['selected_years'];
-            $works = $works->filter(function ($work) use ($yearsIds) {
-                return in_array($work->year,$yearsIds);
-            });
+            $query = $query->whereIn('year_id', $yearsIds);
         }
-        $worksPagination->data = $works;
+        $worksPagination = $query->paginate(config('pagination.per_page'),'*','page',1);
         return $worksPagination;
+    }
+
+    public function update(int $id,array $data)
+    {
+        return $this->find($id)->update($data);
     }
 }

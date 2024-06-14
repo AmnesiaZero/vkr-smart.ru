@@ -63,7 +63,7 @@ class EloquentUserRepository implements UserRepositoryInterface
         }
         $users = $query->get();
 
-        if (isset($data['selected_departments'])) {
+        if (isset($data['selected_departments']) and count($data['selected_departments'])>0) {
             Log::debug('Вошёл в условие');
             $departmentsIds = $data['selected_departments'];
             $users = $users->filter(function ($user) use ($departmentsIds) {
@@ -71,7 +71,7 @@ class EloquentUserRepository implements UserRepositoryInterface
             });
         }
 
-        if (isset($data['selected_years'])) {
+        if (isset($data['selected_years']) and count($data['selected_years'])>0) {
             $yearsIds = $data['selected_years'];
             $users = $users->filter(function ($user) use ($yearsIds) {
                 return $user->departments->whereIn('year.id', $yearsIds)->isNotEmpty();

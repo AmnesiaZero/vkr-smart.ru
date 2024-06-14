@@ -8,7 +8,7 @@
                 <p class="mt-2">Неизменяемые типы работ:</p>
                 @if(isset($works_types) and is_iterable($works_types))
                     @foreach($works_types as $works_type)
-                        <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1">
+                        <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1" onclick="deleteWorkType({{$works_type->id}})" id="work_type_{{$works_type->id}}">
                             {{$works_type->name}}
                         </div>
                     @endforeach
@@ -84,6 +84,6 @@
     </script>
 
     <script id="works_type_tmpl" type="text/x-jquery-tmpl">
-       <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1">${name}</div>
+       <div class="badge text-black-black bg-green-light br-100 fs-12 me-1 mb-1" onclick="deleteWorkType(${id})" id="work_type_${id}">${name}</div>
     </script>
 @endsection

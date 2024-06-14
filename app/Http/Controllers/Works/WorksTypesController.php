@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class WorksTypesController extends Controller
 {
@@ -43,6 +44,19 @@ class WorksTypesController extends Controller
         $you = Auth::user();
         $organizationId = $you->organization_id;
         return $this->worksTypesService->get($organizationId);
+    }
+
+    public function delete(Request $request):JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['integer',Rule::exists('works_types','id')],
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksTypesService->delete($id);
     }
 
 

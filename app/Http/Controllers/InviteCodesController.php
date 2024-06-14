@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InviteCodesExport;
 use App\Helpers\ValidatorHelper;
-use App\Models\InviteCodesExport;
 use App\Services\InviteCodes\InviteCodesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

@@ -3,17 +3,6 @@ $(document).ready(function () {
     works();
     localStorage.setItem('selected_years', '');
     localStorage.setItem('selected_faculties', '');
-
-    $('#years_list').change(function () {
-        const yearId = $(this).val();
-        const data = {
-            year_id: yearId
-        };
-        console.log('изменение');
-        faculties(data);
-    });
-    localStorage.setItem('selected_years', '');
-    localStorage.setItem('selected_departments', '');
     $(".fancytree-title").on('click', function () {
         addBadge($(this));
     })
@@ -21,13 +10,21 @@ $(document).ready(function () {
         deleteTreeElement($(this));
     })
 
+    $('#years_list').change(function () {
+        const yearId = $(this).val();
+        const data = {
+            year_id: yearId
+        };
+        console.log('изменение');
+        faculties(data,'faculties_list');
+    });
 
     $('#faculties_list').change(function () {
         const facultyId = $(this).val();
         const data = {
             faculty_id: facultyId
         };
-        departments(data);
+        departments(data,'departments_list');
     });
 
     $('#departments_list').change(function () {
@@ -35,7 +32,80 @@ $(document).ready(function () {
         const data = {
             department_id: departmentId
         };
-        specialties(data);
+        specialties(data,'specialties_list');
+    });
+
+    $('#update_years_list').change(function () {
+        const yearId = $(this).val();
+        const data = {
+            year_id: yearId
+        };
+        console.log('изменение');
+        faculties(data,'update_faculties_list');
+    });
+
+    $('#update_faculties_list').change(function () {
+        const facultyId = $(this).val();
+        const data = {
+            faculty_id: facultyId
+        };
+        departments(data,'update_departments_list');
+    });
+
+    $('#update_departments_list').change(function () {
+        const departmentId = $(this).val();
+        const data = {
+            department_id: departmentId
+        };
+        specialties(data,'update_specialties_list');
+    });
+
+
+
+    $(function() {
+        let start = moment();
+        let end =  moment().add(29, 'days');
+        $('input[name="daterange"]').daterangepicker({
+            startDate: start,
+            endDate: end,
+            "locale": {
+                "format": "DD MMM. YYYY",
+                "separator": " - ",
+                "applyLabel": "Apply",
+                "cancelLabel": "Cancel",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Custom",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Вс",
+                    "Пн",
+                    "Вт",
+                    "Ср",
+                    "Чт",
+                    "Пт",
+                    "Сб"
+                ],
+                "monthNames": [
+                    "Январь",
+                    "Февраль",
+                    "Март",
+                    "Апрель",
+                    "Май",
+                    "Июнь",
+                    "Июль",
+                    "Август",
+                    "Сентябрь",
+                    "Октябрь",
+                    "Ноябрь",
+                    "Декабрь"
+                ],
+                "firstDay": 1
+            },
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
     });
 
 
@@ -47,10 +117,16 @@ $(document).ready(function () {
         $('#departments_list').find("input[class='department_checkbox']").prop('checked', $(this).prop("checked"));
     });
 
+    $('.js-example-basic-single').select2();
+
+
+
 
 });
+
 $('.btn-info-box').click(function () {
-    $("#info_box").fadeToggle(100);
+    console.log('Вошёл');
+    $("#info_box").css('display','block');
 });
 
 const addBadge = function (clickedElement) {
@@ -125,7 +201,7 @@ function deleteTreeElement(id) {
 }
 
 
-function faculties(data) {
+function faculties(data,htmlId) {
     console.log('faculties');
     $.ajax({
         url: "/dashboard/organizations/faculties/get",
@@ -135,7 +211,7 @@ function faculties(data) {
         success: function (response) {
             if (response.success) {
                 const faculties = response.data.faculties;
-                const facultiesList = $("#faculties_list");
+                const facultiesList = $("#" + htmlId);
                 console.log(facultiesList);
                 facultiesList.empty();
                 facultiesList.html($("#faculty_tmpl").tmpl(faculties));
@@ -150,7 +226,7 @@ function faculties(data) {
     });
 }
 
-function departments(data) {
+function departments(data,htmlId) {
     $.ajax({
         url: "/dashboard/organizations/departments/get",
         dataType: "json",
@@ -159,7 +235,7 @@ function departments(data) {
         success: function (response) {
             if (response.success) {
                 const departments = response.data.departments;
-                const departmentsList = $("#departments_list");
+                const departmentsList = $("#" + htmlId);
                 departmentsList.html($("#department_tmpl").tmpl(departments));
                 departmentsList.prepend('<option value="" selected>Выберите.......</option>');
             } else {
@@ -173,7 +249,7 @@ function departments(data) {
 }
 
 
-function specialties(data) {
+function specialties(data,htmlId) {
     $.ajax({
         url: "/dashboard/organizations/departments/program-specialties",
         dataType: "json",
@@ -182,7 +258,7 @@ function specialties(data) {
         success: function (response) {
             if (response.success) {
                 const specialties = response.data.program_specialties;
-                const specialtiesList = $("#specialties_list");
+                const specialtiesList = $("#" + htmlId);
                 specialtiesList.html($("#specialty_tmpl").tmpl(specialties));
                 specialtiesList.prepend('<option value="" selected>Выберите.......</option>');
             } else {
@@ -268,6 +344,7 @@ $("#addWorkForm").on('submit', function(e) {
             {
                 const work = response.data.work;
                 $("#works_table").append($("#work_tmpl").tmpl(work));
+                updateWorksCount();
                 closeModal('add_work_modal');
             }
             else
@@ -302,6 +379,18 @@ function getAssessmentDescription(assessment)
     }
 }
 
+function getAgreementDescription(agreement)
+{
+    switch (agreement) {
+        case 1:
+            return 'Согласен на размещение работы';
+        case 0:
+            return 'Не согласен на размещение работы';
+        default:
+            return 'Неизвестно';
+    }
+}
+
 function getSelfCheckDescription(selfCheck)
 {
     switch (selfCheck) {
@@ -323,7 +412,7 @@ function works(page= 1)
         url: "/dashboard/works/employees/get",
         type: 'GET',
         data:data,
-        contentType: "json",
+        dataType: "json",
         success: function(response) {
             if (response.success)
             {
@@ -339,6 +428,7 @@ function works(page= 1)
                 const currentPage = pagination.current_page;
                 const perPage = pagination.per_page;
                 const totalItems = pagination.total;
+                $("#works_count").text(totalItems);
                 const totalPages = pagination.links.length;
                 updatePagination(currentPage,totalItems,totalPages,perPage);
             }
@@ -356,21 +446,18 @@ function works(page= 1)
 function searchWorks() {
     let data = $("#search_form").serialize();
     data = serializeRemoveNull(data);
-    const selectedYears = localStorage.getItem('selected_years');
-    const selectedYearsArray = selectedYears.split(',');
-    const selectedFaculties = localStorage.getItem('selected_faculties');
-    const selectedFacultiesArray = selectedFaculties.split(',');
-
+    const selectedYears = getArrayFromLocalStorage('selected_years');
+    const selectedFaculties = getArrayFromLocalStorage('selected_faculties');
     const additionalData = {
-        selected_years: selectedYearsArray,
-        selected_faculties: selectedFacultiesArray,
+        selected_years: selectedYears,
+        selected_faculties: selectedFaculties,
     };
     data += '&' + $.param(additionalData);
     $.ajax({
         url: "/dashboard/works/employees/search",
         type: 'GET',
         data: data,
-        contentType: "json",
+        dataType: "json",
         success: function(response) {
             if (response.success)
             {
@@ -388,7 +475,88 @@ function searchWorks() {
                 const perPage = pagination.per_page;
                 const totalItems = pagination.total;
                 const totalPages = pagination.links.length;
+                console.log('total items = ' + totalItems);
+                $("#works_count").text(totalItems);
                 updatePagination(currentPage,totalItems,totalPages,perPage);
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+function resetSearch()
+{
+    $("#default_specialty").prop('selected',true);
+    $("#student_input").val();
+    $("#work_name_input").val();
+    $("#group_input").val();
+    $("#work_type_input").val();
+}
+
+function openInfoBox(id)
+{
+    if(id)
+    {
+        localStorage.setItem('work_id',id);
+    }
+    $("#info_box").fadeToggle(100);
+}
+
+function updateWorkSpecialty()
+{
+    let data = $("#update_work_form").serialize();
+    const workId = localStorage.getItem('work_id');
+    const additionalData = {
+        id: workId,
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url: "/dashboard/works/employees/update",
+        type: 'POST',
+        data:data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                const work = response.data.work;
+                $("#work_" + workId).replaceWith($("#work_tmpl").tmpl(work));
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+function workInfo()
+{
+    const workId = localStorage.getItem('work_id');
+    const data = {
+        id: workId,
+    };
+    $.ajax({
+        url: "/dashboard/works/employees/find",
+        type: 'GET',
+        data:data,
+        dataType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                const work = response.data.work;
+                $("#about_work").html($("#work_info_tmpl").tmpl(work));
             }
             else
             {
@@ -415,6 +583,17 @@ function updatePagination(currentPage,totalItems,totalPages,itemsPerPage) {
         }
     });
 }
+
+function updateWorksCount()
+{
+    const worksCountString = $("#works_count").text();
+    let worksCount = parseInt(worksCountString, 10);
+    if (!isNaN(worksCount)) {
+        worksCount += 1;
+        $('#works_count').text(worksCount);
+    }
+}
+
 
 
 

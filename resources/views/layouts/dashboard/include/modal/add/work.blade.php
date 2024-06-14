@@ -13,7 +13,7 @@
                         <div class="col-sm-8">
                             <select name="year_id" class="form-control" id="years_list" data-width="100%">
                                 <option value="">Выбрать...</option>
-                                @if(is_iterable($years))
+                                @if(isset($years) and is_iterable($years))
                                     @foreach($years as $year)
                                         <option value="{{$year->id}}">{{$year->year}}</option>
                                     @endforeach

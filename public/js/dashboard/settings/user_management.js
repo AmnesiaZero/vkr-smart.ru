@@ -107,8 +107,8 @@ function users() {
 function searchUsers() {
     let data = $("#search_users").serialize();
     data = serializeRemoveNull(data);
-    const selectedYears = localStorage.getItem('selected_years');
-    const selectedDepartments = localStorage.getItem('selected_departments');
+    const selectedYears = getArrayFromLocalStorage('selected_years');
+    const selectedDepartments = getArrayFromLocalStorage('selected_faculties');
 
     const additionalData = {
         selected_years: selectedYears,
@@ -161,6 +161,8 @@ function openUpdateUserCanvas(id) {
         }
     });
 }
+
+
 
 
 

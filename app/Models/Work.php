@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Work extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [
         'created',
@@ -60,6 +61,11 @@ class Work extends Model
     public function faculty():HasOne
     {
         return $this->hasOne(Faculty::class,'id','faculty_id');
+    }
+
+    public function department():HasOne
+    {
+        return  $this->hasOne(Department::class,'id','department_id');
     }
 
     public function year():HasOne
