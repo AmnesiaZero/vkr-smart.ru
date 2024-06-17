@@ -39,8 +39,7 @@
                         <div class="col-xl-6">
                             <p class="fs-14 mb-2 text-grey">Сотрудник</p>
                             <div id="bg-white" class="bg-white">
-                                <select class="js-example-basic-single w-100" name="scientific_supervisor"
-                                        id="scientific_supervisors_list">
+                                <select class="js-example-basic-single w-100" name="scientific_supervisor" id="scientific_supervisors_list">
                                     <option value="">Выбрать</option>
                                     @if(isset($scientific_supervisors) and is_iterable($scientific_supervisors))
                                         )
@@ -121,6 +120,17 @@
                                        class=" fs-14 text-grey p-date w-75"/>
                             </div>
                         </div>
+                        <div class="col-xl-6">
+                            <p class="fs-14 mb-2 text-grey">Отображение работ</p>
+                            <div id="bg-white_1">
+                                <select class="js-example-basic-single w-100" name="delete_type" id="delete_type">
+                                    <option value="2" selected>Отображать все работы</option>
+                                    <option value="0">Отображать только активные</option>
+                                    <option value="1">Отображать только удаленные</option>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row pt-4 d-flex align-items-end">
                         <div class="col">
@@ -183,6 +193,7 @@
             </nav>
         </div>
         @include('layouts.dashboard.include.modal.add.work')
+        @include('layouts.dashboard.include.modal.update.work')
         @endsection
 
         @section('scripts')
@@ -209,7 +220,7 @@
             </script>
 
             <script id="work_tmpl" type="text/x-jquery-tmpl">
-     <tr id="work_${id}">
+     <tr id="work_${id}" @{{if deleted_at!=null}} class="deleted" @{{/if}}>
     <th scope="row">${specialty.name}</th>
     <td>${student}</td>
     <td>${group}</td>
@@ -229,11 +240,11 @@
     </script>
 
     <script id="work_info_tmpl" type="text/x-jquery-tmpl">
-        <div id="infoWorkModal" style="display: block;">
+        <div id="work_info_modal" style="display: block;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteElement('work_info_modal');return false"><span aria-hidden="true">×</span></button>
                         <h3>Информация о работе</h3>
                     </div>
                     <div class="modal-body">
@@ -297,7 +308,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Файл работы</label>
-                                <div class="col-sm-8" id="value_workfile"><a onclick="workDownload(159128); return false;" href="#"><span class="glyphicon glyphicon-save-file"></span> Скачать файл работы</a></div>
+                                <div class="col-sm-8" id="value_workfile"><a onclick="workDownload(); return false;" href="#"><span class="glyphicon glyphicon-save-file"></span> Скачать файл работы</a></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Самопроверка работы студентом</label>
@@ -315,11 +326,32 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Закрыть окно</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" onclick="deleteElement('work_info_modal');return false">Закрыть окно</button>
                     </div>
                 </div>
             </div>
         </div>
+    </script>
+
+    <script id="deleted_menu_tmpl" type="text/x-jquery-tmpl">
+     <div class="d-flex cursor-p mb-2">
+        <img src="/images/Trash_Full.svg" alt="" class="pe-2">
+        <p class="fs-14 lh-17 text-grey m-0" onclick="restore()">Восстановить работу</p>
+    </div>
+    <div class="d-flex cursor-p mb-2">
+        <img src="/images/Trash_Full.svg" alt="" class="pe-2">
+        <p class="fs-14 lh-17 text-grey m-0" onclick="destroyWork()">Стереть запись и удалить прикрепленные файлы</p>
+    </div>
+    </script>
+    <script id="undeleted_menu_tmpl" type="text/x-jquery-tmpl">
+        <div class="d-flex cursor-p mb-2">
+        <img src="/images/copy.svg" alt="" class="pe-2">
+        <p class="fs-14 lh-17 text-grey m-0" onclick="copyWork()">Сделать копию записи без создания файлов</p>
+    </div>
+    <div class="d-flex cursor-p mb-2">
+        <img src="/images/Trash_Full.svg" alt="" class="pe-2">
+        <p class="fs-14 lh-17 text-grey m-0" onclick="deleteWork()">Поместить работу на удаление</p>
+    </div>
     </script>
 
 @endsection

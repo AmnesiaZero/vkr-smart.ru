@@ -1029,6 +1029,10 @@ label {
     display: none;
 }
 
+.deleted{
+    background-color: red !important;
+}
+
 .brt-black-grey {
     border-top: 1px solid rgba(0, 0, 0, 0.3);
 }

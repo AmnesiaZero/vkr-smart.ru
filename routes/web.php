@@ -174,6 +174,14 @@ Route::group([
             Route::get('search',[WorksController::class,'search']);
             Route::post('update',[WorksController::class,'update']);
             Route::get('find',[WorksController::class,'find']);
+            Route::get('download',[WorksController::class,'download']);
+            Route::post('upload',[WorksController::class,'upload']);
+            Route::post('copy',[WorksController::class,'copy']);
+            Route::post('delete',[WorksController::class,'delete']);
+            Route::post('destroy',[WorksController::class,'destroy']);
+            Route::post('update-check-status',[WorksController::class,'updateCheckStatus']);
+            Route::post('restore',[WorksController::class,'restore']);
+            Route::post('update-certificate',[WorksController::class,'uploadCertificate']);
         });
         Route::group([
             'prefix' => 'types'

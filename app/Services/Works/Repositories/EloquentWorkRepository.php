@@ -13,7 +13,7 @@ class EloquentWorkRepository implements WorkRepositoryInterface
 
     public function get(int $organizationId,int $pageNumber): LengthAwarePaginator
     {
-        return Work::with(['specialty','faculty'])->where('organization_id', '=', $organizationId)->paginate(config('pagination.per_page'),'*','page',$pageNumber);
+        return Work::withTrashed()->with(['faculty','specialty'])->where('organization_id', '=', $organizationId)->paginate(config('pagination.per_page'),'*','page',$pageNumber);
     }
 
     public function create(array $data): Model
@@ -23,12 +23,25 @@ class EloquentWorkRepository implements WorkRepositoryInterface
 
     public function find(int $id): Model
     {
-        return Work::with('specialty','year','faculty','department','user')->find($id);
+        return Work::withTrashed()->with('specialty','year','faculty','department','user')->find($id);
     }
 
     public function search(array $data): LengthAwarePaginator
     {
-        $query = Work::with(['specialty','faculty']);
+        $query = Work::query();
+        if(isset($data['delete_type']))
+        {
+            $deleteType = $data['delete_type'];
+            if ($deleteType==1)
+            {
+                $query = Work::withTrashed()->where('deleted_at','!=',null);
+            }
+            elseif($deleteType==2)
+            {
+                $query = Work::withTrashed();
+            }
+        }
+        $query = $query->with(['specialty','faculty']);
         if (isset($data['scientific_supervisor']))
         {
             $query->where('scientific_supervisor','like','%'.$data['scientific_supervisor']);
@@ -70,5 +83,25 @@ class EloquentWorkRepository implements WorkRepositoryInterface
     public function update(int $id,array $data)
     {
         return $this->find($id)->update($data);
+    }
+
+    public function copy(int $id)
+    {
+        return Work::query()->where('id','=',$id)->first()->duplicate();
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->find($id)->delete();
+    }
+
+    public function destroy(int $id): bool
+    {
+        return $this->find($id)->forceDelete();
+    }
+
+    public function restore(int $id)
+    {
+        return Work::withTrashed()->where('id','=',$id)->first()->restore();
     }
 }

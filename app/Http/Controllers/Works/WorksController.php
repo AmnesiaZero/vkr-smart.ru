@@ -31,7 +31,9 @@ class WorksController extends Controller
         'self_check',
         'certificate_file',
         'selected_faculties',
-        'selected_years'
+        'selected_years',
+        'verification_method',
+        'delete_type'
     ];
 
     protected WorksService $worksService;
@@ -74,6 +76,7 @@ class WorksController extends Controller
             'specialty_id' => ['integer','required',Rule::exists('programs_specialties','id')],
             'student' => 'required|max:250',
             'group' => 'required|max:250',
+            'verification_method' => 'required|integer|in:0,1,2',
             'scientific_supervisor' => 'max:250',
             'work_type' => 'required|max:250',
             'protect_date' => 'required|date',
@@ -95,6 +98,7 @@ class WorksController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'specialty_id' => ['integer',Rule::exists('programs_specialties','id')],
+            'delete_type' => 'integer|in:0,1,2',
             'student' => 'max:250',
             'group' => 'max:250',
             'scientific_supervisor' => 'max:250',
@@ -115,7 +119,7 @@ class WorksController extends Controller
     public function delete(Request $request):JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => ['required','integer',Rule::exists('works','id')],
+            'id' => ['required','integer'],
         ]);
         if ($validator->fails())
         {
@@ -125,10 +129,23 @@ class WorksController extends Controller
         return $this->worksService->delete($id);
     }
 
+    public function destroy(Request $request):JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer'],
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksService->destroy($id);
+    }
+
     public function update(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
-            'id' => ['integer',Rule::exists('works','id')],
+            'id' => ['required','integer'],
             'specialty_id' => ['integer',Rule::exists('programs_specialties','id')],
             'student' => 'max:250',
             'group' => 'max:250',
@@ -154,8 +171,7 @@ class WorksController extends Controller
     public function find(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'id' => ['integer',Rule::exists('works','id')],
-
+            'id' => ['required','integer'],
         ]);
         if ($validator->fails())
         {
@@ -164,4 +180,88 @@ class WorksController extends Controller
         $id = $request->id;
         return $this->worksService->find($id);
     }
+
+    public function download(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer',Rule::exists('works','id')],
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksService->download($id);
+    }
+
+    public function upload(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer'],
+            'work_file' => 'required|file'
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        $workFile = $request->work_file;
+        return $this->worksService->upload($id,$workFile);
+    }
+
+    public function uploadCertificate(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer'],
+            'certificate_file' => 'required|file'
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        $certificate = $request->file('certificate_file');
+        return $this->worksService->uploadCertificate($id,$certificate);
+    }
+
+    public function copy(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer']
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksService->copy($id);
+    }
+
+    public function updateCheckStatus(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer']
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksService->updateCheckStatus($id);
+    }
+
+    public function restore(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer']
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksService->restore($id);
+    }
+
+
 }

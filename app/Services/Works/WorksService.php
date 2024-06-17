@@ -181,4 +181,186 @@ class WorksService
         ]);
     }
 
+    public function download(int $id)
+    {
+        $work = $this->workRepository->find($id);
+        if($work and $work->id)
+        {
+            $path = $work->path;
+            return Storage::download($path);
+        }
+        return back();
+    }
+
+    public function upload(int $id,UploadedFile $workFile): JsonResponse
+    {
+        $work = $this->workRepository->find($id);
+        if($work and $work->id)
+        {
+            $fileName = $work->id.'.'.$workFile->extension();
+            $path = $work->path;
+            if(Storage::exists($path))
+            {
+                Storage::delete($path);
+            }
+            $directory = 'works/'.ceil($work->id/1000);
+            $workFile->storeAs($directory,$fileName);
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Файл успешно изменен'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при изменении файла'
+        ]);
+    }
+
+    public function copy(int $id)
+    {
+        $result = $this->workRepository->copy($id);
+        if($result)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Работа была успешно скопирована'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+               'title' => 'Ошибка',
+                'message' => 'Возникла ошибка при копировании работы'
+            ]);
+    }
+
+    public function delete(int $id): JsonResponse
+    {
+        $flag = $this->workRepository->delete($id);
+        if($flag)
+        {
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Работа успешно помещена на удаление'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при удалении работы'
+        ]);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $work = $this->workRepository->find($id);
+        $path = $work->path;
+        Log::debug('path = '.$path);
+        if(Storage::delete($path))
+        {
+            $certificate = $work->certificate;
+            if(isset($certificate) and Storage::exists($certificate))
+            {
+                if(Storage::delete($certificate))
+                {
+                    return JsonHelper::sendJsonResponse(true,[
+                        'title' => 'Успешно',
+                        'message' => 'Работа и файлы были успешно удалены'
+                    ]);
+                }
+            }
+            $flag = $this->workRepository->destroy($id);
+            if ($flag)
+            {
+                return JsonHelper::sendJsonResponse(true,[
+                    'title' => 'Успешно',
+                    'message' => 'Работа и файлы были успешно удалены'
+                ]);
+            }
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Возникла ошибка при удалении записи работы'
+            ]);
+        }
+        else
+        {
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Возникла ошибка при удалении файла работы'
+            ]);
+        }
+    }
+
+    public function updateCheckStatus(int $id): JsonResponse
+    {
+        $work = $this->workRepository->find($id);
+        if($work and $work->id)
+        {
+            $manual = $work->self_check;
+            if($manual)
+            {
+                $work->self_check = false;
+            }
+            else
+            {
+                $work->self_check = true;
+            }
+            $work->save();
+            return JsonHelper::sendJsonResponse(true,[
+                'title' => 'Успешно',
+                'message' => 'Статус самопроверки успешно обновлен'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при обновлении статуса самопроверки'
+        ]);
+    }
+
+    public function restore(int $id)
+    {
+        $work = $this->workRepository->find($id);
+        if ($work and $work->id)
+        {
+            Log::debug('id = '.$id);
+            $result = $this->workRepository->restore($id);
+            if($result)
+            {
+                return JsonHelper::sendJsonResponse(true,[
+                    'title' => 'Успешно',
+                    'message' => 'Работа была успешно восстановлена'
+                ]);
+            }
+            return JsonHelper::sendJsonResponse(false,[
+                'title' => 'Ошибка',
+                'message' => 'Возникла ошибка при восстановлении работы'
+            ]);
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при поиске работы'
+        ]);
+    }
+
+    public function uploadCertificate(int $id, UploadedFile $certificate): JsonResponse
+    {
+        $work = $this->workRepository->find($id);
+        if($work and $work->id)
+        {
+            $fileName = $work->id.'.'.$certificate->extension();
+            $certificatePath = $work->certificate;
+            if(isset($certificatePath) and Storage::exists($certificatePath))
+            {
+                Storage::delete($certificatePath);
+                $directory = 'certificates/' . ceil($work->id / 1000);
+                $certificate->storeAs($directory, $fileName);
+                return JsonHelper::sendJsonResponse(true, [
+                    'title' => 'Успешно',
+                    'message' => 'Файл сертификата успешно изменен'
+                ]);
+            }
+        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при изменении файла сертификата'
+        ]);
+    }
+
 }

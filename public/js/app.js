@@ -52,3 +52,8 @@ function getArrayFromLocalStorage(fieldName)
     return itemsArray;
 }
 
+function deleteElement(elementId)
+{
+    $("#" + elementId).remove();
+}
+

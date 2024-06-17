@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Bkwld\Cloner\Cloneable;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Work extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,CascadeSoftDeletes,Cloneable;
 
     protected $fillable = [
         'created',
@@ -45,7 +47,8 @@ class Work extends Model
         'activity_id',
         'report_status',
         'percent_person',
-        'check_code'
+        'check_code',
+        'verification_method'
     ];
 
     public function specialty(): HasOne

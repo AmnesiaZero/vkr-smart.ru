@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label class="col-sm-4">Направление подготовки (специальность)</label>
                         <div class="col-sm-8">
-                            <select name="specialty_id" class="form-control" id="specialties_list" data-width="100%">
+                            <select name="specialty_id" class="form-control" id="add_specialties_list" data-width="100%">
                                 <option value="" disabled="" selected="selected">Уточните кафедру</option>
                             </select>
                         </div>
@@ -133,19 +133,19 @@
                         <div class="col-sm-8">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="bsemethod" value="0"> Проверить автоматически после
+                                    <input type="radio" name="verification_method" value="1"> Проверить автоматически после
                                     загрузки
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="bsemethod" value="1" checked=""> Проверить работу в ручном
+                                    <input type="radio" name="verification_method" value="0" checked=""> Проверить работу в ручном
                                     режиме
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="bsemethod" value="2"> Не проверять работу после загрузки
+                                    <input type="radio" name="verification_method" value="2"> Не проверять работу после загрузки
                                 </label>
                             </div>
                         </div>

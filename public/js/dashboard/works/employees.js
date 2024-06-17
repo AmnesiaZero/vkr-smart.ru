@@ -32,7 +32,7 @@ $(document).ready(function () {
         const data = {
             department_id: departmentId
         };
-        specialties(data,'specialties_list');
+        specialties(data,'add_specialties_list');
     });
 
     $('#update_years_list').change(function () {
@@ -58,6 +58,74 @@ $(document).ready(function () {
             department_id: departmentId
         };
         specialties(data,'update_specialties_list');
+    });
+
+    $('#upload_button').on('click', function() {
+        $('#file_input').click(); // Открываем диалог выбора файла
+    });
+
+    $('#upload_certificate_button').on('click', function() {
+        $('#certificate_input').click(); // Открываем диалог выбора файла
+    });
+
+    $('#file_input').on('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const workId = localStorage.getItem('work_id');
+            const formData = new FormData();
+            formData.append('id', workId);
+            formData.append('work_file', file);
+            $.ajax({
+                url: '/dashboard/works/employees/upload', // URL к вашему серверному скрипту
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                contentType: false, // Обязательно установить false для передачи данных как FormData
+                processData: false, // Обязательно установить false для передачи данных как FormData
+                success: function (response) {
+                    if (response.success) {
+                        $.notify(response.data.title + ":" + response.data.message, "success");
+                    } else {
+                        $.notify(response.data.title + ":" + response.data.message, "error");
+                    }
+                },
+                error: function () {
+                    $.notify("Произошла ошибка при загрузке файла", "error");
+                }
+            });
+        }
+    });
+
+    $('#certificate_input').on('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const workId = localStorage.getItem('work_id');
+            const formData = new FormData();
+            formData.append('id', workId);
+            formData.append('certificate_file', file);
+            $.ajax({
+                url: '/dashboard/works/employees/update-certificate', // URL к вашему серверному скрипту
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                contentType: false, // Обязательно установить false для передачи данных как FormData
+                processData: false, // Обязательно установить false для передачи данных как FormData
+                success: function (response) {
+                    if (response.success) {
+                        $.notify(response.data.title + ":" + response.data.message, "success");
+                    } else {
+                        $.notify(response.data.title + ":" + response.data.message, "error");
+                    }
+                },
+                error: function () {
+                    $.notify("Произошла ошибка при загрузке файла", "error");
+                }
+            });
+        }
     });
 
 
@@ -124,10 +192,6 @@ $(document).ready(function () {
 
 });
 
-$('.btn-info-box').click(function () {
-    console.log('Вошёл');
-    $("#info_box").css('display','block');
-});
 
 const addBadge = function (clickedElement) {
     console.log(clickedElement);
@@ -258,6 +322,8 @@ function specialties(data,htmlId) {
         success: function (response) {
             if (response.success) {
                 const specialties = response.data.program_specialties;
+                console.log('specialties');
+                console.log(specialties);
                 const specialtiesList = $("#" + htmlId);
                 specialtiesList.html($("#specialty_tmpl").tmpl(specialties));
                 specialtiesList.prepend('<option value="" selected>Выберите.......</option>');
@@ -503,14 +569,31 @@ function openInfoBox(id)
 {
     if(id)
     {
+        const deleted = $("#work_" + id).attr('class');
+        console.log('deleted = ' + deleted);
+        if(deleted)
+        {
+            console.log('true');
+            $("#added_menu").html($("#deleted_menu_tmpl").tmpl());
+        }
+        else
+        {
+            console.log('false');
+            $("#added_menu").html($("#undeleted_menu_tmpl").tmpl());
+        }
         localStorage.setItem('work_id',id);
     }
     $("#info_box").fadeToggle(100);
 }
 
+function checkDeleted()
+{
+    return  localStorage.getItem('deleted');
+}
+
 function updateWorkSpecialty()
 {
-    let data = $("#update_work_form").serialize();
+    let data = $("#update_work_specialty_form").serialize();
     const workId = localStorage.getItem('work_id');
     const additionalData = {
         id: workId,
@@ -568,6 +651,209 @@ function workInfo()
         }
     });
 }
+
+function updateWork()
+{
+    let data = $("#update_work_form").serialize();
+    const workId = localStorage.getItem('work_id');
+    const additionalData = {
+        id: workId,
+    };
+    data += '&' + $.param(additionalData);
+    $.ajax({
+        url: "/dashboard/works/employees/update",
+        type: 'POST',
+        data:data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                const work = response.data.work;
+                $("#work_" + workId).replaceWith($("#work_tmpl").tmpl(work));
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+function downloadWork()
+{
+    const workId = localStorage.getItem('work_id');
+    window.location.href = '/dashboard/works/employees/download?id=' + workId;
+}
+
+function copyWork()
+{
+    const workId = localStorage.getItem('work_id');
+    const data = {
+        id: workId,
+    };
+    $.ajax({
+        url: "/dashboard/works/employees/copy",
+        type: 'POST',
+        data:data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                //обновялем список работ
+                works();
+                $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+function deleteWork()
+{
+    if (confirm('Вы уверены,что хотите поместить работу на удаление?'))
+    {
+        const workId = localStorage.getItem('work_id');
+        const data = {
+            id: workId,
+        };
+        $.ajax({
+            url: "/dashboard/works/employees/delete",
+            type: 'POST',
+            data:data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.success)
+                {
+                    works();
+                    $.notify(response.data.title + ":" + response.data.message, "success");
+                }
+                else
+                {
+                    $.notify(response.data.title + ":" + response.data.message, "error");
+                }
+            },
+            error: function() {
+                $.notify("Ошибка при удалении работы. Обратитесь к системному администратору", "error");
+            }
+        });
+    }
+}
+
+function destroyWork()
+{
+    if (confirm('Вы уверены,что хотите стереть запись и удалить прикрепленные файлы?'))
+    {
+        const workId = localStorage.getItem('work_id');
+        const data = {
+            id: workId,
+        };
+        $.ajax({
+            url: "/dashboard/works/employees/destroy",
+            type: 'POST',
+            data:data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.success)
+                {
+                    works();
+                    $.notify(response.data.title + ":" + response.data.message, "success");
+                }
+                else
+                {
+                    $.notify(response.data.title + ":" + response.data.message, "error");
+                }
+            },
+            error: function() {
+                $.notify("Ошибка при удалении работы. Обратитесь к системному администратору", "error");
+            }
+        });
+    }
+}
+
+function updateCheckStatus()
+{
+    const workId = localStorage.getItem('work_id');
+    const data = {
+        id:workId
+    };
+    $.ajax({
+        url: "/dashboard/works/employees/update-check-status",
+        type: 'POST',
+        data:data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+
+}
+
+function restore()
+{
+    const workId = localStorage.getItem('work_id');
+    const data = {
+        id:workId
+    };
+    $.ajax({
+        url: "/dashboard/works/employees/restore",
+        type: 'POST',
+        data:data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.success)
+            {
+                works();
+                $.notify(response.data.title + ":" + response.data.message, "success");
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function() {
+            $.notify("Ошибка при поиске работ. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+
 
 function updatePagination(currentPage,totalItems,totalPages,itemsPerPage) {
     $("#pagination").pagination({
