@@ -60,7 +60,6 @@ class WorksService
             'title' => 'Успешно',
             'works' => $works
         ]);
-
     }
 
     public function employeesWorksView()
@@ -91,7 +90,7 @@ class WorksService
         {
             //Вообще,можно в отдельную функцию вынести разбиение по директориям,но лучше не надо
             $workId = $work->id;
-            if (isset($data['work_file']) and is_file($data['work_file']))
+            if (isset($data['work_file']) and is_file($data['work_file']) and FilesHelper::acceptable($data['work_file']))
             {
                 $workFile = $data['work_file'];
                 $directoryNumber = ceil($workId/1000);
@@ -105,17 +104,27 @@ class WorksService
             {
                 return JsonHelper::sendJsonResponse(false,[
                     'title' => 'Ошибка',
-                    'message' => 'В запросе нет файла работы'
+                    'message' => 'Был загружен некорректный файл работы. Проверьте его расширение и целостность.Допустимы только файлы формата doc,docx,pdf,pdf и txt'
                 ]);
             }
-            if(isset($data['certificate_file']) and is_file($data['work_file']))
+            if(isset($data['certificate_file']))
             {
-                $certificateFile = $data['certificate_file'];
-                $certificateFileName = $workId.'.'.$certificateFile->extension();
-                $certificateDirectory = 'certificates/'.$directoryNumber;
-                Storage::makeDirectory($certificateDirectory);
-                $certificatePath = $certificateFile->storeAs($certificateDirectory,$certificateFileName);
-                $work->certificate = $certificatePath;
+                if(is_file($data['certificate_file']) and FilesHelper::acceptable($data['certificate_file']))
+                {
+                    $certificateFile = $data['certificate_file'];
+                    $certificateFileName = $workId.'.'.$certificateFile->extension();
+                    $certificateDirectory = 'certificates/'.$directoryNumber;
+                    Storage::makeDirectory($certificateDirectory);
+                    $certificatePath = $certificateFile->storeAs($certificateDirectory,$certificateFileName);
+                    $work->certificate = $certificatePath;
+                }
+                else
+                {
+                    return JsonHelper::sendJsonResponse(false,[
+                        'title' => 'Ошибка',
+                        'message' => 'Был загружен некорректный файл сертификата. Проверьте его расширение и целостность.Допустимы только файлы формата doc,docx,pdf,pdf и txt'
+                    ]);
+                }
             }
             $work->save();
             //Подгружаю через find,чтобы связь specialty сохранилась
@@ -187,7 +196,10 @@ class WorksService
         if($work and $work->id)
         {
             $path = $work->path;
-            return Storage::download($path);
+            if(isset($path) and Storage::exists($path))
+            {
+                return Storage::download($path);
+            }
         }
         return back();
     }
@@ -201,7 +213,20 @@ class WorksService
             $path = $work->path;
             if(Storage::exists($path))
             {
-                Storage::delete($path);
+                if(!Storage::delete($path))
+                {
+                    return JsonHelper::sendJsonResponse(false,[
+                        'title' => 'Ошибка',
+                        'message' => 'Возникла ошибка при замене файла'
+                    ]);
+                }
+            }
+            if(!isset($workFile) or !is_file($workFile) or !FilesHelper::acceptable($workFile))
+            {
+                return JsonHelper::sendJsonResponse(false,[
+                    'title' => 'Ошибка',
+                    'message' => 'Был загружен некорректный файл. Проверьте его расширение и целостность'
+                ]);
             }
             $directory = 'works/'.ceil($work->id/1000);
             $workFile->storeAs($directory,$fileName);
@@ -252,13 +277,35 @@ class WorksService
     {
         $work = $this->workRepository->find($id);
         $path = $work->path;
-        Log::debug('path = '.$path);
-        if(Storage::delete($path))
+        if($work and $work->id)
         {
-            $certificate = $work->certificate;
-            if(isset($certificate) and Storage::exists($certificate))
+            $workId = $work->id;
+            if(isset($path) and Storage::delete($path))
             {
-                if(Storage::delete($certificate))
+                $certificate = $work->certificate;
+                if(isset($certificate) and Storage::exists($certificate))
+                {
+                    if(!Storage::delete($certificate))
+                    {
+                        return JsonHelper::sendJsonResponse(false,[
+                            'title' => 'Ошибка',
+                            'message' => 'Возникла ошибка при удалении сертификата'
+                        ]);
+                    }
+                }
+                $additionalFilesPath = 'additional_files/'.$workId;
+                if (Storage::exists($additionalFilesPath))
+                {
+                    if(!Storage::deleteDirectory($additionalFilesPath))
+                    {
+                        return JsonHelper::sendJsonResponse(false,[
+                            'title' => 'Ошибка',
+                            'message' => 'Возникла ошибка при удалении дополнительных файлов'
+                        ]);
+                    }
+                }
+                $flag = $this->workRepository->destroy($id);
+                if ($flag)
                 {
                     return JsonHelper::sendJsonResponse(true,[
                         'title' => 'Успешно',
@@ -266,29 +313,14 @@ class WorksService
                     ]);
                 }
             }
-            $flag = $this->workRepository->destroy($id);
-            if ($flag)
-            {
-                return JsonHelper::sendJsonResponse(true,[
-                    'title' => 'Успешно',
-                    'message' => 'Работа и файлы были успешно удалены'
-                ]);
-            }
-            return JsonHelper::sendJsonResponse(false,[
-                'title' => 'Ошибка',
-                'message' => 'Возникла ошибка при удалении записи работы'
-            ]);
         }
-        else
-        {
-            return JsonHelper::sendJsonResponse(false,[
-                'title' => 'Ошибка',
-                'message' => 'Возникла ошибка при удалении файла работы'
-            ]);
-        }
+        return JsonHelper::sendJsonResponse(false,[
+            'title' => 'Ошибка',
+            'message' => 'Возникла ошибка при удалении файла работы'
+        ]);
     }
 
-    public function updateCheckStatus(int $id): JsonResponse
+    public function updateSelfCheckStatus(int $id): JsonResponse
     {
         $work = $this->workRepository->find($id);
         if($work and $work->id)
@@ -296,16 +328,17 @@ class WorksService
             $manual = $work->self_check;
             if($manual)
             {
-                $work->self_check = false;
+                $work->self_check = 0;
             }
             else
             {
-                $work->self_check = true;
+                $work->self_check = 1;
             }
             $work->save();
             return JsonHelper::sendJsonResponse(true,[
                 'title' => 'Успешно',
-                'message' => 'Статус самопроверки успешно обновлен'
+                'message' => 'Статус самопроверки успешно обновлен',
+                'self_check' => $work->self_check
             ]);
         }
         return JsonHelper::sendJsonResponse(false,[
@@ -361,6 +394,20 @@ class WorksService
             'title' => 'Ошибка',
             'message' => 'Возникла ошибка при изменении файла сертификата'
         ]);
+    }
+
+    public function downloadCertificate(int $id)
+    {
+        $work = $this->workRepository->find($id);
+        if($work and $work->id)
+        {
+            $certificatePath = $work->certificate;
+            if(isset($certificatePath) and Storage::exists($certificatePath))
+            {
+                return Storage::download($certificatePath);
+            }
+        }
+        return back();
     }
 
 }

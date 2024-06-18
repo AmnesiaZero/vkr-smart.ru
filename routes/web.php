@@ -12,6 +12,7 @@ use App\Http\Controllers\Organizations\ProgramsSpecialtiesController;
 use App\Http\Controllers\Organizations\SpecialtiesController;
 use App\Http\Controllers\ScientificSupervisorsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Works\AdditionalFilesController;
 use App\Http\Controllers\Works\WorksController;
 use App\Http\Controllers\Works\WorksTypesController;
 use Illuminate\Http\Request;
@@ -179,9 +180,23 @@ Route::group([
             Route::post('copy',[WorksController::class,'copy']);
             Route::post('delete',[WorksController::class,'delete']);
             Route::post('destroy',[WorksController::class,'destroy']);
-            Route::post('update-check-status',[WorksController::class,'updateCheckStatus']);
+            Route::post('update-self-check-status',[WorksController::class, 'updateSelfCheckStatus']);
             Route::post('restore',[WorksController::class,'restore']);
-            Route::post('update-certificate',[WorksController::class,'uploadCertificate']);
+            Route::group([
+                'prefix' => 'certificates'
+            ],function (){
+                Route::post('upload',[WorksController::class,'uploadCertificate']);
+                Route::get('download',[WorksController::class,'downloadCertificate']);
+            });
+
+            Route::group([
+                'prefix' => 'additional-files'
+            ],function (){
+               Route::get('get',[AdditionalFilesController::class,'get']);
+               Route::post('create',[AdditionalFilesController::class,'create']);
+               Route::post('delete',[AdditionalFilesController::class,'delete']);
+               Route::get('download',[AdditionalFilesController::class,'download']);
+            });
         });
         Route::group([
             'prefix' => 'types'

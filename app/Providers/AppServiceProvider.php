@@ -32,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
             'InviteCode' => 'InviteCodes',
             'Work' => 'Works',
             'ScientificSupervisor' => 'ScientificSupervisors',
-            'WorksType' => 'WorksTypes'
+            'WorksType' => 'WorksTypes',
+            'AdditionalFile' => 'AdditionalFiles'
         ];
 
         foreach ($repositories as $k => $v) {

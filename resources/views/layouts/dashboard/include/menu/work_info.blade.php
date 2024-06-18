@@ -25,7 +25,7 @@
     <p class="fs-14 lh-17">Самопроверка</p>
     <div class="d-flex cursor-p mb-2">
         <img src="/images/Edit_Pencil.svg" alt="" class="pe-2">
-        <p class="fs-14 lh-17 text-grey m-0" onclick="updateCheckStatus()">Изменить статус самопроверки</p>
+        <p class="fs-14 lh-17 text-grey m-0" onclick="updateSelfCheckStatus()">Изменить статус самопроверки</p>
     </div>
     <div id="added_menu">
 
@@ -39,7 +39,7 @@
     <p class="fs-14 lh-17">Дополнительные файлы</p>
     <div class="d-flex cursor-p mb-2">
         <img src="/images/href_light.svg" alt="" class="pe-2">
-        <p class="fs-14 lh-17 text-grey m-0">Открыть окно управления<br> дополнительными файлами</p>
+        <p class="fs-14 lh-17 text-grey m-0" onclick="openModal('additional_files_modal');additionalFiles();return false">Открыть окно управления<br> дополнительными файлами</p>
     </div>
 </div>
 </div>

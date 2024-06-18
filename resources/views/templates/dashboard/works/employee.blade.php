@@ -39,7 +39,8 @@
                         <div class="col-xl-6">
                             <p class="fs-14 mb-2 text-grey">Сотрудник</p>
                             <div id="bg-white" class="bg-white">
-                                <select class="js-example-basic-single w-100" name="scientific_supervisor" id="scientific_supervisors_list">
+                                <select class="js-example-basic-single w-100" name="scientific_supervisor"
+                                        id="scientific_supervisors_list">
                                     <option value="">Выбрать</option>
                                     @if(isset($scientific_supervisors) and is_iterable($scientific_supervisors))
                                         )
@@ -193,7 +194,8 @@
             </nav>
         </div>
         @include('layouts.dashboard.include.modal.add.work')
-        @include('layouts.dashboard.include.modal.update.work')
+        @include('layouts.dashboard.include.modal.update.work_specialty')
+        @include('layouts.dashboard.include.modal.other.additional_file')
         @endsection
 
         @section('scripts')
@@ -205,16 +207,19 @@
             <script id="faculty_tmpl" type="text/x-jquery-tmpl">
         <option value="${id}">${name}</option>
 
+
             </script>
 
             <script id="department_tmpl" type="text/x-jquery-tmpl">
      <option value="${id}">${name}</option>
 
 
+
             </script>
 
             <script id="specialty_tmpl" type="text/x-jquery-tmpl">
      <option value="${id}">${name}</option>
+
 
 
             </script>
@@ -229,17 +234,42 @@
     <td>${getAssessmentDescription(assessment)}</td>
     <td>${getSelfCheckDescription(self_check)}</td>
         <td>
-            <div class="mt-2"><span class="bg-active px-2 d-flex align-items-center"><div
-                        class="me-2 green-c"></div>Отчет</span></div>
+            <div class="mt-2">
+            @{{if report_status==0}}
+            <span class="bg-waiting px-2 d-flex align-items-center">
+            <div class="me-2 yellow-c">
+            </div>
+              В очереди на проверку
+            </span>
+            </div>
+            @{{/if}}
+            @{{if report_status==1}}
+            <span class="bg-active px-2 d-flex align-items-center">
+            <div class="me-2 green-c">
+            </div>
+              Отчет
+            </span>
+            </div>
+            @{{/if}}
+            @{{if report_status==2}}
+            <span class="bg-error px-2 d-flex align-items-center">
+            <div class="me-2 red-c">
+            </div>
+              Не проверена
+            </span>
+            </div>
+            @{{/if}}
+
         </td>
         <td>
             <img src="/images/three_dots.svg" alt="" class="btn-info-box cursor-p" onclick="openInfoBox(${id})">
         </td>
     </tr>
 
-    </script>
 
-    <script id="work_info_tmpl" type="text/x-jquery-tmpl">
+            </script>
+
+            <script id="work_info_tmpl" type="text/x-jquery-tmpl">
         <div id="work_info_modal" style="display: block;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -264,7 +294,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Образовательная программа (специальность)</label>
-                                <div class="col-sm-8"></div>
+                                <div class="col-sm-8">${specialty.name}</div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Кто загрузил работу</label>
@@ -312,15 +342,26 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Самопроверка работы студентом</label>
-                                <div class="col-sm-8" id="value_selfcheck"><a href="#" onclick="workSelfCheck(159128); return false;" class="btn btn-warning btn-sm" id="info-selfcheck159128">Не пройдена <span class="glyphicon glyphicon-refresh"></span></a></div>
+                                <div class="col-sm-8" id="self_check_value">
+                                <a href="#" onclick="updateSelfCheckStatus()" class="btn btn-warning btn-sm"> ${getSelfCheckDescription(self_check)}
+                                <span class="glyphicon glyphicon-refresh">
+                                </span>
+                                </a>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Справка о самопроверке работы обучающимся по системе заимствований</label>
+                                @{{if certificate}}
+                                <a class="col-sm-8" onclick="downloadCertificate()">Скачать файл самопроверки </a>
+                                @{{else}}
                                 <div class="col-sm-8" id="value_certificate">Файл справки не загружен</div>
+                                @{{/if}}
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Отчет о заимствованиях по базам ВКР-ВУЗ</label>
-                                <div class="col-sm-8" id="value_percent_person">Фактических некорректных заимствований: 70.11%</div>
+                                @{{if borrowings_percent}}
+                                <div class="col-sm-8" id="value_percent_person">Фактических некорректных заимствований: ${borrowings_percent}</div>
+                                @{{/if}}
                             </div>
                             <div id="works-add-alert"></div>
                         </form>
@@ -331,9 +372,10 @@
                 </div>
             </div>
         </div>
-    </script>
 
-    <script id="deleted_menu_tmpl" type="text/x-jquery-tmpl">
+            </script>
+
+            <script id="deleted_menu_tmpl" type="text/x-jquery-tmpl">
      <div class="d-flex cursor-p mb-2">
         <img src="/images/Trash_Full.svg" alt="" class="pe-2">
         <p class="fs-14 lh-17 text-grey m-0" onclick="restore()">Восстановить работу</p>
@@ -342,8 +384,9 @@
         <img src="/images/Trash_Full.svg" alt="" class="pe-2">
         <p class="fs-14 lh-17 text-grey m-0" onclick="destroyWork()">Стереть запись и удалить прикрепленные файлы</p>
     </div>
-    </script>
-    <script id="undeleted_menu_tmpl" type="text/x-jquery-tmpl">
+
+            </script>
+            <script id="undeleted_menu_tmpl" type="text/x-jquery-tmpl">
         <div class="d-flex cursor-p mb-2">
         <img src="/images/copy.svg" alt="" class="pe-2">
         <p class="fs-14 lh-17 text-grey m-0" onclick="copyWork()">Сделать копию записи без создания файлов</p>
@@ -352,6 +395,25 @@
         <img src="/images/Trash_Full.svg" alt="" class="pe-2">
         <p class="fs-14 lh-17 text-grey m-0" onclick="deleteWork()">Поместить работу на удаление</p>
     </div>
-    </script>
+
+            </script>
+
+            <script id="self_check_tmpl" type="text/x-jquery-tmpl">
+       <a href="#" onclick="updateSelfCheckStatus()" class="btn btn-warning btn-sm"> ${getSelfCheckDescription(self_check)}
+          <span class="glyphicon glyphicon-refresh">
+                                </span>
+
+            </script>
+
+            <script id="additional_file_tmpl" type="text/x-jquery-tmpl">
+        <tr id="additional_file_${id}">
+            <td>${file_name}</td>
+            <td>
+                <a target="_blank" href="/dashboard/works/employees/additional-files/download?id=${id}" class="btn btn-sm btn-success btn-block">Скачать</a>
+                <a onclick="deleteAdditionalFile(${id}); return false;" href="#" class="btn btn-sm btn-danger btn-block">Удалить</a>
+            </td>
+        </tr>
+
+            </script>
 
 @endsection

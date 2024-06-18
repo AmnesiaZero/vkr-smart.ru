@@ -1029,6 +1029,24 @@ label {
     display: none;
 }
 
+.bg-error {
+    background-color: #f8d7da; /* Красный цвет фона для ошибок */
+    color: #721c24; /* Цвет текста */
+    padding-left: 2px; /* Отступы слева */
+    padding-right: 2px; /* Отступы справа */
+    display: flex;
+    align-items: center; /* Выравнивание по центру по вертикали */
+}
+
+.bg-waiting {
+    background-color: #fff3cd; /* Желтый цвет фона для предупреждений */
+    color: #856404; /* Цвет текста */
+    padding-left: 2px; /* Отступы слева */
+    padding-right: 2px; /* Отступы справа */
+    display: flex;
+    align-items: center; /* Выравнивание по центру по вертикали */
+}
+
 .deleted{
     background-color: red !important;
 }

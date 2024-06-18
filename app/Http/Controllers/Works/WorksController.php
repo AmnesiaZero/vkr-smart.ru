@@ -194,6 +194,19 @@ class WorksController extends Controller
         return $this->worksService->download($id);
     }
 
+    public function downloadCertificate(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required','integer',Rule::exists('works','id')],
+        ]);
+        if ($validator->fails())
+        {
+            return ValidatorHelper::validatorError($validator);
+        }
+        $id = $request->id;
+        return $this->worksService->downloadCertificate($id);
+    }
+
     public function upload(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
@@ -237,7 +250,7 @@ class WorksController extends Controller
         return $this->worksService->copy($id);
     }
 
-    public function updateCheckStatus(Request $request): JsonResponse
+    public function updateSelfCheckStatus(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'id' => ['required','integer']
@@ -247,7 +260,7 @@ class WorksController extends Controller
             return ValidatorHelper::validatorError($validator);
         }
         $id = $request->id;
-        return $this->worksService->updateCheckStatus($id);
+        return $this->worksService->updateSelfCheckStatus($id);
     }
 
     public function restore(Request $request): JsonResponse

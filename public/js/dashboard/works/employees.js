@@ -106,7 +106,7 @@ $(document).ready(function () {
             formData.append('id', workId);
             formData.append('certificate_file', file);
             $.ajax({
-                url: '/dashboard/works/employees/update-certificate', // URL к вашему серверному скрипту
+                url: '/dashboard/works/employees/certificates/upload', // URL к вашему серверному скрипту
                 type: 'POST',
                 data: formData,
                 headers: {
@@ -126,6 +126,40 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $("#upload_additional_file_form").on('submit', function(e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение формы
+
+        // Создаем объект FormData и добавляем в него данные формы
+        const formData = new FormData(this);
+        const workId = localStorage.getItem('work_id');
+        formData.append('work_id',workId);
+
+        $.ajax({
+            url: '/dashboard/works/employees/additional-files/create',
+            type: 'POST',
+            data: formData,
+            processData: false, // Не обрабатываем файлы (не превращаем в строку)
+            contentType: false, // Не устанавливаем заголовок Content-Type
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success)
+                {
+                    const additionalFile = response.data.additional_file;
+                    $("#additional_files").append($("#additional_file_tmpl").tmpl(additionalFile));
+                }
+                else
+                {
+                    $.notify(response.data.title + ":" + response.data.message, "error");
+                }
+            },
+            error: function() {
+                $.notify("Ошибка при добавлении работы. Обратитесь к системному администратору", "error");
+            }
+        });
     });
 
 
@@ -691,6 +725,13 @@ function downloadWork()
     window.location.href = '/dashboard/works/employees/download?id=' + workId;
 }
 
+function downloadCertificate()
+{
+    const workId = localStorage.getItem('work_id');
+    window.location.href = '/dashboard/works/employees/certificates/download?id=' + workId;
+
+}
+
 function copyWork()
 {
     const workId = localStorage.getItem('work_id');
@@ -791,14 +832,14 @@ function destroyWork()
     }
 }
 
-function updateCheckStatus()
+function updateSelfCheckStatus()
 {
     const workId = localStorage.getItem('work_id');
     const data = {
         id:workId
     };
     $.ajax({
-        url: "/dashboard/works/employees/update-check-status",
+        url: "/dashboard/works/employees/update-self-check-status",
         type: 'POST',
         data:data,
         headers: {
@@ -808,6 +849,7 @@ function updateCheckStatus()
         success: function(response) {
             if (response.success)
             {
+                $("#self_check_value").html($("#self_check_tmpl").tmpl(response.data));
                 $.notify(response.data.title + ":" + response.data.message, "success");
             }
             else
@@ -852,6 +894,65 @@ function restore()
         }
     });
 }
+
+function additionalFiles()
+{
+    const workId = localStorage.getItem('work_id');
+    const data = {
+        work_id:workId
+    };
+    $.ajax({
+        url: "/dashboard/works/employees/additional-files/get",
+        type: 'GET',
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response.success)
+            {
+                const additionalFiles = response.data.additional_files;
+                $("#additional_files").html($("#additional_file_tmpl").tmpl(additionalFiles));
+            }
+            else
+            {
+                $.notify(response.data.title + ":" + response.data.message, "error");
+            }
+        },
+        error: function () {
+            $.notify("Ошибка при получении дополнительных файлов. Обратитесь к системному администратору", "error");
+        }
+    });
+}
+
+function deleteAdditionalFile(additionalFileId)
+{
+    const data = {
+        id:additionalFileId
+    };
+   $.ajax({
+       url: "/dashboard/works/employees/additional-files/delete",
+       type: 'POST',
+       data: data,
+       headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       },
+       dataType: "json",
+       success: function (response) {
+           if (response.success)
+           {
+               $("#additional_file_" + additionalFileId).remove();
+               $.notify(response.data.title + ":" + response.data.message, "success");
+           }
+           else
+           {
+               $.notify(response.data.title + ":" + response.data.message, "error");
+           }
+       },
+       error: function () {
+           $.notify("Ошибка при получении дополнительных файлов. Обратитесь к системному администратору", "error");
+       }
+   });
+}
+
 
 
 

@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
+                <span aria-hidden="true" onclick="closeModal('update_work_specialty_modal')">×</span></button>
             <h3>Редактирование направления подготовки квалификационной работы</h3>
         </div>
         <form class="form form-horizontal" id="update_work_specialty_form" onsubmit="updateWorkSpecialty(); return false;">
@@ -48,7 +48,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Изменить</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" onclick="closeModal('update_work_modal')">Отмена</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" onclick="closeModal('update_work_specialty_modal')">Отмена</button>
             </div>
         </form>
     </div>
